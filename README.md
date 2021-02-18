@@ -1,3 +1,10 @@
+# What is it?
+Chessterm is a terminal based chess api. 
+
+It currently (almost) supports Standard Algebraic Notation for inputting the
+moves. 
+
+## Implementation Details
 Squares on the board will be represented by 8 bit unsigned integers.
 The leading bit will determine the color of the piece on the square
 
