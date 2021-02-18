@@ -1,0 +1,3 @@
+**/*.o
+chessterm
+obj/
