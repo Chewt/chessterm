@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include "board.h"
 
@@ -17,7 +18,10 @@ int main(int argc, char** argv)
         printf(": ");
         scanf("%ms", &move);
         if (!strcmp(move, "exit"))
+        {
+            free(move);
             break;
+        }
         else if (!strcmp(move, "status"))
         {
             board_stats(&board);
@@ -25,6 +29,7 @@ int main(int argc, char** argv)
         }
         move_san(&board, move);
         print_board(&board);
+        free(move);
     }
 
     return 0;
