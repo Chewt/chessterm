@@ -48,7 +48,7 @@ Colors:
 | black     | 10000000  | 128    |
 
 White pieces:  
-| Color     | Binary    | Decimal|
+| Piece     | Binary    | Decimal|
 | :---:     | :---:     | :---:  |
 |pawn       | 00000001  | 1      |
 |bishop     | 00000010  | 2      | 
@@ -58,7 +58,7 @@ White pieces:
 |king       | 00100000  | 32     | 
 
 Black pieces:  
-| Color     | Binary    | Decimal|
+| Piece     | Binary    | Decimal|
 | :---:     | :---:     | :---:  |
 |pawn       | 10000001  | 129    | 
 |bishop     | 10000010  | 130    | 
