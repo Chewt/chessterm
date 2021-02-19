@@ -1,9 +1,15 @@
 # What is it?
 Chessterm is a terminal based chess api. 
 
-It currently (almost) supports Standard Algebraic Notation for inputting the
-moves. 
+It was orginally created to provide a bridge between several chess engines made
+by a group of friends to compete with each other. It is designed to be flexible
+and be adapted to any chess related project that has need of a chess board.
 
+The current functionality includes:
+ - Printing the current position of the board
+ - Moving pieces on the board
+ - Keeping track of whos turn it is
+ - Validating any inputted moves (Work in Progress)  
 ## Usage
 A test implementation has been provided. Simply run  
 `$make`  
