@@ -5,7 +5,7 @@
 
 int main(int argc, char** argv)
 {
-    struct board board;
+    Board board;
     default_board(&board);
     if (argc == 2)
         load_fen(&board, argv[1]);

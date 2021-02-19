@@ -20,7 +20,7 @@ enum Color
     black = 128
 };
 
-struct board
+typedef struct 
 {
     uint8_t position[64];
     uint8_t to_move;
@@ -28,14 +28,14 @@ struct board
     int8_t en_p;
     uint8_t halfmoves;
     uint8_t moves;
-};
+} Board;
 
-void default_board(struct board* board);
-void print_board(struct board* board);
-void load_fen(struct board* board, char* fen);
-void board_stats(struct board* board);
-void move_piece(struct board* board, int src, int dest);
-void move_verbose(struct board* board, char* dest, char* src);
-void move_san(struct board* board, char* move);
+void default_board(Board* board);
+void print_board(Board* board);
+void load_fen(Board* board, char* fen);
+void board_stats(Board* board);
+void move_piece(Board* board, int src, int dest);
+void move_verbose(Board* board, char* dest, char* src);
+void move_san(Board* board, char* move);
 
 #endif
