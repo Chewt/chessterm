@@ -238,12 +238,16 @@ struct found
 {
     int num_found;
     int squares[10];
+    int en_p_taken;
+    int promotion;
 };
 
 struct found* find_attacker(struct board* board, int square, uint8_t piece)
 {
     struct found* founds = malloc(sizeof(struct found));
     founds->num_found = 0;
+    founds->en_p_taken = -1;
+    founds->promotion = 0;
     if (board->position[square] && !((board->position[square] & 0x80) ^
                                      (board->to_move << 7)))
         return founds;
@@ -294,7 +298,7 @@ struct found* find_attacker(struct board* board, int square, uint8_t piece)
     if (piece & rook || piece & queen)
     {
         int i = square;
-        while (i % 8 < 8)
+        while ((i - 1) % 8 < 7)
         {
             i--;
             if (board->position[i] != 0 && board->position[i] == piece)
@@ -306,7 +310,7 @@ struct found* find_attacker(struct board* board, int square, uint8_t piece)
                 break;
         }
         i = square;
-        while (i % 8 > 0)
+        while ((i + 1) % 8 > 0)
         {
             i++;
             if (board->position[i] != 0 && board->position[i] == piece)
@@ -318,7 +322,7 @@ struct found* find_attacker(struct board* board, int square, uint8_t piece)
                 break;
         }
         i = square;
-        while (i / 8 < 8)
+        while ((i - 8) / 8 < 7)
         {
             i -= 8;
             if (board->position[i] != 0 && board->position[i] == piece)
@@ -330,7 +334,7 @@ struct found* find_attacker(struct board* board, int square, uint8_t piece)
                 break;
         }
         i = square;
-        while (i / 8 > 0)
+        while ((i + 8) / 8 > 0)
         {
             i += 8;
             if (board->position[i] != 0 && board->position[i] == piece)
@@ -345,11 +349,12 @@ struct found* find_attacker(struct board* board, int square, uint8_t piece)
     if (piece & bishop || piece & queen)
     {
         int i = square;
-        while (i % 8 < 8 && i / 8 < 8)
+        while ((i - 9) % 8 < 7 && (i - 9) / 8 < 7)
         {
             i -= 9;
             if (board->position[i] != 0 && board->position[i] == piece)
             {
+                printf("1HERE\n");
                 founds->num_found++;
                 founds->squares[founds->num_found - 1] = i;
             }
@@ -357,11 +362,12 @@ struct found* find_attacker(struct board* board, int square, uint8_t piece)
                 break;
         }
         i = square;
-        while (i % 8 > 0 && i / 8 < 8)
+        while ((i - 7) % 8 > 0 && (i - 7) / 8 < 7)
         {
             i -= 7;
             if (board->position[i] != 0 && board->position[i] == piece)
             {
+                printf("2HERE\n");
                 founds->num_found++;
                 founds->squares[founds->num_found - 1] = i;
             }
@@ -369,11 +375,12 @@ struct found* find_attacker(struct board* board, int square, uint8_t piece)
                 break;
         }
         i = square;
-        while (i % 8 < 8 && i / 8 > 0)
+        while ((i + 7) % 8 < 7 && (i + 7) / 8 > 0)
         {
             i += 7;
             if (board->position[i] != 0 && board->position[i] == piece)
             {
+                printf("3HERE\n");
                 founds->num_found++;
                 founds->squares[founds->num_found - 1] = i;
             }
@@ -381,7 +388,7 @@ struct found* find_attacker(struct board* board, int square, uint8_t piece)
                 break;
         }
         i = square;
-        while (i % 8 > 0 && i / 8 > 0)
+        while ((i + 9) % 8 > 0 && (i + 9) / 8 > 0)
         {
             i += 9;
             if (board->position[i] != 0 && board->position[i] == piece)
@@ -439,7 +446,6 @@ struct found* find_attacker(struct board* board, int square, uint8_t piece)
     if (piece & pawn)
     {
         int made_en_p = 0;
-        printf("current en_p: %d\n", board->en_p);
         if (square == board->en_p)
         {
             if (square / 8 == 2)
@@ -448,11 +454,13 @@ struct found* find_attacker(struct board* board, int square, uint8_t piece)
                 {
                     founds->num_found++;
                     founds->squares[founds->num_found - 1] = square + 7;
+                    founds->en_p_taken = square + 8;
                 }
                 if (board->position[square + 9]  == piece)
                 {
                     founds->num_found++;
-                    founds->squares[founds->num_found - 1] = square + 7;
+                    founds->squares[founds->num_found - 1] = square + 9;
+                    founds->en_p_taken = square + 8;
                 }
             }
             else if (square / 8 == 6)
@@ -461,11 +469,13 @@ struct found* find_attacker(struct board* board, int square, uint8_t piece)
                 {
                     founds->num_found++;
                     founds->squares[founds->num_found - 1] = square - 7;
+                    founds->en_p_taken = square - 8;
                 }
                 if (board->position[square - 9]  == piece)
                 {
                     founds->num_found++;
                     founds->squares[founds->num_found - 1] = square - 9;
+                    founds->en_p_taken = square - 8;
                 }
             }
         }
@@ -479,7 +489,6 @@ struct found* find_attacker(struct board* board, int square, uint8_t piece)
                 founds->squares[founds->num_found - 1] = square + 2 * 8;
                 board->en_p = square + 8;
                 made_en_p = 1;
-                printf("EN PESSANT: %d\n", board->en_p);
             }
         }
         else if (square / 8 == 3)
@@ -492,9 +501,14 @@ struct found* find_attacker(struct board* board, int square, uint8_t piece)
                 founds->squares[founds->num_found - 1] = square - 2 * 8;
                 board->en_p = square - 8;
                 made_en_p = 1;
-                printf("EN PESSANT: %d\n", board->en_p);
             }
         }
+        else
+            board->en_p = -1;
+
+        if (square / 8 == 0 || square / 8 == 7)
+            founds->promotion = 1;
+
         if (board->to_move)
         {
             if (board->position[square] && 
@@ -545,7 +559,6 @@ struct found* find_attacker(struct board* board, int square, uint8_t piece)
 
         }
     }
-    printf("FOUND %d\n", founds->num_found);
     return founds;
 }
 
@@ -576,6 +589,14 @@ void move_san(struct board* board, char* move)
     curr_char = move[++ind];
     while (curr_char)
     {
+        if (curr_char == 'B')
+            promotionpiece = bishop;
+        else if (curr_char == 'N')
+            promotionpiece = knight;
+        else if (curr_char == 'R')
+            promotionpiece = rook;
+        else if (curr_char == 'Q')
+            promotionpiece = queen;
         if (curr_char <= 'h' && curr_char >= 'a')
         {
             if (destfile)
@@ -590,6 +611,8 @@ void move_san(struct board* board, char* move)
         }
         curr_char = move[++ind];
     }
+    if (board->to_move == 1)
+        promotionpiece |= black;
     struct found* found;
     found = find_attacker(board, destrank + destfile, sourcepiece);
     int i;
@@ -608,11 +631,14 @@ void move_san(struct board* board, char* move)
         else if (found->num_found == 1)
             move_square(board, destrank + destfile, found->squares[0]);
         else
-            printf("(NO SOURCE: You fool, thats not valid move!\n");
+            printf("Ambigous move, more than one piece can move there.\n");
+        if (found->en_p_taken != -1)
+            board->position[found->en_p_taken] = 0;
+        if (found->promotion)
+            board->position[destrank + destfile] = promotionpiece;
+
     }
     else
-        printf("NONE: You fool, thats not valid move!\n");
-    if (sourcepiece != pawn)
-        board->en_p = -1;
+        printf("Move not valid.\n");
     free(found);
 }
