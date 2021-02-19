@@ -24,7 +24,7 @@ a prompt. You can type
 to exit the program,  
 `: status`  
 to view the current board information, or you can type a move in SAN notation
-to make a move.
+to make a move.  
 example: `: e4` or `: Nf3`  
 Pieces must be uppercase, and files must be lowercase for the move to be read
 correctly.
