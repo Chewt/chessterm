@@ -8,7 +8,7 @@ and be adapted to any chess related project that has need of a chess board.
 The current functionality includes:
  - Printing the current position of the board
  - Moving pieces on the board
- - Keeping track of whos turn it is
+ - Keeping track of whose turn it is
  - Validating any inputted moves (Work in Progress)  
 ## Usage
 A test implementation has been provided. Simply run  
@@ -36,10 +36,10 @@ Pieces must be uppercase, and files must be lowercase for the move to be read
 correctly.
 
 ## Implementation Details
-Squares on the board will be represented by 8 bit unsigned integers.
-The leading bit will determine the color of the piece on the square
+Squares on the board will be represented by an array of 64 8-bit unsigned 
+integers.  The leading bit will determine the color of the piece on the square.
 
-Empty square = 00000000 = 0  
+Empty square = 0  
 
 Colors:    
 | Color     | Binary    | Decimal|
@@ -67,7 +67,7 @@ Black pieces:
 |queen      | 10010000  | 144    | 
 |king       | 10100000  | 160    | 
 
-Bit-wise or a piece and a color together to get a colored piece.
+Bit-wise OR a piece and a color together to get a colored piece.
 
 The directions a piece can move are described below as relative positions in
 the array that holds all of the pieces.
