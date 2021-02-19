@@ -18,6 +18,17 @@ example: `$ ./chessterm "rnbq1bnr/1ppp1ppp/6k1/4Q3/4P3/p7/PPP2PPP/RNBQKBNR w KQ 
 If you do not provide a FEN, then the board will be initialized to a standard
 chess board.
 
+In the program you will be presented with a view of the current position and
+a prompt. You can type  
+`: exit`  
+to exit the program,  
+`: status`  
+to view the current board information, or you can type a move in SAN notation
+to make a move.
+example: `: e4` or `: Nf3`  
+Pieces must be uppercase, and files must be lowercase for the move to be read
+correctly.
+
 ## Implementation Details
 Squares on the board will be represented by 8 bit unsigned integers.
 The leading bit will determine the color of the piece on the square
