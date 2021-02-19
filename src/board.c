@@ -51,7 +51,6 @@ void board_stats(struct board* board)
     else if (board->to_move == 0)
         printf("White");
     printf(" to move.\nCastling: ");
-    printf("%#X ", board->castling);
     if (board->castling & 0x08)
         printf("K");
     if (board->castling & 0x04)
@@ -60,7 +59,11 @@ void board_stats(struct board* board)
         printf("k");
     if (board->castling & 0x01)
         printf("q");
-    printf("\nEn pessant: %d\n", board->en_p);
+    printf("\nEn pessant: ");
+    if (board->en_p == -1)
+        printf("None\n");
+    else
+        printf("%c%d\n", (board->en_p % 8) + 'a', 8 - (board->en_p / 8));
     printf("Halfmoves: %d\nFullmoves: %d\n", board->halfmoves, board->moves);
 }
 
