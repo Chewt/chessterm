@@ -4,6 +4,17 @@ Chessterm is a terminal based chess api.
 It currently (almost) supports Standard Algebraic Notation for inputting the
 moves. 
 
+## Usage
+A test implementation has been provided. Simply run `$make` to compile and start
+the program with `$./chessterm [fen]` where fen is an optional string 
+representing a chess position in the Forsyth-Edwards Notation (FEN) format.
+
+example: `$ ./chessterm "rnbq1bnr/1ppp1ppp/6k1/4Q3/4P3/p7/PPP2PPP/RNBQKBNR w KQ
+ - 2 8"`
+
+If you do not provide a FEN, then the board will be initialized to a standard
+chess board.
+
 ## Implementation Details
 Squares on the board will be represented by 8 bit unsigned integers.
 The leading bit will determine the color of the piece on the square
