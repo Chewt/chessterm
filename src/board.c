@@ -11,6 +11,8 @@ void empty_board(Board* board)
     board->en_p = -1;
     board->halfmoves = 0;
     board->moves = 1;
+    board->bking_pos = 4;
+    board->wking_pos = 60;
     int i;
     for (i = 0; i < 64; ++i)
         board->position[i] = 0;
@@ -526,6 +528,7 @@ void check_pawn(Board* board, int square, uint8_t piece, struct found* founds)
 int is_attacked(Board* board, int square)
 {
     struct found* found_hyp = malloc(sizeof(struct found));
+    found_hyp->num_found = 0;
     Board board_hyp;
     int i;
     for (i = 0; i < 64; ++i)
@@ -539,36 +542,48 @@ int is_attacked(Board* board, int square)
     check_knight(&board_hyp, square, knight | opp_color, found_hyp);
     if (found_hyp->num_found)
     {
+        printf("%d KNIGHT on %d\n", found_hyp->num_found, 
+                found_hyp->squares[0]);
         free(found_hyp);
         return 1;
     }
     check_bishop(&board_hyp, square, bishop | opp_color, found_hyp);
     if (found_hyp->num_found)
     {
+        printf("%d BISHOP on %d\n", found_hyp->num_found, 
+                found_hyp->squares[0]);
         free(found_hyp);
         return 1;
     }
     check_rook(&board_hyp, square, rook | opp_color, found_hyp);
     if (found_hyp->num_found)
     {
+        printf("%d ROOK on %d\n", found_hyp->num_found, 
+                found_hyp->squares[0]);
         free(found_hyp);
         return 1;
     }
     check_pawn(&board_hyp, square, pawn | opp_color, found_hyp);
     if (found_hyp->num_found)
     {
+        printf("%d PAWN on %d\n", found_hyp->num_found, 
+                found_hyp->squares[0]);
         free(found_hyp);
         return 1;
     }
-    check_knight(&board_hyp, square, queen | opp_color, found_hyp);
+    check_rook(&board_hyp, square, queen | opp_color, found_hyp);
     if (found_hyp->num_found)
     {
+        printf("%d QUEEN_R on %d\n", found_hyp->num_found, 
+                found_hyp->squares[0]);
         free(found_hyp);
         return 1;
     }
     check_bishop(&board_hyp, square, queen | opp_color, found_hyp);
     if (found_hyp->num_found)
     {
+        printf("%d QUEEN_B on %d\n", found_hyp->num_found, 
+                found_hyp->squares[0]);
         free(found_hyp);
         return 1;
     }
@@ -703,25 +718,82 @@ void move_san(Board* board, char* move)
     int i;
     if (found->num_found)
     {
+        printf("FOUND: %d\n", found->num_found);
+        for (i = 0; i < found->num_found; ++i)
+        {
+            printf("%d is ", found->squares[i]); 
+            Board t_board;
+            int j;
+            for (j = 0; j < 64; ++j)
+                t_board.position[j] = board->position[j];
+            t_board.to_move = !board->to_move;
+            t_board.en_p = board->en_p;
+            t_board.bking_pos = board->bking_pos;
+            t_board.wking_pos = board->wking_pos;
+            move_square(&t_board, destrank + destfile, found->squares[i]);
+            int square_check;
+            if (board->to_move)
+                square_check = t_board.bking_pos;
+            else
+                square_check = t_board.wking_pos;
+            printf("King pos: %d\n", square_check);
+            if (is_attacked(&t_board, square_check))
+            {
+                found->squares[i] = -1;
+                printf("bad\n");
+            }
+            else
+                printf("good\n");
+        }
         if (found->num_found > 1 && (sourcerank || sourcefile))
+        {
             for (i = 0; i < found->num_found; ++i)
             {
-                if (sourcerank && found->squares[i] / 8 == sourcerank)
-                    move_square(board, destrank + destfile, 
-                            found->squares[i]);
-                if (sourcefile && found->squares[i] % 8 == sourcefile)
-                    move_square(board, destrank + destfile, 
-                            found->squares[i]);
+                if (found->squares[i] != -1)
+                {
+                    if (sourcerank && found->squares[i] / 8 == sourcerank)
+                    {
+                        move_square(board, destrank + destfile, 
+                                found->squares[i]);
+                        if (sourcepiece == (king | black))
+                            board->bking_pos = destrank + destfile;
+                        else if (sourcepiece == king)
+                            board->wking_pos = destrank + destfile;
+                    }
+                    if (sourcefile && found->squares[i] % 8 == sourcefile)
+                    {
+                        move_square(board, destrank + destfile, 
+                                found->squares[i]);
+                        if (sourcepiece == (king | black))
+                            board->bking_pos = destrank + destfile;
+                        else if (sourcepiece == king)
+                            board->wking_pos = destrank + destfile;
+                    }
+                }
             }
+        }
         else if (found->num_found == 1)
-            move_square(board, destrank + destfile, found->squares[0]);
+        {
+            if (found->squares[0] == -1)
+                printf("Move not valid.\n");
+            else
+            {
+                move_square(board, destrank + destfile, found->squares[0]);
+                if (sourcepiece == (king | black))
+                {
+                    printf("4sourcepiece: %d\n", sourcepiece);
+                    board->bking_pos = destrank + destfile;
+                }
+                else if (sourcepiece == king)
+                    board->wking_pos = destrank + destfile;
+            }
+        }
         else
             printf("Ambigous move, more than one piece can move there.\n");
         if (found->en_p_taken != -1)
             board->position[found->en_p_taken] = 0;
         if (found->promotion)
             board->position[destrank + destfile] = promotionpiece;
-
     }
     else
         printf("Move not valid.\n");

@@ -28,6 +28,8 @@ typedef struct
     int8_t en_p;
     uint8_t halfmoves;
     uint8_t moves;
+    uint8_t wking_pos;
+    uint8_t bking_pos;
 } Board;
 
 void default_board(Board* board);
