@@ -13,3 +13,5 @@ If you find yourself with fewer than 25 lines, Ctrl-C or moving the cursor to
 the bottom right and pressing enter will quit without changing the colors. 
 This add-on modifies the settings.h so for changes to take effect you must 
 run   $ make clean   in your chessterm directory. 
+If you don't need the chessboard output, use   -s   flag or the   small   
+or   smol   option.

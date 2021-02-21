@@ -7,7 +7,7 @@
   between 16 and 255. 
 */
 
-void pick_square_colors(int *light_squares, int *dark_squares){
+void pick_square_colors(int *light_squares, int *dark_squares, int smol){
 
   Board board;
   default_board(&board);
@@ -42,8 +42,9 @@ void pick_square_colors(int *light_squares, int *dark_squares){
         printf(" ");
     }
     printf("\e[0m  --Quit--\n");
-    print_board(&board, *light_squares, *dark_squares);
-    printf("\e[24A");
+    if (!smol)
+      print_board(&board, *light_squares, *dark_squares);
+    printf("\e[%dA", 7 + 17*!smol);
     int x = 0, y = 0;
     move_cursor(&x, &y, 0, 36, 0, 7, 1, 1);
     if (x > 24 && y > 5){
@@ -150,10 +151,10 @@ void write_colors(int light_color, int dark_color){
   rename("settings.tmp", "../include/settings.h");
 }
 
-int main(){
+int main(int argc, char **argv){
   int light_color = 255, dark_color = 16;
   read_colors(&light_color, &dark_color);
-  pick_square_colors(&light_color, &dark_color);
+  pick_square_colors(&light_color, &dark_color, argc > 1);
   write_colors(light_color, dark_color);
   printf("\e[17EDon't forget to run \e[38;5;40m$ make clean\e[m in your chessterm "
          "directory to update the colors!\n");
