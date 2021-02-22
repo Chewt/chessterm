@@ -122,8 +122,8 @@ void pick_square_colors(int *light_squares, int *dark_squares, int smol){
       *dark_squares = 16 + x + 36*y;
     }
     square = !square;
+    printf("\e[F");
   }
-  printf("\eF");
   //printf("\e[%dE", 7);
 }
 
@@ -134,7 +134,7 @@ void read_colors(int *light_color, int *dark_color){
     char ans;
     scanf("%c", &ans);
     if (ans == 'y'){
-      fp = fopen("../include/settings.h", "w");
+      fp = fopen("include/settings.h", "w");
       fprintf(fp, "#define SETTINGS\n#define LIGHT 255\n#define DARK 16\n");
       fclose(fp);
     }
@@ -168,7 +168,7 @@ void read_colors(int *light_color, int *dark_color){
 }
 
 void write_colors(int light_color, int dark_color){
-  FILE *fps = fopen("../include/settings.h", "r");
+  FILE *fps = fopen("include/settings.h", "r");
   FILE *fpd = fopen("settings.tmp", "w");
 
   if (fps == NULL){
