@@ -2,6 +2,7 @@
 #define BOARD_H
 
 #include <stdint.h>
+#include "dynarray.h"
 
 enum Pieces
 {
@@ -30,11 +31,13 @@ typedef struct
     uint8_t moves;
     uint8_t wking_pos;
     uint8_t bking_pos;
+    dynarray* game;
 } Board;
 
 void default_board(Board* board);
 void print_board(Board* board);
 void load_fen(Board* board, char* fen);
+char* export_fen(Board* board);
 void board_stats(Board* board);
 void move_piece(Board* board, int src, int dest);
 void move_verbose(Board* board, char* dest, char* src);

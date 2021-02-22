@@ -6,7 +6,7 @@ OBJECTS = $(SOURCES:$(SRCDIR)%.c=$(OBJDIR)%.o)
 CFLAGS = -I$(INCLUDEDIR) -I ../$(INCLUDEDIR) -g
 CC = cc
 
-color_picker: $(OBJDIR)/color_picker.o ../obj/board.o
+../color_picker: $(OBJDIR)/color_picker.o ../obj/board.o
 	$(CC) $^ $(CFLAGS) -o ../$@
 
 $(OBJDIR)/%.o: $(SRCDIR)/%.c

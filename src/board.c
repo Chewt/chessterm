@@ -3,11 +3,12 @@
 #include <stdlib.h>
 #include <string.h>
 #include "board.h"
+#include "dynarray.h"
 #include "settings.h"
 
 #ifndef SETTINGS
-#define LIGHT 250
-#define DARK  240
+#define LIGHT 249
+#define DARK  239
 #endif
 
 void empty_board(Board* board)
@@ -22,12 +23,19 @@ void empty_board(Board* board)
     int i;
     for (i = 0; i < 64; ++i)
         board->position[i] = 0;
+    if (board->game)
+    {
+        for (i = 0; i < dynarray_size(board->game); ++i)
+            free(dynarray_get(board->game, i));
+        dynarray_free(board->game);
+    }
 }
 
 void default_board(Board* board)
 {
     int i;
     empty_board(board);
+    board->game = dynarray_create();
     board->castling = 0x0F;
     board->position[0] = rook   | black;
     board->position[1] = knight | black;
@@ -118,9 +126,9 @@ void print_board(Board* board)
         if (i % 8 == 7 && i / 8 != 7)
         {
             printf("\n\u2551\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u253c"
-                   "\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u253c\u2500"
-                   "\u2500\u2500\u253c\u2500\u2500\u2500\u253c\u2500\u2500"
-                   "\u2500\u253c\u2500\u2500\u2500\u2551");
+                    "\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u253c\u2500"
+                    "\u2500\u2500\u253c\u2500\u2500\u2500\u253c\u2500\u2500"
+                    "\u2500\u253c\u2500\u2500\u2500\u2551");
         }
     }
     printf("\n");
@@ -211,7 +219,7 @@ void load_fen(Board* board, char* fen)
             board->castling |= 0x01;
         else if (curr_char == '-')
             board->castling = 0x00;
-       curr_char = token[++i];
+        curr_char = token[++i];
     }
 
     token = strtok_r(NULL, " ", &saveptr);
@@ -225,15 +233,94 @@ void load_fen(Board* board, char* fen)
 
     token = strtok_r(NULL, " ", &saveptr);
     board->moves = string_to_int(token);
-    
+
     free(fen_copy);
+}
+
+char* export_fen(Board* board)
+{
+    char* fen = malloc(100);
+    int str_ind = 0;
+    int i;
+    for (i = 0; i < 100; ++i)
+        fen[i] = 0;
+    int empty = 0;
+    for (i = 0; i < 64; ++i)
+    {
+        uint8_t square = board->position[i];
+        if (i % 8 == 0 && i)
+        {
+            if (empty)
+            {
+                fen[str_ind++] = '0' + empty;
+                empty = 0;
+            }
+            fen[str_ind++] = '/';
+        }
+        if (square)
+        {
+            if (empty)
+            {
+                fen[str_ind++] = '0' + empty;
+                empty = 0;
+            }
+            if (square & knight)
+                fen[str_ind] = 'N';
+            else if (square & pawn)
+                fen[str_ind] = 'P';
+            else if (square & bishop)
+                fen[str_ind] = 'B';
+            else if (square & rook)
+                fen[str_ind] = 'R';
+            else if (square & queen)
+                fen[str_ind] = 'Q';
+            else if (square & king)
+                fen[str_ind] = 'K';
+            if (square & black)
+                fen[str_ind] += 32;
+            str_ind++;
+        }
+        else
+            empty++;
+
+    }
+    fen[str_ind++] = ' ';
+    if (board->to_move)
+        fen[str_ind++] = 'b';
+    else
+        fen[str_ind++] = 'w';
+    fen[str_ind++] = ' ';
+    if (board->castling & 0x08)
+        fen[str_ind++] = 'K';
+    if (board->castling & 0x04)
+        fen[str_ind++] = 'Q';
+    if (board->castling & 0x02)
+        fen[str_ind++] = 'k';
+    if (board->castling & 0x01)
+        fen[str_ind++] = 'q';
+    if (!board->castling)
+        fen[str_ind++] = '-';
+    fen[str_ind++] = ' ';
+    if (board->en_p != -1)
+    {
+        fen[str_ind++] = board->en_p % 8 + 'a';
+        fen[str_ind++] = 8 - board->en_p / 8 + '0';
+    }
+    else
+        fen[str_ind++] = '-';
+    fen[str_ind++] = ' ';
+    str_ind += sprintf(fen + str_ind, "%d", board->halfmoves);
+    fen[str_ind++] = ' ';
+    sprintf(fen + str_ind, "%d", board->moves);
+    return fen;
 }
 
 void move_square(Board* board, int dest, int src)
 {
     board->position[dest] = board->position[src];
     board->position[src] = 0;
-    board->moves++;
+    if (board->to_move)
+        board->moves++;
     board->to_move = !board->to_move;
 }
 
@@ -725,7 +812,6 @@ void move_san(Board* board, char* move)
     found->promotion = found_first->promotion;
     found->num_found = 0;
     int i;
-    printf("FOUND_BEFORE: %d\n", found_first->num_found);
     for (i = 0; i < found_first->num_found; ++i)
     {
         Board t_board;
@@ -748,7 +834,6 @@ void move_san(Board* board, char* move)
             found->squares[found->num_found - 1] = found_first->squares[i];
         }
     }
-    printf("FOUND_AFTER: %d\n", found->num_found);
     int move_to = -1;
     if (found->num_found)
     {
@@ -789,7 +874,6 @@ void move_san(Board* board, char* move)
         printf("Move not valid.\n");
     else
     {
-        printf("MOVE_TO: %d\n", move_to);
         move_square(board, destrank * 8 + destfile, move_to);
         if (sourcepiece == (king | black))
             board->bking_pos = destrank * 8 + destfile;

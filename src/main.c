@@ -6,6 +6,7 @@
 int main(int argc, char** argv)
 {
     Board board;
+    board.game = NULL;
     default_board(&board);
     if (argc == 2)
         load_fen(&board, argv[1]);
@@ -25,6 +26,13 @@ int main(int argc, char** argv)
         else if (!strcmp(move, "status"))
         {
             board_stats(&board);
+            continue;
+        }
+        else if (!strcmp(move, "fen"))
+        {
+            char* fen = export_fen(&board);
+            printf("%s\n", fen);
+            free(fen);
             continue;
         }
         move_san(&board, move);
