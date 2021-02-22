@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "board.h"
+#include "settings.h"
 
 void empty_board(Board* board)
 {
@@ -85,26 +86,25 @@ void print_board(Board* board)
          * - Courtesy of Zach Gorman
          */
         if (!(!(i & 1) ^ !(i & 8))) 
-            printf("\e[7m");
+            printf("\e[48;5;%dm", LIGHT);
+        else
+            printf("\e[48;5;%dm", DARK);
         printf(" ");
         if (square & pawn)
-            (square & black) ? printf("p") : printf("P");
+            (square & black) ? printf("\e[30mp") : printf("\e[37mP");
         else if (square & bishop)
-            (square & black) ? printf("b") : printf("B");
+            (square & black) ? printf("\e[30mb") : printf("\e[37mB");
         else if (square & knight)
-            (square & black) ? printf("n") : printf("N");
+            (square & black) ? printf("\e[30mn") : printf("\e[37mN");
         else if (square & rook)
-            (square & black) ? printf("r") : printf("R");
+            (square & black) ? printf("\e[30mr") : printf("\e[37mR");
         else if (square & queen)
-            (square & black) ? printf("q") : printf("Q");
+            (square & black) ? printf("\e[30mq") : printf("\e[37mQ");
         else if (square & king)
-            (square & black) ? printf("k") : printf("K");
+            (square & black) ? printf("\e[30mk") : printf("\e[37mK");
         else
             printf(" ");
-        printf(" ");
-
-        if (!(!(i & 1) ^ !(i & 8)))
-            printf("\e[0m");
+        printf(" \e[0m");
 
         if (i % 8 == 7)
             printf("\u2551");
