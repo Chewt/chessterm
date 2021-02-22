@@ -3,7 +3,7 @@ OBJDIR = obj
 INCLUDEDIR = include add_ons/include
 INCLUDEPARAMS = $(foreach dir, $(INCLUDEDIR), -I$(dir))
 SOURCES = $(wildcard $(SRCDIR)/*.c)
-OBJECTS = $(SOURCES:$(SRCDIR)%.c=%$(OBJDIR)%.o)
+OBJECTS = $(SOURCES:$(SRCDIR)%.c=$(OBJDIR)%.o)
 CFLAGS = $(INCLUDEPARAMS) -g
 CC = cc
 TARGET = chessterm
