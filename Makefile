@@ -29,4 +29,4 @@ color_picker:
 
 .PHONY: clean
 clean: 
-	rm -rf $(OBJDIR) /*.o $(TARGET) color_picker
+	rm -rf $(OBJDIR) /*.o $(TARGET) color_picker include/settings.h

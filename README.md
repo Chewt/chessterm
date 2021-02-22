@@ -28,6 +28,8 @@ In the program you will be presented with a view of the current position and
 a prompt. You can type  
 `: exit`  
 to exit the program,  
+`: fen`  
+to print the current position's FEN to the screen  
 `: status`  
 to view the current board information, or you can type a move in SAN notation
 to make a move.  
