@@ -3,6 +3,67 @@
 #include "board.h"
 
 /*
+ * Print modified from board.c to take color arguments that are normally
+ * defined as preprocessor constants rather than variables.
+ */
+
+void print_example_board(Board* board, int LIGHT, int DARK)
+{
+    int i;
+    printf("\u2554");
+    for (i = 1; i < 32; ++i)
+        printf("\u2550");
+    printf("\u2557");
+    for (i = 0; i < 64; ++i)
+    {
+        uint8_t square = board->position[i];
+        if (i % 8 == 0)
+            printf("\n\u2551");
+        /* Bullshit that colors them checkered-like 
+         * - Courtesy of Zach Gorman
+         */
+        if (!(!(i & 1) ^ !(i & 8))) 
+            printf("\e[48;5;%dm", LIGHT);
+        else
+            printf("\e[48;5;%dm", DARK);
+        printf(" ");
+        if (square & pawn)
+            (square & black) ? printf("\e[30mp") : printf("\e[37mP");
+        else if (square & bishop)
+            (square & black) ? printf("\e[30mb") : printf("\e[37mB");
+        else if (square & knight)
+            (square & black) ? printf("\e[30mn") : printf("\e[37mN");
+        else if (square & rook)
+            (square & black) ? printf("\e[30mr") : printf("\e[37mR");
+        else if (square & queen)
+            (square & black) ? printf("\e[30mq") : printf("\e[37mQ");
+        else if (square & king)
+            (square & black) ? printf("\e[30mk") : printf("\e[37mK");
+        else
+            printf(" ");
+        printf(" \e[0m");
+
+        if (i % 8 == 7)
+            printf("\u2551");
+        else
+            printf("\u2502");
+        if (i % 8 == 7 && i / 8 != 7)
+        {
+            printf("\n\u2551\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u253c"
+                   "\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u253c\u2500"
+                   "\u2500\u2500\u253c\u2500\u2500\u2500\u253c\u2500\u2500"
+                   "\u2500\u253c\u2500\u2500\u2500\u2551");
+        }
+    }
+    printf("\n");
+    printf("\u255a");
+    for (i = 1; i < 32; ++i)
+        printf("\u2550");
+    printf("\u255d");
+    printf("\n");
+}
+
+/*
   light_squares and dark_squares should be set to the current color values
   between 16 and 255. 
 */
@@ -43,7 +104,7 @@ void pick_square_colors(int *light_squares, int *dark_squares, int smol){
     }
     printf("\e[0m  --Quit--\n");
     if (!smol)
-      print_board(&board, *light_squares, *dark_squares);
+      print_example_board(&board, *light_squares, *dark_squares);
     printf("\e[%dA", 7 + 17*!smol);
     int x = 0, y = 0;
     move_cursor(&x, &y, 0, 36, 0, 7, 1, 1);
@@ -67,7 +128,7 @@ void pick_square_colors(int *light_squares, int *dark_squares, int smol){
 }
 
 void read_colors(int *light_color, int *dark_color){
-  FILE *fp = fopen("../include/settings.h", "r");
+  FILE *fp = fopen("include/settings.h", "r");
   if (fp == NULL){
     printf("settings.h doesn't exist! Would you like to make one? (y/n) \n");
     char ans;
@@ -148,7 +209,7 @@ void write_colors(int light_color, int dark_color){
   }
   fclose(fps);
   fclose(fpd);
-  rename("settings.tmp", "../include/settings.h");
+  rename("settings.tmp", "include/settings.h");
 }
 
 int main(int argc, char **argv){
@@ -160,102 +221,4 @@ int main(int argc, char **argv){
          "directory to update the colors!\n");
 
   return 0;
-}
-
-void print_board(Board* board, int LIGHT, int DARK)
-{
-    int i;
-    printf("\u2554");
-    for (i = 1; i < 32; ++i)
-        printf("\u2550");
-    printf("\u2557");
-    for (i = 0; i < 64; ++i)
-    {
-        uint8_t square = board->position[i];
-        if (i % 8 == 0)
-            printf("\n\u2551");
-        /* Bullshit that colors them checkered-like 
-         * - Courtesy of Zach Gorman
-         */
-        if (!(!(i & 1) ^ !(i & 8))) 
-            printf("\e[48;5;%dm", LIGHT);
-        else
-            printf("\e[48;5;%dm", DARK);
-        printf(" ");
-        if (square & pawn)
-            (square & black) ? printf("\e[30mp") : printf("\e[37mP");
-        else if (square & bishop)
-            (square & black) ? printf("\e[30mb") : printf("\e[37mB");
-        else if (square & knight)
-            (square & black) ? printf("\e[30mn") : printf("\e[37mN");
-        else if (square & rook)
-            (square & black) ? printf("\e[30mr") : printf("\e[37mR");
-        else if (square & queen)
-            (square & black) ? printf("\e[30mq") : printf("\e[37mQ");
-        else if (square & king)
-            (square & black) ? printf("\e[30mk") : printf("\e[37mK");
-        else
-            printf(" ");
-        printf(" \e[0m");
-
-        if (i % 8 == 7)
-            printf("\u2551");
-        else
-            printf("\u2502");
-        if (i % 8 == 7 && i / 8 != 7)
-        {
-            printf("\n\u2551\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u253c"
-                   "\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u253c\u2500"
-                   "\u2500\u2500\u253c\u2500\u2500\u2500\u253c\u2500\u2500"
-                   "\u2500\u253c\u2500\u2500\u2500\u2551");
-        }
-    }
-    printf("\n");
-    printf("\u255a");
-    for (i = 1; i < 32; ++i)
-        printf("\u2550");
-    printf("\u255d");
-    printf("\n");
-}
-
-void default_board(Board* board)
-{
-    int i;
-    empty_board(board);
-    board->castling = 0x0F;
-    board->position[0] = rook   | black;
-    board->position[1] = knight | black;
-    board->position[2] = bishop | black;
-    board->position[3] = queen  | black;
-    board->position[4] = king   | black;
-    board->position[5] = bishop | black;
-    board->position[6] = knight | black;
-    board->position[7] = rook   | black;
-    for (i = 0; i < 8; ++i)
-    {
-        board->position[i + 8]     = pawn | black;
-        board->position[i + 8 * 6] = pawn | white;
-    }
-    board->position[0 + 8 * 7] = rook   | white;
-    board->position[1 + 8 * 7] = knight | white;
-    board->position[2 + 8 * 7] = bishop | white;
-    board->position[3 + 8 * 7] = queen  | white;
-    board->position[4 + 8 * 7] = king   | white;
-    board->position[5 + 8 * 7] = bishop | white;
-    board->position[6 + 8 * 7] = knight | white;
-    board->position[7 + 8 * 7] = rook   | white;
-}
-
-void empty_board(Board* board)
-{
-    board->to_move = 0;
-    board->castling = 0x00;
-    board->en_p = -1;
-    board->halfmoves = 0;
-    board->moves = 1;
-    board->bking_pos = 4;
-    board->wking_pos = 60;
-    int i;
-    for (i = 0; i < 64; ++i)
-        board->position[i] = 0;
 }
