@@ -1,3 +1,3 @@
 #define SETTINGS
-#define LIGHT 39
-#define DARK 21
+#define LIGHT 94
+#define DARK 172

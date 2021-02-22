@@ -1,16 +1,13 @@
 SRCDIR = src
 OBJDIR = obj
-INCLUDEDIR = include add_ons/include
-INCLUDEPARAMS = $(foreach dir, $(INCLUDEDIR), -I$(dir))
+INCLUDEDIR = include
 SOURCES = $(wildcard $(SRCDIR)/*.c)
 OBJECTS = $(SOURCES:$(SRCDIR)%.c=$(OBJDIR)%.o)
 INCLUDES = $(SOURCES:$(SRCDIR)%.c=$(INCLUDEDIR)%.h)
-UNIDEPS = settings.h
-CFLAGS = $(INCLUDEPARAMS) -g
+UNIDEPS = include/settings.h
+CFLAGS = -I$(INCLUDEDIR) -g
 CC = cc
 TARGET = chessterm
-
-VPATH = add_ons
 
 .PHONY: all $(TARGET)
 all: $(TARGET)
@@ -24,9 +21,12 @@ $(OBJDIR)/%.o: $(SRCDIR)/%.c $(INCLUDEDIR)/%.h $(UNIDEPS)
 
 $(INCLUDES):
 
-color_picker: obj/color_picker.o obj/board.o
-	$(CC) $^ $(CFLAGS) -o color_picker
+$(UNIDEPS):
+	touch $@
+
+color_picker: 
+	$(MAKE) -C add_ons
 
 .PHONY: clean
 clean: 
-	rm -rf $(OBJDIR)/*.o $(TARGET) color_picker
+	rm -rf $(OBJDIR) /*.o $(TARGET) color_picker

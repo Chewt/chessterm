@@ -5,6 +5,11 @@
 #include "board.h"
 #include "settings.h"
 
+#ifndef SETTINGS
+#define LIGHT 250
+#define DARK  240
+#endif
+
 void empty_board(Board* board)
 {
     board->to_move = 0;
