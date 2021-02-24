@@ -9,7 +9,7 @@ CFLAGS = -I$(INCLUDEDIR) -g
 CC = cc
 TARGET = chessterm
 
-.PHONY: all $(TARGET)
+.PHONY: all 
 all: $(TARGET)
 
 $(TARGET): $(OBJECTS)
