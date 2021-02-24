@@ -38,6 +38,11 @@ int main(int argc, char** argv)
         move_san(&board, move);
         print_board(&board);
         free(move);
+        if (is_checkmate(&board))
+        {
+            printf("Checkmate!\n");
+            running = 0;
+        }
     }
 
     return 0;

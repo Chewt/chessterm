@@ -11,8 +11,8 @@ enum Pieces
     knight = 4,
     rook   = 8,
     queen  = 16,
-    king   = 32
-
+    king   = 32,
+    all_pieces = 63
 };
 
 enum Color
@@ -43,5 +43,6 @@ void board_stats(Board* board);
 void move_piece(Board* board, int src, int dest);
 void move_verbose(Board* board, char* dest, char* src);
 void move_san(Board* board, char* move);
+int is_checkmate(Board* board);
 
 #endif

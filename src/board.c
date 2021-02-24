@@ -11,6 +11,8 @@
 #define DARK  239
 #endif
 
+int is_attacked(Board* board, int square);
+
 void empty_board(Board* board)
 {
     board->to_move = 0;
@@ -89,12 +91,16 @@ void board_stats(Board* board)
     else
         printf("%c%d\n", (board->en_p % 8) + 'a', 8 - (board->en_p / 8));
     printf("Halfmoves: %d\nFullmoves: %d\n", board->halfmoves, board->moves);
+    printf("Whiteking_pos: %c%d\n", (board->wking_pos % 8) + 'a',
+            8 - (board->wking_pos / 8));
+    printf("Blackking_pos: %c%d\n", (board->bking_pos % 8) + 'a',
+            8 - (board->bking_pos / 8));
 }
 
 void print_board(Board* board)
 {
     int i;
-    printf("\u2554");
+    printf("  \u2554");
     for (i = 1; i < 32; ++i)
         printf("\u2550");
     printf("\u2557");
@@ -102,7 +108,7 @@ void print_board(Board* board)
     {
         uint8_t square = board->position[i];
         if (i % 8 == 0)
-            printf("\n\u2551");
+            printf("\n%d \u2551", 8 - (i / 8));
         /* Bullshit that colors them checkered-like 
          * - Courtesy of Zach Gorman
          */
@@ -133,17 +139,19 @@ void print_board(Board* board)
             printf("\u2502");
         if (i % 8 == 7 && i / 8 != 7)
         {
-            printf("\n\u2551\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u253c"
+            printf("\n  \u2551\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u253c"
                     "\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u253c\u2500"
                     "\u2500\u2500\u253c\u2500\u2500\u2500\u253c\u2500\u2500"
                     "\u2500\u253c\u2500\u2500\u2500\u2551");
         }
     }
-    printf("\n");
+    printf("\n  ");
     printf("\u255a");
     for (i = 1; i < 32; ++i)
         printf("\u2550");
-    printf("\u255d");
+    printf("\u255d\n ");
+    for (i = 0; i < 8; i++)
+        printf("   %c", 'a' + i);
     printf("\n");
 }
 
@@ -336,6 +344,10 @@ char* export_fen(Board* board)
 
 void move_square(Board* board, int dest, int src)
 {
+    if (board->position[src] == (king | black))
+        board->bking_pos = dest;
+    if (board->position[src] == (king | white))
+        board->wking_pos = dest;
     board->position[dest] = board->position[src];
     board->position[src] = 0;
     if (board->to_move)
@@ -353,7 +365,7 @@ void move_verbose(Board* board, char* dest, char* src)
 struct found 
 {
     int num_found;
-    int squares[10];
+    int squares[16];
     int en_p_taken;
     int promotion;
 };
@@ -370,48 +382,108 @@ enum Direction
     DOWNL =  7
 };
 
+int is_legal(Board* board, int dest, int src)
+{
+    uint8_t color = board->position[src] & 0x80;
+    if (dest < 0 || dest > 63)
+        return 0;
+    if (board->position[dest] && (board->position[dest] & 0x80) == color)
+        return 0;
+    Board t_board;
+    int j;
+    for (j = 0; j < 64; ++j)
+        t_board.position[j] = board->position[j];
+    t_board.to_move = !board->to_move;
+    t_board.en_p = board->en_p;
+    t_board.bking_pos = board->bking_pos;
+    t_board.wking_pos = board->wking_pos;
+    move_square(&t_board, dest, src);
+    if (dest == t_board.en_p)
+    {
+        if (color)
+            t_board.position[dest + UP] = 0;
+        else
+            t_board.position[dest + DOWN] = 0;
+    }
+    int square_check;
+    if (board->to_move)
+        square_check = t_board.bking_pos;
+    else
+        square_check = t_board.wking_pos;
+    if (!is_attacked(&t_board, square_check))
+        return 1;
+    return 0;
+}
+
+void check_for_check(Board* board, int square,
+        struct found* dest, struct found* src)
+{
+    dest->en_p_taken = src->en_p_taken;
+    dest->promotion = src->promotion;
+    int i;
+    for (i = 0; i < src->num_found; ++i)
+    {
+        if (is_legal(board, square, src->squares[i]))
+        {
+            dest->num_found++;
+            dest->squares[dest->num_found - 1] = src->squares[i];
+        }
+    }
+}
+
 void check_knight(Board* board, int square, uint8_t piece, struct found* founds)
 {
-    if (board->position[square + UP + UPL] == piece)
-    {
-        founds->num_found++;
-        founds->squares[founds->num_found - 1] = square + UP + UPL;
-    }
-    if (board->position[square + LEFT + UPL] == piece)
-    {
-        founds->num_found++;
-        founds->squares[founds->num_found - 1] = square + LEFT + UPL;
-    }
-    if (board->position[square + UP + UPR] == piece)
-    {
-        founds->num_found++;
-        founds->squares[founds->num_found - 1] = square + UP + UPR;
-    }
-    if (board->position[square + RIGHT + UPR] == piece)
-    {
-        founds->num_found++;
-        founds->squares[founds->num_found - 1] = square + RIGHT + UPR;
-    }
-    if (board->position[square + LEFT + DOWNL] == piece)
-    {
-        founds->num_found++;
-        founds->squares[founds->num_found - 1] = square + LEFT + DOWNL;
-    }
-    if (board->position[square + DOWN + DOWNL] == piece)
-    {
-        founds->num_found++;
-        founds->squares[founds->num_found - 1] = square + DOWN + DOWNL;
-    }
-    if (board->position[square + RIGHT + DOWNR] == piece)
-    {
-        founds->num_found++;
-        founds->squares[founds->num_found - 1] = square + RIGHT + DOWNR;
-    }
-    if (board->position[square + DOWN + DOWNR] == piece)
-    {
-        founds->num_found++;
-        founds->squares[founds->num_found - 1] = square + DOWN + DOWNR;
-    }
+    founds->num_found = 0;
+    founds->en_p_taken = -1;
+    founds->promotion = 0;
+    if (square + UP + UPL >= 0 && square + UP + UPL <= 63)
+        if (board->position[square + UP + UPL] == piece)
+        {
+            founds->num_found++;
+            founds->squares[founds->num_found - 1] = square + UP + UPL;
+        }
+    if (square + LEFT + UPL >= 0 && square + LEFT + UPL <= 63)
+        if (board->position[square + LEFT + UPL] == piece)
+        {
+            founds->num_found++;
+            founds->squares[founds->num_found - 1] = square + LEFT + UPL;
+        }
+    if (square + UP + UPR >= 0 && square + UP + UPR <= 63)
+        if (board->position[square + UP + UPR] == piece)
+        {
+            founds->num_found++;
+            founds->squares[founds->num_found - 1] = square + UP + UPR;
+        }
+    if (square + RIGHT + UPR >= 0 && square + RIGHT + UPR <= 63)
+        if (board->position[square + RIGHT + UPR] == piece)
+        {
+            founds->num_found++;
+            founds->squares[founds->num_found - 1] = square + RIGHT + UPR;
+        }
+    if (square + LEFT + DOWNL >= 0 && square + LEFT + DOWNL <= 63)
+        if (board->position[square + LEFT + DOWNL] == piece)
+        {
+            founds->num_found++;
+            founds->squares[founds->num_found - 1] = square + LEFT + DOWNL;
+        }
+    if (square + DOWN + DOWNL >= 0 && square + DOWN + DOWNL <= 63)
+        if (board->position[square + DOWN + DOWNL] == piece)
+        {
+            founds->num_found++;
+            founds->squares[founds->num_found - 1] = square + DOWN + DOWNL;
+        }
+    if (square + RIGHT + DOWNR >= 0 && square + RIGHT + DOWNR <= 63)
+        if (board->position[square + RIGHT + DOWNR] == piece)
+        {
+            founds->num_found++;
+            founds->squares[founds->num_found - 1] = square + RIGHT + DOWNR;
+        }
+    if (square + DOWN + DOWNR >= 0 && square + DOWN + DOWNR <= 63)
+        if (board->position[square + DOWN + DOWNR] == piece)
+        {
+            founds->num_found++;
+            founds->squares[founds->num_found - 1] = square + DOWN + DOWNR;
+        }
 }
 
 void check_rook(Board* board, int square, uint8_t piece, struct found* founds)
@@ -419,49 +491,69 @@ void check_rook(Board* board, int square, uint8_t piece, struct found* founds)
     int i = square;
     while ((i + LEFT) % 8 < 7)
     {
-        i--;
-        if (board->position[i] != 0 && board->position[i] == piece)
+        if (i + LEFT >= 0 && i + LEFT <= 63)
         {
-            founds->num_found++;
-            founds->squares[founds->num_found - 1] = i;
+            i += LEFT;
+            if (board->position[i] != 0 && board->position[i] == piece)
+            {
+                founds->num_found++;
+                founds->squares[founds->num_found - 1] = i;
+            }
+            else if (board->position[i])
+                break;
         }
-        else if (board->position[i])
+        else
             break;
     }
     i = square;
     while ((i + RIGHT) % 8 > 0)
     {
-        i++;
-        if (board->position[i] && board->position[i] == piece)
+        if (i + RIGHT >= 0 && i + RIGHT <= 63)
         {
-            founds->num_found++;
-            founds->squares[founds->num_found - 1] = i;
+            i += RIGHT;
+            if (board->position[i] && board->position[i] == piece)
+            {
+                founds->num_found++;
+                founds->squares[founds->num_found - 1] = i;
+            }
+            else if (board->position[i])
+                break;
         }
-        else if (board->position[i])
+        else
             break;
     }
     i = square;
     while ((i + UP) / 8 < 7)
     {
-        i += UP;
-        if (board->position[i] && board->position[i] == piece)
+        if (i + UP >= 0 && i + UP <= 63)
         {
-            founds->num_found++;
-            founds->squares[founds->num_found - 1] = i;
+            i += UP;
+            if (board->position[i] && board->position[i] == piece)
+            {
+                founds->num_found++;
+                founds->squares[founds->num_found - 1] = i;
+            }
+            else if (board->position[i])
+                break;
         }
-        else if (board->position[i])
+        else
             break;
     }
     i = square;
     while ((i + DOWN) / 8 > 0)
     {
-        i += DOWN;
-        if (board->position[i] && board->position[i] == piece)
+        if (i + DOWN >= 0 && i + DOWN <= 63)
         {
-            founds->num_found++;
-            founds->squares[founds->num_found - 1] = i;
+            i += DOWN;
+            if (board->position[i] && board->position[i] == piece)
+            {
+                founds->num_found++;
+                founds->squares[founds->num_found - 1] = i;
+            }
+            else if (board->position[i])
+                break;
         }
-        else if (board->position[i])
+        else
             break;
     }
 }
@@ -471,49 +563,69 @@ void check_bishop(Board* board, int square, uint8_t piece, struct found* founds)
     int i = square;
     while ((i + UPL) % 8 < 7 && (i + UPL) / 8 < 7)
     {
-        i += UPL;
-        if (board->position[i] && board->position[i] == piece)
+        if (i + UPL >= 0 && i + UPL <= 63)
         {
-            founds->num_found++;
-            founds->squares[founds->num_found - 1] = i;
+            i += UPL;
+            if (board->position[i] && board->position[i] == piece)
+            {
+                founds->num_found++;
+                founds->squares[founds->num_found - 1] = i;
+            }
+            else if (board->position[i])
+                break;
         }
-        else if (board->position[i])
+        else
             break;
     }
     i = square;
     while ((i + UPR) % 8 > 0 && (i + UPR) / 8 < 7)
     {
-        i += UPR;
-        if (board->position[i] && board->position[i] == piece)
+        if (i + UPR >= 0 && i + UPR <= 63)
         {
-            founds->num_found++;
-            founds->squares[founds->num_found - 1] = i;
+            i += UPR;
+            if (board->position[i] && board->position[i] == piece)
+            {
+                founds->num_found++;
+                founds->squares[founds->num_found - 1] = i;
+            }
+            else if (board->position[i])
+                break;
         }
-        else if (board->position[i])
+        else
             break;
     }
     i = square;
     while ((i + DOWNL) % 8 < 7 && (i + DOWNL) / 8 > 0)
     {
-        i += DOWNL;
-        if (board->position[i] && board->position[i] == piece)
+        if (i + DOWNL >= 0 && i + DOWNL <= 63)
         {
-            founds->num_found++;
-            founds->squares[founds->num_found - 1] = i;
+            i += DOWNL;
+            if (board->position[i] && board->position[i] == piece)
+            {
+                founds->num_found++;
+                founds->squares[founds->num_found - 1] = i;
+            }
+            else if (board->position[i])
+                break;
         }
-        else if (board->position[i])
+        else
             break;
     }
     i = square;
     while ((i + DOWNR) % 8 > 0 && (i + DOWNR) / 8 > 0)
     {
-        i += DOWNR;
-        if (board->position[i] && board->position[i] == piece)
+        if (i + DOWNR >= 0 && i + DOWNR <= 63)
         {
-            founds->num_found++;
-            founds->squares[founds->num_found - 1] = i;
+            i += DOWNR;
+            if (board->position[i] && board->position[i] == piece)
+            {
+                founds->num_found++;
+                founds->squares[founds->num_found - 1] = i;
+            }
+            else if (board->position[i])
+                break;
         }
-        else if (board->position[i])
+        else
             break;
     }
 }
@@ -578,8 +690,6 @@ void check_pawn(Board* board, int square, uint8_t piece, struct found* founds)
             made_en_p = 1;
         }
     }
-    else
-        board->en_p = -1;
 
     if (square / 8 == 0 || square / 8 == 7)
         founds->promotion = 1;
@@ -636,66 +746,69 @@ void check_pawn(Board* board, int square, uint8_t piece, struct found* founds)
     }
 }
 
-int is_attacked(Board* board, int square)
+int can_move_to(Board* board, int square, uint8_t pieces)
 {
     struct found* found_hyp = malloc(sizeof(struct found));
     found_hyp->num_found = 0;
-    board->to_move = !board->to_move;
-    uint8_t opp_color = (board->to_move == 1) ? black : white;
-    uint8_t prev_piece = board->position[square];
-    board->position[square] = pawn | (opp_color ^ 0x80);
-    check_knight(board, square, knight | opp_color, found_hyp);
+    found_hyp->en_p_taken = -1;
+    found_hyp->promotion = 0;
+    uint8_t color = (board->to_move == 1) ? black : white;
+    if (pieces & knight)
+        check_knight(board, square, knight | color, found_hyp);
     if (found_hyp->num_found)
     {
-        board->position[square] = prev_piece;
-        board->to_move = !board->to_move;
         free(found_hyp);
         return 1;
     }
-    check_bishop(board, square, bishop | opp_color, found_hyp);
+    if (pieces & bishop)
+        check_bishop(board, square, bishop | color, found_hyp);
     if (found_hyp->num_found)
     {
-        board->position[square] = prev_piece;
-        board->to_move = !board->to_move;
         free(found_hyp);
         return 1;
     }
-    check_rook(board, square, rook | opp_color, found_hyp);
+    if (pieces & rook)
+        check_rook(board, square, rook | color, found_hyp);
     if (found_hyp->num_found)
     {
-        board->position[square] = prev_piece;
-        board->to_move = !board->to_move;
         free(found_hyp);
         return 1;
     }
-    check_pawn(board, square, pawn | opp_color, found_hyp);
+    if (pieces & pawn)
+        check_pawn(board, square, pawn | color, found_hyp);
     if (found_hyp->num_found)
     {
-        board->position[square] = prev_piece;
-        board->to_move = !board->to_move;
         free(found_hyp);
         return 1;
     }
-    check_rook(board, square, queen | opp_color, found_hyp);
+    if (pieces & queen)
+        check_rook(board, square, queen | color, found_hyp);
     if (found_hyp->num_found)
     {
-        board->position[square] = prev_piece;
-        board->to_move = !board->to_move;
         free(found_hyp);
         return 1;
     }
-    check_bishop(board, square, queen | opp_color, found_hyp);
+    if (pieces & queen)
+        check_bishop(board, square, queen | color, found_hyp);
     if (found_hyp->num_found)
     {
-        board->position[square] = prev_piece;
-        board->to_move = !board->to_move;
         free(found_hyp);
         return 1;
     }
-    board->position[square] = prev_piece;
-    board->to_move = !board->to_move;
     free(found_hyp);
     return 0;
+}
+
+int is_attacked(Board* board, int square)
+{
+    board->to_move = !board->to_move;
+    uint8_t color = (board->to_move == 1) ? black : white;
+    uint8_t prev_piece = board->position[square];
+    board->position[square] = pawn | (color ^ 0x80);
+    int check = can_move_to(board, square, all_pieces);
+    board->position[square] = prev_piece;
+    board->to_move = !board->to_move;
+    return check;
 }
 
 void check_king(Board* board, int square, uint8_t piece, struct found* founds)
@@ -747,25 +860,35 @@ void check_king(Board* board, int square, uint8_t piece, struct found* founds)
 struct found* find_attacker(Board* board, int square, uint8_t piece)
 {
     struct found* founds = malloc(sizeof(struct found));
+    struct found src;
+    src.num_found = 0;
+    src.en_p_taken = -1;
+    src.promotion = 0;
     founds->num_found = 0;
     founds->en_p_taken = -1;
     founds->promotion = 0;
+    uint8_t color = 0x80 & piece;
     if (board->position[square] && !((board->position[square] & black) ^
                 (board->to_move << 7)))
         return founds;
 
     if (piece & knight)
-        check_knight(board, square, piece, founds);
-    if (piece & rook || piece & queen)
-        check_rook(board, square, piece, founds);
-    if (piece & bishop || piece & queen)
-        check_bishop(board, square, piece, founds);
+        check_knight(board, square, knight|color, &src);
+    if (piece & rook)
+        check_rook(board, square, rook|color, &src);
+    if (piece & bishop)
+        check_bishop(board, square, bishop|color, &src);
     if (piece & king)
-        check_king(board, square, piece, founds);
+        check_king(board, square, king|color, &src);
+    if (piece & queen)
+        check_rook(board, square, queen|color, &src);
+    if (piece & queen)
+        check_bishop(board, square, queen|color, &src);
     if (piece & pawn)
-        check_pawn(board, square, piece, founds);
+        check_pawn(board, square, pawn|color, &src);
     else
         board->en_p = -1;
+    check_for_check(board, square, founds, &src);
     return founds;
 }
 
@@ -839,6 +962,63 @@ int castle(Board* board, int side)
         }
     }
     return 0;
+}
+
+int check_checkmate(Board* board, int which_color)
+{
+    int king_attacked = (which_color) ? board->bking_pos : board->wking_pos;
+    if (!is_attacked(board, king_attacked))
+        return 0;
+    uint8_t color = board->position[king_attacked] & 0x80;
+    int i;
+    if (is_legal(board, king_attacked + UP, king_attacked))
+        return 0;
+    if (is_legal(board, king_attacked + UPR, king_attacked))
+        return 0;
+    if (is_legal(board, king_attacked + UPL, king_attacked))
+        return 0;
+    if (is_legal(board, king_attacked + LEFT, king_attacked))
+        return 0;
+    if (is_legal(board, king_attacked + RIGHT, king_attacked))
+        return 0;
+    if (is_legal(board, king_attacked + DOWNL, king_attacked))
+        return 0;
+    if (is_legal(board, king_attacked + DOWNR, king_attacked))
+        return 0;
+    if (is_legal(board, king_attacked + DOWN, king_attacked))
+        return 0;
+    for (i = 0; i < 64; ++i)
+    {
+        if (i != king_attacked)
+        {
+            uint8_t orig_piece = board->position[i];
+            board->position[i] = pawn | color;
+            if (!is_attacked(board, king_attacked))
+            {
+                board->position[i] = orig_piece;
+                struct found* founds = find_attacker(board, i,
+                        (all_pieces & (~king)) | color);
+                if (founds->num_found)
+                {
+                    free(founds);
+                    board->to_move = !board->to_move;
+                    return 0;
+                }
+                free(founds);
+            }
+            board->position[i] = orig_piece;
+        }
+    }
+    return 1;
+}
+
+int is_checkmate(Board* board)
+{
+    int mate_white = check_checkmate(board, 0);
+    board->to_move = !board->to_move;
+    int mate_black = check_checkmate(board, 1);
+    board->to_move = !board->to_move;
+    return mate_white || mate_black;
 }
 
 void move_san(Board* board, char* move)
@@ -926,8 +1106,10 @@ void move_san(Board* board, char* move)
     }
 
     /* Get list of valid moves */
-    struct found* found_first;
-    found_first = find_attacker(board, destrank * 8 + destfile, sourcepiece);
+    struct found* found;
+    found = find_attacker(board, destrank * 8 + destfile, sourcepiece);
+
+    /* Remove moves which put the king in check 
     struct found* found = malloc(sizeof(struct found));
     found->en_p_taken = found_first->en_p_taken;
     found->promotion = found_first->promotion;
@@ -956,8 +1138,9 @@ void move_san(Board* board, char* move)
         }
     }
     free(found_first);
-
+    */
     /* Determine which move from list to choose */
+    int i;
     int move_to = -1;
     if (found->num_found)
     {
@@ -991,7 +1174,6 @@ void move_san(Board* board, char* move)
         else
             move_to = -2;
     }
-    free(found);
 
     /* Make move */
     if (move_to == -2)
@@ -1006,9 +1188,12 @@ void move_san(Board* board, char* move)
         else if (sourcepiece == king)
             board->wking_pos = destrank * 8 + destfile;
         if (found->en_p_taken != -1)
+        {
             board->position[found->en_p_taken] = 0;
+            board->en_p = -1;
+        }
         if (found->promotion)
             board->position[destrank * 8 + destfile] = promotionpiece;
     }
-
+    free(found);
 }
