@@ -31,9 +31,10 @@ typedef struct
     uint8_t moves;
     uint8_t wking_pos;
     uint8_t bking_pos;
-    dynarray* game;
+    dynarray* history;
 } Board;
 
+void init_board(Board* board);
 void default_board(Board* board);
 void print_board(Board* board);
 void load_fen(Board* board, char* fen);
