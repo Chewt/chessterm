@@ -13,7 +13,7 @@ The current functionality includes:
 ## Roadmap
 Features that still need to be added
  - Detect Stalemate
- - load/save fen from/to files
+ - load/save FEN from/to files
  - export/import PGN format
  - Flip view of the board between black and white perspective
  - Networking
