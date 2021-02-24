@@ -6,7 +6,7 @@
 int main(int argc, char** argv)
 {
     Board board;
-    board.game = NULL;
+    init_board(&board);
     default_board(&board);
     if (argc == 2)
         load_fen(&board, argv[1]);

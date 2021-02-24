@@ -23,19 +23,25 @@ void empty_board(Board* board)
     int i;
     for (i = 0; i < 64; ++i)
         board->position[i] = 0;
-    if (board->game)
+    if (board->history)
     {
-        for (i = 0; i < dynarray_size(board->game); ++i)
-            free(dynarray_get(board->game, i));
-        dynarray_free(board->game);
+        for (i = 0; i < dynarray_size(board->history); ++i)
+            free(dynarray_get(board->history, i));
+        dynarray_free(board->history);
     }
+}
+
+void init_board(Board* board)
+{
+    board->history = NULL;
+    empty_board(board);
 }
 
 void default_board(Board* board)
 {
     int i;
     empty_board(board);
-    board->game = dynarray_create();
+    board->history = dynarray_create();
     board->castling = 0x0F;
     board->position[0] = rook   | black;
     board->position[1] = knight | black;
@@ -634,48 +640,36 @@ int is_attacked(Board* board, int square)
     check_knight(&board_hyp, square, knight | opp_color, found_hyp);
     if (found_hyp->num_found)
     {
-        printf("%d KNIGHT on %d\n", found_hyp->num_found, 
-                found_hyp->squares[0]);
         free(found_hyp);
         return 1;
     }
     check_bishop(&board_hyp, square, bishop | opp_color, found_hyp);
     if (found_hyp->num_found)
     {
-        printf("%d BISHOP on %d\n", found_hyp->num_found, 
-                found_hyp->squares[0]);
         free(found_hyp);
         return 1;
     }
     check_rook(&board_hyp, square, rook | opp_color, found_hyp);
     if (found_hyp->num_found)
     {
-        printf("%d ROOK on %d\n", found_hyp->num_found, 
-                found_hyp->squares[0]);
         free(found_hyp);
         return 1;
     }
     check_pawn(&board_hyp, square, pawn | opp_color, found_hyp);
     if (found_hyp->num_found)
     {
-        printf("%d PAWN on %d\n", found_hyp->num_found, 
-                found_hyp->squares[0]);
         free(found_hyp);
         return 1;
     }
     check_rook(&board_hyp, square, queen | opp_color, found_hyp);
     if (found_hyp->num_found)
     {
-        printf("%d QUEEN_R on %d\n", found_hyp->num_found, 
-                found_hyp->squares[0]);
         free(found_hyp);
         return 1;
     }
     check_bishop(&board_hyp, square, queen | opp_color, found_hyp);
     if (found_hyp->num_found)
     {
-        printf("%d QUEEN_B on %d\n", found_hyp->num_found, 
-                found_hyp->squares[0]);
         free(found_hyp);
         return 1;
     }
@@ -754,6 +748,74 @@ struct found* find_attacker(Board* board, int square, uint8_t piece)
     return founds;
 }
 
+int castle(Board* board, int side)
+{
+    enum {KINGSIDE, QUEENSIDE};
+    if (side == KINGSIDE)
+    {
+        if (!board->to_move && board->castling & 0x08)
+        {
+            if (!(board->position[61] | board->position[62]))
+                if(   !is_attacked(board, 60) 
+                   && !is_attacked(board, 61) 
+                   && !is_attacked(board, 62))
+                {
+                    move_square(board, 62, 60);
+                    board->position[61] = board->position[63];
+                    board->position[63] = 0;
+                    board->castling &= 0xF3;
+                    return 1;
+                }
+        }
+        else if(board->to_move && board->castling & 0x02)
+        {
+            if (!(board->position[5] | board->position[6]))
+                if(   !is_attacked(board, 4) 
+                   && !is_attacked(board, 5) 
+                   && !is_attacked(board, 6))
+                {
+                    move_square(board, 6, 4);
+                    board->position[5] = board->position[7];
+                    board->position[7] = 0;
+                    board->castling &= 0xFC;
+                    return 1;
+                }
+        }
+    }
+    else if (side == QUEENSIDE)
+    {
+        if (!board->to_move && board->castling & 0x04)
+        {
+            if (!(board->position[57]|board->position[58]|board->position[59]))
+                if(   !is_attacked(board, 60) 
+                   && !is_attacked(board, 59) 
+                   && !is_attacked(board, 58))
+                {
+                    move_square(board, 58, 60);
+                    board->position[59] = board->position[56];
+                    board->position[56] = 0;
+                    board->castling &= 0xF3;
+                    return 1;
+                }
+        }
+        else if(board->to_move && board->castling & 0x01)
+        {
+            if (!(board->position[1]|board->position[2]|board->position[3]))
+                if(   !is_attacked(board, 4) 
+                   && !is_attacked(board, 3) 
+                   && !is_attacked(board, 2))
+                {
+                    move_square(board, 2, 4);
+                    board->position[3] = board->position[0];
+                    board->position[0] = 0;
+                    board->castling &= 0xFC;
+                    return 1;
+                }
+        }
+    }
+    return 0;
+}
+
 void move_san(Board* board, char* move)
 {
     uint8_t sourcepiece = pawn;
@@ -762,6 +824,7 @@ void move_san(Board* board, char* move)
     int sourcefile = -1;
     int destrank = -1;
     int destfile = -1;
+    int castled = -1;
     int ind = 0;
     char curr_char = move[ind];
     if (curr_char == 'B')
@@ -781,6 +844,10 @@ void move_san(Board* board, char* move)
     curr_char = move[++ind];
     while (curr_char)
     {
+        if (!strcmp(move, "O-O"))
+            castled = 0;
+        if (!strcmp(move, "O-O-O"))
+            castled = 1;
         if (curr_char == 'B')
             promotionpiece = bishop;
         else if (curr_char == 'N')
@@ -805,6 +872,35 @@ void move_san(Board* board, char* move)
     }
     if (board->to_move == 1)
         promotionpiece |= black;
+
+    /* Check if castling is allowed */
+    if (board->castling & 0x08)
+        if (board->position[60] != king|white ||
+            board->position[63] != rook|white)
+            board->castling &= 0xF7;
+    if (board->castling & 0x04)
+        if (board->position[60] != king|white ||
+            board->position[56] != rook|white)
+            board->castling &= 0xFB;
+    if (board->castling & 0x02)
+        if (board->position[ 4] != king|black ||
+            board->position[ 7] != rook|black)
+            board->castling &= 0xFD;
+    if (board->castling & 0x01)
+        if (board->position[ 4] != king|black ||
+            board->position[ 0] != rook|black)
+            board->castling &= 0xFE;
+
+    /* Castle */
+    if (castled != -1)
+    {
+        int success = castle(board, castled);
+        if (!success)
+            printf("Move not valid.\n");
+        return;
+    }
+
+    /* Get list of valid moves */
     struct found* found_first;
     found_first = find_attacker(board, destrank * 8 + destfile, sourcepiece);
     struct found* found = malloc(sizeof(struct found));
@@ -834,6 +930,9 @@ void move_san(Board* board, char* move)
             found->squares[found->num_found - 1] = found_first->squares[i];
         }
     }
+    free(found_first);
+
+    /* Determine which move from list to choose */
     int move_to = -1;
     if (found->num_found)
     {
@@ -867,7 +966,9 @@ void move_san(Board* board, char* move)
         else
             move_to = -2;
     }
+    free(found);
 
+    /* Make move */
     if (move_to == -2)
         printf("Ambigous move, more than one piece can move there.\n");
     else if (move_to == -1)
@@ -885,6 +986,4 @@ void move_san(Board* board, char* move)
             board->position[destrank * 8 + destfile] = promotionpiece;
     }
 
-    free(found);
-    free(found_first);
 }
