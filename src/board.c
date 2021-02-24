@@ -964,7 +964,7 @@ int castle(Board* board, int side)
     return 0;
 }
 
-int is_checkmate(Board* board, int which_color)
+int check_checkmate(Board* board, int which_color)
 {
     int king_attacked = (which_color) ? board->bking_pos : board->wking_pos;
     if (!is_attacked(board, king_attacked))
@@ -1010,6 +1010,15 @@ int is_checkmate(Board* board, int which_color)
         }
     }
     return 1;
+}
+
+int is_checkmate(Board* board)
+{
+    int mate_white = check_checkmate(board, 0);
+    board->to_move = !board->to_move;
+    int mate_black = check_checkmate(board, 1);
+    board->to_move = !board->to_move;
+    return mate_white || mate_black;
 }
 
 void move_san(Board* board, char* move)
