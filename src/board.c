@@ -18,8 +18,8 @@ void empty_board(Board* board)
     board->en_p = -1;
     board->halfmoves = 0;
     board->moves = 1;
-    board->bking_pos = 4;
-    board->wking_pos = 60;
+    board->bking_pos = 0;
+    board->wking_pos = 0;
     int i;
     for (i = 0; i < 64; ++i)
         board->position[i] = 0;
@@ -41,6 +41,8 @@ void default_board(Board* board)
 {
     int i;
     empty_board(board);
+    board->bking_pos = 4;
+    board->wking_pos = 60;
     board->history = dynarray_create();
     board->castling = 0x0F;
     board->position[0] = rook   | black;
@@ -185,7 +187,10 @@ void load_fen(Board* board, char* fen)
         else if (curr_char == 'q')
             board->position[square_ind++] = queen  | black;
         else if (curr_char == 'k')
+        {
+            board->bking_pos = square_ind;
             board->position[square_ind++] = king   | black;
+        }
         else if (curr_char == 'P')
             board->position[square_ind++] = pawn   | white;
         else if (curr_char == 'B')   
@@ -197,7 +202,10 @@ void load_fen(Board* board, char* fen)
         else if (curr_char == 'Q')   
             board->position[square_ind++] = queen  | white;
         else if (curr_char == 'K')   
+        {
+            board->wking_pos = square_ind;
             board->position[square_ind++] = king   | white;
+        }
         else if (curr_char <= '9' && curr_char >= '0')
             square_ind += curr_char - '0';
         i++;
@@ -627,52 +635,60 @@ int is_attacked(Board* board, int square)
 {
     struct found* found_hyp = malloc(sizeof(struct found));
     found_hyp->num_found = 0;
-    Board board_hyp;
-    int i;
-    for (i = 0; i < 64; ++i)
-        board_hyp.position[i] = board->position[i];
-    board_hyp.to_move = !board->to_move;
-    board_hyp.castling = board->castling;
-    board_hyp.en_p = board->en_p;
-    board_hyp.halfmoves = board->halfmoves;
-    board_hyp.moves = board->moves;
-    uint8_t opp_color = (board_hyp.to_move == 1) ? black : white;
-    check_knight(&board_hyp, square, knight | opp_color, found_hyp);
+    board->to_move = !board->to_move;
+    uint8_t opp_color = (board->to_move == 1) ? black : white;
+    uint8_t prev_piece = board->position[square];
+    board->position[square] = pawn | (opp_color ^ 0x80);
+    check_knight(board, square, knight | opp_color, found_hyp);
     if (found_hyp->num_found)
     {
+        board->position[square] = prev_piece;
+        board->to_move = !board->to_move;
         free(found_hyp);
         return 1;
     }
-    check_bishop(&board_hyp, square, bishop | opp_color, found_hyp);
+    check_bishop(board, square, bishop | opp_color, found_hyp);
     if (found_hyp->num_found)
     {
+        board->position[square] = prev_piece;
+        board->to_move = !board->to_move;
         free(found_hyp);
         return 1;
     }
-    check_rook(&board_hyp, square, rook | opp_color, found_hyp);
+    check_rook(board, square, rook | opp_color, found_hyp);
     if (found_hyp->num_found)
     {
+        board->position[square] = prev_piece;
+        board->to_move = !board->to_move;
         free(found_hyp);
         return 1;
     }
-    check_pawn(&board_hyp, square, pawn | opp_color, found_hyp);
+    check_pawn(board, square, pawn | opp_color, found_hyp);
     if (found_hyp->num_found)
     {
+        board->position[square] = prev_piece;
+        board->to_move = !board->to_move;
         free(found_hyp);
         return 1;
     }
-    check_rook(&board_hyp, square, queen | opp_color, found_hyp);
+    check_rook(board, square, queen | opp_color, found_hyp);
     if (found_hyp->num_found)
     {
+        board->position[square] = prev_piece;
+        board->to_move = !board->to_move;
         free(found_hyp);
         return 1;
     }
-    check_bishop(&board_hyp, square, queen | opp_color, found_hyp);
+    check_bishop(board, square, queen | opp_color, found_hyp);
     if (found_hyp->num_found)
     {
+        board->position[square] = prev_piece;
+        board->to_move = !board->to_move;
         free(found_hyp);
         return 1;
     }
+    board->position[square] = prev_piece;
+    board->to_move = !board->to_move;
     free(found_hyp);
     return 0;
 }
@@ -763,6 +779,7 @@ int castle(Board* board, int side)
                     move_square(board, 62, 60);
                     board->position[61] = board->position[63];
                     board->position[63] = 0;
+                    board->wking_pos = 62;
                     board->castling &= 0xF3;
                     return 1;
                 }
@@ -777,6 +794,7 @@ int castle(Board* board, int side)
                     move_square(board, 6, 4);
                     board->position[5] = board->position[7];
                     board->position[7] = 0;
+                    board->bking_pos = 6;
                     board->castling &= 0xFC;
                     return 1;
                 }
@@ -794,6 +812,7 @@ int castle(Board* board, int side)
                     move_square(board, 58, 60);
                     board->position[59] = board->position[56];
                     board->position[56] = 0;
+                    board->wking_pos = 58;
                     board->castling &= 0xF3;
                     return 1;
                 }
@@ -808,6 +827,7 @@ int castle(Board* board, int side)
                     move_square(board, 2, 4);
                     board->position[3] = board->position[0];
                     board->position[0] = 0;
+                    board->bking_pos = 2;
                     board->castling &= 0xFC;
                     return 1;
                 }
@@ -874,7 +894,6 @@ void move_san(Board* board, char* move)
         promotionpiece |= black;
 
     /* Check if castling is allowed */
-    printf("CASTLING: %#x\n", board->castling);
     if (board->castling & 0x08)
         if (board->position[60] != (king|white) ||
             board->position[63] != (rook|white))
@@ -891,7 +910,6 @@ void move_san(Board* board, char* move)
         if (board->position[4] != (king|black) ||
             board->position[0] != (rook|black))
             board->castling &= 0xFE;
-    printf("CASTLING: %#x\n", board->castling);
 
     /* Castle */
     if (castled != -1)
