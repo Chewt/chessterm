@@ -94,7 +94,7 @@ void board_stats(Board* board)
 void print_board(Board* board)
 {
     int i;
-    printf("\u2554");
+    printf("  \u2554");
     for (i = 1; i < 32; ++i)
         printf("\u2550");
     printf("\u2557");
@@ -102,7 +102,7 @@ void print_board(Board* board)
     {
         uint8_t square = board->position[i];
         if (i % 8 == 0)
-            printf("\n\u2551");
+            printf("\n%d \u2551", 8 - (i / 8));
         /* Bullshit that colors them checkered-like 
          * - Courtesy of Zach Gorman
          */
@@ -133,17 +133,19 @@ void print_board(Board* board)
             printf("\u2502");
         if (i % 8 == 7 && i / 8 != 7)
         {
-            printf("\n\u2551\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u253c"
+            printf("\n  \u2551\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u253c"
                     "\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u253c\u2500"
                     "\u2500\u2500\u253c\u2500\u2500\u2500\u253c\u2500\u2500"
                     "\u2500\u253c\u2500\u2500\u2500\u2551");
         }
     }
-    printf("\n");
+    printf("\n  ");
     printf("\u255a");
     for (i = 1; i < 32; ++i)
         printf("\u2550");
-    printf("\u255d");
+    printf("\u255d\n ");
+    for (i = 0; i < 8; i++)
+        printf("   %c", 'a' + i);
     printf("\n");
 }
 
