@@ -10,6 +10,13 @@ The current functionality includes:
  - Moving pieces on the board
  - Keeping track of whose turn it is
  - Validating any inputted moves (Work in Progress)  
+## Roadmap
+Features that still need to be added
+ - Detect Stalemate
+ - load/save fen from/to files
+ - export/import PGN format
+ - Flip view of the board between black and white perspective
+ - Networking
 ## Usage
 A test implementation has been provided. Simply run  
 `$make`  
