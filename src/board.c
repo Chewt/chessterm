@@ -298,6 +298,11 @@ char* export_fen(Board* board)
             empty++;
 
     }
+    if (empty)
+    {
+        fen[str_ind++] = '0' + empty;
+        empty = 0;
+    }
     fen[str_ind++] = ' ';
     if (board->to_move)
         fen[str_ind++] = 'b';
