@@ -874,22 +874,24 @@ void move_san(Board* board, char* move)
         promotionpiece |= black;
 
     /* Check if castling is allowed */
+    printf("CASTLING: %#x\n", board->castling);
     if (board->castling & 0x08)
-        if (board->position[60] != king|white ||
-            board->position[63] != rook|white)
+        if (board->position[60] != (king|white) ||
+            board->position[63] != (rook|white))
             board->castling &= 0xF7;
     if (board->castling & 0x04)
-        if (board->position[60] != king|white ||
-            board->position[56] != rook|white)
+        if (board->position[60] != (king|white) ||
+            board->position[56] != (rook|white))
             board->castling &= 0xFB;
     if (board->castling & 0x02)
-        if (board->position[ 4] != king|black ||
-            board->position[ 7] != rook|black)
+        if (board->position[4] != (king|black) ||
+            board->position[7] != (rook|black))
             board->castling &= 0xFD;
     if (board->castling & 0x01)
-        if (board->position[ 4] != king|black ||
-            board->position[ 0] != rook|black)
+        if (board->position[4] != (king|black) ||
+            board->position[0] != (rook|black))
             board->castling &= 0xFE;
+    printf("CASTLING: %#x\n", board->castling);
 
     /* Castle */
     if (castled != -1)
