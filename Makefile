@@ -24,9 +24,12 @@ $(INCLUDES):
 $(UNIDEPS):
 	touch $@
 
+.PHONY: color_picker
 color_picker: 
 	$(MAKE) -C add_ons
 
 .PHONY: clean
 clean: 
+
 	rm -rf $(OBJDIR) /*.o $(TARGET) color_picker include/settings.h
+

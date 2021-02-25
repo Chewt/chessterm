@@ -131,14 +131,9 @@ void pick_square_colors(int *light_squares, int *dark_squares, int smol){
 void read_colors(int *light_color, int *dark_color){
   FILE *fp = fopen("include/settings.h", "r");
   if (fp == NULL){
-    printf("settings.h doesn't exist! Would you like to make one? (y/n) \n");
-    char ans;
-    scanf("%c", &ans);
-    if (ans == 'y'){
-      fp = fopen("include/settings.h", "w");
-      fprintf(fp, "#define SETTINGS\n#define LIGHT 255\n#define DARK 16\n");
-      fclose(fp);
-    }
+    fp = fopen("include/settings.h", "w");
+    fprintf(fp, "#define SETTINGS\n#define LIGHT 249\n#define DARK 239\n");
+    fclose(fp);
     return;
   }
   char buff;
@@ -181,44 +176,69 @@ void write_colors(int light_color, int dark_color){
     return;
   }
   char buff;
-  char light[6] = "LIGHT";
-  char dark[5] = "DARK";
-  int l=0, d=0;
+  char light[14] = "#define LIGHT ";
+  char dark[13] = "#define DARK ";
+  char header[16] = "#define SETTINGS";
+  int l=0, d=0, h=0;
   int temp;
   while ( (buff = fgetc(fps) )!= EOF){
     fputc(buff, fpd);
-    if (buff == light[l]){
-      l++;
-      if (l >= 5){
-        fscanf(fps, "%d", &temp);
-        fprintf(fpd, " %d", light_color);
+    if (l < 14){
+      if (buff == light[l]){
+        l++;
+        if (l == 14){
+          fscanf(fps, "%d", &temp);
+          fprintf(fpd, "%d", light_color);
+        }
+      }else{
         l = 0;
       }
-    }else{
-      l = 0;
     }
-    if (buff == dark[d]){
-      d++;
-      if (d >= 4){
-        fscanf(fps, "%d", &temp);
-        fprintf(fpd, " %d", dark_color);
+    if (d < 13){
+      if (buff == dark[d]){
+        d++;
+        if (d == 13){
+          fscanf(fps, "%d", &temp);
+          fprintf(fpd, "%d", dark_color);
+        }
+      }else{
         d = 0;
       }
-    }else{
-      d = 0;
+    }
+    if (h < 16){
+      if (buff == header[h]){
+        h++;
+      }else{
+        h=0;
+      }
     }
   }
   fclose(fps);
   fclose(fpd);
   rename("settings.tmp", "include/settings.h");
+  if (h < 16){
+    FILE *fp = fopen("include/settings.h", "a");
+    fprintf(fp, "#define SETTINGS\n");
+    fclose(fp);
+  }
+  if (l < 14){
+    FILE *fp = fopen("include/settings.h", "a");
+    fprintf(fp, "#define LIGHT %d\n", light_color);
+    fclose(fp);
+  }
+  if (d < 13){
+    FILE *fp = fopen("include/settings.h", "a");
+    fprintf(fp, "#define DARK %d\n", dark_color);
+    fclose(fp);
+  }
 }
 
 int main(int argc, char **argv){
-  int light_color = 255, dark_color = 16;
+  int light_color = 249, dark_color = 239;
   read_colors(&light_color, &dark_color);
   pick_square_colors(&light_color, &dark_color, argc > 1);
   write_colors(light_color, dark_color);
-  printf("\e[17EDon't forget to run \e[38;5;40m$ make clean\e[m in your chessterm "
+  printf("\e[17EDon't forget to run \e[38;5;40m$ make\e[m in your chessterm "
          "directory to update the colors!\n");
 
   return 0;
