@@ -6,8 +6,8 @@
 #include "settings.h"
 
 #ifndef SETTINGS
-#define LIGHT 250
-#define DARK  240
+#define LIGHT 249
+#define DARK  239
 #endif
 
 void empty_board(Board* board)
