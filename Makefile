@@ -9,7 +9,7 @@ CFLAGS = -I$(INCLUDEDIR) -g
 CC = cc
 TARGET = chessterm
 
-.PHONY: all $(TARGET)
+.PHONY: all 
 all: $(TARGET)
 
 $(TARGET): $(OBJECTS)
@@ -30,4 +30,6 @@ color_picker:
 
 .PHONY: clean
 clean: 
-	rm -rf $(OBJDIR) /*.o $(TARGET) color_picker 
+
+	rm -rf $(OBJDIR) /*.o $(TARGET) color_picker include/settings.h
+

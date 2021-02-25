@@ -10,6 +10,13 @@ The current functionality includes:
  - Moving pieces on the board
  - Keeping track of whose turn it is
  - Validating any inputted moves (Work in Progress)  
+## Roadmap
+Features that still need to be added
+ - Detect Stalemate
+ - load/save FEN from/to files
+ - export/import PGN format
+ - Flip view of the board between black and white perspective
+ - Networking
 ## Usage
 A test implementation has been provided. Simply run  
 `$make`  
@@ -28,6 +35,8 @@ In the program you will be presented with a view of the current position and
 a prompt. You can type  
 `: exit`  
 to exit the program,  
+`: fen`  
+to print the current position's FEN to the screen  
 `: status`  
 to view the current board information, or you can type a move in SAN notation
 to make a move.  

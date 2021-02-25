@@ -6,6 +6,7 @@
 int main(int argc, char** argv)
 {
     Board board;
+    init_board(&board);
     default_board(&board);
     if (argc == 2)
         load_fen(&board, argv[1]);
@@ -27,9 +28,21 @@ int main(int argc, char** argv)
             board_stats(&board);
             continue;
         }
+        else if (!strcmp(move, "fen"))
+        {
+            char* fen = export_fen(&board);
+            printf("%s\n", fen);
+            free(fen);
+            continue;
+        }
         move_san(&board, move);
         print_board(&board);
         free(move);
+        if (is_checkmate(&board))
+        {
+            printf("Checkmate!\n");
+            running = 0;
+        }
     }
 
     return 0;
