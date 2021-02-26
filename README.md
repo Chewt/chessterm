@@ -15,7 +15,7 @@ The current functionality includes:
 ## Roadmap
 Features that still need to be added
  - ~~Detect Stalemate~~
- - Detect 3-fold repitition stalemate
+ - Detect 3-fold repetition stalemate
  - load/save FEN from/to files
  - ~~export~~/import PGN format
  - Flip view of the board between black and white perspective
