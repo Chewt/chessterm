@@ -4,10 +4,17 @@
 #include "board.h"
 #include "settings.h"
 
+#ifdef DEBUG
+#define print_error(...) printf(__VA_ARGS__)
+#else
+#define print_error(...) ((void)0)
+#endif
+
 #ifndef SETTINGS
 #define LIGHT 249
 #define DARK  239
 #endif
+
 
 int is_attacked(Board* board, int square);
 
@@ -662,7 +669,7 @@ void check_pawn(Board* board, int square, uint8_t piece, struct found* founds)
             }
         }
     }
-    if (square / 8 == 4)
+    if (square / 8 == 4 && !board->position[square])
     {
         int i;
         uint8_t looking_at = board->position[square + 2 * DOWN];
@@ -674,7 +681,7 @@ void check_pawn(Board* board, int square, uint8_t piece, struct found* founds)
             made_en_p = 1;
         }
     }
-    else if (square / 8 == 3)
+    else if (square / 8 == 3 && !board->position[square])
     {
         int i;
         uint8_t looking_at = board->position[square + 2 * UP];
@@ -882,8 +889,6 @@ struct found* find_attacker(Board* board, int square, uint8_t piece)
         check_bishop(board, square, queen|color, &src);
     if (piece & pawn)
         check_pawn(board, square, pawn|color, &src);
-    else
-        board->en_p = -1;
     check_for_check(board, square, founds, &src);
     return founds;
 }
@@ -960,44 +965,86 @@ int castle(Board* board, int side)
     return 0;
 }
 
+int check_stalemate(Board* board, int which_color)
+{
+    int king_attacked = (which_color) ? board->bking_pos : board->wking_pos;
+    uint8_t color = board->position[king_attacked] & 0x80;
+    if (is_attacked(board, king_attacked))
+        return 0;
+    int i;
+    for (i = 0; i < 64; i++ )
+    {
+        if ((board->position[i] & 0x80) != color || i != king_attacked)
+        {
+            uint8_t orig_piece = board->position[i];
+            struct found* founds = find_attacker(board, i,
+                    (all_pieces & (~king)) | color);
+            if (founds->num_found)
+            {
+                free(founds);
+                board->to_move = !board->to_move;
+                return 0;
+            }
+            free(founds);
+            board->position[i] = orig_piece;
+        }
+    }
+    return 2;
+}
+
 int check_checkmate(Board* board, int which_color)
 {
     int king_attacked = (which_color) ? board->bking_pos : board->wking_pos;
+    print_error("KING: %d\n", king_attacked);
     if (!is_attacked(board, king_attacked))
         return 0;
+    print_error("is attacked\n");
     uint8_t color = board->position[king_attacked] & 0x80;
     int i;
     if (is_legal(board, king_attacked + UP, king_attacked))
         return 0;
+    print_error("can move up\n");
     if (is_legal(board, king_attacked + UPR, king_attacked))
         return 0;
+    print_error("upr\n");
     if (is_legal(board, king_attacked + UPL, king_attacked))
         return 0;
+    print_error("upl\n");
     if (is_legal(board, king_attacked + LEFT, king_attacked))
         return 0;
+    print_error("left\n");
     if (is_legal(board, king_attacked + RIGHT, king_attacked))
         return 0;
+    print_error("right\n");
     if (is_legal(board, king_attacked + DOWNL, king_attacked))
         return 0;
+    print_error("downl\n");
     if (is_legal(board, king_attacked + DOWNR, king_attacked))
         return 0;
+    print_error("downr\n");
     if (is_legal(board, king_attacked + DOWN, king_attacked))
         return 0;
+    print_error("down\n");
+    print_error("can't move\n");
     for (i = 0; i < 64; ++i)
     {
         if (i != king_attacked)
         {
             uint8_t orig_piece = board->position[i];
             board->position[i] = pawn | color;
-            if (!is_attacked(board, king_attacked))
+            if (!is_attacked(board, king_attacked) || i == board->en_p)
             {
                 board->position[i] = orig_piece;
                 struct found* founds = find_attacker(board, i,
                         (all_pieces & (~king)) | color);
                 if (founds->num_found)
                 {
+                    print_error("%d can be blocked\n", i);
+                    int j;
+                    for (j = 0; j < founds->num_found; ++j)
+                        print_error("%d ", founds->squares[j]);
+                    print_error("\n");
                     free(founds);
-                    board->to_move = !board->to_move;
                     return 0;
                 }
                 free(founds);
@@ -1008,13 +1055,13 @@ int check_checkmate(Board* board, int which_color)
     return 1;
 }
 
-int is_checkmate(Board* board)
+int is_gameover(Board* board)
 {
-    int mate_white = check_checkmate(board, 1);
-    board->to_move = !board->to_move;
-    int mate_black = check_checkmate(board, 0);
-    board->to_move = !board->to_move;
-    return mate_white || mate_black;
+
+    int game_over = check_checkmate(board, board->to_move);
+    if (!game_over)
+        game_over = check_stalemate(board, board->to_move);
+    return game_over;
 }
 
 void move_san(Board* board, char* move)

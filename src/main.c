@@ -35,9 +35,15 @@ int main(int argc, char** argv)
         }
         move_san(&board, move);
         print_board(&board);
-        if (is_checkmate(&board))
+        int game_win = is_gameover(&board);
+        if (game_win == 1)
         {
             printf("Checkmate!\n");
+            running = 0;
+        }
+        else if (game_win == 2)
+        {
+            printf("Stalemate!\n");
             running = 0;
         }
     }
