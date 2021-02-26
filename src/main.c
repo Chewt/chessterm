@@ -1,12 +1,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "board.h"
+#include "chessterm.h"
 
 int main(int argc, char** argv)
 {
     Board board;
-    init_board(&board);
     default_board(&board);
     if (argc == 2)
         load_fen(&board, argv[1]);
@@ -16,6 +15,7 @@ int main(int argc, char** argv)
     while (running)
     {
         char move[50];
+
         printf(": ");
         scanf("%30s", &move);
         if (!strcmp(move, "exit"))
@@ -31,22 +31,36 @@ int main(int argc, char** argv)
         {
             char* fen = export_fen(&board);
             printf("%s\n", fen);
+            free(fen);
+            continue;
+        }
+        else if (!strcmp(move, "pgn"))
+        {
+            char* pgn = export_pgn(&board);
+            printf("%s\n", pgn);
+            free(pgn);
             continue;
         }
         move_san(&board, move);
         print_board(&board);
+
         int game_win = is_gameover(&board);
         if (game_win == 1)
         {
             printf("Checkmate!\n");
             running = 0;
+            char* pgn = export_pgn(&board);
+            printf("%s\n", pgn);
+            free(pgn);
         }
         else if (game_win == 2)
         {
             printf("Stalemate!\n");
             running = 0;
+            char* pgn = export_pgn(&board);
+            printf("%s\n", pgn);
+            free(pgn);
         }
     }
-
     return 0;
 }
