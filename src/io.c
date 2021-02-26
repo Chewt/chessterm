@@ -94,6 +94,64 @@ void print_board(Board* board)
     printf("\n");
 }
 
+void print_flipped(Board* board)
+{
+    int i;
+    printf("  \u2554");
+    for (i = 1; i < 32; ++i)
+        printf("\u2550");
+    printf("\u2557");
+    for (i = 63; i >= 0; --i)
+    {
+        uint8_t square = board->position[i];
+        if ((63 - i) % 8 == 0)
+            printf("\n%d \u2551", ((63 - i) / 8) + 1);
+        /* Bullshit that colors them checkered-like 
+         * - Courtesy of Zach Gorman
+         */
+        if (!(!(i & 1) ^ !(i & 8))) 
+            printf("\e[48;5;%dm", LIGHT);
+        else
+            printf("\e[48;5;%dm", DARK);
+        printf(" ");
+        if (square & pawn)
+            (square & black) ? printf("\e[30mp") : printf("\e[37mP");
+        else if (square & bishop)
+            (square & black) ? printf("\e[30mb") : printf("\e[37mB");
+        else if (square & knight)
+            (square & black) ? printf("\e[30mn") : printf("\e[37mN");
+        else if (square & rook)
+            (square & black) ? printf("\e[30mr") : printf("\e[37mR");
+        else if (square & queen)
+            (square & black) ? printf("\e[30mq") : printf("\e[37mQ");
+        else if (square & king)
+            (square & black) ? printf("\e[30mk") : printf("\e[37mK");
+        else
+            printf(" ");
+        printf(" \e[0m");
+
+        if ((63 - i) % 8 == 7)
+            printf("\u2551");
+        else
+            printf("\u2502");
+        if ((63 - i) % 8 == 7 && (63 - i) / 8 != 7)
+        {
+            printf("\n  \u2551\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u253c"
+                    "\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u253c\u2500"
+                    "\u2500\u2500\u253c\u2500\u2500\u2500\u253c\u2500\u2500"
+                    "\u2500\u253c\u2500\u2500\u2500\u2551");
+        }
+    }
+    printf("\n  ");
+    printf("\u255a");
+    for (i = 1; i < 32; ++i)
+        printf("\u2550");
+    printf("\u255d\n ");
+    for (i = 0; i < 8; i++)
+        printf("   %c", 'h' - i);
+    printf("\n");
+}
+
 int string_to_int(char* str)
 {
     int digits = strlen(str);
@@ -308,6 +366,18 @@ char* export_pgn(Board* board)
         {
             str_ind += sprintf(pgn + str_ind, "%c", record.dest % 8 + 'a');
             str_ind += sprintf(pgn + str_ind, "%c", 8 - record.dest / 8 + '0');
+        }
+        if (record.promotion)
+        {
+            str_ind += sprintf(pgn + str_ind, "=");
+            if (record.promotion & queen)
+                str_ind += sprintf(pgn + str_ind, "Q");
+            if (record.promotion & rook)
+                str_ind += sprintf(pgn + str_ind, "R");
+            if (record.promotion & knight)
+                str_ind += sprintf(pgn + str_ind, "N");
+            if (record.promotion & bishop)
+                str_ind += sprintf(pgn + str_ind, "B");
         }
         if (record.castle == 0)
             str_ind += sprintf(pgn + str_ind, "O-O");
