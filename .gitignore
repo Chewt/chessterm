@@ -1,4 +1,5 @@
 **/*.o
+**/vgcore*
 chessterm
 obj/
 color_picker
