@@ -71,7 +71,6 @@ void print_example_board(Board* board, int LIGHT, int DARK)
 void pick_square_colors(int *light_squares, int *dark_squares, int smol){
 
   Board board;
-  init_board(&board);
   default_board(&board);
   int square = 0;
   while(1==1){

@@ -6,7 +6,6 @@
 int main(int argc, char** argv)
 {
     Board board;
-    init_board(&board);
     default_board(&board);
     if (argc == 2)
         load_fen(&board, argv[1]);
@@ -35,6 +34,7 @@ int main(int argc, char** argv)
         }
         move_san(&board, move);
         print_board(&board);
+
         int game_win = is_gameover(&board);
         if (game_win == 1)
         {
@@ -47,6 +47,5 @@ int main(int argc, char** argv)
             running = 0;
         }
     }
-
     return 0;
 }

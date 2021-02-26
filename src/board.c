@@ -11,8 +11,8 @@
 #endif
 
 #ifndef SETTINGS
-#define LIGHT 249
-#define DARK  239
+#define LIGHT 179
+#define DARK  58
 #endif
 
 
@@ -30,18 +30,17 @@ void empty_board(Board* board)
     int i;
     for (i = 0; i < 64; ++i)
         board->position[i] = 0;
-    if (board->history)
+    board->history_count = 0;
+    for (i = 0; i < MAX_HISTORY; ++i)
     {
-        for (i = 0; i < dynarray_size(board->history); ++i)
-            free(dynarray_get(board->history, i));
-        dynarray_free(board->history);
+        board->history[i].dest = -1;
+        board->history[i].src_piece = -1;
+        board->history[i].src_rank = -1;
+        board->history[i].src_file = -1;
+        board->history[i].piece_taken = 0;
+        board->history[i].gave_check = 0;
+        board->history[i].castle = -1;
     }
-}
-
-void init_board(Board* board)
-{
-    board->history = NULL;
-    empty_board(board);
 }
 
 void default_board(Board* board)
@@ -50,7 +49,6 @@ void default_board(Board* board)
     empty_board(board);
     board->bking_pos = 4;
     board->wking_pos = 60;
-    board->history = dynarray_create();
     board->castling = 0x0F;
     board->position[0] = rook   | black;
     board->position[1] = knight | black;
@@ -1064,6 +1062,20 @@ int is_gameover(Board* board)
     return game_over;
 }
 
+void stress_test(Board* board, int times)
+{
+    int i;
+    for (i = 0; i < times; ++i)
+    {
+        int j;
+        for (j = 0; j < 64; ++j)
+        {
+            struct found* founds = find_attacker(board, j, all_pieces);
+            free(founds);
+        }
+    }
+}
+
 void move_san(Board* board, char* move)
 {
     uint8_t sourcepiece = pawn;
@@ -1145,6 +1157,18 @@ void move_san(Board* board, char* move)
         int success = castle(board, castled);
         if (!success)
             printf("Move not valid.\n");
+        else
+        {
+            board->history[board->history_count].castle = castled;
+            uint8_t curr_king;
+            if (board->to_move)
+                curr_king = board->bking_pos;
+            else
+                curr_king = board->wking_pos;
+            if (is_attacked(board, curr_king))
+                board->history[board->history_count].gave_check = 1;
+            board->history_count++;
+        }
         return;
     }
 
@@ -1196,6 +1220,20 @@ void move_san(Board* board, char* move)
     else
     {
         move_square(board, destrank * 8 + destfile, move_to);
+        Move* record = &(board->history[board->history_count]);
+        record->dest = destrank * 8 + destfile;
+        record->src_piece = sourcepiece;
+        record->src_rank = sourcerank;
+        record->src_file = sourcefile;
+        record->piece_taken = board->position[destrank * 8 + destfile];
+        uint8_t curr_king;
+        if (board->to_move)
+            curr_king = board->bking_pos;
+        else
+            curr_king = board->wking_pos;
+        if (is_attacked(board, curr_king))
+            record->gave_check = 1;
+        board->history_count++;
         if (sourcepiece == (king | black))
             board->bking_pos = destrank * 8 + destfile;
         else if (sourcepiece == king)
