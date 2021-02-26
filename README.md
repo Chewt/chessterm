@@ -9,12 +9,15 @@ The current functionality includes:
  - Printing the current position of the board
  - Moving pieces on the board
  - Keeping track of whose turn it is
- - Validating any inputted moves (Work in Progress)  
+ - Validating any inputted moves
+ - exporting FEN and PGN of the game
+ - Detection of checkmate and stalemate
 ## Roadmap
 Features that still need to be added
- - Detect Stalemate
+ - ~~Detect Stalemate~~
+ - Detect 3-fold repitition stalemate
  - load/save FEN from/to files
- - export/import PGN format
+ - ~~export~~/import PGN format
  - Flip view of the board between black and white perspective
  - Networking
 ## Usage
@@ -37,6 +40,8 @@ a prompt. You can type
 to exit the program,  
 `: fen`  
 to print the current position's FEN to the screen  
+`: pgn`   
+to print the PGN of the game to the screen  
 `: status`  
 to view the current board information, or you can type a move in SAN notation
 to make a move.  
