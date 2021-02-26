@@ -93,6 +93,7 @@ struct found
     int num_found;
     int squares[16];
     int en_p_taken;
+    int made_en_p;
     int promotion;
 };
 
@@ -146,6 +147,7 @@ void check_for_check(Board* board, int square,
 {
     dest->en_p_taken = src->en_p_taken;
     dest->promotion = src->promotion;
+    dest->made_en_p = src->made_en_p;
     int i;
     for (i = 0; i < src->num_found; ++i)
     {
@@ -358,7 +360,6 @@ void check_bishop(Board* board, int square, uint8_t piece, struct found* founds)
 
 void check_pawn(Board* board, int square, uint8_t piece, struct found* founds)
 {
-    int made_en_p = 0;
     if (square == board->en_p)
     {
         if (square / 8 == 2)
@@ -401,7 +402,7 @@ void check_pawn(Board* board, int square, uint8_t piece, struct found* founds)
             founds->num_found++;
             founds->squares[founds->num_found - 1] = square + 2 * DOWN;
             board->en_p = square + DOWN;
-            made_en_p = 1;
+            founds->made_en_p = 1;
         }
     }
     else if (square / 8 == 3 && !board->position[square])
@@ -413,9 +414,11 @@ void check_pawn(Board* board, int square, uint8_t piece, struct found* founds)
             founds->num_found++;
             founds->squares[founds->num_found - 1] = square + 2 * UP;
             board->en_p = square + UP;
-            made_en_p = 1;
+            founds->made_en_p = 1;
         }
     }
+    else 
+        founds->made_en_p = 0;
 
     if (square / 8 == 0 || square / 8 == 7)
         founds->promotion = 1;
@@ -590,9 +593,11 @@ struct found* find_attacker(Board* board, int square, uint8_t piece)
     src.num_found = 0;
     src.en_p_taken = -1;
     src.promotion = 0;
+    src.made_en_p = 0;
     founds->num_found = 0;
     founds->en_p_taken = -1;
     founds->promotion = 0;
+    founds->made_en_p = 0;
     uint8_t color = 0x80 & piece;
     if (board->position[square] && !((board->position[square] & black) ^
                 (board->to_move << 7)))
@@ -783,6 +788,9 @@ int is_gameover(Board* board)
     int game_over = check_checkmate(board, board->to_move);
     if (!game_over)
         game_over = check_stalemate(board, board->to_move);
+    if (!game_over && board->halfmoves >= 100)
+        game_over = 2;
+    
     board->history[board->history_count - 1].game_over = game_over;
     return game_over;
 }
@@ -858,23 +866,6 @@ void move_san(Board* board, char* move)
     if (board->to_move == 1)
         promotionpiece |= black;
 
-    /* Check if castling is allowed */
-    if (board->castling & 0x08)
-        if (board->position[60] != (king|white) ||
-            board->position[63] != (rook|white))
-            board->castling &= 0xF7;
-    if (board->castling & 0x04)
-        if (board->position[60] != (king|white) ||
-            board->position[56] != (rook|white))
-            board->castling &= 0xFB;
-    if (board->castling & 0x02)
-        if (board->position[4] != (king|black) ||
-            board->position[7] != (rook|black))
-            board->castling &= 0xFD;
-    if (board->castling & 0x01)
-        if (board->position[4] != (king|black) ||
-            board->position[0] != (rook|black))
-            board->castling &= 0xFE;
 
     /* Castle */
     if (castled != -1)
@@ -967,13 +958,39 @@ void move_san(Board* board, char* move)
         {
             record->piece_taken = board->position[found->en_p_taken];
             board->position[found->en_p_taken] = 0;
-            board->en_p = -1;
         }
-        if (sourcepiece & pawn && record->piece_taken)
-            record->src_file = move_to % 8;
+        board->halfmoves++;
+        if (!found->made_en_p)
+            board->en_p = -1;
+        if (sourcepiece & pawn)
+        {
+            board->halfmoves = 0;
+            if (record->piece_taken)
+                record->src_file = move_to % 8;
+        }
+        if (record->piece_taken)
+            board->halfmoves = 0;
         if (found->promotion)
             board->position[destrank * 8 + destfile] = promotionpiece;
         board->history_count++;
     }
     free(found);
+
+    /* Update castling permissions */
+    if (board->castling & 0x08)
+        if (board->position[60] != (king|white) ||
+            board->position[63] != (rook|white))
+            board->castling &= 0xF7;
+    if (board->castling & 0x04)
+        if (board->position[60] != (king|white) ||
+            board->position[56] != (rook|white))
+            board->castling &= 0xFB;
+    if (board->castling & 0x02)
+        if (board->position[4] != (king|black) ||
+            board->position[7] != (rook|black))
+            board->castling &= 0xFD;
+    if (board->castling & 0x01)
+        if (board->position[4] != (king|black) ||
+            board->position[0] != (rook|black))
+            board->castling &= 0xFE;
 }

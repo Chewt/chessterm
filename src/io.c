@@ -103,7 +103,7 @@ int string_to_int(char* str)
     {
         int temp = str[i] - '0';
         int j;
-        for (j = 0; j < digits - i - 1; ++i)
+        for (j = 0; j < digits - i - 1; ++j)
             temp *= 10;
         num += temp;
     }
