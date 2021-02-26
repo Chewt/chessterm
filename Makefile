@@ -5,8 +5,8 @@ SOURCES = $(wildcard $(SRCDIR)/*.c)
 OBJECTS = $(SOURCES:$(SRCDIR)%.c=$(OBJDIR)%.o)
 INCLUDES = $(SOURCES:$(SRCDIR)%.c=$(INCLUDEDIR)%.h)
 UNIDEPS = include/settings.h
-CFLAGS = -I$(INCLUDEDIR) -g
-CC = cc
+CFLAGS = -I$(INCLUDEDIR) -g -std=c99
+CC = gcc
 TARGET = chessterm
 
 .PHONY: all 

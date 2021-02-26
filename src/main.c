@@ -15,12 +15,11 @@ int main(int argc, char** argv)
     int running = 1;
     while (running)
     {
-        char* move = NULL;
+        char move[50];
         printf(": ");
-        scanf("%ms", &move);
+        scanf("%30s", &move);
         if (!strcmp(move, "exit"))
         {
-            free(move);
             break;
         }
         else if (!strcmp(move, "status"))
@@ -32,15 +31,19 @@ int main(int argc, char** argv)
         {
             char* fen = export_fen(&board);
             printf("%s\n", fen);
-            free(fen);
             continue;
         }
         move_san(&board, move);
         print_board(&board);
-        free(move);
-        if (is_checkmate(&board))
+        int game_win = is_gameover(&board);
+        if (game_win == 1)
         {
             printf("Checkmate!\n");
+            running = 0;
+        }
+        else if (game_win == 2)
+        {
+            printf("Stalemate!\n");
             running = 0;
         }
     }
