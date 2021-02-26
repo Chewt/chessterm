@@ -18,7 +18,7 @@ Features that still need to be added
  - Detect 3-fold repetition stalemate
  - load/save FEN from/to files
  - ~~export~~/import PGN format
- - Flip view of the board between black and white perspective
+ - ~~Flip view of the board between black and white perspective~~
  - Networking
 ## Usage
 A test implementation has been provided. Simply run  

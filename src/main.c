@@ -12,6 +12,7 @@ int main(int argc, char** argv)
     printf("\n");
     print_board(&board);
     int running = 1;
+    int flipped = 0;
     while (running)
     {
         char move[50];
@@ -41,8 +42,20 @@ int main(int argc, char** argv)
             free(pgn);
             continue;
         }
+        else if (!strcmp(move, "flip"))
+        {
+            flipped = !flipped;
+            if (flipped)
+                print_flipped(&board);
+            else
+                print_board(&board);
+            continue;
+        }
         move_san(&board, move);
-        print_board(&board);
+        if (flipped)
+            print_flipped(&board);
+        else
+            print_board(&board);
 
         int game_win = is_gameover(&board);
         if (game_win == 1)

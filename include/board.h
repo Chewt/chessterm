@@ -31,6 +31,7 @@ typedef struct
     uint8_t piece_taken;
     uint8_t gave_check;
     uint8_t game_over;
+    uint8_t promotion;
 } Move;
 
 typedef struct 

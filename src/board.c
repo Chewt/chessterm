@@ -4,9 +4,9 @@
 #include "board.h"
 
 #ifdef DEBUG
-#define print_error(...) printf(__VA_ARGS__)
+#define print_debug(...) printf(__VA_ARGS__)
 #else
-#define print_error(...) ((void)0)
+#define print_debug(...) ((void)0)
 #endif
 
 int is_attacked(Board* board, int square);
@@ -34,6 +34,7 @@ void empty_board(Board* board)
         board->history[i].gave_check = 0;
         board->history[i].castle = -1;
         board->history[i].game_over = 0;
+        board->history[i].promotion = 0;
     }
 }
 
@@ -697,8 +698,33 @@ int check_stalemate(Board* board, int which_color)
 {
     int king_attacked = (which_color) ? board->bking_pos : board->wking_pos;
     uint8_t color = board->position[king_attacked] & 0x80;
+    print_debug("KING: %d\n", king_attacked);
     if (is_attacked(board, king_attacked))
         return 0;
+    if (is_legal(board, king_attacked + UP, king_attacked))
+        return 0;
+    print_debug("can move up\n");
+    if (is_legal(board, king_attacked + UPR, king_attacked))
+        return 0;
+    print_debug("upr\n");
+    if (is_legal(board, king_attacked + UPL, king_attacked))
+        return 0;
+    print_debug("upl\n");
+    if (is_legal(board, king_attacked + LEFT, king_attacked))
+        return 0;
+    print_debug("left\n");
+    if (is_legal(board, king_attacked + RIGHT, king_attacked))
+        return 0;
+    print_debug("right\n");
+    if (is_legal(board, king_attacked + DOWNL, king_attacked))
+        return 0;
+    print_debug("downl\n");
+    if (is_legal(board, king_attacked + DOWNR, king_attacked))
+        return 0;
+    print_debug("downr\n");
+    if (is_legal(board, king_attacked + DOWN, king_attacked))
+        return 0;
+    print_debug("down\n");
     int i;
     for (i = 0; i < 64; i++ )
     {
@@ -722,37 +748,37 @@ int check_stalemate(Board* board, int which_color)
 int check_checkmate(Board* board, int which_color)
 {
     int king_attacked = (which_color) ? board->bking_pos : board->wking_pos;
-    print_error("KING: %d\n", king_attacked);
+    print_debug("KING: %d\n", king_attacked);
     if (!is_attacked(board, king_attacked))
         return 0;
-    print_error("is attacked\n");
+    print_debug("is attacked\n");
     uint8_t color = board->position[king_attacked] & 0x80;
     int i;
     if (is_legal(board, king_attacked + UP, king_attacked))
         return 0;
-    print_error("can move up\n");
+    print_debug("can move up\n");
     if (is_legal(board, king_attacked + UPR, king_attacked))
         return 0;
-    print_error("upr\n");
+    print_debug("upr\n");
     if (is_legal(board, king_attacked + UPL, king_attacked))
         return 0;
-    print_error("upl\n");
+    print_debug("upl\n");
     if (is_legal(board, king_attacked + LEFT, king_attacked))
         return 0;
-    print_error("left\n");
+    print_debug("left\n");
     if (is_legal(board, king_attacked + RIGHT, king_attacked))
         return 0;
-    print_error("right\n");
+    print_debug("right\n");
     if (is_legal(board, king_attacked + DOWNL, king_attacked))
         return 0;
-    print_error("downl\n");
+    print_debug("downl\n");
     if (is_legal(board, king_attacked + DOWNR, king_attacked))
         return 0;
-    print_error("downr\n");
+    print_debug("downr\n");
     if (is_legal(board, king_attacked + DOWN, king_attacked))
         return 0;
-    print_error("down\n");
-    print_error("can't move\n");
+    print_debug("down\n");
+    print_debug("can't move\n");
     for (i = 0; i < 64; ++i)
     {
         if (i != king_attacked)
@@ -766,11 +792,11 @@ int check_checkmate(Board* board, int which_color)
                         (all_pieces & (~king)) | color);
                 if (founds->num_found)
                 {
-                    print_error("%d can be blocked\n", i);
+                    print_debug("%d can be blocked\n", i);
                     int j;
                     for (j = 0; j < founds->num_found; ++j)
-                        print_error("%d ", founds->squares[j]);
-                    print_error("\n");
+                        print_debug("%d ", founds->squares[j]);
+                    print_debug("\n");
                     free(founds);
                     return 0;
                 }
@@ -786,10 +812,13 @@ int is_gameover(Board* board)
 {
 
     int game_over = check_checkmate(board, board->to_move);
+    print_debug("was checkmate? %d\n", game_over);
     if (!game_over)
         game_over = check_stalemate(board, board->to_move);
+    print_debug("was stalemate? %d\n", game_over);
     if (!game_over && board->halfmoves >= 100)
         game_over = 2;
+    print_debug("was 50-move? %d\n", game_over);
     
     board->history[board->history_count - 1].game_over = game_over;
     return game_over;
@@ -971,7 +1000,10 @@ void move_san(Board* board, char* move)
         if (record->piece_taken)
             board->halfmoves = 0;
         if (found->promotion)
+        {
             board->position[destrank * 8 + destfile] = promotionpiece;
+            record->promotion = promotionpiece;
+        }
         board->history_count++;
     }
     free(found);
