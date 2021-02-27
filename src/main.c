@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
 #include "chessterm.h"
 
 int main(int argc, char** argv)
@@ -56,6 +57,18 @@ int main(int argc, char** argv)
             print_flipped(&board);
         else
             print_board(&board);
+        
+#ifdef STRESSTEST
+        clock_t t;
+        t = clock();
+        int i;
+        for (i = 0; i < 1000000; ++i)
+            is_gameover(&board);
+        t = clock() - t;
+        double time_taken = ((double)t)/CLOCKS_PER_SEC;
+        printf("Stress test took %f seconds\n", time_taken);
+#endif
+
 
         int game_win = is_gameover(&board);
         if (game_win == 1)
