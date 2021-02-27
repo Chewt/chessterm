@@ -71,6 +71,7 @@ void default_board(Board* board)
 
 void move_square(Board* board, int dest, int src)
 {
+    print_debug("DEST: %d, SRC: %d\n", dest, src);
     if (board->position[src] == (king | black))
         board->bking_pos = dest;
     if (board->position[src] == (king | white))
@@ -698,6 +699,37 @@ int check_stalemate(Board* board, int which_color)
     print_debug("KING: %d\n", king_attacked);
     if (is_attacked(board, king_attacked))
         return 0;
+    int i;
+    int p = 0, b = 0, n = 0, r = 0, q = 0, k = 0;
+    int bp = 0, bb = 0, bn = 0, br = 0, bq = 0, bk = 0;
+    for(i = 0; i < 64; ++i)
+    {
+        uint8_t piece = board->position[i];
+        if (piece & pawn)
+            (piece & 0x80) ? bp++ : p++;
+        else if (piece & bishop)
+            (piece & 0x80) ? bb++ : b++;
+        else if (piece & knight)
+            (piece & 0x80) ? bn++ : n++;
+        else if (piece & rook)
+            (piece & 0x80) ? br++ : r++;
+        else if (piece & queen)
+            (piece & 0x80) ? bq++ : q++;
+        else if (piece & king)
+            (piece & 0x80) ? bk++ : k++;
+    }
+    if (!(p || r || q || bp || br || bq))
+    {
+        int stale_white = 0;
+        int stale_black = 0;
+        if ((!n && b <= 1) || (!b && n <= 1))
+            stale_white = 1;
+        if ((!bn && bb <= 1) || (!bb && bn <= 1))
+            stale_black = 1;
+        if (stale_black && stale_white)
+            return 2;
+    }
+
     if (is_legal(board, king_attacked + UP, king_attacked))
         return 0;
     print_debug("can move up\n");
@@ -722,7 +754,6 @@ int check_stalemate(Board* board, int which_color)
     if (is_legal(board, king_attacked + DOWN, king_attacked))
         return 0;
     print_debug("down\n");
-    int i;
     for (i = 0; i < 64; i++ )
     {
         if ((board->position[i] & 0x80) != color || i != king_attacked)
@@ -808,16 +839,21 @@ int check_checkmate(Board* board, int which_color)
 int is_gameover(Board* board)
 {
 
+    print_debug("WKING_POS BEG %d\n", board->wking_pos);
     int game_over = check_checkmate(board, board->to_move);
+    print_debug("WKING_POS cm %d\n", board->wking_pos);
     print_debug("was checkmate? %d\n", game_over);
     if (!game_over)
         game_over = check_stalemate(board, board->to_move);
+    print_debug("WKING_POS sm %d\n", board->wking_pos);
     print_debug("was stalemate? %d\n", game_over);
     if (!game_over && board->halfmoves >= 100)
         game_over = 2;
     print_debug("was 50-move? %d\n", game_over);
     
-    board->history[board->history_count - 1].game_over = game_over;
+    if (board->history_count > 0)
+        board->history[board->history_count - 1].game_over = game_over;
+    print_debug("WKING_POS END %d\n", board->wking_pos);
     return game_over;
 }
 
@@ -840,6 +876,7 @@ void move_piece(Board* board, Move* move)
     /* Castle */
     if (move->castle != -1)
     {
+        print_debug("CASTLING\n");
         int success = castle(board, move->castle);
         if (!success)
             printf("Move not valid.\n");
@@ -862,6 +899,7 @@ void move_piece(Board* board, Move* move)
     /* Get list of valid moves */
     struct found* found;
     found = find_attacker(board, move->dest, move->src_piece);
+    print_debug("NUM FOUND: %d\n", found->num_found);
 
     /* Determine which move from list to choose */
     int i;
@@ -920,6 +958,7 @@ void move_piece(Board* board, Move* move)
         printf("Move not valid.\n");
     else
     {
+        print_debug("HERE\n");
         Move* record = &(board->history[board->history_count]);
         record->dest = move->dest;
         record->src_piece = move->src_piece;
@@ -1046,7 +1085,8 @@ void move_san(Board* board, char* move)
     }
     if (board->to_move == 1)
         this_move.promotion |= black;
-    this_move.dest = destrank * 8 + destfile;
+    if (destrank != -1 && destfile != -1)
+        this_move.dest = destrank * 8 + destfile;
 
     move_piece(board, &this_move);
 }
