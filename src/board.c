@@ -94,6 +94,7 @@ struct found
     int en_p_taken;
     int made_en_p;
     int promotion;
+    int castle;
 };
 
 enum Direction
@@ -164,53 +165,61 @@ void check_knight(Board* board, int square, uint8_t piece, struct found* founds)
     founds->en_p_taken = -1;
     founds->promotion = 0;
     if (square + UP + UPL >= 0 && square + UP + UPL <= 63)
-        if (board->position[square + UP + UPL] == piece)
-        {
-            founds->num_found++;
-            founds->squares[founds->num_found - 1] = square + UP + UPL;
-        }
+        if (square / 8 > 1 && square % 8 > 0)
+            if (board->position[square + UP + UPL] == piece)
+            {
+                founds->num_found++;
+                founds->squares[founds->num_found - 1] = square + UP + UPL;
+            }
     if (square + LEFT + UPL >= 0 && square + LEFT + UPL <= 63)
-        if (board->position[square + LEFT + UPL] == piece)
-        {
-            founds->num_found++;
-            founds->squares[founds->num_found - 1] = square + LEFT + UPL;
-        }
+        if (square / 8 > 0 && square % 8 > 1)
+            if (board->position[square + LEFT + UPL] == piece)
+            {
+                founds->num_found++;
+                founds->squares[founds->num_found - 1] = square + LEFT + UPL;
+            }
     if (square + UP + UPR >= 0 && square + UP + UPR <= 63)
-        if (board->position[square + UP + UPR] == piece)
-        {
-            founds->num_found++;
-            founds->squares[founds->num_found - 1] = square + UP + UPR;
-        }
+        if (square / 8 > 1 && square % 8 < 7)
+            if (board->position[square + UP + UPR] == piece)
+            {
+                founds->num_found++;
+                founds->squares[founds->num_found - 1] = square + UP + UPR;
+            }
     if (square + RIGHT + UPR >= 0 && square + RIGHT + UPR <= 63)
-        if (board->position[square + RIGHT + UPR] == piece)
-        {
-            founds->num_found++;
-            founds->squares[founds->num_found - 1] = square + RIGHT + UPR;
-        }
+        if (square / 8 > 0 && square % 8 < 6)
+            if (board->position[square + RIGHT + UPR] == piece)
+            {
+                founds->num_found++;
+                founds->squares[founds->num_found - 1] = square + RIGHT + UPR;
+            }
     if (square + LEFT + DOWNL >= 0 && square + LEFT + DOWNL <= 63)
-        if (board->position[square + LEFT + DOWNL] == piece)
-        {
-            founds->num_found++;
-            founds->squares[founds->num_found - 1] = square + LEFT + DOWNL;
-        }
+        if (square / 8 < 7 && square % 8 > 1)
+            if (board->position[square + LEFT + DOWNL] == piece)
+            {
+                founds->num_found++;
+                founds->squares[founds->num_found - 1] = square + LEFT + DOWNL;
+            }
     if (square + DOWN + DOWNL >= 0 && square + DOWN + DOWNL <= 63)
-        if (board->position[square + DOWN + DOWNL] == piece)
-        {
-            founds->num_found++;
-            founds->squares[founds->num_found - 1] = square + DOWN + DOWNL;
-        }
+        if (square / 8 < 6 && square % 8 > 0)
+            if (board->position[square + DOWN + DOWNL] == piece)
+            {
+                founds->num_found++;
+                founds->squares[founds->num_found - 1] = square + DOWN + DOWNL;
+            }
     if (square + RIGHT + DOWNR >= 0 && square + RIGHT + DOWNR <= 63)
-        if (board->position[square + RIGHT + DOWNR] == piece)
-        {
-            founds->num_found++;
-            founds->squares[founds->num_found - 1] = square + RIGHT + DOWNR;
-        }
+        if (square / 8 < 7 && square % 8 < 6)
+            if (board->position[square + RIGHT + DOWNR] == piece)
+            {
+                founds->num_found++;
+                founds->squares[founds->num_found - 1] = square + RIGHT + DOWNR;
+            }
     if (square + DOWN + DOWNR >= 0 && square + DOWN + DOWNR <= 63)
-        if (board->position[square + DOWN + DOWNR] == piece)
-        {
-            founds->num_found++;
-            founds->squares[founds->num_found - 1] = square + DOWN + DOWNR;
-        }
+        if (square / 8 < 6 && square % 8 < 7)
+            if (board->position[square + DOWN + DOWNR] == piece)
+            {
+                founds->num_found++;
+                founds->squares[founds->num_found - 1] = square + DOWN + DOWNR;
+            }
 }
 
 void check_rook(Board* board, int square, uint8_t piece, struct found* founds)
@@ -539,6 +548,50 @@ int is_attacked(Board* board, int square)
     return check;
 }
 
+int castle(Board* board, int side)
+{
+    enum {KINGSIDE, QUEENSIDE};
+    if (side == KINGSIDE)
+    {
+        if (!board->to_move && board->castling & 0x08)
+        {
+            if (!(board->position[61] | board->position[62]))
+                if(   !is_attacked(board, 60) 
+                   && !is_attacked(board, 61) 
+                   && !is_attacked(board, 62))
+                    return 1;
+        }
+        else if(board->to_move && board->castling & 0x02)
+        {
+            if (!(board->position[5] | board->position[6]))
+                if(   !is_attacked(board, 4) 
+                   && !is_attacked(board, 5) 
+                   && !is_attacked(board, 6))
+                    return 1;
+        }
+    }
+    else if (side == QUEENSIDE)
+    {
+        if (!board->to_move && board->castling & 0x04)
+        {
+            if (!(board->position[57]|board->position[58]|board->position[59]))
+                if(   !is_attacked(board, 60) 
+                   && !is_attacked(board, 59) 
+                   && !is_attacked(board, 58))
+                    return 1;
+        }
+        else if(board->to_move && board->castling & 0x01)
+        {
+            if (!(board->position[1]|board->position[2]|board->position[3]))
+                if(   !is_attacked(board, 4) 
+                   && !is_attacked(board, 3) 
+                   && !is_attacked(board, 2))
+                    return 1;
+        }
+    }
+    return 0;
+}
+
 void check_king(Board* board, int square, uint8_t piece, struct found* founds)
 {
     if (is_attacked(board, square))
@@ -583,6 +636,20 @@ void check_king(Board* board, int square, uint8_t piece, struct found* founds)
         founds->num_found++;
         founds->squares[founds->num_found - 1] = square + DOWN;
     }
+    if (square == 62 || square == 6)
+        if(castle(board, 0))
+        {
+            founds->castle = 0;
+            founds->num_found++;
+            founds->squares[founds->num_found - 1] = square - 2;
+        }
+    else if (square == 58 || square == 2)
+        if(castle(board, 1))
+        {
+            founds->castle = 1;
+            founds->num_found++;
+            founds->squares[founds->num_found - 1] = square + 2;
+        }
 }
 
 struct found* find_attacker(Board* board, int square, uint8_t piece)
@@ -593,10 +660,12 @@ struct found* find_attacker(Board* board, int square, uint8_t piece)
     src.en_p_taken = -1;
     src.promotion = 0;
     src.made_en_p = 0;
+    src.castle = -1;
     founds->num_found = 0;
     founds->en_p_taken = -1;
     founds->promotion = 0;
     founds->made_en_p = 0;
+    founds->castle = -1;
     uint8_t color = 0x80 & piece;
     if (board->position[square] && !((board->position[square] & black) ^
                 (board->to_move << 7)))
@@ -618,78 +687,6 @@ struct found* find_attacker(Board* board, int square, uint8_t piece)
         check_pawn(board, square, pawn|color, &src);
     check_for_check(board, square, founds, &src);
     return founds;
-}
-
-int castle(Board* board, int side)
-{
-    enum {KINGSIDE, QUEENSIDE};
-    if (side == KINGSIDE)
-    {
-        if (!board->to_move && board->castling & 0x08)
-        {
-            if (!(board->position[61] | board->position[62]))
-                if(   !is_attacked(board, 60) 
-                   && !is_attacked(board, 61) 
-                   && !is_attacked(board, 62))
-                {
-                    move_square(board, 62, 60);
-                    board->position[61] = board->position[63];
-                    board->position[63] = 0;
-                    board->wking_pos = 62;
-                    board->castling &= 0xF3;
-                    return 1;
-                }
-        }
-        else if(board->to_move && board->castling & 0x02)
-        {
-            if (!(board->position[5] | board->position[6]))
-                if(   !is_attacked(board, 4) 
-                   && !is_attacked(board, 5) 
-                   && !is_attacked(board, 6))
-                {
-                    move_square(board, 6, 4);
-                    board->position[5] = board->position[7];
-                    board->position[7] = 0;
-                    board->bking_pos = 6;
-                    board->castling &= 0xFC;
-                    return 1;
-                }
-        }
-    }
-    else if (side == QUEENSIDE)
-    {
-        if (!board->to_move && board->castling & 0x04)
-        {
-            if (!(board->position[57]|board->position[58]|board->position[59]))
-                if(   !is_attacked(board, 60) 
-                   && !is_attacked(board, 59) 
-                   && !is_attacked(board, 58))
-                {
-                    move_square(board, 58, 60);
-                    board->position[59] = board->position[56];
-                    board->position[56] = 0;
-                    board->wking_pos = 58;
-                    board->castling &= 0xF3;
-                    return 1;
-                }
-        }
-        else if(board->to_move && board->castling & 0x01)
-        {
-            if (!(board->position[1]|board->position[2]|board->position[3]))
-                if(   !is_attacked(board, 4) 
-                   && !is_attacked(board, 3) 
-                   && !is_attacked(board, 2))
-                {
-                    move_square(board, 2, 4);
-                    board->position[3] = board->position[0];
-                    board->position[0] = 0;
-                    board->bking_pos = 2;
-                    board->castling &= 0xFC;
-                    return 1;
-                }
-        }
-    }
-    return 0;
 }
 
 int check_stalemate(Board* board, int which_color)
@@ -873,28 +870,6 @@ void stress_test(Board* board, int times)
 
 void move_piece(Board* board, Move* move)
 {
-    /* Castle */
-    if (move->castle != -1)
-    {
-        print_debug("CASTLING\n");
-        int success = castle(board, move->castle);
-        if (!success)
-            printf("Move not valid.\n");
-        else
-        {
-            board->history[board->history_count].castle = move->castle;
-            board->history[board->history_count].src_piece = 0;
-            uint8_t curr_king;
-            if (board->to_move)
-                curr_king = board->bking_pos;
-            else
-                curr_king = board->wking_pos;
-            if (is_attacked(board, curr_king))
-                board->history[board->history_count].gave_check = 1;
-            board->history_count++;
-        }
-        return;
-    }
 
     /* Get list of valid moves */
     struct found* found;
@@ -958,16 +933,86 @@ void move_piece(Board* board, Move* move)
         printf("Move not valid.\n");
     else
     {
-        print_debug("HERE\n");
         Move* record = &(board->history[board->history_count]);
-        record->dest = move->dest;
-        record->src_piece = move->src_piece;
-        if (rank_match)
-            record->src_rank = move->src_rank;
-        if (file_match)
-            record->src_file = move->src_file;
-        record->piece_taken = board->position[move->dest];
-        move_square(board, move->dest, move_to);
+        if (move->castle != -1)
+        {
+            print_debug("CASTLING\n");
+            int success = castle(board, move->castle);
+            if (!success)
+                printf("Move not valid.\n");
+            else
+            {
+                if (move->castle == 0)
+                {
+                    if (board->to_move)
+                    {
+                        move_square(board, 6, 4);
+                        move_square(board, 5, 7);
+                        board->castling &= 0xFC;
+                    }
+                    else
+                    {
+                        move_square(board, 62, 60);
+                        move_square(board, 61, 63);
+                        board->castling &= 0xF3;
+                    }
+                }
+                else if (move->castle == 1)
+                {
+                    if (board->to_move)
+                    {
+                        move_square(board, 2, 4);
+                        move_square(board, 3, 0);
+                        board->castling &= 0xFC;
+                    }
+                    else
+                    {
+                        move_square(board, 58, 60);
+                        move_square(board, 59, 56);
+                        board->castling &= 0xF3;
+                    }
+                }
+                record->castle = move->castle;
+                record->src_piece = 0;
+            }
+        }
+        else
+        {
+            record->dest = move->dest;
+            record->src_piece = move->src_piece;
+            if (rank_match)
+                record->src_rank = move->src_rank;
+            if (file_match)
+                record->src_file = move->src_file;
+            record->piece_taken = board->position[move->dest];
+            move_square(board, move->dest, move_to);
+            if (move->src_piece == (king | black))
+                board->bking_pos = move->dest;
+            else if (move->src_piece == king)
+                board->wking_pos = move->dest;
+            if (found->en_p_taken != -1)
+            {
+                record->piece_taken = board->position[found->en_p_taken];
+                board->position[found->en_p_taken] = 0;
+            }
+            board->halfmoves++;
+            if (!found->made_en_p)
+                board->en_p = -1;
+            if (move->src_piece & pawn)
+            {
+                board->halfmoves = 0;
+                if (record->piece_taken)
+                    record->src_file = move_to % 8;
+            }
+            if (record->piece_taken)
+                board->halfmoves = 0;
+            if (found->promotion)
+            {
+                board->position[move->dest] = move->promotion;
+                record->promotion = move->promotion;
+            }
+        }
+        board->history_count++;
         board->to_move = !board->to_move;
         uint8_t curr_king;
         if (board->to_move)
@@ -976,32 +1021,6 @@ void move_piece(Board* board, Move* move)
             curr_king = board->wking_pos;
         if (is_attacked(board, curr_king))
             record->gave_check = 1;
-        if (move->src_piece == (king | black))
-            board->bking_pos = move->dest;
-        else if (move->src_piece == king)
-            board->wking_pos = move->dest;
-        if (found->en_p_taken != -1)
-        {
-            record->piece_taken = board->position[found->en_p_taken];
-            board->position[found->en_p_taken] = 0;
-        }
-        board->halfmoves++;
-        if (!found->made_en_p)
-            board->en_p = -1;
-        if (move->src_piece & pawn)
-        {
-            board->halfmoves = 0;
-            if (record->piece_taken)
-                record->src_file = move_to % 8;
-        }
-        if (record->piece_taken)
-            board->halfmoves = 0;
-        if (found->promotion)
-        {
-            board->position[move->dest] = move->promotion;
-            record->promotion = move->promotion;
-        }
-        board->history_count++;
         if (board->to_move)
             board->moves++;
     }
@@ -1010,19 +1029,19 @@ void move_piece(Board* board, Move* move)
     /* Update castling permissions */
     if (board->castling & 0x08)
         if (board->position[60] != (king|white) ||
-            board->position[63] != (rook|white))
+                board->position[63] != (rook|white))
             board->castling &= 0xF7;
     if (board->castling & 0x04)
         if (board->position[60] != (king|white) ||
-            board->position[56] != (rook|white))
+                board->position[56] != (rook|white))
             board->castling &= 0xFB;
     if (board->castling & 0x02)
         if (board->position[4] != (king|black) ||
-            board->position[7] != (rook|black))
+                board->position[7] != (rook|black))
             board->castling &= 0xFD;
     if (board->castling & 0x01)
         if (board->position[4] != (king|black) ||
-            board->position[0] != (rook|black))
+                board->position[0] != (rook|black))
             board->castling &= 0xFE;
 }
 
@@ -1041,7 +1060,7 @@ void move_san(Board* board, char* move)
     int ind = 0;
     char curr_char = move[ind];
     if (curr_char == 'B')
-         this_move.src_piece = bishop;
+        this_move.src_piece = bishop;
     else if (curr_char == 'N')
         this_move.src_piece = knight;
     else if (curr_char == 'R')
@@ -1058,9 +1077,17 @@ void move_san(Board* board, char* move)
     while (curr_char)
     {
         if (!strcmp(move, "O-O"))
+        {
             this_move.castle = 0;
+            this_move.src_piece = king;
+            this_move.dest = (board->to_move) ? 6 : 62;
+        }
         if (!strcmp(move, "O-O-O"))
+        {
             this_move.castle = 1;
+            this_move.src_piece = king;
+            this_move.dest = (board->to_move) ? 2 : 58;
+        }
         if (curr_char == 'B')
             this_move.promotion = bishop;
         else if (curr_char == 'N')

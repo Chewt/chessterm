@@ -24,21 +24,18 @@ struct found
 Move Erandom_move(Board* board)
 {
     Move move = default_move;
-    int start_square = rand() % 64;
-    int i;
-    uint8_t pieces = all_pieces;
-    pieces |= (board->to_move) ? black : white;
-    for (i = 0; i < 64; ++i)
+    while (move.dest == -1)
     {
-        struct found* found_moves = find_attacker(board, 
-                (i + start_square) % 63, pieces);
+        int start_square = rand() % 64;
+        uint8_t pieces = all_pieces;
+        pieces |= (board->to_move) ? black : white;
+        struct found* found_moves = find_attacker(board, start_square, pieces);
         if (found_moves->num_found)
         {
-            move.dest = (i + start_square) % 63;
+            move.dest = start_square;
             move.src_piece = board->position[found_moves->squares[0]];
-            free(found_moves);
-            return move;
         }
+        free(found_moves);
     }
     return move;
 }
