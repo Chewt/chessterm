@@ -12,6 +12,7 @@ The current functionality includes:
  - Validating any inputted moves
  - exporting FEN and PGN of the game
  - Detection of checkmate and stalemate
+ - Basic engine that plays random moves
 ## Roadmap
 Features that still need to be added
  - ~~Detect Stalemate~~
@@ -40,6 +41,8 @@ a prompt. You can type
 to exit the program,  
 `: flip`  
 to switch perspectives between black and white  
+`: engine`  
+to play against the random move engine  
 `: fen`  
 to print the current position's FEN to the screen  
 `: pgn`   
