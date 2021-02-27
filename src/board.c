@@ -77,9 +77,6 @@ void move_square(Board* board, int dest, int src)
         board->wking_pos = dest;
     board->position[dest] = board->position[src];
     board->position[src] = 0;
-    if (board->to_move)
-        board->moves++;
-    board->to_move = !board->to_move;
 }
 
 void move_verbose(Board* board, char* dest, char* src)
@@ -121,7 +118,7 @@ int is_legal(Board* board, int dest, int src)
     int j;
     for (j = 0; j < 64; ++j)
         t_board.position[j] = board->position[j];
-    t_board.to_move = !board->to_move;
+    t_board.to_move = board->to_move;
     t_board.en_p = board->en_p;
     t_board.bking_pos = board->bking_pos;
     t_board.wking_pos = board->wking_pos;
@@ -838,73 +835,17 @@ void stress_test(Board* board, int times)
     }
 }
 
-void move_san(Board* board, char* move)
+void move_piece(Board* board, Move* move)
 {
-    uint8_t sourcepiece = pawn;
-    uint8_t promotionpiece = queen;
-    int sourcerank = -1;
-    int sourcefile = -1;
-    int destrank = -1;
-    int destfile = -1;
-    int castled = -1;
-    int ind = 0;
-    char curr_char = move[ind];
-    if (curr_char == 'B')
-        sourcepiece = bishop;
-    else if (curr_char == 'N')
-        sourcepiece = knight;
-    else if (curr_char == 'R')
-        sourcepiece = rook;
-    else if (curr_char == 'Q')
-        sourcepiece = queen;
-    else if (curr_char == 'K')
-        sourcepiece = king;
-    else
-        destfile = curr_char - 'a';
-    if (board->to_move == 1)
-        sourcepiece |= black;
-    curr_char = move[++ind];
-    while (curr_char)
-    {
-        if (!strcmp(move, "O-O"))
-            castled = 0;
-        if (!strcmp(move, "O-O-O"))
-            castled = 1;
-        if (curr_char == 'B')
-            promotionpiece = bishop;
-        else if (curr_char == 'N')
-            promotionpiece = knight;
-        else if (curr_char == 'R')
-            promotionpiece = rook;
-        else if (curr_char == 'Q')
-            promotionpiece = queen;
-        if (curr_char <= 'h' && curr_char >= 'a')
-        {
-            if (destfile != -1)
-                sourcefile = destfile;
-            destfile = curr_char - 'a';
-        }
-        else if (curr_char <= '9' && curr_char >= '0')
-        {
-            if (destrank != -1)
-                sourcerank = destrank;
-            destrank = '8' - curr_char;
-        }
-        curr_char = move[++ind];
-    }
-    if (board->to_move == 1)
-        promotionpiece |= black;
-
-
     /* Castle */
-    if (castled != -1)
+    if (move->castle != -1)
     {
-        int success = castle(board, castled);
+        int success = castle(board, move->castle);
         if (!success)
             printf("Move not valid.\n");
         else
         {
-            board->history[board->history_count].castle = castled;
+            board->history[board->history_count].castle = move->castle;
             board->history[board->history_count].src_piece = 0;
             uint8_t curr_king;
             if (board->to_move)
@@ -920,35 +861,49 @@ void move_san(Board* board, char* move)
 
     /* Get list of valid moves */
     struct found* found;
-    found = find_attacker(board, destrank * 8 + destfile, sourcepiece);
+    found = find_attacker(board, move->dest, move->src_piece);
 
     /* Determine which move from list to choose */
     int i;
     int move_to = -1;
+    int file_match = 0;
+    int rank_match = 0;
     if (found->num_found)
     {
-        if (found->num_found > 1 && (sourcerank != -1 || sourcefile != -1))
+        if (found->num_found > 1 && 
+                (move->src_rank != -1 || move->src_file != -1))
         {
             for (i = 0; i < found->num_found; ++i)
             {
-                if (sourcerank != -1 && found->squares[i] / 8 == sourcerank)
+                if (move->src_rank != -1 &&
+                        found->squares[i] / 8 == move->src_rank)
                 {
+                    rank_match = 1;
                     if (move_to == -1)
                         move_to = found->squares[i];
                     else
                         move_to = -2;
                 }
-                if (sourcefile != -1 && found->squares[i] % 8 == sourcefile)
+                else
+                    rank_match = 0;
+                if (move->src_file != -1 &&
+                        found->squares[i] % 8 == move->src_file)
                 {
+                    file_match = 1;
                     if (move_to == -1)
                         move_to = found->squares[i];
                     else
                         move_to = -2;
                 }
+                else
+                    file_match = 0;
             }
         }
         else if (found->num_found == 1)
         {
+            if (!(move->src_piece & pawn))
+                move->src_file = -1;
+            move->src_rank = -1;
             if (move_to == -1)
                 move_to = found->squares[0];
             else
@@ -966,12 +921,15 @@ void move_san(Board* board, char* move)
     else
     {
         Move* record = &(board->history[board->history_count]);
-        record->dest = destrank * 8 + destfile;
-        record->src_piece = sourcepiece;
-        record->src_rank = sourcerank;
-        record->src_file = sourcefile;
-        record->piece_taken = board->position[destrank * 8 + destfile];
-        move_square(board, destrank * 8 + destfile, move_to);
+        record->dest = move->dest;
+        record->src_piece = move->src_piece;
+        if (rank_match)
+            record->src_rank = move->src_rank;
+        if (file_match)
+            record->src_file = move->src_file;
+        record->piece_taken = board->position[move->dest];
+        move_square(board, move->dest, move_to);
+        board->to_move = !board->to_move;
         uint8_t curr_king;
         if (board->to_move)
             curr_king = board->bking_pos;
@@ -979,10 +937,10 @@ void move_san(Board* board, char* move)
             curr_king = board->wking_pos;
         if (is_attacked(board, curr_king))
             record->gave_check = 1;
-        if (sourcepiece == (king | black))
-            board->bking_pos = destrank * 8 + destfile;
-        else if (sourcepiece == king)
-            board->wking_pos = destrank * 8 + destfile;
+        if (move->src_piece == (king | black))
+            board->bking_pos = move->dest;
+        else if (move->src_piece == king)
+            board->wking_pos = move->dest;
         if (found->en_p_taken != -1)
         {
             record->piece_taken = board->position[found->en_p_taken];
@@ -991,7 +949,7 @@ void move_san(Board* board, char* move)
         board->halfmoves++;
         if (!found->made_en_p)
             board->en_p = -1;
-        if (sourcepiece & pawn)
+        if (move->src_piece & pawn)
         {
             board->halfmoves = 0;
             if (record->piece_taken)
@@ -1001,10 +959,12 @@ void move_san(Board* board, char* move)
             board->halfmoves = 0;
         if (found->promotion)
         {
-            board->position[destrank * 8 + destfile] = promotionpiece;
-            record->promotion = promotionpiece;
+            board->position[move->dest] = move->promotion;
+            record->promotion = move->promotion;
         }
         board->history_count++;
+        if (board->to_move)
+            board->moves++;
     }
     free(found);
 
@@ -1025,4 +985,68 @@ void move_san(Board* board, char* move)
         if (board->position[4] != (king|black) ||
             board->position[0] != (rook|black))
             board->castling &= 0xFE;
+}
+
+void move_san(Board* board, char* move)
+{
+    Move this_move;
+    this_move.src_piece = pawn;
+    this_move.promotion = queen;
+    this_move.src_rank = -1;
+    this_move.src_file = -1;
+    this_move.dest = -1;
+    this_move.castle = -1;
+
+    int destrank = -1;
+    int destfile = -1;
+    int ind = 0;
+    char curr_char = move[ind];
+    if (curr_char == 'B')
+         this_move.src_piece = bishop;
+    else if (curr_char == 'N')
+        this_move.src_piece = knight;
+    else if (curr_char == 'R')
+        this_move.src_piece = rook;
+    else if (curr_char == 'Q')
+        this_move.src_piece = queen;
+    else if (curr_char == 'K')
+        this_move.src_piece = king;
+    else
+        destfile = curr_char - 'a';
+    if (board->to_move == 1)
+        this_move.src_piece |= black;
+    curr_char = move[++ind];
+    while (curr_char)
+    {
+        if (!strcmp(move, "O-O"))
+            this_move.castle = 0;
+        if (!strcmp(move, "O-O-O"))
+            this_move.castle = 1;
+        if (curr_char == 'B')
+            this_move.promotion = bishop;
+        else if (curr_char == 'N')
+            this_move.promotion = knight;
+        else if (curr_char == 'R')
+            this_move.promotion = rook;
+        else if (curr_char == 'Q')
+            this_move.promotion = queen;
+        if (curr_char <= 'h' && curr_char >= 'a')
+        {
+            if (destfile != -1)
+                this_move.src_file = destfile;
+            destfile = curr_char - 'a';
+        }
+        else if (curr_char <= '9' && curr_char >= '0')
+        {
+            if (destrank != -1)
+                this_move.src_rank = destrank;
+            destrank = '8' - curr_char;
+        }
+        curr_char = move[++ind];
+    }
+    if (board->to_move == 1)
+        this_move.promotion |= black;
+    this_move.dest = destrank * 8 + destfile;
+
+    move_piece(board, &this_move);
 }
