@@ -44,8 +44,8 @@ typedef struct
     uint8_t moves;
     uint8_t wking_pos;
     uint8_t bking_pos;
+    uint16_t history_count;
     Move history[MAX_HISTORY];
-    int8_t history_count;
 } Board;
 
 void default_board(Board* board);

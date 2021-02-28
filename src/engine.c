@@ -4,12 +4,14 @@
 const Move default_move = 
 {
     .dest = -1,
+    .src_rank = -1,
+    .src_file = -1,
     .castle = -1,
     .src_piece = pawn,
     .piece_taken = 0,
     .gave_check = 0,
     .game_over = 0,
-    .promotion = 0
+    .promotion = queen
 };
 
 struct found 
@@ -24,6 +26,7 @@ struct found
 Move Erandom_move(Board* board)
 {
     Move move = default_move;
+    move.promotion |= (board->to_move) ? black : white;
     while (move.dest == -1)
     {
         int start_square = rand() % 64;
@@ -32,8 +35,11 @@ Move Erandom_move(Board* board)
         struct found* found_moves = find_attacker(board, start_square, pieces);
         if (found_moves->num_found)
         {
+            int choice = rand() % found_moves->num_found;
             move.dest = start_square;
-            move.src_piece = board->position[found_moves->squares[0]];
+            move.src_piece = board->position[found_moves->squares[choice]];
+            move.src_rank = start_square / 8;
+            move.src_file = start_square % 8;
         }
         free(found_moves);
     }
