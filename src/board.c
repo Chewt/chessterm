@@ -881,35 +881,47 @@ void move_piece(Board* board, Move* move)
     int move_to = -1;
     int file_match = 0;
     int rank_match = 0;
+    printf("src_rank: %d, src_file: %d\n", move->src_rank, move->src_file);
     if (found->num_found)
     {
         if (found->num_found > 1 && 
                 (move->src_rank != -1 || move->src_file != -1))
         {
+            move_to = -2;
             for (i = 0; i < found->num_found; ++i)
             {
-                if (move->src_rank != -1 &&
-                        found->squares[i] / 8 == move->src_rank)
+                if (move->src_rank != -1)
                 {
-                    rank_match = 1;
-                    if (move_to == -1)
-                        move_to = found->squares[i];
+                    if (found->squares[i] / 8 == move->src_rank)
+                        rank_match = 1;
                     else
-                        move_to = -2;
+                        rank_match = 0;
                 }
-                else
-                    rank_match = 0;
-                if (move->src_file != -1 &&
-                        found->squares[i] % 8 == move->src_file)
+                if (move->src_file != -1)
                 {
-                    file_match = 1;
-                    if (move_to == -1)
-                        move_to = found->squares[i];
+                    if (found->squares[i] % 8 == move->src_file)
+                        file_match = 1;
                     else
-                        move_to = -2;
+                        file_match = 0;
                 }
-                else
-                    file_match = 0;
+                if (move->src_file != -1 && move->src_rank != -1)
+                {
+                    if (file_match && rank_match)
+                    {
+                        move_to = found->squares[i];
+                        break;
+                    }
+                }
+                else if (move->src_file != -1 && file_match)
+                {
+                    move_to = found->squares[i];
+                    break;
+                }
+                else if (move->src_rank != -1 && rank_match)
+                {
+                    move_to = found->squares[i];
+                    break;
+                }
             }
         }
         else if (found->num_found == 1)
@@ -1081,12 +1093,14 @@ void move_san(Board* board, char* move)
             this_move.castle = 0;
             this_move.src_piece = king;
             this_move.dest = (board->to_move) ? 6 : 62;
+            break;
         }
         if (!strcmp(move, "O-O-O"))
         {
             this_move.castle = 1;
             this_move.src_piece = king;
             this_move.dest = (board->to_move) ? 2 : 58;
+            break;
         }
         if (curr_char == 'B')
             this_move.promotion = bishop;
