@@ -2,7 +2,9 @@
 #define BOARD_H
 
 #include <stdint.h>
-#define MAX_HISTORY 500
+#define MAX_HISTORY 1000
+#define MAX_STORED_POSITIONS 102
+#define MAX_POSITION_STRING 82
 
 enum Pieces
 {
@@ -46,6 +48,8 @@ typedef struct
     uint8_t bking_pos;
     uint16_t history_count;
     Move history[MAX_HISTORY];
+    char position_hist[MAX_STORED_POSITIONS][MAX_POSITION_STRING];
+    uint16_t pos_count;
 } Board;
 
 void default_board(Board* board);

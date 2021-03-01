@@ -26,6 +26,7 @@ struct found
 Move Erandom_move(Board* board)
 {
     Move move = default_move;
+    move.promotion = pawn << (rand() % 4 + 1);
     move.promotion |= (board->to_move) ? black : white;
     while (move.dest == -1)
     {
@@ -38,8 +39,8 @@ Move Erandom_move(Board* board)
             int choice = rand() % found_moves->num_found;
             move.dest = start_square;
             move.src_piece = board->position[found_moves->squares[choice]];
-            move.src_rank = start_square / 8;
-            move.src_file = start_square % 8;
+            move.src_rank = found_moves->squares[choice] / 8;
+            move.src_file = found_moves->squares[choice] % 8;
         }
         free(found_moves);
     }

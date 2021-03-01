@@ -4,6 +4,7 @@
 #include "board.h"
 
 #ifdef DEBUG
+#include "io.h"
 #define print_debug(...) printf(__VA_ARGS__)
 #else
 #define print_debug(...) ((void)0)
@@ -11,6 +12,7 @@
 
 int is_attacked(Board* board, int square);
 int castle(Board* board, int side);
+void check_king(Board* board, int square, uint8_t piece, struct found* founds);
 
 void empty_board(Board* board)
 {
@@ -21,6 +23,7 @@ void empty_board(Board* board)
     board->moves = 1;
     board->bking_pos = 0;
     board->wking_pos = 0;
+    board->pos_count = 0;
     int i;
     for (i = 0; i < 64; ++i)
         board->position[i] = 0;
@@ -72,7 +75,6 @@ void default_board(Board* board)
 
 void move_square(Board* board, int dest, int src)
 {
-    print_debug("DEST: %d, SRC: %d\n", dest, src);
     if (board->position[src] == (king | black))
         board->bking_pos = dest;
     if (board->position[src] == (king | white))
@@ -415,32 +417,34 @@ void check_pawn(Board* board, int square, uint8_t piece, struct found* founds)
     }
     if (square / 8 == 4 && !board->position[square])
     {
-        int i;
         uint8_t looking_at = board->position[square + 2 * DOWN];
-        if (looking_at == piece && !(board->position[square + DOWN]))
-        {
-            founds->num_found++;
-            founds->squares[founds->num_found - 1] = square + 2 * DOWN;
-            board->en_p = square + DOWN;
-            founds->made_en_p = 1;
-        }
+        if (!(looking_at & 0x80))
+            if (looking_at == piece && !(board->position[square + DOWN]))
+            {
+                founds->num_found++;
+                founds->squares[founds->num_found - 1] = square + 2 * DOWN;
+                board->en_p = square + DOWN;
+                founds->made_en_p = 1;
+            }
     }
     else if (square / 8 == 3 && !board->position[square])
     {
-        int i;
         uint8_t looking_at = board->position[square + 2 * UP];
-        if (looking_at == piece && !(board->position[square + UP]))
-        {
-            founds->num_found++;
-            founds->squares[founds->num_found - 1] = square + 2 * UP;
-            board->en_p = square + UP;
-            founds->made_en_p = 1;
-        }
+        if (looking_at & 0x80)
+            if (looking_at == piece && !(board->position[square + UP]))
+            {
+                founds->num_found++;
+                founds->squares[founds->num_found - 1] = square + 2 * UP;
+                board->en_p = square + UP;
+                founds->made_en_p = 1;
+            }
     }
     else 
         founds->made_en_p = 0;
 
-    if (square / 8 == 0 || square / 8 == 7)
+    if (!(piece & 0x80) && square / 8 == 0)
+        founds->promotion = 1;
+    if ((piece & 0x80) && square / 8 == 7)
         founds->promotion = 1;
 
     if (board->to_move)
@@ -460,11 +464,12 @@ void check_pawn(Board* board, int square, uint8_t piece, struct found* founds)
                     founds->squares[founds->num_found - 1] = square + UPL;
                 }
         }
-        if(board->position[square + UP] == piece && !board->position[square])
-        {
-            founds->num_found++;
-            founds->squares[founds->num_found - 1] = square + UP;
-        }
+        if (square + UP >= 0)
+           if(board->position[square + UP] == piece && !board->position[square])
+            {
+                founds->num_found++;
+                founds->squares[founds->num_found - 1] = square + UP;
+            }
     }
     else
     {
@@ -483,7 +488,8 @@ void check_pawn(Board* board, int square, uint8_t piece, struct found* founds)
                     founds->squares[founds->num_found - 1] = square + DOWNR;
                 }
         }
-        if(board->position[square + DOWN] == piece && !board->position[square])
+        if (square + DOWN < 64)
+         if(board->position[square + DOWN] == piece && !board->position[square])
         {
             founds->num_found++;
             founds->squares[founds->num_found - 1] = square + DOWN;
@@ -497,7 +503,7 @@ int can_move_to(Board* board, int square, uint8_t pieces)
     found_hyp->num_found = 0;
     found_hyp->en_p_taken = -1;
     found_hyp->promotion = 0;
-    uint8_t color = (board->to_move == 1) ? black : white;
+    uint8_t color = (board->to_move) ? black : white;
     if (pieces & knight)
         check_knight(board, square, knight | color, found_hyp);
     if (found_hyp->num_found)
@@ -540,6 +546,13 @@ int can_move_to(Board* board, int square, uint8_t pieces)
         free(found_hyp);
         return 1;
     }
+    if (pieces & king)
+        check_king(board, square, king | color, found_hyp);
+    if (found_hyp->num_found)
+    {
+        free(found_hyp);
+        return 1;
+    }
     free(found_hyp);
     return 0;
 }
@@ -547,7 +560,7 @@ int can_move_to(Board* board, int square, uint8_t pieces)
 int is_attacked(Board* board, int square)
 {
     board->to_move = !board->to_move;
-    uint8_t color = (board->to_move == 1) ? black : white;
+    uint8_t color = (board->to_move) ? black : white;
     uint8_t prev_piece = board->position[square];
     board->position[square] = pawn | (color ^ 0x80);
     int check = can_move_to(board, square, all_pieces);
@@ -602,7 +615,7 @@ int castle(Board* board, int side)
 
 void check_king(Board* board, int square, uint8_t piece, struct found* founds)
 {
-    if (square + LEFT > 0 && square % 8 > 0)
+    if (square + LEFT >= 0 && square % 8 > 0)
         if (board->position[square + LEFT] == piece)
         {
             founds->num_found++;
@@ -683,7 +696,7 @@ struct found* find_attacker(Board* board, int square, uint8_t piece)
     founds->promotion = 0;
     founds->made_en_p = 0;
     founds->castle = -1;
-    uint8_t color = 0x80 & piece;
+    uint8_t color = board->to_move << 7;
     if (board->position[square] && !((board->position[square] & black) ^
                 (board->to_move << 7)))
         return founds;
@@ -743,30 +756,41 @@ int check_stalemate(Board* board, int which_color)
         if (stale_black && stale_white)
             return 2;
     }
-
-    if (is_legal(board, king_attacked + UP, king_attacked))
-        return 0;
+    if (king_attacked + UP >= 0 && king_attacked / 8 > 0)
+        if (is_legal(board, king_attacked + UP, king_attacked))
+            return 0;
     print_debug("can move up\n");
-    if (is_legal(board, king_attacked + UPR, king_attacked))
-        return 0;
+    if (king_attacked + UPR >= 0 && king_attacked + UPR < 64)
+        if (king_attacked % 8 < 7 && king_attacked / 8 > 0)
+            if (is_legal(board, king_attacked + UPR, king_attacked))
+                return 0;
     print_debug("upr\n");
-    if (is_legal(board, king_attacked + UPL, king_attacked))
-        return 0;
+    if (king_attacked + UPL >= 0 && king_attacked + UPL < 64)
+        if (king_attacked % 8 > 0 && king_attacked / 8 > 0)
+            if (is_legal(board, king_attacked + UPL, king_attacked))
+                return 0;
     print_debug("upl\n");
-    if (is_legal(board, king_attacked + LEFT, king_attacked))
-        return 0;
+    if (king_attacked + LEFT >= 0 && king_attacked % 8 > 0)
+        if (is_legal(board, king_attacked + LEFT, king_attacked))
+            return 0;
     print_debug("left\n");
-    if (is_legal(board, king_attacked + RIGHT, king_attacked))
-        return 0;
+    if (king_attacked + RIGHT < 64 && king_attacked % 8 < 7)
+        if (is_legal(board, king_attacked + RIGHT, king_attacked))
+            return 0;
     print_debug("right\n");
-    if (is_legal(board, king_attacked + DOWNL, king_attacked))
-        return 0;
+    if (king_attacked + DOWNL >= 0 && king_attacked + DOWNL < 64)
+        if (king_attacked % 8 > 0 && king_attacked / 8 < 7)
+            if (is_legal(board, king_attacked + DOWNL, king_attacked))
+                return 0;
     print_debug("downl\n");
-    if (is_legal(board, king_attacked + DOWNR, king_attacked))
-        return 0;
+    if (king_attacked + DOWNR >= 0 && king_attacked + DOWNR < 64)
+        if (king_attacked % 8 < 7 && king_attacked / 8 < 7)
+            if (is_legal(board, king_attacked + DOWNR, king_attacked))
+                return 0;
     print_debug("downr\n");
-    if (is_legal(board, king_attacked + DOWN, king_attacked))
-        return 0;
+    if (king_attacked + DOWN < 64 && king_attacked / 8 < 7)
+        if (is_legal(board, king_attacked + DOWN, king_attacked))
+            return 0;
     print_debug("down\n");
     for (i = 0; i < 64; i++ )
     {
@@ -796,29 +820,41 @@ int check_checkmate(Board* board, int which_color)
     print_debug("is attacked\n");
     uint8_t color = board->position[king_attacked] & 0x80;
     int i;
-    if (is_legal(board, king_attacked + UP, king_attacked))
-        return 0;
+    if (king_attacked + UP >= 0 && king_attacked / 8 > 0)
+        if (is_legal(board, king_attacked + UP, king_attacked))
+            return 0;
     print_debug("can move up\n");
-    if (is_legal(board, king_attacked + UPR, king_attacked))
-        return 0;
+    if (king_attacked + UPR >= 0 && king_attacked + UPR < 64)
+        if (king_attacked % 8 < 7 && king_attacked / 8 > 0)
+            if (is_legal(board, king_attacked + UPR, king_attacked))
+                return 0;
     print_debug("upr\n");
-    if (is_legal(board, king_attacked + UPL, king_attacked))
-        return 0;
+    if (king_attacked + UPL >= 0 && king_attacked + UPL < 64)
+        if (king_attacked % 8 > 0 && king_attacked / 8 > 0)
+            if (is_legal(board, king_attacked + UPL, king_attacked))
+                return 0;
     print_debug("upl\n");
-    if (is_legal(board, king_attacked + LEFT, king_attacked))
-        return 0;
+    if (king_attacked + LEFT >= 0 && king_attacked % 8 > 0)
+        if (is_legal(board, king_attacked + LEFT, king_attacked))
+            return 0;
     print_debug("left\n");
-    if (is_legal(board, king_attacked + RIGHT, king_attacked))
-        return 0;
+    if (king_attacked + RIGHT < 64 && king_attacked % 8 < 7)
+        if (is_legal(board, king_attacked + RIGHT, king_attacked))
+            return 0;
     print_debug("right\n");
-    if (is_legal(board, king_attacked + DOWNL, king_attacked))
-        return 0;
+    if (king_attacked + DOWNL >= 0 && king_attacked + DOWNL < 64)
+        if (king_attacked % 8 > 0 && king_attacked / 8 < 7)
+            if (is_legal(board, king_attacked + DOWNL, king_attacked))
+                return 0;
     print_debug("downl\n");
-    if (is_legal(board, king_attacked + DOWNR, king_attacked))
-        return 0;
+    if (king_attacked + DOWNR >= 0 && king_attacked + DOWNR < 64)
+        if (king_attacked % 8 < 7 && king_attacked / 8 < 7)
+            if (is_legal(board, king_attacked + DOWNR, king_attacked))
+                return 0;
     print_debug("downr\n");
-    if (is_legal(board, king_attacked + DOWN, king_attacked))
-        return 0;
+    if (king_attacked + DOWN < 64 && king_attacked / 8 < 7)
+        if (is_legal(board, king_attacked + DOWN, king_attacked))
+            return 0;
     print_debug("down\n");
     print_debug("can't move\n");
     for (i = 0; i < 64; ++i)
@@ -850,24 +886,49 @@ int check_checkmate(Board* board, int which_color)
     return 1;
 }
 
+int check_threefold(Board* board)
+{
+    int i;
+    int j;
+    for (i = 0; i < board->pos_count; ++i)
+    {
+        int count = 0;
+        for (j = 0; j < board->pos_count; ++j)
+        {
+            if (!strcmp(board->position_hist[i], board->position_hist[j]))
+                count++;
+        }
+        if (count >= 3)
+            return 2;
+    }
+    return 0;
+}
+
 int is_gameover(Board* board)
 {
-
-    print_debug("WKING_POS BEG %d\n", board->wking_pos);
+    if (board->history_count >= MAX_HISTORY)
+    {
+        printf("MAXIMUM HISTORY (%u) REACHED\n", MAX_HISTORY);
+        return 2;
+    }
+    if (board->pos_count >= MAX_STORED_POSITIONS)
+    {
+        printf("MAXIMUM POSITIONS (%u) REACHED\n", MAX_STORED_POSITIONS);
+        return 2;
+    }
     int game_over = check_checkmate(board, board->to_move);
-    print_debug("WKING_POS cm %d\n", board->wking_pos);
     print_debug("was checkmate? %d\n", game_over);
     if (!game_over)
         game_over = check_stalemate(board, board->to_move);
-    print_debug("WKING_POS sm %d\n", board->wking_pos);
     print_debug("was stalemate? %d\n", game_over);
     if (!game_over && board->halfmoves >= 100)
         game_over = 2;
     print_debug("was 50-move? %d\n", game_over);
-    
+    if (!game_over && board->pos_count)
+        game_over = check_threefold(board);
+
     if (board->history_count > 0)
         board->history[board->history_count - 1].game_over = game_over;
-    print_debug("WKING_POS END %d\n", board->wking_pos);
     return game_over;
 }
 
@@ -884,6 +945,83 @@ void stress_test(Board* board, int times)
         }
     }
 }
+
+void store_position(Board* board, char* dest)
+{
+    int str_ind = 0;
+    int i;
+    for (i = 0; i < MAX_POSITION_STRING; ++i)
+        dest[i] = 0;
+    int empty = 0;
+    for (i = 0; i < 64; ++i)
+    {
+        uint8_t square = board->position[i];
+        if (i % 8 == 0 && i)
+        {
+            if (empty)
+            {
+                dest[str_ind++] = '0' + empty;
+                empty = 0;
+            }
+            dest[str_ind++] = '/';
+        }
+        if (square)
+        {
+            if (empty)
+            {
+                dest[str_ind++] = '0' + empty;
+                empty = 0;
+            }
+            if (square & knight)
+                dest[str_ind] = 'N';
+            else if (square & pawn)
+                dest[str_ind] = 'P';
+            else if (square & bishop)
+                dest[str_ind] = 'B';
+            else if (square & rook)
+                dest[str_ind] = 'R';
+            else if (square & queen)
+                dest[str_ind] = 'Q';
+            else if (square & king)
+                dest[str_ind] = 'K';
+            if (square & black)
+                dest[str_ind] += 32;
+            str_ind++;
+        }
+        else
+            empty++;
+    }
+
+    if (empty)
+        dest[str_ind++] = '0' + empty;
+
+    dest[str_ind++] = ' ';
+    if (board->to_move)
+        dest[str_ind++] = 'b';
+    else
+        dest[str_ind++] = 'w';
+    dest[str_ind++] = ' ';
+    if (board->castling & 0x08)
+        dest[str_ind++] = 'K';
+    if (board->castling & 0x04)
+        dest[str_ind++] = 'Q';
+    if (board->castling & 0x02)
+        dest[str_ind++] = 'k';
+    if (board->castling & 0x01)
+        dest[str_ind++] = 'q';
+    if (!board->castling)
+        dest[str_ind++] = '-';
+    dest[str_ind++] = ' ';
+    if (board->en_p != -1)
+    {
+        dest[str_ind++] = board->en_p % 8 + 'a';
+        dest[str_ind++] = 8 - board->en_p / 8 + '0';
+    }
+    else
+        dest[str_ind++] = '-';
+    dest[str_ind] = '\0';
+}
+
 
 void move_piece(Board* board, Move* move)
 {
@@ -957,7 +1095,15 @@ void move_piece(Board* board, Move* move)
 
     /* Make move */
     if (move_to == -2)
+    {
         printf("Ambigous move, more than one piece can move there.\n");
+        printf("%d. ", board->moves);
+        if (board->to_move)
+            printf("... ");
+        printf("0x%X from %c%d to %c%d\n", move->src_piece, 
+                move->src_file + 'a', 8 - move->src_rank,
+                move->dest % 8 + 'a', 8 - move->dest / 8);
+    }
     else if (move_to == -1)
         printf("Move not valid.\n");
     else
@@ -1029,20 +1175,24 @@ void move_piece(Board* board, Move* move)
                 board->en_p = -1;
             if (move->src_piece & pawn)
             {
+                board->pos_count = 0;
                 board->halfmoves = 0;
                 if (record->piece_taken)
                     record->src_file = move_to % 8;
             }
             if (record->piece_taken)
+            {
+                board->pos_count = 0;
                 board->halfmoves = 0;
+            }
             if (found->promotion)
             {
                 board->position[move->dest] = move->promotion;
                 record->promotion = move->promotion;
             }
         }
+        store_position(board, board->position_hist[board->pos_count++]);
         board->history_count++;
-        printf("HERE history count: %u\n", board->history_count);
         board->to_move = !board->to_move;
         uint8_t curr_king;
         if (board->to_move)

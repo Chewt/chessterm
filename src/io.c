@@ -338,7 +338,6 @@ char* export_fen(Board* board)
 
 char* export_pgn(Board* board)
 {
-    printf("Board history count: %u\n", board->history_count);
     char* pgn = malloc(10 * (int)board->history_count + 10);
     int str_ind = 0;
     int i;

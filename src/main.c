@@ -121,12 +121,6 @@ void engine_v_engine()
     {
         Move engine_move = Erandom_move(&board);
         move_piece(&board, &engine_move);
-        char* curr_pgn = export_pgn(&board);
-        printf("%s\n", curr_pgn);
-        Move last_hist = board.history[board.history_count - 1];
-        if (board.history_count)
-            printf("src_piece: %x, dest: %d\n", last_hist.src_piece, last_hist.dest);
-        free(curr_pgn);
         int game_win = is_gameover(&board);
         if (game_win)
             print_board(&board);
