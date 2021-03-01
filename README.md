@@ -16,7 +16,7 @@ The current functionality includes:
 ## Roadmap
 Features that still need to be added
  - ~~Detect Stalemate~~
- - Detect 3-fold repetition stalemate
+ - ~~Detect 3-fold repetition stalemate~~
  - load/save FEN from/to files
  - ~~export~~/import PGN format
  - ~~Flip view of the board between black and white perspective~~
@@ -43,6 +43,8 @@ to exit the program,
 to switch perspectives between black and white  
 `: engine`  
 to play against the random move engine  
+`: itself`  
+to see a game where the engine plays itself  
 `: fen`  
 to print the current position's FEN to the screen  
 `: pgn`   

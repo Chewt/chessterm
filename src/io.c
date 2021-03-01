@@ -338,7 +338,7 @@ char* export_fen(Board* board)
 
 char* export_pgn(Board* board)
 {
-    char* pgn = malloc(10 * board->history_count + 10);
+    char* pgn = malloc(10 * (int)board->history_count + 10);
     int str_ind = 0;
     int i;
     for (i = 0; i < board->history_count; ++i)
