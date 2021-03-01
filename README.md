@@ -15,9 +15,10 @@ The current functionality includes:
  - Basic engine that plays random moves
 ## Roadmap
 Features that still need to be added
+ - Add UCI compatability
  - ~~Detect Stalemate~~
  - ~~Detect 3-fold repetition stalemate~~
- - load/save FEN from/to files
+ - Load/save FEN from/to files
  - ~~export~~/import PGN format
  - ~~Flip view of the board between black and white perspective~~
  - Networking
