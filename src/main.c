@@ -6,7 +6,7 @@
 #include "engine.h"
 
 void play_engine();
-void engine_v_engine();
+int engine_v_engine(int silent);
 
 
 int main(int argc, char** argv)
@@ -82,7 +82,31 @@ int main(int argc, char** argv)
         }
         else if (!strcmp(move, "itself"))
         {
-            engine_v_engine();
+            engine_v_engine(0);
+            continue;
+        }
+        else if (!strcmp(move, "thousand"))
+        {
+            int i;
+            int black_win = 0;
+            int white_win = 0;
+            int draw = 0;
+            int result;
+            clock_t t = clock();
+            for (i = 0; i < 1000; ++i)
+            {
+                result = engine_v_engine(1);
+                if (result == -1)
+                    black_win++;
+                else if (result == 1)
+                    white_win++;
+                else if (result == 0)
+                    draw++;
+            }
+            t = clock() - t;
+            double time_taken = ((double)t)/CLOCKS_PER_SEC;
+            printf("Time taken: %f seconds\nWhite: %d\nBlack: %d\nDraw: %d\n", 
+                    time_taken, white_win, black_win, draw);
             continue;
         }
         move_san(&board, move);
@@ -112,35 +136,50 @@ int main(int argc, char** argv)
     return 0;
 }
 
-void engine_v_engine()
+int engine_v_engine(int silent)
 {
     int running = 1;
     Board board;
     default_board(&board);
+    int game_win = -2;
     while (running)
     {
         Move engine_move = Erandom_move(&board);
         move_piece(&board, &engine_move);
-        int game_win = is_gameover(&board);
-        if (game_win)
+        game_win = is_gameover(&board);
+        if (game_win && !silent)
             print_board(&board);
         if (game_win == 1)
         {
-            printf("Checkmate!\n");
+            if (!silent)
+            {
+                printf("Checkmate!\n");
+                char* pgn = export_pgn(&board);
+                printf("%s\n", pgn);
+                free(pgn);
+            }
             running = 0;
-            char* pgn = export_pgn(&board);
-            printf("%s\n", pgn);
-            free(pgn);
         }
         else if (game_win == 2)
         {
-            printf("Stalemate!\n");
+            if (!silent)
+            {
+                printf("Stalemate!\n");
+                char* pgn = export_pgn(&board);
+                printf("%s\n", pgn);
+                free(pgn);
+            }
             running = 0;
-            char* pgn = export_pgn(&board);
-            printf("%s\n", pgn);
-            free(pgn);
         }
     }
+    if (game_win == 1 && board.to_move)
+        return 1;
+    else if (game_win == 1 && !board.to_move)
+        return -1;
+    else if (game_win == 2)
+        return 0;
+    else 
+        return game_win;
 }
 
 void play_engine()

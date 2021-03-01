@@ -359,7 +359,7 @@ char* export_pgn(Board* board)
         if (record.src_file != -1)
             str_ind += sprintf(pgn + str_ind, "%c", 'a' + record.src_file);
         if (record.src_rank != -1)
-            str_ind += sprintf(pgn + str_ind, "%c", '0' + record.src_rank);
+            str_ind += sprintf(pgn + str_ind, "%c", '0' + 8 - record.src_rank);
         if (record.piece_taken)
             str_ind += sprintf(pgn + str_ind, "x");
         if (record.dest != -1)

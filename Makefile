@@ -5,7 +5,7 @@ SOURCES = $(wildcard $(SRCDIR)/*.c)
 OBJECTS = $(SOURCES:$(SRCDIR)%.c=$(OBJDIR)%.o)
 INCLUDES = $(SOURCES:$(SRCDIR)%.c=$(INCLUDEDIR)%.h)
 UNIDEPS = include/settings.h
-CFLAGS = -I$(INCLUDEDIR) -g -std=c99
+CFLAGS = -I$(INCLUDEDIR) -std=c99 -g
 CC = gcc
 TARGET = chessterm
 

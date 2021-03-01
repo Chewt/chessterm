@@ -14,6 +14,7 @@ int is_attacked(Board* board, int square);
 int castle(Board* board, int side);
 void check_king(Board* board, int square, uint8_t piece, struct found* founds);
 
+/* Sets board state to all default values */
 void empty_board(Board* board)
 {
     board->to_move = 0;
@@ -42,6 +43,7 @@ void empty_board(Board* board)
     }
 }
 
+/* Sets board to default chess starting position */
 void default_board(Board* board)
 {
     int i;
@@ -73,6 +75,7 @@ void default_board(Board* board)
 }
 
 
+/* Move contents of one square to another */
 void move_square(Board* board, int dest, int src)
 {
     if (board->position[src] == (king | black))
@@ -83,6 +86,10 @@ void move_square(Board* board, int dest, int src)
     board->position[src] = 0;
 }
 
+/* Move contents of one square to another.
+ * src and dest are algebraic forms of squares
+ * example: e4
+ */
 void move_verbose(Board* board, char* dest, char* src)
 {
     uint8_t source_num = src[0] - 'a' + ('8' - src[1]) * 8;
@@ -90,6 +97,7 @@ void move_verbose(Board* board, char* dest, char* src)
     move_square(board, dest_num, source_num);
 }
 
+/* Holds information about squares found by find_attacker() */
 struct found 
 {
     int num_found;
@@ -112,6 +120,9 @@ enum Direction
     DOWNL =  7
 };
 
+/* Returns zero if moving the contents of src to dest will result in the king
+ * being put into check, and non-zero otherwise.
+ */
 int is_legal(Board* board, int dest, int src)
 {
     uint8_t color = board->position[src] & 0x80;
@@ -145,6 +156,7 @@ int is_legal(Board* board, int dest, int src)
     return 0;
 }
 
+/* Places all moves from src that are legal into dest */
 void check_for_check(Board* board, int square,
         struct found* dest, struct found* src)
 {
@@ -173,6 +185,9 @@ void check_for_check(Board* board, int square,
     }
 }
 
+/* Fills found struct with locations of knights that can move to square 
+ * Does not check if the move will result in own king being put in check
+ */
 void check_knight(Board* board, int square, uint8_t piece, struct found* founds)
 {
     founds->num_found = 0;
@@ -236,6 +251,9 @@ void check_knight(Board* board, int square, uint8_t piece, struct found* founds)
             }
 }
 
+/* Fills found struct with locations of rooks that can move to square 
+ * Does not check if the move will result in own king being put in check
+ */
 void check_rook(Board* board, int square, uint8_t piece, struct found* founds)
 {
     int i = square;
@@ -248,6 +266,7 @@ void check_rook(Board* board, int square, uint8_t piece, struct found* founds)
             {
                 founds->num_found++;
                 founds->squares[founds->num_found - 1] = i;
+                break;
             }
             else if (board->position[i])
                 break;
@@ -265,6 +284,7 @@ void check_rook(Board* board, int square, uint8_t piece, struct found* founds)
             {
                 founds->num_found++;
                 founds->squares[founds->num_found - 1] = i;
+                break;
             }
             else if (board->position[i])
                 break;
@@ -273,7 +293,7 @@ void check_rook(Board* board, int square, uint8_t piece, struct found* founds)
             break;
     }
     i = square;
-    while ((i + UP) / 8 < 7)
+    while ((i + UP) / 8 >= 0)
     {
         if (i + UP >= 0 && i + UP <= 63)
         {
@@ -282,6 +302,7 @@ void check_rook(Board* board, int square, uint8_t piece, struct found* founds)
             {
                 founds->num_found++;
                 founds->squares[founds->num_found - 1] = i;
+                break;
             }
             else if (board->position[i])
                 break;
@@ -290,7 +311,7 @@ void check_rook(Board* board, int square, uint8_t piece, struct found* founds)
             break;
     }
     i = square;
-    while ((i + DOWN) / 8 > 0)
+    while ((i + DOWN) / 8 < 8)
     {
         if (i + DOWN >= 0 && i + DOWN <= 63)
         {
@@ -299,6 +320,7 @@ void check_rook(Board* board, int square, uint8_t piece, struct found* founds)
             {
                 founds->num_found++;
                 founds->squares[founds->num_found - 1] = i;
+                break;
             }
             else if (board->position[i])
                 break;
@@ -308,6 +330,9 @@ void check_rook(Board* board, int square, uint8_t piece, struct found* founds)
     }
 }
 
+/* Fills found struct with locations of bishops that can move to square 
+ * Does not check if the move will result in own king being put in check
+ */
 void check_bishop(Board* board, int square, uint8_t piece, struct found* founds)
 {
     int i = square;
@@ -380,6 +405,9 @@ void check_bishop(Board* board, int square, uint8_t piece, struct found* founds)
     }
 }
 
+/* Fills found struct with locations of pawns that can move to square 
+ * Does not check if the move will result in own king being put in check
+ */
 void check_pawn(Board* board, int square, uint8_t piece, struct found* founds)
 {
     if (square == board->en_p)
@@ -497,6 +525,10 @@ void check_pawn(Board* board, int square, uint8_t piece, struct found* founds)
     }
 }
 
+/* Returns non-zero if any pieces specified can move to square,
+ * otherwise it returns zero.
+ * Does not check if move will result in check on the king
+ */
 int can_move_to(Board* board, int square, uint8_t pieces)
 {
     struct found* found_hyp = malloc(sizeof(struct found));
@@ -557,6 +589,7 @@ int can_move_to(Board* board, int square, uint8_t pieces)
     return 0;
 }
 
+/* returns non-zero if the square can be moved to by an opposite color piece */
 int is_attacked(Board* board, int square)
 {
     board->to_move = !board->to_move;
@@ -569,6 +602,9 @@ int is_attacked(Board* board, int square)
     return check;
 }
 
+/* Returns non-zero if castling is possible
+ * Does check if move will result in check on the king
+ */
 int castle(Board* board, int side)
 {
     enum {KINGSIDE, QUEENSIDE};
@@ -613,6 +649,9 @@ int castle(Board* board, int side)
     return 0;
 }
 
+/* Fills found struct with locations of kings that can move to square 
+ * Does not check if the move will result in own king being put in check
+ */
 void check_king(Board* board, int square, uint8_t piece, struct found* founds)
 {
     if (square + LEFT >= 0 && square % 8 > 0)
@@ -682,6 +721,9 @@ void check_king(Board* board, int square, uint8_t piece, struct found* founds)
     }
 }
 
+/* Returns found struct filled with locations of piece
+ * Resultant found struct will not contain moves that will put the king in check
+ */
 struct found* find_attacker(Board* board, int square, uint8_t piece)
 {
     struct found* founds = malloc(sizeof(struct found));
@@ -719,6 +761,9 @@ struct found* find_attacker(Board* board, int square, uint8_t piece)
     return founds;
 }
 
+/* Returns 2 if the current position is stalemate
+ * by insufficient material to checkmate
+ */
 int check_stalemate(Board* board, int which_color)
 {
     int king_attacked = (which_color) ? board->bking_pos : board->wking_pos;
@@ -811,6 +856,9 @@ int check_stalemate(Board* board, int which_color)
     return 2;
 }
 
+/* Returns 1 if the current position is checkmate
+ * Returns 0 otherwise
+ */
 int check_checkmate(Board* board, int which_color)
 {
     int king_attacked = (which_color) ? board->bking_pos : board->wking_pos;
@@ -886,6 +934,9 @@ int check_checkmate(Board* board, int which_color)
     return 1;
 }
 
+/* Returns 2 if the current position is stalemate by three-fold repetition
+ * Returns 0 otherwise
+ */
 int check_threefold(Board* board)
 {
     int i;
@@ -904,6 +955,10 @@ int check_threefold(Board* board)
     return 0;
 }
 
+/* Returns 1 if the current position is checkmate
+ * Returns 2 if the current position is stalemate
+ * Returns 0 otherwise
+ */
 int is_gameover(Board* board)
 {
     if (board->history_count >= MAX_HISTORY)
@@ -946,6 +1001,9 @@ void stress_test(Board* board, int times)
     }
 }
 
+/* Stores partial FEN for current position 
+ * used in three-fold repetition check
+ */
 void store_position(Board* board, char* dest)
 {
     int str_ind = 0;
@@ -1022,7 +1080,9 @@ void store_position(Board* board, char* dest)
     dest[str_ind] = '\0';
 }
 
-
+/* Makes a move on the board based on given Move struct and updates board state
+ * Use this function when submitting an actual move on the board
+ */
 void move_piece(Board* board, Move* move)
 {
 
@@ -1225,6 +1285,7 @@ void move_piece(Board* board, Move* move)
             board->castling &= 0xFE;
 }
 
+/* Interprets Standard Algebraic Notation and makes a move */
 void move_san(Board* board, char* move)
 {
     Move this_move;
