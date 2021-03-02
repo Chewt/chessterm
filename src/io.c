@@ -338,8 +338,11 @@ char* export_fen(Board* board)
 
 char* export_pgn(Board* board)
 {
-    char* pgn = malloc(10 * (int)board->history_count + 10);
+    char* pgn = malloc(strlen(board->white_name) + strlen(board->black_name)
+                + 10 * (int)board->history_count + 32);
     int str_ind = 0;
+    str_ind += sprintf(pgn + str_ind, "[White \"%s\"]\n", board->white_name);
+    str_ind += sprintf(pgn + str_ind, "[Black \"%s\"]\n", board->black_name);
     int i;
     for (i = 0; i < board->history_count; ++i)
     {
@@ -386,7 +389,13 @@ char* export_pgn(Board* board)
         if (record.gave_check && !record.game_over)
             str_ind += sprintf(pgn + str_ind, "+");
         if (record.game_over == 1)
+        {
             str_ind += sprintf(pgn + str_ind, "#");
+            if (board->to_move)
+                str_ind += sprintf(pgn + str_ind, " 1-0");
+            else
+                str_ind += sprintf(pgn + str_ind, " 0-1");
+        }
         if (record.game_over == 2)
             str_ind += sprintf(pgn + str_ind, " 1/2-1/2");
         str_ind += sprintf(pgn + str_ind, " ");

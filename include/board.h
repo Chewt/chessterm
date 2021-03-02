@@ -38,6 +38,8 @@ typedef struct
 
 typedef struct 
 {
+    char* white_name;
+    char* black_name;
     uint8_t position[64];
     uint8_t to_move;
     uint8_t castling;

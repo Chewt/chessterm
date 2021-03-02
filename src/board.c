@@ -51,6 +51,8 @@ void default_board(Board* board)
     board->bking_pos = 4;
     board->wking_pos = 60;
     board->castling = 0x0F;
+    board->white_name = "White";
+    board->black_name = "Black";
     board->position[0] = rook   | black;
     board->position[1] = knight | black;
     board->position[2] = bishop | black;
@@ -139,7 +141,7 @@ int is_legal(Board* board, int dest, int src)
     t_board.bking_pos = board->bking_pos;
     t_board.wking_pos = board->wking_pos;
     move_square(&t_board, dest, src);
-    if (dest == t_board.en_p)
+    if (dest == t_board.en_p && (t_board.position[dest] & pawn))
     {
         if (color)
             t_board.position[dest + UP] = 0;
@@ -257,7 +259,7 @@ void check_knight(Board* board, int square, uint8_t piece, struct found* founds)
 void check_rook(Board* board, int square, uint8_t piece, struct found* founds)
 {
     int i = square;
-    while ((i + LEFT) % 8 < 7)
+    while (i % 8 > 0)
     {
         if (i + LEFT >= 0 && i + LEFT <= 63)
         {
@@ -275,7 +277,7 @@ void check_rook(Board* board, int square, uint8_t piece, struct found* founds)
             break;
     }
     i = square;
-    while ((i + RIGHT) % 8 > 0)
+    while (i % 8 < 7)
     {
         if (i + RIGHT >= 0 && i + RIGHT <= 63)
         {
@@ -293,7 +295,7 @@ void check_rook(Board* board, int square, uint8_t piece, struct found* founds)
             break;
     }
     i = square;
-    while ((i + UP) / 8 >= 0)
+    while (i / 8 > 0)
     {
         if (i + UP >= 0 && i + UP <= 63)
         {
@@ -311,7 +313,7 @@ void check_rook(Board* board, int square, uint8_t piece, struct found* founds)
             break;
     }
     i = square;
-    while ((i + DOWN) / 8 < 8)
+    while (i / 8 < 7)
     {
         if (i + DOWN >= 0 && i + DOWN <= 63)
         {
@@ -706,14 +708,15 @@ void check_king(Board* board, int square, uint8_t piece, struct found* founds)
             founds->num_found++;
             founds->squares[founds->num_found - 1] = square + DOWN;
         }
-    if ((!board->to_move && square == 62) || (board->to_move &&square == 6))
+    if ((!board->to_move && square == 62 && board->wking_pos == 60) ||
+         (board->to_move && square == 6 && board->bking_pos == 4))
     {
         founds->castle = 0;
         founds->num_found++;
         founds->squares[founds->num_found - 1] = square - 2;
     }
-    else if ((!board->to_move && square == 58) || 
-            (board->to_move && square == 2))
+    else if ((!board->to_move && square == 58 && board->wking_pos == 60) || 
+            (board->to_move && square == 2 && board->bking_pos == 4))
     {
         founds->castle = 1;
         founds->num_found++;
@@ -914,14 +917,24 @@ int check_checkmate(Board* board, int which_color)
             if (!is_attacked(board, king_attacked) || i == board->en_p)
             {
                 board->position[i] = orig_piece;
+                if (i == board->en_p)
+                {
+                    struct found* en_found = find_attacker(board, i,pawn|color);
+                    if (!en_found->num_found)
+                    {
+                        free(en_found);
+                        continue;
+                    }
+                }
                 struct found* founds = find_attacker(board, i,
                         (all_pieces & (~king)) | color);
                 if (founds->num_found)
                 {
-                    print_debug("%d can be blocked\n", i);
+                    print_debug("%c%d can be blocked by ", i%8+'a', 8-i/8);
                     int j;
                     for (j = 0; j < founds->num_found; ++j)
-                        print_debug("%d ", founds->squares[j]);
+                        print_debug("%c%d ", founds->squares[j]%8+'a',
+                                8-founds->squares[j]/8);
                     print_debug("\n");
                     free(founds);
                     return 0;

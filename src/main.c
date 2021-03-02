@@ -93,9 +93,13 @@ int main(int argc, char** argv)
             int draw = 0;
             int result;
             clock_t t = clock();
-            for (i = 0; i < 1000; ++i)
+            for (i = 0; i < 100000; ++i)
             {
+                clock_t in_t = clock();
                 result = engine_v_engine(1);
+                in_t = clock() - in_t;
+                double t_taken = ((double)in_t)/CLOCKS_PER_SEC;
+                printf("Time taken for game %d: %f seconds\n", i + 1, t_taken);
                 if (result == -1)
                     black_win++;
                 else if (result == 1)
@@ -141,12 +145,15 @@ int engine_v_engine(int silent)
     int running = 1;
     Board board;
     default_board(&board);
+    board.white_name = "Random Engine";
+    board.black_name = "Random Engine";
     int game_win = -2;
     while (running)
     {
         Move engine_move = Erandom_move(&board);
         move_piece(&board, &engine_move);
         game_win = is_gameover(&board);
+
         if (game_win && !silent)
             print_board(&board);
         if (game_win == 1)
@@ -188,6 +195,8 @@ void play_engine()
     int flipped = 0;
     Board board;
     default_board(&board);
+    board.white_name = "User";
+    board.black_name = "Random Engine";
     printf("\n");
     print_board(&board);
     while (running)
