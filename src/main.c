@@ -207,16 +207,16 @@ int engine_v_engine(int silent)
     int running = 1;
     Board board;
     default_board(&board);
-    board.white_name = "Random Engine";
+    board.white_name = "Ape Engine";
     board.black_name = "Random Engine";
     int game_win = -2;
     while (running)
     {
         Move engine_move;
         if (board.to_move)
-            engine_move = Eape_move(&board);
+            engine_move = Eideal(&board);
         else
-            engine_move = Eape_move(&board);
+            engine_move = Eideal(&board);
 
         move_piece(&board, &engine_move);
         game_win = is_gameover(&board);
@@ -261,7 +261,7 @@ int engine_v_engine(int silent)
         return 1;
     else if (game_win == 1 && !board.to_move)
         return -1;
-    else if (game_win == 2)
+    else if (game_win > 1)
         return 0;
     else 
         return game_win;
@@ -283,7 +283,8 @@ void play_engine()
         {
             //Move engine_move = Erandom_move(&board);
             //Move engine_move = Eaggressive_move(&board);
-            Move engine_move = Eape_move(&board);
+            //Move engine_move = Eape_move(&board);
+            Move engine_move = Eideal(&board);
             move_piece(&board, &engine_move);
         }
         else
