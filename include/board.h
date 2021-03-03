@@ -62,6 +62,8 @@ void move_san(Board* board, char* move);
 int is_gameover(Board* board);
 void move_piece(Board* board, Move* move);
 struct found* find_attacker(Board* board, int square, uint8_t piece);
+int is_legal(Board* board, int dest, int src);
+int is_attacked(Board* board, int square);
 
 void stress_test(Board* board, int times);
 

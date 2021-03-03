@@ -961,7 +961,7 @@ int check_threefold(Board* board)
                 count++;
         }
         if (count >= 3)
-            return 2;
+            return 4;
     }
     return 0;
 }
@@ -988,7 +988,7 @@ int is_gameover(Board* board)
         game_over = check_stalemate(board, board->to_move);
     print_debug("was stalemate? %d\n", game_over);
     if (!game_over && board->halfmoves >= 100)
-        game_over = 2;
+        game_over = 3;
     print_debug("was 50-move? %d\n", game_over);
     if (!game_over && board->pos_count)
         game_over = check_threefold(board);

@@ -396,7 +396,7 @@ char* export_pgn(Board* board)
             else
                 str_ind += sprintf(pgn + str_ind, " 0-1");
         }
-        if (record.game_over == 2)
+        if (record.game_over > 1)
             str_ind += sprintf(pgn + str_ind, " 1/2-1/2");
         str_ind += sprintf(pgn + str_ind, " ");
     }
