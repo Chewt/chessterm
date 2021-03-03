@@ -12,7 +12,7 @@ The current functionality includes:
  - Validating any inputted moves
  - exporting FEN and PGN of the game
  - Detection of checkmate and stalemate
- - Basic engine that plays random moves
+ - Basic engine that plays ok-ish moves
 ## Roadmap
 Features that still need to be added
  - Add UCI compatability
