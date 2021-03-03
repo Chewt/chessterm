@@ -93,7 +93,7 @@ int main(int argc, char** argv)
             int draw = 0;
             int result;
             clock_t t = clock();
-            for (i = 0; i < 100000; ++i)
+            for (i = 0; i < 10000; ++i)
             {
                 clock_t in_t = clock();
                 result = engine_v_engine(1);
@@ -128,8 +128,12 @@ int main(int argc, char** argv)
             printf("%s\n", pgn);
             free(pgn);
         }
-        else if (game_win == 2)
+        else if (game_win > 1)
         {
+            if (game_win == 3)
+                printf("50 move rule\n");
+            else if (game_win == 4)
+                printf("Three fold repetition\n");
             printf("Stalemate!\n");
             running = 0;
             char* pgn = export_pgn(&board);
@@ -208,7 +212,12 @@ int engine_v_engine(int silent)
     int game_win = -2;
     while (running)
     {
-        Move engine_move = Erandom_move(&board);
+        Move engine_move;
+        if (board.to_move)
+            engine_move = Eape_move(&board);
+        else
+            engine_move = Eape_move(&board);
+
         move_piece(&board, &engine_move);
         game_win = is_gameover(&board);
 
@@ -232,10 +241,14 @@ int engine_v_engine(int silent)
             }
             running = 0;
         }
-        else if (game_win == 2)
+        else if (game_win > 1)
         {
             if (!silent)
             {
+                if (game_win == 3)
+                    printf("50 move rule\n");
+                else if (game_win == 4)
+                    printf("Three fold repetition\n");
                 printf("Stalemate!\n");
                 char* pgn = export_pgn(&board);
                 printf("%s\n", pgn);
@@ -268,7 +281,9 @@ void play_engine()
     {
         if (board.to_move)
         {
-            Move engine_move = Erandom_move(&board);
+            //Move engine_move = Erandom_move(&board);
+            //Move engine_move = Eaggressive_move(&board);
+            Move engine_move = Eape_move(&board);
             move_piece(&board, &engine_move);
         }
         else
