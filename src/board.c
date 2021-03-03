@@ -5,7 +5,7 @@
 
 #ifdef DEBUG
 #include "io.h"
-#define print_debug(...) printf(__VA_ARGS__)
+#define print_debug(...) fprintf(stderr,__VA_ARGS__)
 #else
 #define print_debug(...) ((void)0)
 #endif
@@ -133,6 +133,7 @@ int is_legal(Board* board, int dest, int src)
     if (board->position[dest] && (board->position[dest] & 0x80) == color)
         return 0;
     Board t_board;
+
     int j;
     for (j = 0; j < 64; ++j)
         t_board.position[j] = board->position[j];
@@ -192,9 +193,6 @@ void check_for_check(Board* board, int square,
  */
 void check_knight(Board* board, int square, uint8_t piece, struct found* founds)
 {
-    founds->num_found = 0;
-    founds->en_p_taken = -1;
-    founds->promotion = 0;
     if (square + UP + UPL >= 0 && square + UP + UPL <= 63)
         if (square / 8 > 1 && square % 8 > 0)
             if (board->position[square + UP + UPL] == piece)
@@ -453,8 +451,7 @@ void check_pawn(Board* board, int square, uint8_t piece, struct found* founds)
             {
                 founds->num_found++;
                 founds->squares[founds->num_found - 1] = square + 2 * DOWN;
-                board->en_p = square + DOWN;
-                founds->made_en_p = 1;
+                founds->made_en_p = square + DOWN;
             }
     }
     else if (square / 8 == 3 && !board->position[square])
@@ -465,12 +462,11 @@ void check_pawn(Board* board, int square, uint8_t piece, struct found* founds)
             {
                 founds->num_found++;
                 founds->squares[founds->num_found - 1] = square + 2 * UP;
-                board->en_p = square + UP;
-                founds->made_en_p = 1;
+                founds->made_en_p = square + UP;
             }
     }
     else 
-        founds->made_en_p = 0;
+        founds->made_en_p = -1;
 
     if (!(piece & 0x80) && square / 8 == 0)
         founds->promotion = 1;
@@ -734,12 +730,12 @@ struct found* find_attacker(Board* board, int square, uint8_t piece)
     src.num_found = 0;
     src.en_p_taken = -1;
     src.promotion = 0;
-    src.made_en_p = 0;
+    src.made_en_p = -1;
     src.castle = -1;
     founds->num_found = 0;
     founds->en_p_taken = -1;
     founds->promotion = 0;
-    founds->made_en_p = 0;
+    founds->made_en_p = -1;
     founds->castle = -1;
     uint8_t color = board->to_move << 7;
     if (board->position[square] && !((board->position[square] & black) ^
@@ -760,7 +756,9 @@ struct found* find_attacker(Board* board, int square, uint8_t piece)
         check_bishop(board, square, queen|color, &src);
     if (piece & pawn)
         check_pawn(board, square, pawn|color, &src);
-    check_for_check(board, square, founds, &src);
+
+    if (src.num_found)
+        check_for_check(board, square, founds, &src);
     return founds;
 }
 
@@ -1244,8 +1242,10 @@ void move_piece(Board* board, Move* move)
                 board->position[found->en_p_taken] = 0;
             }
             board->halfmoves++;
-            if (!found->made_en_p)
+            if (found->made_en_p == -1)
                 board->en_p = -1;
+            else
+                board->en_p = found->made_en_p;
             if (move->src_piece & pawn)
             {
                 board->pos_count = 0;

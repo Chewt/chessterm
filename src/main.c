@@ -140,6 +140,64 @@ int main(int argc, char** argv)
     return 0;
 }
 
+void print_last_move(Board* board)
+{
+    Move record = board->history[board->history_count - 1];
+    if (board->history_count % 2)
+        dprintf(2 , "%d. ", board->history_count / 2 + 1);
+    if (record.src_piece & king)
+        dprintf(2 , "K");
+    if (record.src_piece & queen)
+        dprintf(2 , "Q");
+    if (record.src_piece & rook)
+        dprintf(2 , "R");
+    if (record.src_piece & knight)
+        dprintf(2 , "N");
+    if (record.src_piece & bishop)
+        dprintf(2 , "B");
+    if (record.src_file != -1)
+        dprintf(2 , "%c", 'a' + record.src_file);
+    if (record.src_rank != -1)
+        dprintf(2 , "%c", '0' + 8 - record.src_rank);
+    if (record.piece_taken)
+        dprintf(2 , "x");
+    if (record.dest != -1)
+    {
+        dprintf(2 , "%c", record.dest % 8 + 'a');
+        dprintf(2 , "%c", 8 - record.dest / 8 + '0');
+    }
+    if (record.promotion)
+    {
+        dprintf(2 , "=");
+        if (record.promotion & queen)
+            dprintf(2 , "Q");
+        if (record.promotion & rook)
+            dprintf(2 , "R");
+        if (record.promotion & knight)
+            dprintf(2 , "N");
+        if (record.promotion & bishop)
+            dprintf(2 , "B");
+    }
+    if (record.castle == 0)
+        dprintf(2 , "O-O");
+    if (record.castle == 1)
+        dprintf(2 , "O-O-O");
+    if (record.gave_check && !record.game_over)
+        dprintf(2 , "+");
+    if (record.game_over == 1)
+    {
+        dprintf(2 , "#");
+        if (board->to_move)
+            dprintf(2 , " 1-0");
+        else
+            dprintf(2 , " 0-1");
+    }
+    if (record.game_over == 2)
+        dprintf(2 , " 1/2-1/2");
+    dprintf(2 , " ");
+    fflush(stderr);
+}
+
 int engine_v_engine(int silent)
 {
     int running = 1;
@@ -153,6 +211,13 @@ int engine_v_engine(int silent)
         Move engine_move = Erandom_move(&board);
         move_piece(&board, &engine_move);
         game_win = is_gameover(&board);
+
+        /*
+        if (silent)
+            print_last_move(&board);
+        if (game_win && silent)
+            dprintf(2, "\n\n");
+        */
 
         if (game_win && !silent)
             print_board(&board);
