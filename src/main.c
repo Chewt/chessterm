@@ -17,7 +17,7 @@ int main(int argc, char** argv)
     if (argc == 2)
         load_fen(&board, argv[1]);
     printf("\n");
-    print_board(&board);
+    print_fancy(&board);
     int running = 1;
     int flipped = 0;
     int game_win = is_gameover(&board);
@@ -72,7 +72,7 @@ int main(int argc, char** argv)
             if (flipped)
                 print_flipped(&board);
             else
-                print_board(&board);
+                print_fancy(&board);
             continue;
         }
         else if (!strcmp(move, "engine"))
@@ -120,7 +120,7 @@ int main(int argc, char** argv)
         if (flipped)
             print_flipped(&board);
         else
-            print_board(&board);
+            print_fancy(&board);
 
         int game_win = is_gameover(&board);
         if (game_win == 1)
@@ -232,7 +232,7 @@ int engine_v_engine(int silent)
         */
 
         if (game_win && !silent)
-            print_board(&board);
+            print_fancy(&board);
         if (game_win == 1)
         {
             if (!silent)
@@ -282,7 +282,7 @@ void play_engine(char* fen)
     board.white_name = "User";
     board.black_name = "Random Engine";
     printf("\n");
-    print_board(&board);
+    print_fancy(&board);
     while (running)
     {
         if (board.to_move)
@@ -329,7 +329,7 @@ void play_engine(char* fen)
                 if (flipped)
                     print_flipped(&board);
                 else
-                    print_board(&board);
+                    print_fancy(&board);
                 continue;
             }
             move_san(&board, move);
@@ -338,10 +338,10 @@ void play_engine(char* fen)
         if (flipped)
             print_flipped(&board);
         else
-            print_board(&board);
+            print_fancy(&board);
         int game_win = is_gameover(&board);
         if (game_win)
-            print_board(&board);
+            print_fancy(&board);
         if (game_win == 1)
         {
             printf("Checkmate!\n");

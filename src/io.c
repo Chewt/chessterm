@@ -94,6 +94,94 @@ void print_board(Board* board)
     printf("\n");
 }
 
+void print_piece(uint8_t piece)
+{
+    if (piece & pawn)
+    {
+        printf("   O   \e[B\e[7D"
+               "  ( )  \e[B\e[7D"
+               "  ===  \e[2A");
+    }
+    else if (piece & bishop)
+    {
+        printf("  /-/  \e[B\e[7D"
+               "  ) (  \e[B\e[7D"
+               "  ===  \e[2A");
+    }
+    else if (piece & knight)
+    {
+        printf("   /*  \e[B\e[7D"
+               "  ( |  \e[B\e[7D"
+               "  ===  \e[2A");
+    }
+    else if (piece & rook)
+    {
+        printf("  ooo  \e[B\e[7D"
+               "  | |  \e[B\e[7D"
+               "  ===  \e[2A");
+    }
+    else if (piece & king)
+    {
+        printf("  ^+^  \e[B\e[7D"
+               "  )|(  \e[B\e[7D"
+               "  ===  \e[2A");
+    }
+    else if (piece & queen)
+    {
+        printf("  oOo  \e[B\e[7D"
+               "  )|(  \e[B\e[7D"
+               "  ===  \e[2A");
+    }
+    else
+        printf("       \e[B\e[7D"
+               "       \e[B\e[7D"
+               "       \e[2A");
+}
+
+void print_fancy(Board* board)
+{
+    int i;
+
+    printf("  \u2554");
+    for (i = 0; i < 56; ++i)
+        printf("\u2550");
+    printf("\u2557\n");
+    for (i = 0; i < 24; ++i)
+    {
+        printf("  \u2551");
+        int j;
+        for (j = 0; j < 8; ++j)
+            printf("       ");
+        printf("\u2551\n");
+    }
+    printf("  \u255a");
+    for (i = 0; i < 56; ++i)
+        printf("\u2550");
+    printf("\u255d\n ");
+
+    printf("\e[25F\e[3C");
+
+    for (i = 0; i < 64; ++i)
+    {
+        /* Bullshit that colors them checkered-like 
+         * - Courtesy of Zach Gorman
+         */
+        uint8_t square = board->position[i];
+        if (!(!(i & 1) ^ !(i & 8))) 
+            printf("\e[48;5;%dm", LIGHT);
+        else
+            printf("\e[48;5;%dm", DARK);
+
+        printf("\e[1m");
+        (square & black) ? printf("\e[38;5;232m") : printf("\e[37m");
+        print_piece(square);
+        printf("\e[0m");
+
+        if (i % 8 == 7)
+            printf("\u2551\e[3E\e[3C");
+    }
+    printf("\e[2E");
+}
 void print_flipped(Board* board)
 {
     int i;
