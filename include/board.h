@@ -64,6 +64,7 @@ void move_piece(Board* board, Move* move);
 struct found* find_attacker(Board* board, int square, uint8_t piece);
 int is_legal(Board* board, int dest, int src);
 int is_attacked(Board* board, int square);
+int is_checkmate(Board* board, int which_color);
 
 void stress_test(Board* board, int times);
 

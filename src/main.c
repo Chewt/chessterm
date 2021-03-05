@@ -77,7 +77,10 @@ int main(int argc, char** argv)
         }
         else if (!strcmp(move, "engine"))
         {
-            play_engine();
+            if (argc == 1)
+                play_engine(NULL);
+            else
+                play_engine(argv[1]);
             continue;
         }
         else if (!strcmp(move, "itself"))
@@ -93,7 +96,7 @@ int main(int argc, char** argv)
             int draw = 0;
             int result;
             clock_t t = clock();
-            for (i = 0; i < 10000; ++i)
+            for (i = 0; i < 1000; ++i)
             {
                 clock_t in_t = clock();
                 result = engine_v_engine(1);
@@ -214,9 +217,9 @@ int engine_v_engine(int silent)
     {
         Move engine_move;
         if (board.to_move)
-            engine_move = Eideal(&board);
+            engine_move = Emateinone(&board);
         else
-            engine_move = Eideal(&board);
+            engine_move = Emateinone(&board);
 
         move_piece(&board, &engine_move);
         game_win = is_gameover(&board);
@@ -267,12 +270,15 @@ int engine_v_engine(int silent)
         return game_win;
 }
 
-void play_engine()
+void play_engine(char* fen)
 {
     int running = 1;
     int flipped = 0;
     Board board;
-    default_board(&board);
+    if (fen != NULL)
+        load_fen(&board, fen);
+    else
+        default_board(&board);
     board.white_name = "User";
     board.black_name = "Random Engine";
     printf("\n");
@@ -284,7 +290,8 @@ void play_engine()
             //Move engine_move = Erandom_move(&board);
             //Move engine_move = Eaggressive_move(&board);
             //Move engine_move = Eape_move(&board);
-            Move engine_move = Eideal(&board);
+            //Move engine_move = Eideal(&board);
+            Move engine_move = Emateinone(&board);
             move_piece(&board, &engine_move);
         }
         else

@@ -860,7 +860,7 @@ int check_stalemate(Board* board, int which_color)
 /* Returns 1 if the current position is checkmate
  * Returns 0 otherwise
  */
-int check_checkmate(Board* board, int which_color)
+int is_checkmate(Board* board, int which_color)
 {
     int king_attacked = (which_color) ? board->bking_pos : board->wking_pos;
     print_debug("KING: %d\n", king_attacked);
@@ -982,7 +982,7 @@ int is_gameover(Board* board)
         printf("MAXIMUM POSITIONS (%u) REACHED\n", MAX_STORED_POSITIONS);
         return 2;
     }
-    int game_over = check_checkmate(board, board->to_move);
+    int game_over = is_checkmate(board, board->to_move);
     print_debug("was checkmate? %d\n", game_over);
     if (!game_over)
         game_over = check_stalemate(board, board->to_move);

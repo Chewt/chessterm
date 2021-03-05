@@ -55,19 +55,19 @@ void print_board(Board* board)
             printf("\e[48;5;%dm", LIGHT);
         else
             printf("\e[48;5;%dm", DARK);
-        printf(" ");
+        printf(" \e[1m");
         if (square & pawn)
-            (square & black) ? printf("\e[30mp") : printf("\e[37mP");
+            (square & black) ? printf("\e[38;5;232mp") : printf("\e[37mP");
         else if (square & bishop)
-            (square & black) ? printf("\e[30mb") : printf("\e[37mB");
+            (square & black) ? printf("\e[38;5;232mb") : printf("\e[37mB");
         else if (square & knight)
-            (square & black) ? printf("\e[30mn") : printf("\e[37mN");
+            (square & black) ? printf("\e[38;5;232mn") : printf("\e[37mN");
         else if (square & rook)
-            (square & black) ? printf("\e[30mr") : printf("\e[37mR");
+            (square & black) ? printf("\e[38;5;232mr") : printf("\e[37mR");
         else if (square & queen)
-            (square & black) ? printf("\e[30mq") : printf("\e[37mQ");
+            (square & black) ? printf("\e[38;5;232mq") : printf("\e[37mQ");
         else if (square & king)
-            (square & black) ? printf("\e[30mk") : printf("\e[37mK");
+            (square & black) ? printf("\e[38;5;232mk") : printf("\e[37mK");
         else
             printf(" ");
         printf(" \e[0m");
@@ -113,19 +113,19 @@ void print_flipped(Board* board)
             printf("\e[48;5;%dm", LIGHT);
         else
             printf("\e[48;5;%dm", DARK);
-        printf(" ");
+        printf(" \e[1m");
         if (square & pawn)
-            (square & black) ? printf("\e[30mp") : printf("\e[37mP");
+            (square & black) ? printf("\e[38;5;232mp") : printf("\e[37mP");
         else if (square & bishop)
-            (square & black) ? printf("\e[30mb") : printf("\e[37mB");
+            (square & black) ? printf("\e[38;5;232mb") : printf("\e[37mB");
         else if (square & knight)
-            (square & black) ? printf("\e[30mn") : printf("\e[37mN");
+            (square & black) ? printf("\e[38;5;232mn") : printf("\e[37mN");
         else if (square & rook)
-            (square & black) ? printf("\e[30mr") : printf("\e[37mR");
+            (square & black) ? printf("\e[38;5;232mr") : printf("\e[37mR");
         else if (square & queen)
-            (square & black) ? printf("\e[30mq") : printf("\e[37mQ");
+            (square & black) ? printf("\e[38;5;232mq") : printf("\e[37mQ");
         else if (square & king)
-            (square & black) ? printf("\e[30mk") : printf("\e[37mK");
+            (square & black) ? printf("\e[38;5;232mk") : printf("\e[37mK");
         else
             printf(" ");
         printf(" \e[0m");
