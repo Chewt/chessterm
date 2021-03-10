@@ -5,8 +5,15 @@
 #include "chessterm.h"
 #include "engine.h"
 
+#ifdef DEBUG
+#include "io.h"
+#define print_debug(...) fprintf(stderr,__VA_ARGS__)
+#else
+#define print_debug(...) ((void)0)
+#endif
+
 void play_engine();
-int engine_v_engine(int silent);
+int engine_v_engine(char* fen, int silent);
 
 
 int main(int argc, char** argv)
@@ -70,7 +77,7 @@ int main(int argc, char** argv)
         {
             flipped = !flipped;
             if (flipped)
-                print_flipped(&board);
+                print_fancy_flipped(&board);
             else
                 print_fancy(&board);
             continue;
@@ -85,7 +92,7 @@ int main(int argc, char** argv)
         }
         else if (!strcmp(move, "itself"))
         {
-            engine_v_engine(0);
+            engine_v_engine(NULL, 0);
             continue;
         }
         else if (!strcmp(move, "thousand"))
@@ -99,7 +106,10 @@ int main(int argc, char** argv)
             for (i = 0; i < 1000; ++i)
             {
                 clock_t in_t = clock();
-                result = engine_v_engine(1);
+                if(argc == 1)
+                    result = engine_v_engine(NULL, 1);
+                else
+                    result = engine_v_engine(argv[1], 1);
                 in_t = clock() - in_t;
                 double t_taken = ((double)in_t)/CLOCKS_PER_SEC;
                 printf("Time taken for game %d: %f seconds\n", i + 1, t_taken);
@@ -118,7 +128,7 @@ int main(int argc, char** argv)
         }
         move_san(&board, move);
         if (flipped)
-            print_flipped(&board);
+            print_fancy_flipped(&board);
         else
             print_fancy(&board);
 
@@ -205,11 +215,14 @@ void print_last_move(Board* board)
     fflush(stderr);
 }
 
-int engine_v_engine(int silent)
+int engine_v_engine(char* fen, int silent)
 {
     int running = 1;
     Board board;
-    default_board(&board);
+    if (fen != NULL)
+        load_fen(&board, fen);
+    else
+        default_board(&board);
     board.white_name = "Ape Engine";
     board.black_name = "Random Engine";
     int game_win = -2;
@@ -221,14 +234,34 @@ int engine_v_engine(int silent)
         else
             engine_move = Emateinone(&board);
 
-        move_piece(&board, &engine_move);
+        /*
+        if (board.history_count%2 == 0)
+            print_debug("%d.\n", board.moves);
+        else
+            print_debug("%d. ...\n", board.moves);
+        print_board(&board);
+        */
+
+        int valid = move_piece(&board, &engine_move);
+
+        if (valid == -1)
+        {
+
+            print_debug("%d to play\n", board.to_move);
+            print_debug("Move: %d Trying %c%d to %c%d\n", board.moves,
+                    engine_move.src_file + 'a' , engine_move.src_rank + 1, 
+                    engine_move.dest%8+'a', 8-engine_move.dest/8);
+        }
         game_win = is_gameover(&board);
 
         /*
-        if (silent)
-            print_last_move(&board);
-        if (game_win && silent)
-            dprintf(2, "\n\n");
+        if (!valid)
+        {
+            if (silent)
+                print_last_move(&board);
+            if (game_win && silent)
+                dprintf(2, "\n\n");
+        }
         */
 
         if (game_win && !silent)
@@ -327,7 +360,7 @@ void play_engine(char* fen)
             {
                 flipped = !flipped;
                 if (flipped)
-                    print_flipped(&board);
+                    print_fancy_flipped(&board);
                 else
                     print_fancy(&board);
                 continue;
@@ -336,7 +369,7 @@ void play_engine(char* fen)
 
         }
         if (flipped)
-            print_flipped(&board);
+            print_fancy_flipped(&board);
         else
             print_fancy(&board);
         int game_win = is_gameover(&board);

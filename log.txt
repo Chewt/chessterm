@@ -1,0 +1,5869 @@
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+1. Nh3 Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+d5 Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+2. g3 Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Qd6 Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+3. Ng5 Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Qb6 Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+4. h4 Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Bg4 Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+5. Na3 Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+e5 Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+6. c3 Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Ne7 Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+7. Qa4+ Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Kd8 Playing mateinone Move
+Protecc Playing ideal Move
+8. Nxf7+ Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Kc8 Playing mateinone Move
+9. Qe8# 1-0 
+
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+1. b4 Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Nh6 Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+2. d3 Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+b6 Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+3. Na3 Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Na6 Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 0 Trying b5 to d2
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+4. c3 Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+g6 Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+5. Bb2 Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+d5 Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+6. Qa4+ Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Playing ideal Move
+Playing nohang Move
+Playing safeaggro Move
+Playing safe Move
+Playing Ape Move
+Playing Aggressive Move
+Playing Random Move
+b5 Playing mateinone Move
+Protecc Playing ideal Move
+7. Qxb5+ Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Playing ideal Move
+Playing nohang Move
+Playing safeaggro Move
+Playing safe Move
+Playing Ape Move
+Playing Aggressive Move
+Playing Random Move
+Bd7 Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+8. Qxd5 Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Nb8 Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+9. Qxa8 Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Playing ideal Move
+Playing nohang Move
+Playing safeaggro Move
+Playing safe Move
+f6 Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+10. Qxa7 Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Nf7 Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+11. h4 Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Bg7 Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+12. Qe3 Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Nc6 Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+13. Qe4 Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Nd6 Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+14. Rd1 Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Nb7 Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+15. Nb1 Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Nd6 Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+16. a4 Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+h5 Playing mateinone Move
+Protecc Playing ideal Move
+17. Qxg6+ Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying g2 to f8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying g2 to f8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Playing ideal Move
+Playing nohang Move
+Playing safeaggro Move
+Playing safe Move
+Kf8 Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+18. Na3 Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Nb8 Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Playing ideal Move
+Playing nohang Move
+Playing safeaggro Move
+Playing safe Move
+19. Rd2 Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Bxa4 Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+20. Nh3 Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Na6 Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+21. Nb1 Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Nb5 Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+22. c4 Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Nxb4 Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+23. Ng1 Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Qd7 Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+24. Qg3 Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Qc8 Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+25. Qg6 Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Qd8 Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+26. Qf5 Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Nc6 Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+27. Rh2 Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Na5 Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+28. Qe4 Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+c5 Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+29. Qe3 Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b7
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to c8
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b6
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
+Protecc Playing safeaggro Move
+Protecc Playing safe Move
+Move: 1 Trying c4 to b3
+Playing mateinone Move
+Protecc Playing ideal Move
+Protecc Playing nohang Move
