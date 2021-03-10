@@ -61,9 +61,9 @@ int main(int argc, char** argv)
         }
         else if (!strcmp(move, "fen"))
         {
-            char* fen = export_fen(&board);
+            char fen[FEN_SIZE];
+            export_fen(&board, fen);
             printf("%s\n", fen);
-            free(fen);
             continue;
         }
         else if (!strcmp(move, "pgn"))
@@ -344,9 +344,9 @@ void play_engine(char* fen)
             }
             else if (!strcmp(move, "fen"))
             {
-                char* fen = export_fen(&board);
+                char fen[FEN_SIZE];
+                export_fen(&board, fen);
                 printf("%s\n", fen);
-                free(fen);
                 continue;
             }
             else if (!strcmp(move, "pgn"))

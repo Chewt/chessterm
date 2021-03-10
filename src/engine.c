@@ -23,15 +23,6 @@ const Move default_move =
     .promotion = queen
 };
 
-struct found 
-{
-    int num_found;
-    int squares[16];
-    int en_p_taken;
-    int made_en_p;
-    int promotion;
-};
-
 void print_square(int i)
 {
     printf("%c", i/8+'a');
@@ -49,16 +40,16 @@ Move Erandom_move(Board* board)
         int start_square = rand() % 64;
         uint8_t pieces = all_pieces;
         pieces |= (board->to_move) ? black : white;
-        struct found* found_moves = find_attacker(board, start_square, pieces);
-        if (found_moves->num_found)
+        Found found_moves;
+        find_attacker(board, start_square, pieces, &found_moves);
+        if (found_moves.num_found)
         {
-            int choice = rand() % found_moves->num_found;
+            int choice = rand() % found_moves.num_found;
             move.dest = start_square;
-            move.src_piece = board->position[found_moves->squares[choice]];
-            move.src_rank = found_moves->squares[choice] / 8;
-            move.src_file = found_moves->squares[choice] % 8;
+            move.src_piece = board->position[found_moves.squares[choice]];
+            move.src_rank = found_moves.squares[choice] / 8;
+            move.src_file = found_moves.squares[choice] % 8;
         }
-        free(found_moves);
     }
     return move;
 }
@@ -79,19 +70,17 @@ Move Eaggressive_move(Board* board)
         if (board->position[curr_square] && 
                 (board->position[curr_square] & 0x80) == opp_color)
         {
-            struct found* found_moves = find_attacker(board, curr_square,
-                                                             pieces);
-            if (found_moves->num_found)
+            Found found_moves;
+            find_attacker(board, curr_square, pieces, &found_moves);
+            if (found_moves.num_found)
             {
-                int choice = rand() % found_moves->num_found;
+                int choice = rand() % found_moves.num_found;
                 move.dest = curr_square;
-                move.src_piece = board->position[found_moves->squares [choice]];
-                move.src_rank = found_moves->squares[choice] / 8;
-                move.src_file = found_moves->squares[choice] % 8;
-                free(found_moves);
+                move.src_piece = board->position[found_moves.squares [choice]];
+                move.src_rank = found_moves.squares[choice] / 8;
+                move.src_file = found_moves.squares[choice] % 8;
                 break;
             }
-            free(found_moves);
         }
     }
     if (move.dest == -1)
@@ -188,18 +177,18 @@ Move Eape_move(Board* board)
     for (i = 0; i < 64; ++i)
     {
         int curr_square = (start_square + i) % 64;
-        struct found* found_moves = find_attacker(board, curr_square, pieces);
+        Found found_moves;
+        find_attacker(board, curr_square, pieces, &found_moves);
         int j;
-        for (j = 0; j < found_moves->num_found; ++j)
-            if (gives_check(board, curr_square, found_moves->squares[j]))
+        for (j = 0; j < found_moves.num_found; ++j)
+            if (gives_check(board, curr_square, found_moves.squares[j]))
             {
                 move.dest = curr_square;
-                move.src_piece = board->position[found_moves->squares[j]];
-                move.src_rank = found_moves->squares[j] / 8;
-                move.src_file = found_moves->squares[j] % 8;
+                move.src_piece = board->position[found_moves.squares[j]];
+                move.src_rank = found_moves.squares[j] / 8;
+                move.src_file = found_moves.squares[j] % 8;
                 break;
             }
-        free(found_moves);
     }
     if (move.dest == -1)
         return Eaggressive_move(board);
@@ -243,11 +232,12 @@ Move Esafe(Board* board, int protecc)
     for (i = 0; i < 128; ++i)
     {
         int curr_square = (rand() % 64 + i) % 64;
-        struct found* found_moves = find_attacker(board, curr_square, pieces);
+        Found found_moves;
+        find_attacker(board, curr_square, pieces, &found_moves);
         int j;
-        for (j = 0; j < found_moves->num_found; ++j)
+        for (j = 0; j < found_moves.num_found; ++j)
         {
-            int target = found_moves->squares[j];
+            int target = found_moves.squares[j];
             if (!will_be_attacked(board, curr_square, target) || 
                     is_protected(board, curr_square, target))
             {
@@ -279,7 +269,6 @@ Move Esafe(Board* board, int protecc)
                 break;
             }
         }
-        free(found_moves);
     }
     if (move.dest == -1)
     {
@@ -332,12 +321,12 @@ Move Esafeaggro(Board* board, int protecc)
         if (board->position[curr_square] &&
                 (board->position[curr_square] & 0x80) == opp_color)
         {
-            struct found* found_moves = find_attacker(board, curr_square,
-                    pieces);
+            Found found_moves;
+            find_attacker(board, curr_square, pieces, &found_moves);
             int j;
-            for (j = 0; j < found_moves->num_found; ++j)
+            for (j = 0; j < found_moves.num_found; ++j)
             {
-                int target = found_moves->squares[j];
+                int target = found_moves.squares[j];
                 if (!will_be_attacked(board, curr_square, target) || 
                        is_protected(board, curr_square, target) ||
                        get_value(board, curr_square) > get_value(board, target))
@@ -348,7 +337,7 @@ Move Esafeaggro(Board* board, int protecc)
                         int found = 0;
                         for (k = 0; k < hang_count; ++k)
                         {
-                            if (hanging_squares[k] == found_moves->squares[j])
+                            if (hanging_squares[k] == found_moves.squares[j])
                             {
                                 target = hanging_squares[k];
                                 found = 1;
@@ -371,7 +360,6 @@ Move Esafeaggro(Board* board, int protecc)
                     break;
                 }
             }
-            free(found_moves);
         }
         if (move.dest != -1)
             break;
@@ -423,12 +411,13 @@ Move Enohang(Board* board, int protecc)
     for (i = 0; i < 128; ++i)
     {
         int curr_square = (rand() % 64 + i) % 64;
-        struct found* found_moves = find_attacker(board, curr_square, pieces);
+        Found found_moves;
+        find_attacker(board, curr_square, pieces, &found_moves);
         int j;
-        for (j = 0; j < found_moves->num_found; ++j)
+        for (j = 0; j < found_moves.num_found; ++j)
         {
-            int target = found_moves->squares[j];
-            if (gives_check(board, curr_square, found_moves->squares[j]) && 
+            int target = found_moves.squares[j];
+            if (gives_check(board, curr_square, found_moves.squares[j]) && 
                     (!will_be_attacked(board, curr_square, target) || 
                      is_protected(board, curr_square, target)) ||
                     get_value(board, curr_square) > get_value(board, target))
@@ -439,7 +428,7 @@ Move Enohang(Board* board, int protecc)
                     int found = 0;
                     for (k = 0; k < hang_count; ++k)
                     {
-                        if (hanging_squares[k] == found_moves->squares[j])
+                        if (hanging_squares[k] == found_moves.squares[j])
                         {
                             target = hanging_squares[k];
                             found = 1;
@@ -463,7 +452,6 @@ Move Enohang(Board* board, int protecc)
                 break;
             }
         }
-        free(found_moves);
         if (move.dest != -1)
             break;
     }
@@ -519,13 +507,13 @@ Move Eideal(Board* board, int protecc)
         if (board->position[curr_square] && 
                 (board->position[curr_square] & 0x80) == opp_color)
         {
-            struct found* found_moves = find_attacker(board, curr_square,
-                    pieces);
+            Found found_moves;
+            find_attacker(board, curr_square, pieces, &found_moves);
             int j;
-            for (j = 0; j < found_moves->num_found; ++j)
+            for (j = 0; j < found_moves.num_found; ++j)
             {
-                int target = found_moves->squares[j];
-                if (gives_check(board, curr_square, found_moves->squares[j]) &&
+                int target = found_moves.squares[j];
+                if (gives_check(board, curr_square, found_moves.squares[j]) &&
                         (!will_be_attacked(board, curr_square, target) || 
                          is_protected(board, curr_square, target)))
                 {
@@ -535,7 +523,7 @@ Move Eideal(Board* board, int protecc)
                         int found = 0;
                         for (k = 0; k < hang_count; ++k)
                         {
-                            if (hanging_squares[k] == found_moves->squares[j])
+                            if (hanging_squares[k] == found_moves.squares[j])
                             {
                                 target = hanging_squares[k];
                                 found = 1;
@@ -558,7 +546,6 @@ Move Eideal(Board* board, int protecc)
                     break;
                 }
             }
-            free(found_moves);
         }
         if (move.dest != -1)
             break;
@@ -585,21 +572,21 @@ Move Emateinone(Board* board)
     move.promotion |= (board->to_move) ? black : white;
     for (i = 0; i < 64; ++i)
     {
-        struct found* found_moves = find_attacker(board, i, pieces);
+        Found found_moves;
+        find_attacker(board, i, pieces, &found_moves);
         int j;
-        for (j = 0; j < found_moves->num_found; ++j)
+        for (j = 0; j < found_moves.num_found; ++j)
         {
-            int m = found_moves->squares[j];
-            if (gives_checkmate(board, i, found_moves->squares[j]))
+            int m = found_moves.squares[j];
+            if (gives_checkmate(board, i, found_moves.squares[j]))
             {
                 move.dest = i;
-                move.src_piece = board->position[found_moves->squares[j]];
-                move.src_rank = found_moves->squares[j] / 8;
-                move.src_file = found_moves->squares[j] % 8;
+                move.src_piece = board->position[found_moves.squares[j]];
+                move.src_rank = found_moves.squares[j] / 8;
+                move.src_file = found_moves.squares[j] % 8;
                 break;
             }
         }
-        free(found_moves);
         if (move.dest != -1)
             break;
     }

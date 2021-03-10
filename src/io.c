@@ -401,9 +401,8 @@ void load_fen(Board* board, char* fen)
     free(fen_copy);
 }
 
-char* export_fen(Board* board)
+void export_fen(Board* board, char* fen)
 {
-    char* fen = malloc(100);
     int str_ind = 0;
     int i;
     for (i = 0; i < 100; ++i)
@@ -479,7 +478,6 @@ char* export_fen(Board* board)
     str_ind += sprintf(fen + str_ind, "%d", board->halfmoves);
     fen[str_ind++] = ' ';
     sprintf(fen + str_ind, "%d", board->moves);
-    return fen;
 }
 
 char* export_pgn(Board* board)

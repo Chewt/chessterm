@@ -12,7 +12,7 @@
 
 int is_attacked(Board* board, int square);
 int castle(Board* board, int side);
-void check_king(Board* board, int square, uint8_t piece, struct found* founds);
+void check_king(Board* board, int square, uint8_t piece, Found* founds);
 
 /* Sets board state to all default values */
 void empty_board(Board* board)
@@ -99,17 +99,6 @@ void move_verbose(Board* board, char* dest, char* src)
     move_square(board, dest_num, source_num);
 }
 
-/* Holds information about squares found by find_attacker() */
-struct found 
-{
-    int num_found;
-    int squares[16];
-    int en_p_taken;
-    int made_en_p;
-    int promotion;
-    int castle;
-};
-
 enum Direction
 {
     UP    = -8,
@@ -161,7 +150,7 @@ int is_legal(Board* board, int dest, int src)
 
 /* Places all moves from src that are legal into dest */
 void check_for_check(Board* board, int square,
-        struct found* dest, struct found* src)
+        Found* dest, Found* src)
 {
     dest->en_p_taken = src->en_p_taken;
     dest->promotion = src->promotion;
@@ -191,7 +180,7 @@ void check_for_check(Board* board, int square,
 /* Fills found struct with locations of knights that can move to square 
  * Does not check if the move will result in own king being put in check
  */
-void check_knight(Board* board, int square, uint8_t piece, struct found* founds)
+void check_knight(Board* board, int square, uint8_t piece, Found* founds)
 {
     if (square + UP + UPL >= 0 && square + UP + UPL <= 63)
         if (square / 8 > 1 && square % 8 > 0)
@@ -254,7 +243,7 @@ void check_knight(Board* board, int square, uint8_t piece, struct found* founds)
 /* Fills found struct with locations of rooks that can move to square 
  * Does not check if the move will result in own king being put in check
  */
-void check_rook(Board* board, int square, uint8_t piece, struct found* founds)
+void check_rook(Board* board, int square, uint8_t piece, Found* founds)
 {
     int i = square;
     while (i % 8 > 0)
@@ -333,7 +322,7 @@ void check_rook(Board* board, int square, uint8_t piece, struct found* founds)
 /* Fills found struct with locations of bishops that can move to square 
  * Does not check if the move will result in own king being put in check
  */
-void check_bishop(Board* board, int square, uint8_t piece, struct found* founds)
+void check_bishop(Board* board, int square, uint8_t piece, Found* founds)
 {
     int i = square;
     while ((i + UPL) % 8 < 7 && (i + UPL) / 8 < 7)
@@ -408,7 +397,7 @@ void check_bishop(Board* board, int square, uint8_t piece, struct found* founds)
 /* Fills found struct with locations of pawns that can move to square 
  * Does not check if the move will result in own king being put in check
  */
-void check_pawn(Board* board, int square, uint8_t piece, struct found* founds)
+void check_pawn(Board* board, int square, uint8_t piece, Found* founds)
 {
     if (square == board->en_p)
     {
@@ -491,7 +480,8 @@ void check_pawn(Board* board, int square, uint8_t piece, struct found* founds)
                 }
         }
         if (square + UP >= 0)
-           if(board->position[square + UP] == piece && !board->position[square])
+           if(board->position[square + UP] == piece && 
+                                             !board->position[square])
             {
                 founds->num_found++;
                 founds->squares[founds->num_found - 1] = square + UP;
@@ -515,7 +505,8 @@ void check_pawn(Board* board, int square, uint8_t piece, struct found* founds)
                 }
         }
         if (square + DOWN < 64)
-         if(board->position[square + DOWN] == piece && !board->position[square])
+            if(board->position[square + DOWN] == piece && 
+                                                !board->position[square])
         {
             founds->num_found++;
             founds->squares[founds->num_found - 1] = square + DOWN;
@@ -529,61 +520,39 @@ void check_pawn(Board* board, int square, uint8_t piece, struct found* founds)
  */
 int can_move_to(Board* board, int square, uint8_t pieces)
 {
-    struct found* found_hyp = malloc(sizeof(struct found));
-    found_hyp->num_found = 0;
-    found_hyp->en_p_taken = -1;
-    found_hyp->promotion = 0;
+    Found found_hyp;
+    found_hyp.num_found = 0;
+    found_hyp.en_p_taken = -1;
+    found_hyp.promotion = 0;
     uint8_t color = (board->to_move) ? black : white;
     if (pieces & knight)
-        check_knight(board, square, knight | color, found_hyp);
-    if (found_hyp->num_found)
-    {
-        free(found_hyp);
+        check_knight(board, square, knight | color, &found_hyp);
+    if (found_hyp.num_found)
         return 1;
-    }
     if (pieces & bishop)
-        check_bishop(board, square, bishop | color, found_hyp);
-    if (found_hyp->num_found)
-    {
-        free(found_hyp);
+        check_bishop(board, square, bishop | color, &found_hyp);
+    if (found_hyp.num_found)
         return 1;
-    }
     if (pieces & rook)
-        check_rook(board, square, rook | color, found_hyp);
-    if (found_hyp->num_found)
-    {
-        free(found_hyp);
+        check_rook(board, square, rook | color, &found_hyp);
+    if (found_hyp.num_found)
         return 1;
-    }
     if (pieces & pawn)
-        check_pawn(board, square, pawn | color, found_hyp);
-    if (found_hyp->num_found)
-    {
-        free(found_hyp);
+        check_pawn(board, square, pawn | color, &found_hyp);
+    if (found_hyp.num_found)
         return 1;
-    }
     if (pieces & queen)
-        check_rook(board, square, queen | color, found_hyp);
-    if (found_hyp->num_found)
-    {
-        free(found_hyp);
+        check_rook(board, square, queen | color, &found_hyp);
+    if (found_hyp.num_found)
         return 1;
-    }
     if (pieces & queen)
-        check_bishop(board, square, queen | color, found_hyp);
-    if (found_hyp->num_found)
-    {
-        free(found_hyp);
+        check_bishop(board, square, queen | color, &found_hyp);
+    if (found_hyp.num_found)
         return 1;
-    }
     if (pieces & king)
-        check_king(board, square, king | color, found_hyp);
-    if (found_hyp->num_found)
-    {
-        free(found_hyp);
+        check_king(board, square, king | color, &found_hyp);
+    if (found_hyp.num_found)
         return 1;
-    }
-    free(found_hyp);
     return 0;
 }
 
@@ -650,7 +619,7 @@ int castle(Board* board, int side)
 /* Fills found struct with locations of kings that can move to square 
  * Does not check if the move will result in own king being put in check
  */
-void check_king(Board* board, int square, uint8_t piece, struct found* founds)
+void check_king(Board* board, int square, uint8_t piece, Found* founds)
 {
     if (square + LEFT >= 0 && square % 8 > 0)
         if (board->position[square + LEFT] == piece)
@@ -723,10 +692,9 @@ void check_king(Board* board, int square, uint8_t piece, struct found* founds)
 /* Returns found struct filled with locations of piece
  * Resultant found struct will not contain moves that will put the king in check
  */
-struct found* find_attacker(Board* board, int square, uint8_t piece)
+void find_attacker(Board* board, int square, uint8_t piece, Found* founds)
 {
-    struct found* founds = malloc(sizeof(struct found));
-    struct found src;
+    Found src;
     src.num_found = 0;
     src.en_p_taken = -1;
     src.promotion = 0;
@@ -740,7 +708,7 @@ struct found* find_attacker(Board* board, int square, uint8_t piece)
     uint8_t color = board->to_move << 7;
     if (board->position[square] && !((board->position[square] & black) ^
                 (board->to_move << 7)))
-        return founds;
+        return;
 
     if (piece & knight)
         check_knight(board, square, knight|color, &src);
@@ -759,7 +727,6 @@ struct found* find_attacker(Board* board, int square, uint8_t piece)
 
     if (src.num_found)
         check_for_check(board, square, founds, &src);
-    return founds;
 }
 
 /* Returns 2 if the current position is stalemate
@@ -843,14 +810,10 @@ int check_stalemate(Board* board, int which_color)
         if ((board->position[i] & 0x80) != color || i != king_attacked)
         {
             uint8_t orig_piece = board->position[i];
-            struct found* founds = find_attacker(board, i,
-                    (all_pieces & (~king)) | color);
-            if (founds->num_found)
-            {
-                free(founds);
+            Found founds;
+            find_attacker(board, i, (all_pieces & (~king)) | color, &founds);
+            if (founds.num_found)
                 return 0;
-            }
-            free(founds);
             board->position[i] = orig_piece;
         }
     }
@@ -917,27 +880,23 @@ int is_checkmate(Board* board, int which_color)
                 board->position[i] = orig_piece;
                 if (i == board->en_p)
                 {
-                    struct found* en_found = find_attacker(board, i,pawn|color);
-                    if (!en_found->num_found)
-                    {
-                        free(en_found);
+                    Found en_found;
+                    find_attacker(board, i,pawn|color, &en_found);
+                    if (!en_found.num_found)
                         continue;
-                    }
                 }
-                struct found* founds = find_attacker(board, i,
-                        (all_pieces & (~king)) | color);
-                if (founds->num_found)
+                Found founds;
+                find_attacker(board, i, (all_pieces & (~king))|color, &founds);
+                if (founds.num_found)
                 {
                     print_debug("%c%d can be blocked by ", i%8+'a', 8-i/8);
                     int j;
-                    for (j = 0; j < founds->num_found; ++j)
-                        print_debug("%c%d ", founds->squares[j]%8+'a',
-                                8-founds->squares[j]/8);
+                    for (j = 0; j < founds.num_found; ++j)
+                        print_debug("%c%d ", founds.squares[j]%8+'a',
+                                8-founds.squares[j]/8);
                     print_debug("\n");
-                    free(founds);
                     return 0;
                 }
-                free(founds);
             }
             board->position[i] = orig_piece;
         }
@@ -1006,8 +965,8 @@ void stress_test(Board* board, int times)
         int j;
         for (j = 0; j < 64; ++j)
         {
-            struct found* founds = find_attacker(board, j, all_pieces);
-            free(founds);
+            Found founds;
+            find_attacker(board, j, all_pieces, &founds);
         }
     }
 }
@@ -1098,34 +1057,34 @@ int move_piece(Board* board, Move* move)
 {
 
     /* Get list of valid moves */
-    struct found* found;
-    found = find_attacker(board, move->dest, move->src_piece);
-    move->castle = found->castle;
-    print_debug("NUM FOUND: %d\n", found->num_found);
+    Found found;
+    find_attacker(board, move->dest, move->src_piece, &found);
+    move->castle = found.castle;
+    print_debug("NUM FOUND: %d\n", found.num_found);
 
     /* Determine which move from list to choose */
     int i;
     int move_to = -1;
     int file_match = 0;
     int rank_match = 0;
-    if (found->num_found)
+    if (found.num_found)
     {
-        if (found->num_found > 1 && 
+        if (found.num_found > 1 && 
                 (move->src_rank != -1 || move->src_file != -1))
         {
             move_to = -2;
-            for (i = 0; i < found->num_found; ++i)
+            for (i = 0; i < found.num_found; ++i)
             {
                 if (move->src_rank != -1)
                 {
-                    if (found->squares[i] / 8 == move->src_rank)
+                    if (found.squares[i] / 8 == move->src_rank)
                         rank_match = 1;
                     else
                         rank_match = 0;
                 }
                 if (move->src_file != -1)
                 {
-                    if (found->squares[i] % 8 == move->src_file)
+                    if (found.squares[i] % 8 == move->src_file)
                         file_match = 1;
                     else
                         file_match = 0;
@@ -1134,29 +1093,29 @@ int move_piece(Board* board, Move* move)
                 {
                     if (file_match && rank_match)
                     {
-                        move_to = found->squares[i];
+                        move_to = found.squares[i];
                         break;
                     }
                 }
                 else if (move->src_file != -1 && file_match)
                 {
-                    move_to = found->squares[i];
+                    move_to = found.squares[i];
                     break;
                 }
                 else if (move->src_rank != -1 && rank_match)
                 {
-                    move_to = found->squares[i];
+                    move_to = found.squares[i];
                     break;
                 }
             }
         }
-        else if (found->num_found == 1)
+        else if (found.num_found == 1)
         {
             if (!(move->src_piece & pawn))
                 move->src_file = -1;
             move->src_rank = -1;
             if (move_to == -1)
-                move_to = found->squares[0];
+                move_to = found.squares[0];
             else
                 move_to = -2;
         }
@@ -1240,16 +1199,16 @@ int move_piece(Board* board, Move* move)
                 board->bking_pos = move->dest;
             else if (move->src_piece == king)
                 board->wking_pos = move->dest;
-            if (found->en_p_taken != -1)
+            if (found.en_p_taken != -1)
             {
-                record->piece_taken = board->position[found->en_p_taken];
-                board->position[found->en_p_taken] = 0;
+                record->piece_taken = board->position[found.en_p_taken];
+                board->position[found.en_p_taken] = 0;
             }
             board->halfmoves++;
-            if (found->made_en_p == -1)
+            if (found.made_en_p == -1)
                 board->en_p = -1;
             else
-                board->en_p = found->made_en_p;
+                board->en_p = found.made_en_p;
             if (move->src_piece & pawn)
             {
                 board->pos_count = 0;
@@ -1262,7 +1221,7 @@ int move_piece(Board* board, Move* move)
                 board->pos_count = 0;
                 board->halfmoves = 0;
             }
-            if (found->promotion)
+            if (found.promotion)
             {
                 board->position[move->dest] = move->promotion;
                 record->promotion = move->promotion;
@@ -1281,7 +1240,6 @@ int move_piece(Board* board, Move* move)
         if (is_attacked(board, curr_king))
             record->gave_check = 1;
     }
-    free(found);
 
     /* Update castling permissions */
     if (board->castling & 0x08)
