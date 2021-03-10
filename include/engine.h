@@ -7,7 +7,7 @@
 Move Erandom_move(Board* board);
 Move Eaggressive_move(Board* board);
 Move Eape_move(Board* board);
-Move Eideal(Board* board);
+Move Eideal(Board* board, int protecc);
 Move Emateinone(Board* board);
 
 #endif

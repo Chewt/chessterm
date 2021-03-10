@@ -1094,7 +1094,7 @@ void store_position(Board* board, char* dest)
 /* Makes a move on the board based on given Move struct and updates board state
  * Use this function when submitting an actual move on the board
  */
-void move_piece(Board* board, Move* move)
+int move_piece(Board* board, Move* move)
 {
 
     /* Get list of valid moves */
@@ -1174,9 +1174,13 @@ void move_piece(Board* board, Move* move)
         printf("0x%X from %c%d to %c%d\n", move->src_piece, 
                 move->src_file + 'a', 8 - move->src_rank,
                 move->dest % 8 + 'a', 8 - move->dest / 8);
+        return -1;
     }
     else if (move_to == -1)
+    {
         printf("Move not valid.\n");
+        return -1;
+    }
     else
     {
         Move* record = &(board->history[board->history_count]);
@@ -1266,6 +1270,8 @@ void move_piece(Board* board, Move* move)
         }
         store_position(board, board->position_hist[board->pos_count++]);
         board->history_count++;
+        if (board->to_move)
+            board->moves++;
         board->to_move = !board->to_move;
         uint8_t curr_king;
         if (board->to_move)
@@ -1274,8 +1280,6 @@ void move_piece(Board* board, Move* move)
             curr_king = board->wking_pos;
         if (is_attacked(board, curr_king))
             record->gave_check = 1;
-        if (board->to_move)
-            board->moves++;
     }
     free(found);
 
@@ -1296,6 +1300,7 @@ void move_piece(Board* board, Move* move)
         if (board->position[4] != (king|black) ||
                 board->position[0] != (rook|black))
             board->castling &= 0xFE;
+    return 0;
 }
 
 /* Interprets Standard Algebraic Notation and makes a move */

@@ -60,7 +60,7 @@ void move_square(Board* board, int src, int dest);
 void move_verbose(Board* board, char* dest, char* src);
 void move_san(Board* board, char* move);
 int is_gameover(Board* board);
-void move_piece(Board* board, Move* move);
+int move_piece(Board* board, Move* move);
 struct found* find_attacker(Board* board, int square, uint8_t piece);
 int is_legal(Board* board, int dest, int src);
 int is_attacked(Board* board, int square);
