@@ -14,6 +14,27 @@ int is_attacked(Board* board, int square);
 int castle(Board* board, int side);
 void check_king(Board* board, int square, uint8_t piece, Found* founds);
 
+int get_value(Board* board, int square)
+{
+    uint8_t piece;
+    if (square < 64 && square >= 0)
+        piece = board->position[square];
+    else
+        return 0;
+    if (piece & pawn)
+        return 1;
+    else if (piece & bishop || piece & knight)
+        return 3;
+    else if (piece & rook)
+        return 5;
+    else if (piece & queen)
+        return 9;
+    else if (piece & king)
+        return 10;
+    else
+        return 0;
+}
+
 /* Sets board state to all default values */
 void empty_board(Board* board)
 {
@@ -705,9 +726,8 @@ void find_attacker(Board* board, int square, uint8_t piece, Found* founds)
     founds->promotion = 0;
     founds->made_en_p = -1;
     founds->castle = -1;
-    uint8_t color = board->to_move << 7;
-    if (board->position[square] && !((board->position[square] & black) ^
-                (board->to_move << 7)))
+    uint8_t color = (board->to_move) ? black : white;
+    if (board->position[square] && !((board->position[square] & 0x80) ^ color))
         return;
 
     if (piece & knight)

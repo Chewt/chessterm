@@ -29,6 +29,99 @@ void print_square(int i)
     printf("%d", 8-i/8);
 }
 
+int gives_check(Board* board, int dest, int src)
+{
+    board->to_move = !board->to_move;
+    int result = !is_legal(board, dest, src);
+    board->to_move = !board->to_move;
+    return result;
+}
+
+int gives_checkmate(Board* board, int dest, int src)
+{
+    uint8_t original_piece = board->position[dest];
+    move_square(board, dest, src);
+    board->to_move = !board->to_move;
+    uint8_t color = (board->to_move) ? black : white;
+    int result = is_checkmate(board, color);
+    move_square(board, src, dest);
+    board->to_move = !board->to_move;
+    board->position[dest] = original_piece;
+    return result;
+}
+
+int is_protected(Board* board, int src, int omit)
+{
+    uint8_t orig;
+    if (omit != -1)
+    {
+        orig = board->position[omit];
+        board->position[omit] = 0;
+    }
+    Found found;
+    uint8_t orig_src = board->position[src];
+    uint8_t opp_color = (orig_src & 0x80) ^ 0x80;
+    board->position[src] = pawn | opp_color;
+    find_attacker(board, src, all_pieces, &found);
+    board->position[src] = orig_src;
+    int result = found.num_found;
+    if (omit != -1)
+        board->position[omit] = orig;
+    return result;
+}
+
+int is_safe(Board* board, int src)
+{
+    if (!is_attacked(board, src))
+        return 1;
+    board->to_move = !board->to_move;
+    Found found;
+    find_attacker(board, src, all_pieces, &found);
+    board->to_move = !board->to_move;
+    int lowest_value = 9;
+    int i;
+    for (i = 0; i < found.num_found; ++i)
+    {
+        int curr = found.squares[i];
+        if (get_value(board, curr) < lowest_value)
+            lowest_value = get_value(board, curr);
+    }
+    if (lowest_value >= get_value(board, src) && 
+          found.num_found <= is_protected(board, src, -1))
+        return 1;
+    return 0;
+}
+
+int will_protect(Board* board, int dest, int src, int target)
+{
+    uint8_t original_piece = board->position[dest];
+    move_square(board, dest, src);
+    int result = is_safe(board, target);
+    move_square(board, src, dest);
+    board->position[dest] = original_piece;
+    return result;
+}
+
+int will_be_attacked(Board* board, int dest, int src)
+{
+    uint8_t orig = board->position[dest];
+    move_square(board, dest, src);
+    int result = is_attacked(board, dest);
+    move_square(board, src, dest);
+    board->position[dest] = orig;
+    return result;
+}
+
+int is_safe_move(Board* board, int dest, int src)
+{
+    uint8_t orig = board->position[dest];
+    move_square(board, dest, src);
+    int result = is_safe(board, dest);
+    move_square(board, src, dest);
+    board->position[dest] = orig;
+    return result;
+}
+
 Move Erandom_move(Board* board)
 {
     print_debug("Playing Random Move\n");
@@ -89,82 +182,6 @@ Move Eaggressive_move(Board* board)
         return move;
 }
 
-int gives_check(Board* board, int dest, int src)
-{
-    board->to_move = !board->to_move;
-    int result = !is_legal(board, dest, src);
-    board->to_move = !board->to_move;
-    return result;
-}
-
-int gives_checkmate(Board* board, int dest, int src)
-{
-    uint8_t original_piece = board->position[dest];
-    move_square(board, dest, src);
-    board->to_move = !board->to_move;
-    uint8_t color = (board->to_move) ? black : white;
-    int result = is_checkmate(board, color);
-    move_square(board, src, dest);
-    board->to_move = !board->to_move;
-    board->position[dest] = original_piece;
-    return result;
-}
-
-int is_protected(Board* board, int src, int omit)
-{
-    board->to_move = !board->to_move;
-    uint8_t orig;
-    if (omit != -1)
-    {
-        orig = board->position[omit];
-        board->position[omit] = 0;
-    }
-    int result = is_attacked(board, src);
-    if (omit != -1)
-        board->position[omit] = orig;
-    board->to_move = !board->to_move;
-    return result;
-}
-
-int will_protect(Board* board, int dest, int src, int target)
-{
-    uint8_t original_piece = board->position[dest];
-    move_square(board, dest, src);
-    int result = is_protected(board, target, -1);
-    if (!is_attacked(board, target))
-        result = 1;
-    move_square(board, src, dest);
-    board->position[dest] = original_piece;
-    return result;
-}
-
-int will_be_attacked(Board* board, int dest, int src)
-{
-    uint8_t orig = board->position[dest];
-    move_square(board, dest, src);
-    int result = is_attacked(board, dest);
-    move_square(board, src, dest);
-    board->position[dest] = orig;
-    return result;
-}
-
-int get_value(Board* board, int square)
-{
-    uint8_t piece = board->position[square];
-    if (piece & pawn)
-        return 1;
-    else if (piece & bishop || piece & knight)
-        return 3;
-    else if (piece & rook)
-        return 5;
-    else if (piece & queen)
-        return 9;
-    else if (piece & king)
-        return 10;
-    else
-        return 0;
-}
-
 Move Eape_move(Board* board)
 {
     print_debug("Playing Ape Move\n");
@@ -209,25 +226,16 @@ Move Esafe(Board* board, int protecc)
     move.promotion |= (board->to_move) ? black : white;
     uint8_t color = pieces & 0x80;
     int start_square = rand() % 64;
-    int hanging_squares[16] = {-1};
-    int hang_count = 0;
+    int hanging = -1;
     if (protecc)
     {
         for (i = 0; i < 64; ++i)
         {
             if (board->position[i] && (board->position[i] & 0x80) == color &&
-                    is_attacked(board, i))
-            {
-                if (!is_protected(board, i, -1))
-                {
-                    hanging_squares[hang_count++] = i;
-                }
-            }
+                                      !is_safe(board, i))
+                if (get_value(board, i) > get_value(board, hanging))
+                    hanging = i;
         }
-        print_debug("Found: %d hanging pieces\n", hang_count);
-        for (i = 0; i < hang_count; ++i)
-            print_debug("==%c%d\n",hanging_squares[i]%8+'a',
-                                   8-hanging_squares[i]/8);
     }
     for (i = 0; i < 128; ++i)
     {
@@ -238,27 +246,23 @@ Move Esafe(Board* board, int protecc)
         for (j = 0; j < found_moves.num_found; ++j)
         {
             int target = found_moves.squares[j];
-            if (!will_be_attacked(board, curr_square, target) || 
-                    is_protected(board, curr_square, target))
+            if (is_safe_move(board, curr_square, target))
             {
-                if (hang_count)
+                if (hanging != -1)
                 {
-                    int k;
+                    print_debug("Will %c%d  to %c%d save %c%d? ",
+                            target%8+'a',8-target/8,
+                            curr_square%8+'a',8-curr_square/8,
+                            hanging%8+'a',8-hanging/8);
                     int found = 0;
-                    for (k = 0; k < hang_count; ++k)
-                    {
-                        if (hanging_squares[k] == target)
-                        {
-                            found = 1;
-                            break;
-                        }
-                        else if (will_protect(board, curr_square, target,
-                                    hanging_squares[k]))
-                        {
-                            found = 1;
-                            break;
-                        }
-                    }
+                    if (hanging == target)
+                        found = 1;
+                    else if (will_protect(board, curr_square, target, hanging))
+                        found = 1;
+                    if (found)
+                        print_debug("Yes.\n");
+                    else
+                        print_debug("No.\n");
                     if (!found)
                         continue;
                 }
@@ -295,25 +299,16 @@ Move Esafeaggro(Board* board, int protecc)
     move.promotion |= (board->to_move) ? black : white;
     uint8_t color = pieces & 0x80;
     int start_square = rand() % 64;
-    int hanging_squares[16] = {-1};
-    int hang_count = 0;
+    int hanging = -1;
     if (protecc)
     {
         for (i = 0; i < 64; ++i)
         {
             if (board->position[i] && (board->position[i] & 0x80) == color &&
-                    is_attacked(board, i))
-            {
-                if (!is_protected(board, i, -1))
-                {
-                    hanging_squares[hang_count++] = i;
-                }
-            }
+                    !is_safe(board, i))
+                if (get_value(board, i) > get_value(board, hanging))
+                    hanging = i;
         }
-        print_debug("Found: %d hanging pieces\n", hang_count);
-        for (i = 0; i < hang_count; ++i)
-            print_debug("==%c%d\n",hanging_squares[i]%8+'a',
-                                   8-hanging_squares[i]/8);
     }
     for (i = 0; i < 128; ++i)
     {
@@ -327,32 +322,20 @@ Move Esafeaggro(Board* board, int protecc)
             for (j = 0; j < found_moves.num_found; ++j)
             {
                 int target = found_moves.squares[j];
-                if (!will_be_attacked(board, curr_square, target) || 
-                       is_protected(board, curr_square, target) ||
-                       get_value(board, curr_square) > get_value(board, target))
+                if (is_safe_move(board, curr_square, target) ||
+                    get_value(board, curr_square) > get_value(board, target)
+                   )
                 {
-                    if (hang_count)
-                    {
-                        int k;
-                        int found = 0;
-                        for (k = 0; k < hang_count; ++k)
-                        {
-                            if (hanging_squares[k] == found_moves.squares[j])
-                            {
-                                target = hanging_squares[k];
-                                found = 1;
-                                break;
-                            }
-                            else if (will_protect(board, curr_square, target,
-                                                  hanging_squares[k]))
-                            {
-                                found = 1;
-                                break;
-                            }
-                        }
-                        if (!found)
-                            continue;
-                    }
+                if (hanging != -1)
+                {
+                    int found = 0;
+                    if (hanging == target)
+                        found = 1;
+                    else if (will_protect(board, curr_square, target, hanging))
+                        found = 1;
+                    if (!found)
+                        continue;
+                }
                     move.dest = curr_square;
                     move.src_piece = board->position[target];
                     move.src_rank = target / 8;
@@ -387,25 +370,16 @@ Move Enohang(Board* board, int protecc)
     pieces |= (board->to_move) ? black : white;
     move.promotion |= (board->to_move) ? black : white;
     uint8_t color = pieces & 0x80;
-    int hanging_squares[16] = {-1};
-    int hang_count = 0;
+    int hanging = -1;
     if (protecc)
     {
         for (i = 0; i < 64; ++i)
         {
             if (board->position[i] && (board->position[i] & 0x80) == color &&
-                    is_attacked(board, i))
-            {
-                if (!is_protected(board, i, -1))
-                {
-                    hanging_squares[hang_count++] = i;
-                }
-            }
+                    !is_safe(board, i))
+                if (get_value(board, i) > get_value(board, hanging))
+                    hanging = i;
         }
-        print_debug("Found: %d hanging pieces\n", hang_count);
-        for (i = 0; i < hang_count; ++i)
-            print_debug("==%c%d\n",hanging_squares[i]%8+'a',
-                                   8-hanging_squares[i]/8);
     }
     int start_square = rand() % 64;
     for (i = 0; i < 128; ++i)
@@ -418,30 +392,16 @@ Move Enohang(Board* board, int protecc)
         {
             int target = found_moves.squares[j];
             if (gives_check(board, curr_square, found_moves.squares[j]) && 
-                    (!will_be_attacked(board, curr_square, target) || 
-                     is_protected(board, curr_square, target)) ||
-                    get_value(board, curr_square) > get_value(board, target))
+                     (is_safe_move(board, curr_square, target) ||
+                      get_value(board, curr_square) > get_value(board, target)))
             {
-                if (hang_count)
+                if (hanging != -1)
                 {
-                    int k;
                     int found = 0;
-                    for (k = 0; k < hang_count; ++k)
-                    {
-                        if (hanging_squares[k] == found_moves.squares[j])
-                        {
-                            target = hanging_squares[k];
-                            found = 1;
-                            break;
-                        }
-                        else if (will_protect(board, curr_square, target,
-                                              hanging_squares[k]))
-
-                        {
-                            found = 1;
-                            break;
-                        }
-                    }
+                    if (hanging == target)
+                        found = 1;
+                    else if (will_protect(board, curr_square, target, hanging))
+                        found = 1;
                     if (!found)
                         continue;
                 }
@@ -481,25 +441,16 @@ Move Eideal(Board* board, int protecc)
     pieces |= (board->to_move) ? black : white;
     move.promotion |= (board->to_move) ? black : white;
     uint8_t color = pieces & 0x80;
-    int hanging_squares[16] = {-1};
-    int hang_count = 0;
+    int hanging = -1;
     if (protecc)
     {
         for (i = 0; i < 64; ++i)
         {
             if (board->position[i] && (board->position[i] & 0x80) == color &&
-                    is_attacked(board, i))
-            {
-                if (!is_protected(board, i, -1))
-                {
-                    hanging_squares[hang_count++] = i;
-                }
-            }
+                    !is_safe(board, i))
+                if (get_value(board, i) > get_value(board, hanging))
+                    hanging = i;
         }
-        print_debug("Found: %d hanging pieces\n", hang_count);
-        for (i = 0; i < hang_count; ++i)
-            print_debug("==%c%d\n",hanging_squares[i]%8+'a',
-                                   8-hanging_squares[i]/8);
     }
     for (i = 0; i < 128; ++i)
     {
@@ -514,31 +465,19 @@ Move Eideal(Board* board, int protecc)
             {
                 int target = found_moves.squares[j];
                 if (gives_check(board, curr_square, found_moves.squares[j]) &&
-                        (!will_be_attacked(board, curr_square, target) || 
-                         is_protected(board, curr_square, target)))
+                     (is_safe_move(board, curr_square, target) ||
+                      get_value(board, curr_square) > get_value(board, target)))
                 {
-                    if (hang_count)
-                    {
-                        int k;
-                        int found = 0;
-                        for (k = 0; k < hang_count; ++k)
-                        {
-                            if (hanging_squares[k] == found_moves.squares[j])
-                            {
-                                target = hanging_squares[k];
-                                found = 1;
-                                break;
-                            }
-                            else if (will_protect(board, curr_square, target,
-                                                  hanging_squares[k]))
-                            {
-                                found = 1;
-                                break;
-                            }
-                        }
-                        if (!found)
-                            continue;
-                    }
+                if (hanging != -1)
+                {
+                    int found = 0;
+                    if (hanging == target)
+                        found = 1;
+                    else if (will_protect(board, curr_square, target, hanging))
+                        found = 1;
+                    if (!found)
+                        continue;
+                }
                     move.dest = curr_square;
                     move.src_piece = board->position[target];
                     move.src_rank = target / 8;
