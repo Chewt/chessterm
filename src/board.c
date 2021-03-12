@@ -14,6 +14,7 @@ int is_attacked(Board* board, int square);
 int castle(Board* board, int side);
 void check_king(Board* board, int square, uint8_t piece, Found* founds);
 
+/* Gets value of piece on passed square */
 int get_value(Board* board, int square)
 {
     uint8_t piece;
@@ -33,6 +34,54 @@ int get_value(Board* board, int square)
         return 10;
     else
         return 0;
+}
+
+void get_material_scores(Board* board, int* white_score, int* black_score)
+{
+    int i;
+    white_score[0] = 0;
+    white_score[1] = 8;
+    white_score[2] = 2;
+    white_score[3] = 2;
+    white_score[4] = 2;
+    white_score[5] = 1;
+    black_score[0] = 0;
+    black_score[1] = 8;
+    black_score[2] = 2;
+    black_score[3] = 2;
+    black_score[4] = 2;
+    black_score[5] = 1;
+    for (i = 0; i < 64; ++i)
+    {
+        if (board->position[i] & 0x80)
+        {
+            black_score[0] += get_value(board, i);
+            if (board->position[i] & pawn)
+                black_score[1]--;
+            if (board->position[i] & bishop)
+                black_score[2]--;
+            if (board->position[i] & knight)
+                black_score[3]--;
+            if (board->position[i] & rook)
+                black_score[4]--;
+            if (board->position[i] & queen)
+                black_score[5]--;
+        }
+        else
+        {
+            white_score[0] += get_value(board, i);
+            if (board->position[i] & pawn)
+                white_score[1]--;
+            if (board->position[i] & bishop)
+                white_score[2]--;
+            if (board->position[i] & knight)
+                white_score[3]--;
+            if (board->position[i] & rook)
+                white_score[4]--;
+            if (board->position[i] & queen)
+                white_score[5]--;
+        }
+    }
 }
 
 /* Sets board state to all default values */

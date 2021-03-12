@@ -141,11 +141,23 @@ void print_piece(uint8_t piece)
 void print_fancy(Board* board)
 {
     int i;
-
     printf("   \u2554");
     for (i = 0; i < 56; ++i)
         printf("\u2550");
-    printf("\u2557\n");
+    printf("\u2557");
+    int white_score[6];
+    int black_score[6];
+    const char* piece_chars = "pbnrq";
+    get_material_scores(board, white_score, black_score);
+    printf(" Black: ");
+    if (white_score[0] - black_score[0] < 0)
+        printf("%+d ", black_score[0] - white_score[0]);
+    int j;
+    for (i = 1; i < 6; ++i)
+        for (j = 0; j < white_score[6 - i]; ++j)
+            printf("%c", piece_chars[5 - i] - 32);
+    printf("\n");
+    
     for (i = 0; i < 24; ++i)
     {
         if (i % 3 == 1)
@@ -160,7 +172,14 @@ void print_fancy(Board* board)
     printf("   \u255a");
     for (i = 0; i < 56; ++i)
         printf("\u2550");
-    printf("\u255d\n       ");
+    printf("\u255d");
+    printf(" White: ");
+    if (white_score[0] - black_score[0] > 0)
+        printf("%+d ", white_score[0] - black_score[0]);
+    for (i = 1; i < 6; ++i)
+        for (j = 0; j < black_score[6 - i]; ++j)
+            printf("%c", piece_chars[5 - i]);
+    printf("\n       ");
     for (i = 0; i < 8; ++i)
         printf("%c      ", 'a' + i);
     printf("\n");
@@ -196,7 +215,19 @@ void print_fancy_flipped(Board* board)
     printf("   \u2554");
     for (i = 0; i < 56; ++i)
         printf("\u2550");
-    printf("\u2557\n");
+    printf("\u2557");
+    int white_score[6];
+    int black_score[6];
+    const char* piece_chars = "pbnrq";
+    get_material_scores(board, white_score, black_score);
+    printf(" White: ");
+    if (white_score[0] - black_score[0] > 0)
+        printf("%+d ", white_score[0] - black_score[0]);
+    int j;
+    for (i = 1; i < 6; ++i)
+        for (j = 0; j < black_score[6 - i]; ++j)
+            printf("%c", piece_chars[5 - i]);
+    printf("\n");
     for (i = 0; i < 24; ++i)
     {
         if (i % 3 == 1)
@@ -211,7 +242,14 @@ void print_fancy_flipped(Board* board)
     printf("   \u255a");
     for (i = 0; i < 56; ++i)
         printf("\u2550");
-    printf("\u255d\n       ");
+    printf("\u255d");
+    printf(" Black: ");
+    if (white_score[0] - black_score[0] < 0)
+        printf("%+d ", black_score[0] - white_score[0]);
+    for (i = 1; i < 6; ++i)
+        for (j = 0; j < white_score[6 - i]; ++j)
+            printf("%c", piece_chars[5 - i] - 32);
+    printf("\n       ");
     for (i = 0; i < 8; ++i)
         printf("%c      ", 'h' - i);
     printf("\n");

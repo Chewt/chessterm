@@ -77,6 +77,7 @@ int is_legal(Board* board, int dest, int src);
 int is_attacked(Board* board, int square);
 int is_checkmate(Board* board, int which_color);
 int get_value(Board* board, int square);
+void get_material_scores(Board* board, int* white, int* black);
 
 void stress_test(Board* board, int times);
 
