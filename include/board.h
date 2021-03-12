@@ -23,6 +23,17 @@ enum Color
     black = 128
 };
 
+/* Holds information about squares found by find_attacker() */
+typedef struct
+{
+    int num_found;
+    int squares[16];
+    int en_p_taken;
+    int made_en_p;
+    int promotion;
+    int castle;
+} Found;
+
 typedef struct
 {
     int8_t dest;
@@ -61,10 +72,12 @@ void move_verbose(Board* board, char* dest, char* src);
 void move_san(Board* board, char* move);
 int is_gameover(Board* board);
 int move_piece(Board* board, Move* move);
-struct found* find_attacker(Board* board, int square, uint8_t piece);
+void find_attacker(Board* board, int square, uint8_t piece, Found* founds);
 int is_legal(Board* board, int dest, int src);
 int is_attacked(Board* board, int square);
 int is_checkmate(Board* board, int which_color);
+int get_value(Board* board, int square);
+void get_material_scores(Board* board, int* white, int* black);
 
 void stress_test(Board* board, int times);
 
