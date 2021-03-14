@@ -3,12 +3,16 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "uci.h"
+#include "board.h"
+#include "io.h"
 #include "dynarray.h"
 
 #define ENGINE_READ  to_engine[0]
 #define CLIENT_WRITE to_engine[1]
 #define CLIENT_READ  from_engine[0]
 #define ENGINE_WRITE from_engine[1]
+
+extern const Move default_move;
 
 void start_engine(char* engine_exc, int* rwfds)
 {
@@ -27,21 +31,14 @@ void start_engine(char* engine_exc, int* rwfds)
         rwfds[1] = CLIENT_WRITE;
         send_uci(CLIENT_WRITE);
         send_isready(CLIENT_WRITE);
-        send_position(CLIENT_WRITE, "startpos", NULL);
-        send_go(CLIENT_WRITE, NULL);
-        sleep(5);
-        send_stop(CLIENT_WRITE);
-        
         char* message = get_message(CLIENT_READ);
-        while (!strstr(message, "bestmove"))
+        while (!strstr(message, "readyok"))
         {
             free(message);
             message = get_message(CLIENT_READ);
         }
         printf("%s\n", message);
         free(message);
-
-        send_quit(CLIENT_WRITE);
     }
     else
     {
@@ -56,6 +53,35 @@ void start_engine(char* engine_exc, int* rwfds)
         char* args[] = {engine_exc, NULL};
         execvp(engine_exc, args);
     }
+}
+
+Move get_engine_move(Board* board, int* fds)
+{
+    char curr_position[FEN_SIZE];
+    export_fen(board, curr_position);
+    send_position(fds[1], "fen", curr_position);
+    send_go(fds[1], "depth 10");
+    char* message = get_message(fds[0]);
+    while (!strstr(message, "bestmove"))
+    {
+        free(message);
+        message = get_message(fds[0]);
+    }
+    char* save_ptr;
+    char* token;
+    token = strtok_r(message, " ", &save_ptr);
+    token = strtok_r(NULL, " ", &save_ptr);
+    Move move = default_move;
+    move.src_file = token[0] - 'a';
+    move.src_rank = 8 - (token[1] - '0');
+    move.src_piece = board->position[move.src_file + (move.src_rank * 8)];
+    int dest = (token[2] - 'a') + (8 - (token[3] - '0')) * 8;
+    move.dest = dest;
+    move.promotion |= move.src_piece & 0x80;
+    printf("%s %u %u %u %u\n", token, move.src_file, move.src_rank,
+            move.src_piece, move.dest);
+    free(message);
+    return move;
 }
 
 void send_uci(int fd)

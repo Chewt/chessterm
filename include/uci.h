@@ -1,6 +1,7 @@
 #ifndef UCI_H
 #define UCI_H
 
+#include "board.h"
 enum
 {
     OFF,
@@ -8,6 +9,7 @@ enum
 };
 
 void start_engine(char* engine_exc, int* rwfds);
+Move get_engine_move(Board* board, int* fds);
 
 void send_uci(int fd);
 void send_debug(int fd, int option);
