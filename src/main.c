@@ -3,6 +3,7 @@
 #include <string.h>
 #include <time.h>
 #include "chessterm.h"
+#include "uci.h"
 #include "engine.h"
 
 #ifdef DEBUG
@@ -15,7 +16,6 @@
 void play_engine();
 int engine_v_engine(char* fen, int silent);
 
-
 int main(int argc, char** argv)
 {
     srand(time(0));
@@ -23,6 +23,10 @@ int main(int argc, char** argv)
     default_board(&board);
     if (argc == 2)
         load_fen(&board, argv[1]);
+    if (argc == 3)
+    {
+        start_engine(argv[2]);
+    }
     printf("\n");
     print_fancy(&board);
     int running = 1;

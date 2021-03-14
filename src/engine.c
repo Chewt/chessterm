@@ -323,8 +323,8 @@ Move Esafeaggro(Board* board, int protecc)
             {
                 int target = found_moves.squares[j];
                 if (is_safe_move(board, curr_square, target) ||
-                    get_value(board, curr_square) > get_value(board, target)
-                   )
+                        get_value(board, curr_square) > get_value(board,
+                            target))
                 {
                 if (hanging != -1)
                 {
@@ -465,8 +465,9 @@ Move Eideal(Board* board, int protecc)
             {
                 int target = found_moves.squares[j];
                 if (gives_check(board, curr_square, found_moves.squares[j]) &&
-                     (is_safe_move(board, curr_square, target) ||
-                      get_value(board, curr_square) > get_value(board, target)))
+                        (is_safe_move(board, curr_square, target) ||
+                         get_value(board, curr_square) > get_value(board,
+                             target)))
                 {
                 if (hanging != -1)
                 {
