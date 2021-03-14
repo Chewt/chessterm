@@ -7,7 +7,7 @@ enum
     ON
 };
 
-void start_engine(const char* engine_exc);
+void start_engine(char* engine_exc, int* rwfds);
 
 void send_uci(int fd);
 void send_debug(int fd, int option);
@@ -20,5 +20,7 @@ void send_go(int fd, char* options);
 void send_stop(int fd);
 void send_ponderhit(int fd);
 void send_quit(int fd);
+
+char* get_message(int fd);
 
 #endif

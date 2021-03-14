@@ -25,7 +25,8 @@ int main(int argc, char** argv)
         load_fen(&board, argv[1]);
     if (argc == 3)
     {
-        start_engine(argv[2]);
+        int enginefds[2];
+        start_engine(argv[2], enginefds);
     }
     printf("\n");
     print_fancy(&board);
