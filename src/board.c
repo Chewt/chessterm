@@ -95,6 +95,8 @@ void empty_board(Board* board)
     board->bking_pos = 0;
     board->wking_pos = 0;
     board->pos_count = 0;
+    board->white_name[0] = '\0';
+    board->black_name[0] = '\0';
     int i;
     for (i = 0; i < 64; ++i)
         board->position[i] = 0;
@@ -121,8 +123,8 @@ void default_board(Board* board)
     board->bking_pos = 4;
     board->wking_pos = 60;
     board->castling = 0x0F;
-    board->white_name = "White";
-    board->black_name = "Black";
+    memcpy(board->white_name, "White\0", 6);
+    memcpy(board->black_name, "Black\0", 6);
     board->position[0] = rook   | black;
     board->position[1] = knight | black;
     board->position[2] = bishop | black;
@@ -486,7 +488,7 @@ void check_pawn(Board* board, int square, uint8_t piece, Found* founds)
                 founds->en_p_taken = square + DOWN;
             }
         }
-        else if (square / 8 == 6)
+        else if (square / 8 == 5)
         {
             if (board->position[square + UPR]  == piece)
             {
@@ -793,7 +795,6 @@ void find_attacker(Board* board, int square, uint8_t piece, Found* founds)
         check_bishop(board, square, queen|color, &src);
     if (piece & pawn)
         check_pawn(board, square, pawn|color, &src);
-
     if (src.num_found)
         check_for_check(board, square, founds, &src);
 }

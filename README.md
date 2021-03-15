@@ -15,7 +15,7 @@ The current functionality includes:
  - Basic engine that plays ok-ish moves
 ## Roadmap
 Features that still need to be added
- - Add UCI compatability
+ - ~~Add UCI compatability~~ Minimally implemented
  - ~~Detect Stalemate~~
  - ~~Detect 3-fold repetition stalemate~~
  - Load/save FEN from/to files
@@ -36,6 +36,12 @@ example: `$ ./chessterm "rnbq1bnr/1ppp1ppp/6k1/4Q3/4P3/p7/PPP2PPP/RNBQKBNR w KQ 
 If you do not provide a FEN, then the board will be initialized to a standard
 chess board.
 
+Additionally, you can run the program with  
+`$./chessterm -e /path/to/engine`  
+to load a UCI compatible chess engine.  
+The behaviour of the command `itself` changes to play a game between the loaded
+engine and my custom engine, where the loaded engine plays as black.
+
 In the program you will be presented with a view of the current position and
 a prompt. You can type  
 `: exit`  
@@ -43,7 +49,7 @@ to exit the program,
 `: flip`  
 to switch perspectives between black and white  
 `: engine`  
-to play against the random move engine  
+to play against the random move engine, or the loaded engine if present  
 `: itself`  
 to see a game where the engine plays itself  
 `: fen`  

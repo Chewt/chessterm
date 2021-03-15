@@ -16,13 +16,13 @@ $(TARGET): $(OBJECTS)
 	$(CC) $(OBJECTS) $(CFLAGS) -o $(TARGET)
 
 $(OBJDIR)/%.o: $(SRCDIR)/%.c $(INCLUDEDIR)/%.h $(UNIDEPS)
-	mkdir -p $(OBJDIR)
+	@mkdir -p $(OBJDIR)
 	$(CC) -c $< $(CFLAGS) -o $@
 
 $(INCLUDES):
 
 $(UNIDEPS):
-	touch $@
+	@touch $@
 
 .PHONY: color_picker
 color_picker: 
@@ -30,6 +30,5 @@ color_picker:
 
 .PHONY: clean
 clean: 
-
 	rm -rf $(OBJDIR) /*.o $(TARGET) color_picker include/settings.h
-
+	$(MAKE) clean -C add_ons
