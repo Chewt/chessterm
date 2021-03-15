@@ -95,6 +95,8 @@ void empty_board(Board* board)
     board->bking_pos = 0;
     board->wking_pos = 0;
     board->pos_count = 0;
+    board->white_name[0] = '\0';
+    board->black_name[0] = '\0';
     int i;
     for (i = 0; i < 64; ++i)
         board->position[i] = 0;
@@ -121,8 +123,8 @@ void default_board(Board* board)
     board->bking_pos = 4;
     board->wking_pos = 60;
     board->castling = 0x0F;
-    board->white_name = "White";
-    board->black_name = "Black";
+    memcpy(board->white_name, "White\0", 6);
+    memcpy(board->black_name, "Black\0", 6);
     board->position[0] = rook   | black;
     board->position[1] = knight | black;
     board->position[2] = bishop | black;

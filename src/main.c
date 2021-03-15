@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <unistd.h>
 #include <string.h>
 #include <time.h>
 #include "chessterm.h"
@@ -14,8 +15,8 @@
 #endif
 
 void play_engine();
-void play_stockfish(int* fds);
-int engine_v_stockfish(int* fds, int silent);
+void play_stockfish(Engine* engine);
+int engine_v_stockfish(Engine* engine, int silent, FILE* fp);
 int engine_v_engine(char* fen, int silent);
 
 int main(int argc, char** argv)
@@ -23,16 +24,8 @@ int main(int argc, char** argv)
     srand(time(0));
     Board board;
     default_board(&board);
-    int enginefds[2];
     if (argc == 2)
         load_fen(&board, argv[1]);
-    if (argc == 3)
-    {
-        enginefds[2];
-        start_engine(argv[2], enginefds);
-        //play_stockfish(enginefds);
-        engine_v_stockfish(enginefds, 0);
-    }
     printf("\n");
     print_fancy(&board);
     int running = 1;
@@ -96,14 +89,19 @@ int main(int argc, char** argv)
         {
             if (argc == 1)
                 play_engine(NULL);
-            else
+            else if (argc == 2)
                 play_engine(argv[1]);
             continue;
         }
         else if (!strcmp(move, "itself"))
         {
             if (argc == 3)
-                engine_v_stockfish(enginefds, 0);
+            {
+                Engine engine;
+                start_engine(&engine, argv[2]);
+                engine_v_stockfish(&engine, 0, NULL);
+                stop_engine(&engine);
+            }
             else
                 engine_v_engine(NULL, 0);
             continue;
@@ -115,7 +113,11 @@ int main(int argc, char** argv)
             int white_win = 0;
             int draw = 0;
             int result;
+            Engine engine;
+            if (argc == 3)
+                start_engine(&engine, argv[2]);
             clock_t t = clock();
+            FILE* games = fopen("thousand_games.txt", "w");
             for (i = 0; i < 1000; ++i)
             {
                 clock_t in_t = clock();
@@ -124,7 +126,7 @@ int main(int argc, char** argv)
                 else if (argc == 2)
                     result = engine_v_engine(argv[1], 1);
                 else if (argc == 3)
-                    result = engine_v_stockfish(enginefds, 1);
+                    result = engine_v_stockfish(&engine, 1, games);
                 in_t = clock() - in_t;
                 double t_taken = ((double)in_t)/CLOCKS_PER_SEC;
                 printf("Time taken for game %d: %f seconds\n", i + 1, t_taken);
@@ -139,6 +141,9 @@ int main(int argc, char** argv)
             double time_taken = ((double)t)/CLOCKS_PER_SEC;
             printf("Time taken: %f seconds\nWhite: %d\nBlack: %d\nDraw: %d\n", 
                     time_taken, white_win, black_win, draw);
+            fclose(games);
+            if (argc == 3)
+                stop_engine(&engine);
             continue;
         }
         move_san(&board, move);
@@ -238,8 +243,6 @@ int engine_v_engine(char* fen, int silent)
         load_fen(&board, fen);
     else
         default_board(&board);
-    board.white_name = "Ape Engine";
-    board.black_name = "Random Engine";
     int game_win = -2;
     while (running)
     {
@@ -327,8 +330,6 @@ void play_engine(char* fen)
         load_fen(&board, fen);
     else
         default_board(&board);
-    board.white_name = "User";
-    board.black_name = "Random Engine";
     printf("\n");
     print_fancy(&board);
     while (running)
@@ -409,19 +410,20 @@ void play_engine(char* fen)
     }
 }
 
-int engine_v_stockfish(int* fds, int silent)
+int engine_v_stockfish(Engine* engine, int silent, FILE* fp)
 {
     int running = 1;
     Board board;
     default_board(&board);
-    board.white_name = "My Engine";
-    board.black_name = "Stockfish";
+    send_ucinewgame(engine->write);
+    memcpy(board.black_name, engine->name, strlen(engine->name) + 1);
+    memcpy(board.white_name, "White\0", 6);
     int game_win = -2;
     while (running)
     {
         Move engine_move;
         if (board.to_move)
-            engine_move = get_engine_move(&board, fds);
+            engine_move = get_engine_move(&board, engine);
         else
             engine_move = Emateinone(&board);
 
@@ -490,6 +492,16 @@ int engine_v_stockfish(int* fds, int silent)
             running = 0;
         }
     }
+    if (silent && fp)
+    {
+        char* pgn = export_pgn(&board);
+        if (fprintf(fp, "%s\n\n", pgn) < 0)
+        {
+            perror("Couldn't write to file");
+            exit(1);
+        }
+        free(pgn);
+    }
     if (game_win == 1 && board.to_move)
         return 1;
     else if (game_win == 1 && !board.to_move)
@@ -500,21 +512,19 @@ int engine_v_stockfish(int* fds, int silent)
         return game_win;
 }
 
-void play_stockfish(int* fds)
+void play_stockfish(Engine* engine)
 {
     int running = 1;
     int flipped = 0;
     Board board;
     default_board(&board);
-    board.white_name = "User";
-    board.black_name = "Stockfish";
     printf("\n");
     print_fancy(&board);
     while (running)
     {
         if (board.to_move)
         {
-            Move engine_move = get_engine_move(&board, fds);
+            Move engine_move = get_engine_move(&board, engine);
             move_piece(&board, &engine_move);
         }
         else

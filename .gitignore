@@ -5,3 +5,5 @@ obj/
 color_picker
 include/settings.h
 tags
+stockfish
+*.txt

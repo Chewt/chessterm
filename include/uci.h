@@ -8,8 +8,18 @@ enum
     ON
 };
 
-void start_engine(char* engine_exc, int* rwfds);
-Move get_engine_move(Board* board, int* fds);
+typedef struct
+{
+    pid_t pid;
+    char name[100];
+    char author[100];
+    int write;
+    int read;
+} Engine;
+
+void start_engine(Engine* engine, char* engine_exc);
+void stop_engine(Engine* engine);
+Move get_engine_move(Board* board, Engine* engine);
 
 void send_uci(int fd);
 void send_debug(int fd, int option);

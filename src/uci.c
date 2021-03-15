@@ -2,6 +2,8 @@
 #include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <sys/types.h>
+#include <sys/wait.h>
 #include "uci.h"
 #include "board.h"
 #include "io.h"
@@ -12,32 +14,46 @@
 #define CLIENT_READ  from_engine[0]
 #define ENGINE_WRITE from_engine[1]
 
+#define DEBUG
+
+#ifdef DEBUG
+#define print_debug(...) fprintf(stderr,__VA_ARGS__)
+#else
+#define print_debug(...) ((void)0)
+#endif
+
 extern const Move default_move;
 
-void start_engine(char* engine_exc, int* rwfds)
+void start_engine(Engine* engine, char* engine_exc)
 {
     int to_engine[2];
     int from_engine[2];
-    if (pipe(to_engine) == -1)
-        fprintf(stderr, "Uh oh, pipe no worky\n");
-    if (pipe(from_engine) == -1)
-        fprintf(stderr, "Uh oh, pipe no worky\n");
+    int result = pipe(to_engine);
+    while (result == -1)
+        result = pipe(to_engine);
+    result = pipe(from_engine);
+    if (result == -1)
+        result = pipe(from_engine);
+    print_debug("fd at conception: %d\n", CLIENT_READ);
     pid_t child_pid = fork();
     if (child_pid)
     {
         close(ENGINE_READ);
         close(ENGINE_WRITE);
-        rwfds[0] = CLIENT_READ;
-        rwfds[1] = CLIENT_WRITE;
+        engine->read = CLIENT_READ;
+        engine->write = CLIENT_WRITE;
+        engine->pid = child_pid;
         send_uci(CLIENT_WRITE);
         send_isready(CLIENT_WRITE);
         char* message = get_message(CLIENT_READ);
         while (!strstr(message, "readyok"))
         {
+            if (strstr(message, "id name"))
+                memcpy(engine->name, message + 8, strlen(message) - 8);
+            engine->name[strlen(message) - 7] = '\0';
             free(message);
             message = get_message(CLIENT_READ);
         }
-        printf("%s\n", message);
         free(message);
     }
     else
@@ -47,25 +63,32 @@ void start_engine(char* engine_exc, int* rwfds)
 
         close(CLIENT_READ);
         close(CLIENT_WRITE);
-        close(ENGINE_READ);
-        close(ENGINE_WRITE);
 
         char* args[] = {engine_exc, NULL};
         execvp(engine_exc, args);
     }
 }
 
-Move get_engine_move(Board* board, int* fds)
+void stop_engine(Engine* engine)
+{
+    send_quit(engine->write);
+    close(engine->read);
+    close(engine->write);
+    int ws;
+    waitpid(engine->pid, &ws, 0);
+}
+
+Move get_engine_move(Board* board, Engine* engine)
 {
     char curr_position[FEN_SIZE];
     export_fen(board, curr_position);
-    send_position(fds[1], "fen", curr_position);
-    send_go(fds[1], "depth 10");
-    char* message = get_message(fds[0]);
+    send_position(engine->write, "fen", curr_position);
+    send_go(engine->write, "depth 10");
+    char* message = get_message(engine->read);
     while (!strstr(message, "bestmove"))
     {
         free(message);
-        message = get_message(fds[0]);
+        message = get_message(engine->read);
     }
     char* save_ptr;
     char* token;
@@ -78,8 +101,8 @@ Move get_engine_move(Board* board, int* fds)
     int dest = (token[2] - 'a') + (8 - (token[3] - '0')) * 8;
     move.dest = dest;
     move.promotion |= move.src_piece & 0x80;
-    print_debug("%s %u %u %u %u\n", token, move.src_file, move.src_rank,
-            move.src_piece, move.dest);
+    //printf("%s %u %u %u %u\n", token, move.src_file, move.src_rank,
+    //       move.src_piece, move.dest);
     free(message);
     return move;
 }
@@ -183,7 +206,11 @@ char* get_message(int fd)
         int charsRead = read(fd, curr_byte, 1);
         dynarray_insert(all_bytes, curr_byte);
         if (charsRead < 0)
+        {
             perror("Failed to read");
+            print_debug("fd: %d\n", fd);
+            exit(1);
+        }
         bytes_read++;
     }while(*(char*)dynarray_get(all_bytes, bytes_read - 1) != '\n');
     char* buffer = malloc(bytes_read);

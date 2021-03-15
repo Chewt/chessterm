@@ -49,8 +49,8 @@ typedef struct
 
 typedef struct 
 {
-    char* white_name;
-    char* black_name;
+    char white_name[100];
+    char black_name[100];
     uint8_t position[64];
     uint8_t to_move;
     uint8_t castling;
