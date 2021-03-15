@@ -486,7 +486,7 @@ void check_pawn(Board* board, int square, uint8_t piece, Found* founds)
                 founds->en_p_taken = square + DOWN;
             }
         }
-        else if (square / 8 == 6)
+        else if (square / 8 == 5)
         {
             if (board->position[square + UPR]  == piece)
             {
@@ -793,7 +793,6 @@ void find_attacker(Board* board, int square, uint8_t piece, Found* founds)
         check_bishop(board, square, queen|color, &src);
     if (piece & pawn)
         check_pawn(board, square, pawn|color, &src);
-
     if (src.num_found)
         check_for_check(board, square, founds, &src);
 }

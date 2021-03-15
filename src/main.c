@@ -426,6 +426,12 @@ int engine_v_stockfish(int* fds, int silent)
             engine_move = Emateinone(&board);
 
         /*
+        char* pgn = export_pgn(&board);
+        printf("%s\n", pgn);
+        free(pgn);
+        */
+
+        /*
         if (board.history_count%2 == 0)
             print_debug("%d.\n", board.moves);
         else

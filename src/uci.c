@@ -78,7 +78,7 @@ Move get_engine_move(Board* board, int* fds)
     int dest = (token[2] - 'a') + (8 - (token[3] - '0')) * 8;
     move.dest = dest;
     move.promotion |= move.src_piece & 0x80;
-    printf("%s %u %u %u %u\n", token, move.src_file, move.src_rank,
+    print_debug("%s %u %u %u %u\n", token, move.src_file, move.src_rank,
             move.src_piece, move.dest);
     free(message);
     return move;
