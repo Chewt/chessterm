@@ -38,9 +38,9 @@ chess board.
 
 Additionally, you can run the program with  
 `$./chessterm -e /path/to/engine`  
-to load a UCI compatible chess engine. The behaviour of the command `itself`
-changes to play a game between the loaded engine and my custom engine, where
-the loaded engine plays as black.
+to load a UCI compatible chess engine.  
+The behaviour of the command `itself` changes to play a game between the loaded
+engine and my custom engine, where the loaded engine plays as black.
 
 In the program you will be presented with a view of the current position and
 a prompt. You can type  
@@ -49,7 +49,7 @@ to exit the program,
 `: flip`  
 to switch perspectives between black and white  
 `: engine`  
-to play against the random move engine  
+to play against the random move engine, or the loaded engine if present  
 `: itself`  
 to see a game where the engine plays itself  
 `: fen`  
