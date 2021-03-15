@@ -14,8 +14,6 @@
 #define CLIENT_READ  from_engine[0]
 #define ENGINE_WRITE from_engine[1]
 
-#define DEBUG
-
 #ifdef DEBUG
 #define print_debug(...) fprintf(stderr,__VA_ARGS__)
 #else
@@ -34,7 +32,6 @@ void start_engine(Engine* engine, char* engine_exc)
     result = pipe(from_engine);
     if (result == -1)
         result = pipe(from_engine);
-    print_debug("fd at conception: %d\n", CLIENT_READ);
     pid_t child_pid = fork();
     if (child_pid)
     {
@@ -101,7 +98,7 @@ Move get_engine_move(Board* board, Engine* engine)
     int dest = (token[2] - 'a') + (8 - (token[3] - '0')) * 8;
     move.dest = dest;
     move.promotion |= move.src_piece & 0x80;
-    //printf("%s %u %u %u %u\n", token, move.src_file, move.src_rank,
+    //print_debug("%s %u %u %u %u\n", token, move.src_file, move.src_rank,
     //       move.src_piece, move.dest);
     free(message);
     return move;
@@ -153,7 +150,7 @@ void send_register(int fd, const char* token)
 void send_ucinewgame(int fd)
 {
     const char* message = "ucinewgame\n";
-    write(fd, message, strlen(message) + 1);
+    write(fd, message, strlen(message));
 }
 
 void send_position(int fd, char* mode, char* moves)
