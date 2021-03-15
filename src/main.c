@@ -91,6 +91,13 @@ int main(int argc, char** argv)
                 play_engine(NULL);
             else if (argc == 2)
                 play_engine(argv[1]);
+            else if (argc == 3)
+            {
+                Engine engine;
+                start_engine(&engine, argv[2]);
+                play_stockfish(&engine);
+                stop_engine(&engine);
+            }
             continue;
         }
         else if (!strcmp(move, "itself"))
@@ -417,7 +424,7 @@ int engine_v_stockfish(Engine* engine, int silent, FILE* fp)
     default_board(&board);
     send_ucinewgame(engine->write);
     memcpy(board.black_name, engine->name, strlen(engine->name) + 1);
-    memcpy(board.white_name, "White\0", 6);
+    memcpy(board.white_name, "My Engine\0", 6);
     int game_win = -2;
     while (running)
     {
@@ -518,6 +525,7 @@ void play_stockfish(Engine* engine)
     int flipped = 0;
     Board board;
     default_board(&board);
+    memcpy(board.black_name, engine->name, strlen(engine->name) + 1);
     printf("\n");
     print_fancy(&board);
     while (running)
