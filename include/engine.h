@@ -2,7 +2,7 @@
 #define ENGINE_H
 
 #include "board.h"
-#define MOVE_MAX 274
+#define MOVES_PER_POSITION 218
 
 Move Erandom_move(Board* board);
 Move Eaggressive_move(Board* board);

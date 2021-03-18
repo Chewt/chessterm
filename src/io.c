@@ -9,6 +9,16 @@
 #define DARK  58
 #endif
 
+/* Prints information about the current position to the screen.
+ * It will print the following information:
+ * - Who's turn it is.
+ * - Castling rights.
+ * - Current en pessant location.
+ * - Current halfmove counter.
+ * - Current fullmove counter.
+ * - Position of the black king.
+ * - Position of the white king.
+ */
 void board_stats(Board* board)
 {
     if (board->to_move == 1)
@@ -36,6 +46,7 @@ void board_stats(Board* board)
             8 - (board->bking_pos / 8));
 }
 
+/* Prints the board to the screen */
 void print_board(Board* board)
 {
     int i;
@@ -94,6 +105,9 @@ void print_board(Board* board)
     printf("\n");
 }
 
+/* Prints the ascii representation of the passed piece to the board. It will
+ * take up 5 collumns and 3 rows
+ */
 void print_piece(uint8_t piece)
 {
     if (piece & pawn)
@@ -104,14 +118,14 @@ void print_piece(uint8_t piece)
     }
     else if (piece & bishop)
     {
-        printf("  /-/  \e[B\e[7D"
-               "  ) (  \e[B\e[7D"
+        printf("  (/)  \e[B\e[7D"
+               "  / \\  \e[B\e[7D"
                "  ===  \e[2A");
     }
     else if (piece & knight)
     {
-        printf("   /*  \e[B\e[7D"
-               "  ( |  \e[B\e[7D"
+        printf("  <*^  \e[B\e[7D"
+               "  / |  \e[B\e[7D"
                "  ===  \e[2A");
     }
     else if (piece & rook)
@@ -138,6 +152,9 @@ void print_piece(uint8_t piece)
                "       \e[2A");
 }
 
+/* Prints the board using ascii pieces and shows the current names of the 
+ * players along with their material scores.
+ */
 void print_fancy(Board* board)
 {
     int i;
@@ -208,6 +225,7 @@ void print_fancy(Board* board)
     printf("\e[8E\n");
 }
 
+/* Prints the fancy version of the board, but from black's perspective */
 void print_fancy_flipped(Board* board)
 {
     int i;
@@ -278,6 +296,7 @@ void print_fancy_flipped(Board* board)
     printf("\e[8E\n");
 }
 
+/* Prints the board, but from black's perspective. */
 void print_flipped(Board* board)
 {
     int i;
@@ -336,6 +355,7 @@ void print_flipped(Board* board)
     printf("\n");
 }
 
+/* Converts a cstring to an int */
 int string_to_int(char* str)
 {
     int digits = strlen(str);
@@ -352,6 +372,7 @@ int string_to_int(char* str)
     return num;
 }
 
+/* Loads a board state from a FEN */
 void load_fen(Board* board, char* fen)
 {
     empty_board(board);
@@ -439,6 +460,7 @@ void load_fen(Board* board, char* fen)
     free(fen_copy);
 }
 
+/* populates fen with the current board state in FEN format */
 void export_fen(Board* board, char* fen)
 {
     int str_ind = 0;
@@ -518,6 +540,7 @@ void export_fen(Board* board, char* fen)
     sprintf(fen + str_ind, "%d", board->moves);
 }
 
+/* Returns a cstring on the heap which contains a PGN of the game */
 char* export_pgn(Board* board)
 {
     char* pgn = malloc(strlen(board->white_name) + strlen(board->black_name)
