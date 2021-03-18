@@ -4,11 +4,9 @@
 #include <string.h>
 #include <time.h>
 #include "chessterm.h"
-#include "uci.h"
 #include "engine.h"
 
 #ifdef DEBUG
-#include "io.h"
 #define print_debug(...) fprintf(stderr,__VA_ARGS__)
 #else
 #define print_debug(...) ((void)0)
@@ -22,12 +20,15 @@ int engine_v_engine(char* fen, int silent);
 int main(int argc, char** argv)
 {
     srand(time(0));
+
     Board board;
     default_board(&board);
     if (argc == 2)
         load_fen(&board, argv[1]);
+
     printf("\n");
     print_fancy(&board);
+
     int running = 1;
     int flipped = 0;
     int game_win = is_gameover(&board);
@@ -184,6 +185,7 @@ int main(int argc, char** argv)
     return 0;
 }
 
+/* Prints the most recent move to the screen as if it were a part of a PGN */
 void print_last_move(Board* board)
 {
     Move record = board->history[board->history_count - 1];
@@ -242,6 +244,9 @@ void print_last_move(Board* board)
     fflush(stderr);
 }
 
+/* Runs a game between my custom engine and itself. If silent is non-zero, there
+ * will be no output regarding the game
+ */
 int engine_v_engine(char* fen, int silent)
 {
     int running = 1;
@@ -330,6 +335,7 @@ int engine_v_engine(char* fen, int silent)
         return game_win;
 }
 
+/* Play a game against my custom engine */
 void play_engine(char* fen)
 {
     int running = 1;
@@ -420,6 +426,10 @@ void play_engine(char* fen)
     }
 }
 
+/* Play a game against the loaded engine. It does not have to be stockfish, even
+ * though that is what I named this function. I will probably rename it at some
+ * point.
+ */
 int engine_v_stockfish(Engine* engine, int silent, FILE* fp)
 {
     int running = 1;
@@ -522,6 +532,7 @@ int engine_v_stockfish(Engine* engine, int silent, FILE* fp)
         return game_win;
 }
 
+/* Play a game against the loaded uci engine */
 void play_stockfish(Engine* engine)
 {
     int running = 1;

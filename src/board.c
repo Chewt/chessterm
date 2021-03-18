@@ -4,7 +4,6 @@
 #include "board.h"
 
 #ifdef DEBUG
-#include "io.h"
 #define print_debug(...) fprintf(stderr,__VA_ARGS__)
 #else
 #define print_debug(...) ((void)0)
@@ -23,7 +22,7 @@ int get_value(Board* board, int square)
     else
         return 0;
     if (piece & pawn)
-        return 1;
+        return 1; 
     else if (piece & bishop || piece & knight)
         return 3;
     else if (piece & rook)
@@ -36,11 +35,13 @@ int get_value(Board* board, int square)
         return 0;
 }
 
+/* Populates white_score and black_score with the material score of the board
+ */
 void get_material_scores(Board* board, int* white_score, int* black_score)
 {
     int i;
-    white_score[0] = 0;
-    white_score[1] = 8;
+    white_score[0] = 0; /* First element is score counter */ 
+    white_score[1] = 8; /* All other elements are counters for that piece */ 
     white_score[2] = 2;
     white_score[3] = 2;
     white_score[4] = 2;
@@ -160,10 +161,9 @@ void move_square(Board* board, int dest, int src)
     board->position[src] = 0;
 }
 
-/* Move contents of one square to another.
- * src and dest are algebraic forms of squares
- * example: e4
- */
+/* Move contents of one square to another.     */
+/* src and dest are algebraic forms of squares */
+/* example: e4                                 */
 void move_verbose(Board* board, char* dest, char* src)
 {
     uint8_t source_num = src[0] - 'a' + ('8' - src[1]) * 8;
@@ -189,12 +189,14 @@ enum Direction
 int is_legal(Board* board, int dest, int src)
 {
     uint8_t color = board->position[src] & 0x80;
+    /* Check if in bounds */
     if (dest < 0 || dest > 63)
         return 0;
     if (board->position[dest] && (board->position[dest] & 0x80) == color)
         return 0;
-    Board t_board;
 
+    /* Create a deep copy of the board */
+    Board t_board;
     int j;
     for (j = 0; j < 64; ++j)
         t_board.position[j] = board->position[j];
@@ -202,6 +204,8 @@ int is_legal(Board* board, int dest, int src)
     t_board.en_p = board->en_p;
     t_board.bking_pos = board->bking_pos;
     t_board.wking_pos = board->wking_pos;
+
+    /* Make the move on the board copy */
     move_square(&t_board, dest, src);
     if (dest == t_board.en_p && (t_board.position[dest] & pawn))
     {
@@ -215,6 +219,8 @@ int is_legal(Board* board, int dest, int src)
         square_check = t_board.bking_pos;
     else
         square_check = t_board.wking_pos;
+
+    /* Check if that move put the friendly king in check */
     if (!is_attacked(&t_board, square_check))
         return 1;
     return 0;

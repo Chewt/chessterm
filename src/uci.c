@@ -22,6 +22,10 @@
 
 extern const Move default_move;
 
+/* This forks and execs a uci compatible engine, then populates an Engine struct
+ * with the file descriptors to read and write commands to the engine. Startup
+ * commands are also sent to the engine in this function
+ */
 void start_engine(Engine* engine, char* engine_exc)
 {
     int to_engine[2];
@@ -66,6 +70,9 @@ void start_engine(Engine* engine, char* engine_exc)
     }
 }
 
+/* Sends the quit command to the engine, closes its file descriptors and waits
+ * on the process 
+ */
 void stop_engine(Engine* engine)
 {
     send_quit(engine->write);
@@ -75,6 +82,10 @@ void stop_engine(Engine* engine)
     waitpid(engine->pid, &ws, 0);
 }
 
+/* Returns the best move returned by an engine. It provides the engine with
+ * a fen of the current position and allows the engine to look at most 10 moves
+ * deep
+ */
 Move get_engine_move(Board* board, Engine* engine)
 {
     char curr_position[FEN_SIZE];
@@ -193,6 +204,7 @@ void send_quit(int fd)
     write(fd, message, strlen(message));
 }
 
+/* Gets a single line of output from the engine. */
 char* get_message(int fd)
 {
     struct dynarray* all_bytes = dynarray_create();

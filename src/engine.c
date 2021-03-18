@@ -23,12 +23,14 @@ const Move default_move =
     .promotion = queen
 };
 
+/* Prints the algebraic form of a square to stdout */
 void print_square(int i)
 {
     printf("%c", i/8+'a');
     printf("%d", 8-i/8);
 }
 
+/* Returns non-zero if moving src to dest will result in check */
 int gives_check(Board* board, int dest, int src)
 {
     board->to_move = !board->to_move;
@@ -37,6 +39,7 @@ int gives_check(Board* board, int dest, int src)
     return result;
 }
 
+/* Returns non-zero if moving src to dest will result in checkmate */
 int gives_checkmate(Board* board, int dest, int src)
 {
     uint8_t original_piece = board->position[dest];
@@ -50,6 +53,9 @@ int gives_checkmate(Board* board, int dest, int src)
     return result;
 }
 
+/* Returns non-zero if src is covered by at least one other friendly piece.
+ * use omit to specify a square that will not take part in the check
+ */
 int is_protected(Board* board, int src, int omit)
 {
     uint8_t orig;
@@ -70,6 +76,10 @@ int is_protected(Board* board, int src, int omit)
     return result;
 }
 
+/* Returns non-zero if src is protected and none of the attackers are of lesser
+ * value than it. This is because generally someone will take a piece of higher
+ * value even if it means sacrifcing their piec. 
+ */
 int is_safe(Board* board, int src)
 {
     if (!is_attacked(board, src))
@@ -92,6 +102,9 @@ int is_safe(Board* board, int src)
     return 0;
 }
 
+/* Returns non-zero if moving src to dest will make target satisfy the 
+ * requirements of the is_safe() function.
+ */
 int will_protect(Board* board, int dest, int src, int target)
 {
     uint8_t original_piece = board->position[dest];
@@ -102,6 +115,7 @@ int will_protect(Board* board, int dest, int src, int target)
     return result;
 }
 
+/* Returns non-zero if moving src to dest will result in src being attacked */
 int will_be_attacked(Board* board, int dest, int src)
 {
     uint8_t orig = board->position[dest];
@@ -112,6 +126,9 @@ int will_be_attacked(Board* board, int dest, int src)
     return result;
 }
 
+/* Returns non-zero is moving src to dest will result in dest satisfying the
+ * is_safe() function
+ */
 int is_safe_move(Board* board, int dest, int src)
 {
     uint8_t orig = board->position[dest];
@@ -122,6 +139,7 @@ int is_safe_move(Board* board, int dest, int src)
     return result;
 }
 
+/* Returns a random legal move */
 Move Erandom_move(Board* board)
 {
     print_debug("Playing Random Move\n");
@@ -147,6 +165,7 @@ Move Erandom_move(Board* board)
     return move;
 }
 
+/* Returns a random move that will take an enemy piece */
 Move Eaggressive_move(Board* board)
 {
     print_debug("Playing Aggressive Move\n");
@@ -182,6 +201,7 @@ Move Eaggressive_move(Board* board)
         return move;
 }
 
+/* Returns a move that will put the enemy king in check */
 Move Eape_move(Board* board)
 {
     print_debug("Playing Ape Move\n");
@@ -213,6 +233,7 @@ Move Eape_move(Board* board)
         return move;
 }
 
+/* Returns a random safe move */
 Move Esafe(Board* board, int protecc)
 {
     if (protecc)
@@ -285,6 +306,7 @@ Move Esafe(Board* board, int protecc)
         return move;
 }
 
+/* Returns a random move that simultaneously takes a piece, and is safe */
 Move Esafeaggro(Board* board, int protecc)
 {
     if (protecc)
@@ -358,6 +380,9 @@ Move Esafeaggro(Board* board, int protecc)
         return move;
 }
 
+/* Returns a random move that simultanously puts the enemy king in check, while
+ * also is a safe move
+ */
 Move Enohang(Board* board, int protecc)
 {
     if (protecc)
@@ -428,6 +453,8 @@ Move Enohang(Board* board, int protecc)
     }
 }
 
+/* Returns a move that is safe, takes a piece, and puts the enemy king in check
+ */
 Move Eideal(Board* board, int protecc)
 {
     if (protecc)
@@ -501,6 +528,7 @@ Move Eideal(Board* board, int protecc)
         return move;
 }
 
+/* Returns a move that will put the king in checkmate */
 Move Emateinone(Board* board)
 {
     print_debug("Playing mateinone Move\n");
