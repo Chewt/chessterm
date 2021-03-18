@@ -4,6 +4,12 @@
 #include "board.h"
 #define MOVES_PER_POSITION 218
 
+typedef struct
+{
+    Move move;
+    int weight;
+} Candidate;
+
 Move Erandom_move(Board* board);
 Move Eaggressive_move(Board* board);
 Move Eape_move(Board* board);

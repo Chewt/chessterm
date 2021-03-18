@@ -191,15 +191,15 @@ void print_last_move(Board* board)
     Move record = board->history[board->history_count - 1];
     if (board->history_count % 2)
         dprintf(2 , "%d. ", board->history_count / 2 + 1);
-    if (record.src_piece & king)
+    if (record.src_piece & KING)
         dprintf(2 , "K");
-    if (record.src_piece & queen)
+    if (record.src_piece & QUEEN)
         dprintf(2 , "Q");
-    if (record.src_piece & rook)
+    if (record.src_piece & ROOK)
         dprintf(2 , "R");
-    if (record.src_piece & knight)
+    if (record.src_piece & KNIGHT)
         dprintf(2 , "N");
-    if (record.src_piece & bishop)
+    if (record.src_piece & BISHOP)
         dprintf(2 , "B");
     if (record.src_file != -1)
         dprintf(2 , "%c", 'a' + record.src_file);
@@ -215,13 +215,13 @@ void print_last_move(Board* board)
     if (record.promotion)
     {
         dprintf(2 , "=");
-        if (record.promotion & queen)
+        if (record.promotion & QUEEN)
             dprintf(2 , "Q");
-        if (record.promotion & rook)
+        if (record.promotion & ROOK)
             dprintf(2 , "R");
-        if (record.promotion & knight)
+        if (record.promotion & KNIGHT)
             dprintf(2 , "N");
-        if (record.promotion & bishop)
+        if (record.promotion & BISHOP)
             dprintf(2 , "B");
     }
     if (record.castle == 0)
