@@ -264,7 +264,7 @@ int engine_v_engine(char* fen, int silent)
         if (board.to_move)
             engine_move = Emateinone(&board);
         else
-            engine_move = Emateinone(&board);
+            engine_move = Econdensed(&board, 3);
 
         /*
         if (board.history_count%2 == 0)
@@ -356,7 +356,8 @@ void play_engine(char* fen)
             //Move engine_move = Eaggressive_move(&board);
             //Move engine_move = Eape_move(&board);
             //Move engine_move = Eideal(&board);
-            Move engine_move = Emateinone(&board);
+            Move engine_move = Econdensed(&board, 3);
+
             move_piece(&board, &engine_move);
         }
         else

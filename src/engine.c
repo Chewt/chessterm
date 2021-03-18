@@ -108,6 +108,8 @@ int is_safe(Board* board, int src)
  */
 int will_protect(Board* board, int dest, int src, int target)
 {
+    if (target < 0)
+        return 0;
     uint8_t original_piece = board->position[dest];
     move_square(board, dest, src);
     int result = is_safe(board, target);
@@ -144,9 +146,17 @@ int is_safe_move(Board* board, int dest, int src)
 void get_all_moves(Board* board, Candidate* cans)
 {
     int i;
-    memset(cans, '\0', sizeof(Candidate) * MOVES_PER_POSITION);
+    memset(cans, 0, sizeof(Candidate) * MOVES_PER_POSITION);
     int cans_ind = 0;
     uint8_t color = (board->to_move) ? BLACK : WHITE;
+    int hanging = -1;
+    for (i = 0; i < 64; ++i)
+    {
+        if (board->position[i] && (board->position[i] & 0x80) == color &&
+                !is_safe(board, i))
+            if (get_value(board, i) > get_value(board, hanging))
+                hanging = i;
+    }
     for (i = 0; i < 64; ++i)
     {
         Found found;
@@ -160,6 +170,18 @@ void get_all_moves(Board* board, Candidate* cans)
             cans[cans_ind].move.src_rank = found.squares[j] / 8;
             cans[cans_ind].move.src_file = found.squares[j] % 8;
             cans[cans_ind].weight = 1;
+            if (gives_checkmate(board, i, found.squares[j]))
+                cans[cans_ind].weight += 100;
+            if (gives_check(board, i, found.squares[j]))
+                cans[cans_ind].weight++;
+            if (is_safe_move(board, i, found.squares[j]))
+                cans[cans_ind].weight += 4;
+            if (get_value(board, i) > get_value(board, found.squares[j]))
+                cans[cans_ind].weight++;
+            if ((board->position[i] & 0x80) == (color ^ 0x80))
+                cans[cans_ind].weight++;
+            if (will_protect(board, i, found.squares[j], hanging))
+                cans[cans_ind].weight++;
             cans_ind++;
         }
     }
@@ -588,4 +610,63 @@ Move Emateinone(Board* board)
         return Eideal(board, 1);
     else
         return move;
+}
+
+int evaluate_move(Board* board, Move move, int depth)
+{
+    Board temp_board;
+    memcpy(&temp_board, board, sizeof(Board));
+    move_piece(&temp_board, &move);
+    int board_value = 200;
+    if (depth > 0)
+    {
+        Candidate cans[MOVES_PER_POSITION];
+        get_all_moves(&temp_board, cans);
+        int i;
+        int temp;
+        for (i = 0; i < MOVES_PER_POSITION; ++i)
+        {
+            if (cans[i].weight == 0)
+                break;
+            temp = evaluate_move(&temp_board, cans[i].move, depth - 1);
+            if (temp < board_value)
+                board_value = temp;
+        }
+        return board_value;
+    }
+    else
+    {
+        int black_score[6];
+        int white_score[6];
+        get_material_scores(board, white_score, black_score);
+        if (temp_board.to_move)
+            return white_score[0] - black_score[0];
+        else
+            return black_score[0] - white_score[0];
+    }
+}
+
+Move Econdensed(Board* board, int depth)
+{
+    Board temp_board;
+    memcpy(&temp_board, board, sizeof(Board));
+    Candidate cans[MOVES_PER_POSITION];
+    get_all_moves(board, cans);
+    int i;
+    Candidate* best = &cans[0];
+    for (i = 0; i < MOVES_PER_POSITION; ++i)
+    {
+        if (cans[i].weight == 0)
+            break;
+        cans[i].weight += evaluate_move(board, cans[i].move, depth);
+        if (cans[i].weight > best->weight)
+            best = &cans[i];
+        if (cans[i].weight == best->weight)
+        {
+            int chance = rand() % 5;
+            if (chance == 1)
+                best = &cans[i];
+        }
+    }
+    return best->move;
 }

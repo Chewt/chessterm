@@ -67,18 +67,18 @@ void print_board(Board* board)
         else
             printf("\e[48;5;%dm", DARK);
         printf(" \e[1m");
-        if (square & pawn)
-            (square & black) ? printf("\e[38;5;232mp") : printf("\e[37mP");
-        else if (square & bishop)
-            (square & black) ? printf("\e[38;5;232mb") : printf("\e[37mB");
-        else if (square & knight)
-            (square & black) ? printf("\e[38;5;232mn") : printf("\e[37mN");
-        else if (square & rook)
-            (square & black) ? printf("\e[38;5;232mr") : printf("\e[37mR");
-        else if (square & queen)
-            (square & black) ? printf("\e[38;5;232mq") : printf("\e[37mQ");
-        else if (square & king)
-            (square & black) ? printf("\e[38;5;232mk") : printf("\e[37mK");
+        if (square & PAWN)
+            (square & BLACK) ? printf("\e[38;5;232mp") : printf("\e[37mP");
+        else if (square & BISHOP)
+            (square & BLACK) ? printf("\e[38;5;232mb") : printf("\e[37mB");
+        else if (square & KNIGHT)
+            (square & BLACK) ? printf("\e[38;5;232mn") : printf("\e[37mN");
+        else if (square & ROOK)
+            (square & BLACK) ? printf("\e[38;5;232mr") : printf("\e[37mR");
+        else if (square & QUEEN)
+            (square & BLACK) ? printf("\e[38;5;232mq") : printf("\e[37mQ");
+        else if (square & KING)
+            (square & BLACK) ? printf("\e[38;5;232mk") : printf("\e[37mK");
         else
             printf(" ");
         printf(" \e[0m");
@@ -110,37 +110,37 @@ void print_board(Board* board)
  */
 void print_piece(uint8_t piece)
 {
-    if (piece & pawn)
+    if (piece & PAWN)
     {
         printf("   O   \e[B\e[7D"
                "  ( )  \e[B\e[7D"
                "  ===  \e[2A");
     }
-    else if (piece & bishop)
+    else if (piece & BISHOP)
     {
         printf("  (/)  \e[B\e[7D"
                "  / \\  \e[B\e[7D"
                "  ===  \e[2A");
     }
-    else if (piece & knight)
+    else if (piece & KNIGHT)
     {
         printf("  <*^  \e[B\e[7D"
                "  / |  \e[B\e[7D"
                "  ===  \e[2A");
     }
-    else if (piece & rook)
+    else if (piece & ROOK)
     {
         printf("  ooo  \e[B\e[7D"
                "  | |  \e[B\e[7D"
                "  ===  \e[2A");
     }
-    else if (piece & king)
+    else if (piece & KING)
     {
         printf("  ^+^  \e[B\e[7D"
                "  )|(  \e[B\e[7D"
                "  ===  \e[2A");
     }
-    else if (piece & queen)
+    else if (piece & QUEEN)
     {
         printf("  oOo  \e[B\e[7D"
                "  )|(  \e[B\e[7D"
@@ -215,7 +215,7 @@ void print_fancy(Board* board)
             printf("\e[48;5;%dm", DARK);
 
         printf("\e[1m");
-        (square & black) ? printf("\e[38;5;232m") : printf("\e[37m");
+        (square & BLACK) ? printf("\e[38;5;232m") : printf("\e[37m");
         print_piece(square);
         printf("\e[0m");
 
@@ -286,7 +286,7 @@ void print_fancy_flipped(Board* board)
             printf("\e[48;5;%dm", DARK);
 
         printf("\e[1m");
-        (square & black) ? printf("\e[38;5;232m") : printf("\e[37m");
+        (square & BLACK) ? printf("\e[38;5;232m") : printf("\e[37m");
         print_piece(square);
         printf("\e[0m");
 
@@ -317,18 +317,18 @@ void print_flipped(Board* board)
         else
             printf("\e[48;5;%dm", DARK);
         printf(" \e[1m");
-        if (square & pawn)
-            (square & black) ? printf("\e[38;5;232mp") : printf("\e[37mP");
-        else if (square & bishop)
-            (square & black) ? printf("\e[38;5;232mb") : printf("\e[37mB");
-        else if (square & knight)
-            (square & black) ? printf("\e[38;5;232mn") : printf("\e[37mN");
-        else if (square & rook)
-            (square & black) ? printf("\e[38;5;232mr") : printf("\e[37mR");
-        else if (square & queen)
-            (square & black) ? printf("\e[38;5;232mq") : printf("\e[37mQ");
-        else if (square & king)
-            (square & black) ? printf("\e[38;5;232mk") : printf("\e[37mK");
+        if (square & PAWN)
+            (square & BLACK) ? printf("\e[38;5;232mp") : printf("\e[37mP");
+        else if (square & BISHOP)
+            (square & BLACK) ? printf("\e[38;5;232mb") : printf("\e[37mB");
+        else if (square & KNIGHT)
+            (square & BLACK) ? printf("\e[38;5;232mn") : printf("\e[37mN");
+        else if (square & ROOK)
+            (square & BLACK) ? printf("\e[38;5;232mr") : printf("\e[37mR");
+        else if (square & QUEEN)
+            (square & BLACK) ? printf("\e[38;5;232mq") : printf("\e[37mQ");
+        else if (square & KING)
+            (square & BLACK) ? printf("\e[38;5;232mk") : printf("\e[37mK");
         else
             printf(" ");
         printf(" \e[0m");
@@ -386,34 +386,34 @@ void load_fen(Board* board, char* fen)
     while (curr_char)
     {
         if (curr_char == 'p')
-            board->position[square_ind++] = pawn   | black;
+            board->position[square_ind++] = PAWN   | BLACK;
         else if (curr_char == 'b')
-            board->position[square_ind++] = bishop | black;
+            board->position[square_ind++] = BISHOP | BLACK;
         else if (curr_char == 'n')
-            board->position[square_ind++] = knight | black;
+            board->position[square_ind++] = KNIGHT | BLACK;
         else if (curr_char == 'r')
-            board->position[square_ind++] = rook   | black;
+            board->position[square_ind++] = ROOK   | BLACK;
         else if (curr_char == 'q')
-            board->position[square_ind++] = queen  | black;
+            board->position[square_ind++] = QUEEN  | BLACK;
         else if (curr_char == 'k')
         {
             board->bking_pos = square_ind;
-            board->position[square_ind++] = king   | black;
+            board->position[square_ind++] = KING   | BLACK;
         }
         else if (curr_char == 'P')
-            board->position[square_ind++] = pawn   | white;
+            board->position[square_ind++] = PAWN   | WHITE;
         else if (curr_char == 'B')   
-            board->position[square_ind++] = bishop | white;
+            board->position[square_ind++] = BISHOP | WHITE;
         else if (curr_char == 'N')   
-            board->position[square_ind++] = knight | white;
+            board->position[square_ind++] = KNIGHT | WHITE;
         else if (curr_char == 'R')   
-            board->position[square_ind++] = rook   | white;
+            board->position[square_ind++] = ROOK   | WHITE;
         else if (curr_char == 'Q')   
-            board->position[square_ind++] = queen  | white;
+            board->position[square_ind++] = QUEEN  | WHITE;
         else if (curr_char == 'K')   
         {
             board->wking_pos = square_ind;
-            board->position[square_ind++] = king   | white;
+            board->position[square_ind++] = KING   | WHITE;
         }
         else if (curr_char <= '9' && curr_char >= '0')
             square_ind += curr_char - '0';
@@ -487,19 +487,19 @@ void export_fen(Board* board, char* fen)
                 fen[str_ind++] = '0' + empty;
                 empty = 0;
             }
-            if (square & knight)
+            if (square & KNIGHT)
                 fen[str_ind] = 'N';
-            else if (square & pawn)
+            else if (square & PAWN)
                 fen[str_ind] = 'P';
-            else if (square & bishop)
+            else if (square & BISHOP)
                 fen[str_ind] = 'B';
-            else if (square & rook)
+            else if (square & ROOK)
                 fen[str_ind] = 'R';
-            else if (square & queen)
+            else if (square & QUEEN)
                 fen[str_ind] = 'Q';
-            else if (square & king)
+            else if (square & KING)
                 fen[str_ind] = 'K';
-            if (square & black)
+            if (square & BLACK)
                 fen[str_ind] += 32;
             str_ind++;
         }
@@ -554,15 +554,15 @@ char* export_pgn(Board* board)
         Move record = board->history[i];
         if (i % 2 == 0)
             str_ind += sprintf(pgn + str_ind, "%d. ", i / 2 + 1);
-        if (record.src_piece & king)
+        if (record.src_piece & KING)
             str_ind += sprintf(pgn + str_ind, "K");
-        if (record.src_piece & queen)
+        if (record.src_piece & QUEEN)
             str_ind += sprintf(pgn + str_ind, "Q");
-        if (record.src_piece & rook)
+        if (record.src_piece & ROOK)
             str_ind += sprintf(pgn + str_ind, "R");
-        if (record.src_piece & knight)
+        if (record.src_piece & KNIGHT)
             str_ind += sprintf(pgn + str_ind, "N");
-        if (record.src_piece & bishop)
+        if (record.src_piece & BISHOP)
             str_ind += sprintf(pgn + str_ind, "B");
         if (record.src_file != -1)
             str_ind += sprintf(pgn + str_ind, "%c", 'a' + record.src_file);
@@ -578,13 +578,13 @@ char* export_pgn(Board* board)
         if (record.promotion)
         {
             str_ind += sprintf(pgn + str_ind, "=");
-            if (record.promotion & queen)
+            if (record.promotion & QUEEN)
                 str_ind += sprintf(pgn + str_ind, "Q");
-            if (record.promotion & rook)
+            if (record.promotion & ROOK)
                 str_ind += sprintf(pgn + str_ind, "R");
-            if (record.promotion & knight)
+            if (record.promotion & KNIGHT)
                 str_ind += sprintf(pgn + str_ind, "N");
-            if (record.promotion & bishop)
+            if (record.promotion & BISHOP)
                 str_ind += sprintf(pgn + str_ind, "B");
         }
         if (record.castle == 0)

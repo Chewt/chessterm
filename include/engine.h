@@ -15,5 +15,6 @@ Move Eaggressive_move(Board* board);
 Move Eape_move(Board* board);
 Move Eideal(Board* board, int protecc);
 Move Emateinone(Board* board);
+Move Econdensed(Board* board, int depth);
 
 #endif
