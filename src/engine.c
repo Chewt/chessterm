@@ -1,10 +1,11 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "board.h"
 #include "engine.h"
+#include "io.h"
 
 #ifdef DEBUG
-#include "io.h"
 #define print_debug(...) fprintf(stderr,__VA_ARGS__)
 #else
 #define print_debug(...) ((void)0)
@@ -16,11 +17,11 @@ const Move default_move =
     .src_rank = -1,
     .src_file = -1,
     .castle = -1,
-    .src_piece = pawn,
+    .src_piece = PAWN,
     .piece_taken = 0,
     .gave_check = 0,
     .game_over = 0,
-    .promotion = queen
+    .promotion = QUEEN
 };
 
 /* Prints the algebraic form of a square to stdout */
@@ -45,7 +46,7 @@ int gives_checkmate(Board* board, int dest, int src)
     uint8_t original_piece = board->position[dest];
     move_square(board, dest, src);
     board->to_move = !board->to_move;
-    uint8_t color = (board->to_move) ? black : white;
+    uint8_t color = (board->to_move) ? BLACK : WHITE;
     int result = is_checkmate(board, color);
     move_square(board, src, dest);
     board->to_move = !board->to_move;
@@ -67,8 +68,8 @@ int is_protected(Board* board, int src, int omit)
     Found found;
     uint8_t orig_src = board->position[src];
     uint8_t opp_color = (orig_src & 0x80) ^ 0x80;
-    board->position[src] = pawn | opp_color;
-    find_attacker(board, src, all_pieces, &found);
+    board->position[src] = PAWN | opp_color;
+    find_attacker(board, src, ALL_PIECES, &found);
     board->position[src] = orig_src;
     int result = found.num_found;
     if (omit != -1)
@@ -86,7 +87,7 @@ int is_safe(Board* board, int src)
         return 1;
     board->to_move = !board->to_move;
     Found found;
-    find_attacker(board, src, all_pieces, &found);
+    find_attacker(board, src, ALL_PIECES, &found);
     board->to_move = !board->to_move;
     int lowest_value = 9;
     int i;
@@ -107,6 +108,8 @@ int is_safe(Board* board, int src)
  */
 int will_protect(Board* board, int dest, int src, int target)
 {
+    if (target < 0)
+        return 0;
     uint8_t original_piece = board->position[dest];
     move_square(board, dest, src);
     int result = is_safe(board, target);
@@ -139,18 +142,69 @@ int is_safe_move(Board* board, int dest, int src)
     return result;
 }
 
+/* Gets all possible moves from the position and sorts them */
+void get_all_moves(Board* board, Candidate* cans)
+{
+    int i;
+    memset(cans, 0, sizeof(Candidate) * MOVES_PER_POSITION);
+    int cans_ind = 0;
+    uint8_t color = (board->to_move) ? BLACK : WHITE;
+    int hanging = -1;
+    for (i = 0; i < 64; ++i)
+    {
+        if (board->position[i] && (board->position[i] & 0x80) == color &&
+                !is_safe(board, i))
+            if (get_value(board, i) > get_value(board, hanging))
+                hanging = i;
+    }
+    for (i = 0; i < 64; ++i)
+    {
+        Found found;
+        find_attacker(board, i, ALL_PIECES | color, &found);
+        int j;
+        for (j = 0; j < found.num_found; ++j)
+        {
+            cans[cans_ind].move = default_move;
+            cans[cans_ind].move.dest = i;
+            cans[cans_ind].move.src_piece = board->position[found.squares[j]];
+            cans[cans_ind].move.src_rank = found.squares[j] / 8;
+            cans[cans_ind].move.src_file = found.squares[j] % 8;
+            cans[cans_ind].weight = 1;
+            /* Gives checkmate */
+            if (gives_checkmate(board, i, found.squares[j]))
+                cans[cans_ind].weight += 100;
+            /* Gives check */
+            if (gives_check(board, i, found.squares[j]))
+                cans[cans_ind].weight++;
+            /* Is moving to a safe square */
+            if (is_safe_move(board, i, found.squares[j]))
+                cans[cans_ind].weight += 4;
+            /* Takes a piece of higher value than itself */
+            if (get_value(board, i) > get_value(board, found.squares[j]))
+                cans[cans_ind].weight++;
+            /* Takes an enemy piece */
+            if ((board->position[i] & 0x80) == (color ^ 0x80))
+                cans[cans_ind].weight++;
+            /* Protects a hanging piece */
+            if (will_protect(board, i, found.squares[j], hanging))
+                cans[cans_ind].weight++;
+            cans_ind++;
+        }
+    }
+}
+
 /* Returns a random legal move */
 Move Erandom_move(Board* board)
 {
     print_debug("Playing Random Move\n");
     Move move = default_move;
-    move.promotion = pawn << (rand() % 4 + 1);
-    move.promotion |= (board->to_move) ? black : white;
+    move.promotion = PAWN << (rand() % 4 + 1);
+    move.promotion |= (board->to_move) ? BLACK : WHITE;
     while (move.dest == -1)
     {
         int start_square = rand() % 64;
-        uint8_t pieces = all_pieces;
-        pieces |= (board->to_move) ? black : white;
+        uint8_t pieces = ALL_PIECES;
+        pieces |= (board->to_move) ? BLACK : WHITE;
         Found found_moves;
         find_attacker(board, start_square, pieces, &found_moves);
         if (found_moves.num_found)
@@ -171,10 +225,10 @@ Move Eaggressive_move(Board* board)
     print_debug("Playing Aggressive Move\n");
     Move move = default_move;
     int i;
-    uint8_t pieces = all_pieces;
-    uint8_t opp_color = (board->to_move) ? white : black;
-    move.promotion |= (board->to_move) ? black : white;
-    pieces |= (board->to_move) ? black : white;
+    uint8_t pieces = ALL_PIECES;
+    uint8_t opp_color = (board->to_move) ? WHITE : BLACK;
+    move.promotion |= (board->to_move) ? BLACK : WHITE;
+    pieces |= (board->to_move) ? BLACK : WHITE;
     int start_square = rand() % 64;
     for (i = 0; i < 64; ++i)
     {
@@ -207,9 +261,9 @@ Move Eape_move(Board* board)
     print_debug("Playing Ape Move\n");
     Move move = default_move;
     int i;
-    uint8_t pieces = all_pieces;
-    pieces |= (board->to_move) ? black : white;
-    move.promotion |= (board->to_move) ? black : white;
+    uint8_t pieces = ALL_PIECES;
+    pieces |= (board->to_move) ? BLACK : WHITE;
+    move.promotion |= (board->to_move) ? BLACK : WHITE;
     int start_square = rand() % 64;
     for (i = 0; i < 64; ++i)
     {
@@ -242,9 +296,9 @@ Move Esafe(Board* board, int protecc)
         print_debug("Playing safe Move\n");
     Move move = default_move;
     int i;
-    uint8_t pieces = all_pieces;
-    pieces |= (board->to_move) ? black : white;
-    move.promotion |= (board->to_move) ? black : white;
+    uint8_t pieces = ALL_PIECES;
+    pieces |= (board->to_move) ? BLACK : WHITE;
+    move.promotion |= (board->to_move) ? BLACK : WHITE;
     uint8_t color = pieces & 0x80;
     int start_square = rand() % 64;
     int hanging = -1;
@@ -315,10 +369,10 @@ Move Esafeaggro(Board* board, int protecc)
         print_debug("Playing safeaggro Move\n");
     Move move = default_move;
     int i;
-    uint8_t pieces = all_pieces;
-    uint8_t opp_color = (board->to_move) ? white : black;
-    pieces |= (board->to_move) ? black : white;
-    move.promotion |= (board->to_move) ? black : white;
+    uint8_t pieces = ALL_PIECES;
+    uint8_t opp_color = (board->to_move) ? WHITE : BLACK;
+    pieces |= (board->to_move) ? BLACK : WHITE;
+    move.promotion |= (board->to_move) ? BLACK : WHITE;
     uint8_t color = pieces & 0x80;
     int start_square = rand() % 64;
     int hanging = -1;
@@ -391,9 +445,9 @@ Move Enohang(Board* board, int protecc)
         print_debug("Playing nohang Move\n");
     Move move = default_move;
     int i;
-    uint8_t pieces = all_pieces;
-    pieces |= (board->to_move) ? black : white;
-    move.promotion |= (board->to_move) ? black : white;
+    uint8_t pieces = ALL_PIECES;
+    pieces |= (board->to_move) ? BLACK : WHITE;
+    move.promotion |= (board->to_move) ? BLACK : WHITE;
     uint8_t color = pieces & 0x80;
     int hanging = -1;
     if (protecc)
@@ -463,10 +517,10 @@ Move Eideal(Board* board, int protecc)
         print_debug("Playing ideal Move\n");
     Move move = default_move;
     int i;
-    uint8_t pieces = all_pieces;
-    uint8_t opp_color = (board->to_move) ? white : black;
-    pieces |= (board->to_move) ? black : white;
-    move.promotion |= (board->to_move) ? black : white;
+    uint8_t pieces = ALL_PIECES;
+    uint8_t opp_color = (board->to_move) ? WHITE : BLACK;
+    pieces |= (board->to_move) ? BLACK : WHITE;
+    move.promotion |= (board->to_move) ? BLACK : WHITE;
     uint8_t color = pieces & 0x80;
     int hanging = -1;
     if (protecc)
@@ -534,10 +588,10 @@ Move Emateinone(Board* board)
     print_debug("Playing mateinone Move\n");
     Move move = default_move;
     int i;
-    uint8_t pieces = all_pieces;
-    uint8_t opp_color = (board->to_move) ? white : black;
-    pieces |= (board->to_move) ? black : white;
-    move.promotion |= (board->to_move) ? black : white;
+    uint8_t pieces = ALL_PIECES;
+    uint8_t opp_color = (board->to_move) ? WHITE : BLACK;
+    pieces |= (board->to_move) ? BLACK : WHITE;
+    move.promotion |= (board->to_move) ? BLACK : WHITE;
     for (i = 0; i < 64; ++i)
     {
         Found found_moves;
@@ -562,4 +616,85 @@ Move Emateinone(Board* board)
         return Eideal(board, 1);
     else
         return move;
+}
+
+int evaluate_move(Board* board, Candidate can, int depth)
+{
+    Board temp_board;
+    memcpy(&temp_board, board, sizeof(Board));
+    int black_score[6];
+    int white_score[6];
+    int old_score = 0;
+    get_material_scores(&temp_board, white_score, black_score);
+    if (!temp_board.to_move)
+        old_score = white_score[0] - black_score[0];
+    else
+        old_score = black_score[0] - white_score[0];
+    move_piece(&temp_board, &can.move);
+    get_material_scores(&temp_board, white_score, black_score);
+    int board_value = 200;
+    if (depth > 0)
+    {
+        Candidate cans[MOVES_PER_POSITION];
+        get_all_moves(&temp_board, cans);
+        int i;
+        int temp;
+        for (i = 0; i < MOVES_PER_POSITION; ++i)
+        {
+            if (cans[i].weight <= 0)
+                continue;
+            temp = -1 * evaluate_move(&temp_board, cans[i], depth - 1);
+            if (temp < board_value)
+                board_value = temp;
+        }
+
+        if (temp_board.to_move)
+            return white_score[0] - black_score[0] - old_score + board_value;
+        else
+            return black_score[0] - white_score[0] - old_score + board_value;
+    }
+    else
+    {
+        if (temp_board.to_move)
+            return white_score[0] - black_score[0] - old_score;
+        else
+            return black_score[0] - white_score[0] - old_score;
+    }
+}
+
+Move Econdensed(Board* board, int depth)
+{
+    Board temp_board;
+    memcpy(&temp_board, board, sizeof(Board));
+    Candidate cans[MOVES_PER_POSITION];
+    get_all_moves(board, cans);
+    int i;
+    Candidate* best = &cans[0];
+    print_fancy(board);
+    for (i = 0; i < MOVES_PER_POSITION; ++i)
+    {
+        if (cans[i].weight <= 0)
+            continue;
+        /*printf("BEFORE: Cand %c%d to %c%d",cans[i].move.src_file + 'a', 
+                                 8 - cans[i].move.src_rank,
+                                 cans[i].move.dest%8+'a',8-cans[i].move.dest/8);
+        printf(" with weight: %d\n", cans[i].weight);
+        */
+        cans[i].weight += evaluate_move(board, cans[i], depth);
+        /*
+        printf("Cand %c%d to %c%d",cans[i].move.src_file + 'a', 
+                                 8 - cans[i].move.src_rank,
+                                 cans[i].move.dest%8+'a',8-cans[i].move.dest/8);
+        printf(" with weight: %d\n", cans[i].weight);
+        */
+        if (cans[i].weight > best->weight)
+            best = &cans[i];
+        if (cans[i].weight == best->weight)
+        {
+            int chance = rand() % 5;
+            if (chance == 1)
+                best = &cans[i];
+        }
+    }
+    return best->move;
 }

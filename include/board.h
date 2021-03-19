@@ -8,19 +8,19 @@
 
 enum Pieces
 {
-    pawn   = 1,
-    bishop = 2,
-    knight = 4,
-    rook   = 8,
-    queen  = 16,
-    king   = 32,
-    all_pieces = 63
+    PAWN   = 1,
+    BISHOP = 2,
+    KNIGHT = 4,
+    ROOK   = 8,
+    QUEEN  = 16,
+    KING   = 32,
+    ALL_PIECES = 63
 };
 
 enum Color
 {
-    white = 0,
-    black = 128
+    WHITE = 0,
+    BLACK = 128
 };
 
 /* Holds information about squares found by find_attacker() */

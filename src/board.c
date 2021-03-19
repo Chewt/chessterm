@@ -21,15 +21,15 @@ int get_value(Board* board, int square)
         piece = board->position[square];
     else
         return 0;
-    if (piece & pawn)
+    if (piece & PAWN)
         return 1; 
-    else if (piece & bishop || piece & knight)
+    else if (piece & BISHOP || piece & KNIGHT)
         return 3;
-    else if (piece & rook)
+    else if (piece & ROOK)
         return 5;
-    else if (piece & queen)
+    else if (piece & QUEEN)
         return 9;
-    else if (piece & king)
+    else if (piece & KING)
         return 10;
     else
         return 0;
@@ -57,29 +57,29 @@ void get_material_scores(Board* board, int* white_score, int* black_score)
         if (board->position[i] & 0x80)
         {
             black_score[0] += get_value(board, i);
-            if (board->position[i] & pawn)
+            if (board->position[i] & PAWN)
                 black_score[1]--;
-            if (board->position[i] & bishop)
+            if (board->position[i] & BISHOP)
                 black_score[2]--;
-            if (board->position[i] & knight)
+            if (board->position[i] & KNIGHT)
                 black_score[3]--;
-            if (board->position[i] & rook)
+            if (board->position[i] & ROOK)
                 black_score[4]--;
-            if (board->position[i] & queen)
+            if (board->position[i] & QUEEN)
                 black_score[5]--;
         }
         else
         {
             white_score[0] += get_value(board, i);
-            if (board->position[i] & pawn)
+            if (board->position[i] & PAWN)
                 white_score[1]--;
-            if (board->position[i] & bishop)
+            if (board->position[i] & BISHOP)
                 white_score[2]--;
-            if (board->position[i] & knight)
+            if (board->position[i] & KNIGHT)
                 white_score[3]--;
-            if (board->position[i] & rook)
+            if (board->position[i] & ROOK)
                 white_score[4]--;
-            if (board->position[i] & queen)
+            if (board->position[i] & QUEEN)
                 white_score[5]--;
         }
     }
@@ -126,36 +126,36 @@ void default_board(Board* board)
     board->castling = 0x0F;
     memcpy(board->white_name, "White\0", 6);
     memcpy(board->black_name, "Black\0", 6);
-    board->position[0] = rook   | black;
-    board->position[1] = knight | black;
-    board->position[2] = bishop | black;
-    board->position[3] = queen  | black;
-    board->position[4] = king   | black;
-    board->position[5] = bishop | black;
-    board->position[6] = knight | black;
-    board->position[7] = rook   | black;
+    board->position[0] = ROOK   | BLACK;
+    board->position[1] = KNIGHT | BLACK;
+    board->position[2] = BISHOP | BLACK;
+    board->position[3] = QUEEN  | BLACK;
+    board->position[4] = KING   | BLACK;
+    board->position[5] = BISHOP | BLACK;
+    board->position[6] = KNIGHT | BLACK;
+    board->position[7] = ROOK   | BLACK;
     for (i = 0; i < 8; ++i)
     {
-        board->position[i + 8]     = pawn | black;
-        board->position[i + 8 * 6] = pawn | white;
+        board->position[i + 8]     = PAWN | BLACK;
+        board->position[i + 8 * 6] = PAWN | WHITE;
     }
-    board->position[0 + 8 * 7] = rook   | white;
-    board->position[1 + 8 * 7] = knight | white;
-    board->position[2 + 8 * 7] = bishop | white;
-    board->position[3 + 8 * 7] = queen  | white;
-    board->position[4 + 8 * 7] = king   | white;
-    board->position[5 + 8 * 7] = bishop | white;
-    board->position[6 + 8 * 7] = knight | white;
-    board->position[7 + 8 * 7] = rook   | white;
+    board->position[0 + 8 * 7] = ROOK   | WHITE;
+    board->position[1 + 8 * 7] = KNIGHT | WHITE;
+    board->position[2 + 8 * 7] = BISHOP | WHITE;
+    board->position[3 + 8 * 7] = QUEEN  | WHITE;
+    board->position[4 + 8 * 7] = KING   | WHITE;
+    board->position[5 + 8 * 7] = BISHOP | WHITE;
+    board->position[6 + 8 * 7] = KNIGHT | WHITE;
+    board->position[7 + 8 * 7] = ROOK   | WHITE;
 }
 
 
 /* Move contents of one square to another */
 void move_square(Board* board, int dest, int src)
 {
-    if (board->position[src] == (king | black))
+    if (board->position[src] == (KING | BLACK))
         board->bking_pos = dest;
-    if (board->position[src] == (king | white))
+    if (board->position[src] == (KING | WHITE))
         board->wking_pos = dest;
     board->position[dest] = board->position[src];
     board->position[src] = 0;
@@ -207,7 +207,7 @@ int is_legal(Board* board, int dest, int src)
 
     /* Make the move on the board copy */
     move_square(&t_board, dest, src);
-    if (dest == t_board.en_p && (t_board.position[dest] & pawn))
+    if (dest == t_board.en_p && (t_board.position[dest] & PAWN))
     {
         if (color)
             t_board.position[dest + UP] = 0;
@@ -220,7 +220,7 @@ int is_legal(Board* board, int dest, int src)
     else
         square_check = t_board.wking_pos;
 
-    /* Check if that move put the friendly king in check */
+    /* Check if that move put the friendly KING in check */
     if (!is_attacked(&t_board, square_check))
         return 1;
     return 0;
@@ -256,7 +256,7 @@ void check_for_check(Board* board, int square,
 }
 
 /* Fills found struct with locations of knights that can move to square 
- * Does not check if the move will result in own king being put in check
+ * Does not check if the move will result in own KING being put in check
  */
 void check_knight(Board* board, int square, uint8_t piece, Found* founds)
 {
@@ -319,7 +319,7 @@ void check_knight(Board* board, int square, uint8_t piece, Found* founds)
 }
 
 /* Fills found struct with locations of rooks that can move to square 
- * Does not check if the move will result in own king being put in check
+ * Does not check if the move will result in own KING being put in check
  */
 void check_rook(Board* board, int square, uint8_t piece, Found* founds)
 {
@@ -398,7 +398,7 @@ void check_rook(Board* board, int square, uint8_t piece, Found* founds)
 }
 
 /* Fills found struct with locations of bishops that can move to square 
- * Does not check if the move will result in own king being put in check
+ * Does not check if the move will result in own KING being put in check
  */
 void check_bishop(Board* board, int square, uint8_t piece, Found* founds)
 {
@@ -473,7 +473,7 @@ void check_bishop(Board* board, int square, uint8_t piece, Found* founds)
 }
 
 /* Fills found struct with locations of pawns that can move to square 
- * Does not check if the move will result in own king being put in check
+ * Does not check if the move will result in own KING being put in check
  */
 void check_pawn(Board* board, int square, uint8_t piece, Found* founds)
 {
@@ -542,7 +542,7 @@ void check_pawn(Board* board, int square, uint8_t piece, Found* founds)
 
     if (board->to_move)
     {
-        if (board->position[square] && !(board->position[square] & black))
+        if (board->position[square] && !(board->position[square] & BLACK))
         {
             if (square % 8 < 7 && square / 8 > 0)
                 if (board->position[square + UPR] == piece)
@@ -567,7 +567,7 @@ void check_pawn(Board* board, int square, uint8_t piece, Found* founds)
     }
     else
     {
-        if (board->position[square] && (board->position[square] & black)) 
+        if (board->position[square] && (board->position[square] & BLACK)) 
         {
             if (square % 8 > 0 && square / 8 < 7)
                 if (board->position[square + DOWNL] == piece)
@@ -602,33 +602,33 @@ int can_move_to(Board* board, int square, uint8_t pieces)
     found_hyp.num_found = 0;
     found_hyp.en_p_taken = -1;
     found_hyp.promotion = 0;
-    uint8_t color = (board->to_move) ? black : white;
-    if (pieces & knight)
-        check_knight(board, square, knight | color, &found_hyp);
+    uint8_t color = (board->to_move) ? BLACK : WHITE;
+    if (pieces & KNIGHT)
+        check_knight(board, square, KNIGHT | color, &found_hyp);
     if (found_hyp.num_found)
         return 1;
-    if (pieces & bishop)
-        check_bishop(board, square, bishop | color, &found_hyp);
+    if (pieces & BISHOP)
+        check_bishop(board, square, BISHOP | color, &found_hyp);
     if (found_hyp.num_found)
         return 1;
-    if (pieces & rook)
-        check_rook(board, square, rook | color, &found_hyp);
+    if (pieces & ROOK)
+        check_rook(board, square, ROOK | color, &found_hyp);
     if (found_hyp.num_found)
         return 1;
-    if (pieces & pawn)
-        check_pawn(board, square, pawn | color, &found_hyp);
+    if (pieces & PAWN)
+        check_pawn(board, square, PAWN | color, &found_hyp);
     if (found_hyp.num_found)
         return 1;
-    if (pieces & queen)
-        check_rook(board, square, queen | color, &found_hyp);
+    if (pieces & QUEEN)
+        check_rook(board, square, QUEEN | color, &found_hyp);
     if (found_hyp.num_found)
         return 1;
-    if (pieces & queen)
-        check_bishop(board, square, queen | color, &found_hyp);
+    if (pieces & QUEEN)
+        check_bishop(board, square, QUEEN | color, &found_hyp);
     if (found_hyp.num_found)
         return 1;
-    if (pieces & king)
-        check_king(board, square, king | color, &found_hyp);
+    if (pieces & KING)
+        check_king(board, square, KING | color, &found_hyp);
     if (found_hyp.num_found)
         return 1;
     return 0;
@@ -638,10 +638,10 @@ int can_move_to(Board* board, int square, uint8_t pieces)
 int is_attacked(Board* board, int square)
 {
     board->to_move = !board->to_move;
-    uint8_t color = (board->to_move) ? black : white;
+    uint8_t color = (board->to_move) ? BLACK : WHITE;
     uint8_t prev_piece = board->position[square];
-    board->position[square] = pawn | (color ^ 0x80);
-    int check = can_move_to(board, square, all_pieces);
+    board->position[square] = PAWN | (color ^ 0x80);
+    int check = can_move_to(board, square, ALL_PIECES);
     board->position[square] = prev_piece;
     board->to_move = !board->to_move;
     return check;
@@ -695,7 +695,7 @@ int castle(Board* board, int side)
 }
 
 /* Fills found struct with locations of kings that can move to square 
- * Does not check if the move will result in own king being put in check
+ * Does not check if the move will result in own KING being put in check
  */
 void check_king(Board* board, int square, uint8_t piece, Found* founds)
 {
@@ -768,7 +768,7 @@ void check_king(Board* board, int square, uint8_t piece, Found* founds)
 }
 
 /* Returns found struct filled with locations of piece
- * Resultant found struct will not contain moves that will put the king in check
+ * Resultant found struct will not contain moves that will put the KING in check
  */
 void find_attacker(Board* board, int square, uint8_t piece, Found* founds)
 {
@@ -783,24 +783,24 @@ void find_attacker(Board* board, int square, uint8_t piece, Found* founds)
     founds->promotion = 0;
     founds->made_en_p = -1;
     founds->castle = -1;
-    uint8_t color = (board->to_move) ? black : white;
+    uint8_t color = (board->to_move) ? BLACK : WHITE;
     if (board->position[square] && !((board->position[square] & 0x80) ^ color))
         return;
 
-    if (piece & knight)
-        check_knight(board, square, knight|color, &src);
-    if (piece & rook)
-        check_rook(board, square, rook|color, &src);
-    if (piece & bishop)
-        check_bishop(board, square, bishop|color, &src);
-    if (piece & king)
-        check_king(board, square, king|color, &src);
-    if (piece & queen)
-        check_rook(board, square, queen|color, &src);
-    if (piece & queen)
-        check_bishop(board, square, queen|color, &src);
-    if (piece & pawn)
-        check_pawn(board, square, pawn|color, &src);
+    if (piece & KNIGHT)
+        check_knight(board, square, KNIGHT|color, &src);
+    if (piece & ROOK)
+        check_rook(board, square, ROOK|color, &src);
+    if (piece & BISHOP)
+        check_bishop(board, square, BISHOP|color, &src);
+    if (piece & KING)
+        check_king(board, square,  KING|color, &src);
+    if (piece & QUEEN)
+        check_rook(board, square, QUEEN|color, &src);
+    if (piece & QUEEN)
+        check_bishop(board, square, QUEEN|color, &src);
+    if (piece & PAWN)
+        check_pawn(board, square, PAWN|color, &src);
     if (src.num_found)
         check_for_check(board, square, founds, &src);
 }
@@ -821,17 +821,17 @@ int check_stalemate(Board* board, int which_color)
     for(i = 0; i < 64; ++i)
     {
         uint8_t piece = board->position[i];
-        if (piece & pawn)
+        if (piece & PAWN)
             (piece & 0x80) ? bp++ : p++;
-        else if (piece & bishop)
+        else if (piece & BISHOP)
             (piece & 0x80) ? bb++ : b++;
-        else if (piece & knight)
+        else if (piece & KNIGHT)
             (piece & 0x80) ? bn++ : n++;
-        else if (piece & rook)
+        else if (piece & ROOK)
             (piece & 0x80) ? br++ : r++;
-        else if (piece & queen)
+        else if (piece & QUEEN)
             (piece & 0x80) ? bq++ : q++;
-        else if (piece & king)
+        else if (piece & KING)
             (piece & 0x80) ? bk++ : k++;
     }
     if (!(p || r || q || bp || br || bq))
@@ -887,7 +887,7 @@ int check_stalemate(Board* board, int which_color)
         {
             uint8_t orig_piece = board->position[i];
             Found founds;
-            find_attacker(board, i, (all_pieces & (~king)) | color, &founds);
+            find_attacker(board, i, (ALL_PIECES & (~KING)) | color, &founds);
             if (founds.num_found)
                 return 0;
             board->position[i] = orig_piece;
@@ -950,19 +950,19 @@ int is_checkmate(Board* board, int which_color)
         if (i != king_attacked)
         {
             uint8_t orig_piece = board->position[i];
-            board->position[i] = pawn | color;
+            board->position[i] = PAWN | color;
             if (!is_attacked(board, king_attacked) || i == board->en_p)
             {
                 board->position[i] = orig_piece;
                 if (i == board->en_p)
                 {
                     Found en_found;
-                    find_attacker(board, i,pawn|color, &en_found);
+                    find_attacker(board, i,PAWN|color, &en_found);
                     if (!en_found.num_found)
                         continue;
                 }
                 Found founds;
-                find_attacker(board, i, (all_pieces & (~king))|color, &founds);
+                find_attacker(board, i, (ALL_PIECES & (~KING))|color, &founds);
                 if (founds.num_found)
                 {
                     print_debug("%c%d can be blocked by ", i%8+'a', 8-i/8);
@@ -1042,7 +1042,7 @@ void stress_test(Board* board, int times)
         for (j = 0; j < 64; ++j)
         {
             Found founds;
-            find_attacker(board, j, all_pieces, &founds);
+            find_attacker(board, j, ALL_PIECES, &founds);
         }
     }
 }
@@ -1076,19 +1076,19 @@ void store_position(Board* board, char* dest)
                 dest[str_ind++] = '0' + empty;
                 empty = 0;
             }
-            if (square & knight)
+            if (square & KNIGHT)
                 dest[str_ind] = 'N';
-            else if (square & pawn)
+            else if (square & PAWN)
                 dest[str_ind] = 'P';
-            else if (square & bishop)
+            else if (square & BISHOP)
                 dest[str_ind] = 'B';
-            else if (square & rook)
+            else if (square & ROOK)
                 dest[str_ind] = 'R';
-            else if (square & queen)
+            else if (square & QUEEN)
                 dest[str_ind] = 'Q';
-            else if (square & king)
+            else if (square & KING)
                 dest[str_ind] = 'K';
-            if (square & black)
+            if (square & BLACK)
                 dest[str_ind] += 32;
             str_ind++;
         }
@@ -1187,7 +1187,7 @@ int move_piece(Board* board, Move* move)
         }
         else if (found.num_found == 1)
         {
-            if (!(move->src_piece & pawn))
+            if (!(move->src_piece & PAWN))
                 move->src_file = -1;
             move->src_rank = -1;
             if (move_to == -1)
@@ -1271,9 +1271,9 @@ int move_piece(Board* board, Move* move)
                 record->src_file = move->src_file;
             record->piece_taken = board->position[move->dest];
             move_square(board, move->dest, move_to);
-            if (move->src_piece == (king | black))
+            if (move->src_piece == (KING | BLACK))
                 board->bking_pos = move->dest;
-            else if (move->src_piece == king)
+            else if (move->src_piece == KING)
                 board->wking_pos = move->dest;
             if (found.en_p_taken != -1)
             {
@@ -1285,7 +1285,7 @@ int move_piece(Board* board, Move* move)
                 board->en_p = -1;
             else
                 board->en_p = found.made_en_p;
-            if (move->src_piece & pawn)
+            if (move->src_piece & PAWN)
             {
                 board->pos_count = 0;
                 board->halfmoves = 0;
@@ -1319,20 +1319,20 @@ int move_piece(Board* board, Move* move)
 
     /* Update castling permissions */
     if (board->castling & 0x08)
-        if (board->position[60] != (king|white) ||
-                board->position[63] != (rook|white))
+        if (board->position[60] != ( KING|WHITE) ||
+                board->position[63] != (ROOK|WHITE))
             board->castling &= 0xF7;
     if (board->castling & 0x04)
-        if (board->position[60] != (king|white) ||
-                board->position[56] != (rook|white))
+        if (board->position[60] != ( KING|WHITE) ||
+                board->position[56] != (ROOK|WHITE))
             board->castling &= 0xFB;
     if (board->castling & 0x02)
-        if (board->position[4] != (king|black) ||
-                board->position[7] != (rook|black))
+        if (board->position[4] != ( KING|BLACK) ||
+                board->position[7] != (ROOK|BLACK))
             board->castling &= 0xFD;
     if (board->castling & 0x01)
-        if (board->position[4] != (king|black) ||
-                board->position[0] != (rook|black))
+        if (board->position[4] != ( KING|BLACK) ||
+                board->position[0] != (ROOK|BLACK))
             board->castling &= 0xFE;
     return 0;
 }
@@ -1341,8 +1341,8 @@ int move_piece(Board* board, Move* move)
 void move_san(Board* board, char* move)
 {
     Move this_move;
-    this_move.src_piece = pawn;
-    this_move.promotion = queen;
+    this_move.src_piece = PAWN;
+    this_move.promotion = QUEEN;
     this_move.src_rank = -1;
     this_move.src_file = -1;
     this_move.dest = -1;
@@ -1353,44 +1353,44 @@ void move_san(Board* board, char* move)
     int ind = 0;
     char curr_char = move[ind];
     if (curr_char == 'B')
-        this_move.src_piece = bishop;
+        this_move.src_piece = BISHOP;
     else if (curr_char == 'N')
-        this_move.src_piece = knight;
+        this_move.src_piece = KNIGHT;
     else if (curr_char == 'R')
-        this_move.src_piece = rook;
+        this_move.src_piece = ROOK;
     else if (curr_char == 'Q')
-        this_move.src_piece = queen;
+        this_move.src_piece = QUEEN;
     else if (curr_char == 'K')
-        this_move.src_piece = king;
+        this_move.src_piece = KING;
     else
         destfile = curr_char - 'a';
     if (board->to_move == 1)
-        this_move.src_piece |= black;
+        this_move.src_piece |= BLACK;
     curr_char = move[++ind];
     while (curr_char)
     {
         if (!strcmp(move, "O-O"))
         {
             this_move.castle = 0;
-            this_move.src_piece = king;
+            this_move.src_piece = KING;
             this_move.dest = (board->to_move) ? 6 : 62;
             break;
         }
         if (!strcmp(move, "O-O-O"))
         {
             this_move.castle = 1;
-            this_move.src_piece = king;
+            this_move.src_piece = KING;
             this_move.dest = (board->to_move) ? 2 : 58;
             break;
         }
         if (curr_char == 'B')
-            this_move.promotion = bishop;
+            this_move.promotion = BISHOP;
         else if (curr_char == 'N')
-            this_move.promotion = knight;
+            this_move.promotion = KNIGHT;
         else if (curr_char == 'R')
-            this_move.promotion = rook;
+            this_move.promotion = ROOK;
         else if (curr_char == 'Q')
-            this_move.promotion = queen;
+            this_move.promotion = QUEEN;
         if (curr_char <= 'h' && curr_char >= 'a')
         {
             if (destfile != -1)
@@ -1406,7 +1406,7 @@ void move_san(Board* board, char* move)
         curr_char = move[++ind];
     }
     if (board->to_move == 1)
-        this_move.promotion |= black;
+        this_move.promotion |= BLACK;
     if (destrank != -1 && destfile != -1)
         this_move.dest = destrank * 8 + destfile;
 
