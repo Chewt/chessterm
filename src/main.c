@@ -110,6 +110,8 @@ int main(int argc, char** argv)
                 engine_v_stockfish(&engine, 0, NULL);
                 stop_engine(&engine);
             }
+            else if (argc == 2)
+                engine_v_engine(argv[1], 0);
             else
                 engine_v_engine(NULL, 0);
             continue;

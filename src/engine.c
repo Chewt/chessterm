@@ -3,9 +3,9 @@
 #include <string.h>
 #include "board.h"
 #include "engine.h"
+#include "io.h"
 
 #ifdef DEBUG
-#include "io.h"
 #define print_debug(...) fprintf(stderr,__VA_ARGS__)
 #else
 #define print_debug(...) ((void)0)
@@ -170,16 +170,22 @@ void get_all_moves(Board* board, Candidate* cans)
             cans[cans_ind].move.src_rank = found.squares[j] / 8;
             cans[cans_ind].move.src_file = found.squares[j] % 8;
             cans[cans_ind].weight = 1;
+            /* Gives checkmate */
             if (gives_checkmate(board, i, found.squares[j]))
                 cans[cans_ind].weight += 100;
+            /* Gives check */
             if (gives_check(board, i, found.squares[j]))
                 cans[cans_ind].weight++;
+            /* Is moving to a safe square */
             if (is_safe_move(board, i, found.squares[j]))
                 cans[cans_ind].weight += 4;
+            /* Takes a piece of higher value than itself */
             if (get_value(board, i) > get_value(board, found.squares[j]))
                 cans[cans_ind].weight++;
+            /* Takes an enemy piece */
             if ((board->position[i] & 0x80) == (color ^ 0x80))
                 cans[cans_ind].weight++;
+            /* Protects a hanging piece */
             if (will_protect(board, i, found.squares[j], hanging))
                 cans[cans_ind].weight++;
             cans_ind++;
@@ -612,11 +618,20 @@ Move Emateinone(Board* board)
         return move;
 }
 
-int evaluate_move(Board* board, Move move, int depth)
+int evaluate_move(Board* board, Candidate can, int depth)
 {
     Board temp_board;
     memcpy(&temp_board, board, sizeof(Board));
-    move_piece(&temp_board, &move);
+    int black_score[6];
+    int white_score[6];
+    int old_score = 0;
+    get_material_scores(&temp_board, white_score, black_score);
+    if (!temp_board.to_move)
+        old_score = white_score[0] - black_score[0];
+    else
+        old_score = black_score[0] - white_score[0];
+    move_piece(&temp_board, &can.move);
+    get_material_scores(&temp_board, white_score, black_score);
     int board_value = 200;
     if (depth > 0)
     {
@@ -626,23 +641,24 @@ int evaluate_move(Board* board, Move move, int depth)
         int temp;
         for (i = 0; i < MOVES_PER_POSITION; ++i)
         {
-            if (cans[i].weight == 0)
-                break;
-            temp = evaluate_move(&temp_board, cans[i].move, depth - 1);
+            if (cans[i].weight <= 0)
+                continue;
+            temp = -1 * evaluate_move(&temp_board, cans[i], depth - 1);
             if (temp < board_value)
                 board_value = temp;
         }
-        return board_value;
+
+        if (temp_board.to_move)
+            return white_score[0] - black_score[0] - old_score + board_value;
+        else
+            return black_score[0] - white_score[0] - old_score + board_value;
     }
     else
     {
-        int black_score[6];
-        int white_score[6];
-        get_material_scores(board, white_score, black_score);
         if (temp_board.to_move)
-            return white_score[0] - black_score[0];
+            return white_score[0] - black_score[0] - old_score;
         else
-            return black_score[0] - white_score[0];
+            return black_score[0] - white_score[0] - old_score;
     }
 }
 
@@ -654,11 +670,23 @@ Move Econdensed(Board* board, int depth)
     get_all_moves(board, cans);
     int i;
     Candidate* best = &cans[0];
+    print_fancy(board);
     for (i = 0; i < MOVES_PER_POSITION; ++i)
     {
-        if (cans[i].weight == 0)
-            break;
-        cans[i].weight += evaluate_move(board, cans[i].move, depth);
+        if (cans[i].weight <= 0)
+            continue;
+        /*printf("BEFORE: Cand %c%d to %c%d",cans[i].move.src_file + 'a', 
+                                 8 - cans[i].move.src_rank,
+                                 cans[i].move.dest%8+'a',8-cans[i].move.dest/8);
+        printf(" with weight: %d\n", cans[i].weight);
+        */
+        cans[i].weight += evaluate_move(board, cans[i], depth);
+        /*
+        printf("Cand %c%d to %c%d",cans[i].move.src_file + 'a', 
+                                 8 - cans[i].move.src_rank,
+                                 cans[i].move.dest%8+'a',8-cans[i].move.dest/8);
+        printf(" with weight: %d\n", cans[i].weight);
+        */
         if (cans[i].weight > best->weight)
             best = &cans[i];
         if (cans[i].weight == best->weight)
