@@ -53,7 +53,7 @@ int main(int argc, char** argv)
         char move[50];
 
         printf(": ");
-        scanf("%30s", &move);
+        scanf("%30s", move);
         if (!strcmp(move, "exit"))
         {
             break;
@@ -266,7 +266,7 @@ int engine_v_engine(char* fen, int silent)
         if (board.to_move)
             engine_move = Emateinone(&board);
         else
-            engine_move = Econdensed(&board, 3);
+            engine_move = Econdensed(&board, 4);
 
         /*
         if (board.history_count%2 == 0)
@@ -367,7 +367,7 @@ void play_engine(char* fen)
             char move[50];
 
             printf(": ");
-            scanf("%30s", &move);
+            scanf("%30s", move);
             if (!strcmp(move, "exit"))
             {
                 break;
@@ -448,7 +448,7 @@ int engine_v_stockfish(Engine* engine, int silent, FILE* fp)
         if (board.to_move)
             engine_move = get_engine_move(&board, engine);
         else
-            engine_move = Emateinone(&board);
+            engine_move = Econdensed(&board, 4);
 
         /*
         char* pgn = export_pgn(&board);
@@ -557,7 +557,7 @@ void play_stockfish(Engine* engine)
             char move[50];
 
             printf(": ");
-            scanf("%30s", &move);
+            scanf("%30s", move);
             if (!strcmp(move, "exit"))
             {
                 break;

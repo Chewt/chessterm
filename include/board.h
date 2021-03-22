@@ -65,6 +65,8 @@ typedef struct
     uint16_t pos_count;
 } Board;
 
+extern const Move default_move;
+
 void default_board(Board* board);
 void empty_board(Board* board);
 void move_square(Board* board, int src, int dest);
@@ -76,6 +78,7 @@ void find_attacker(Board* board, int square, uint8_t piece, Found* founds);
 int is_legal(Board* board, int dest, int src);
 int is_attacked(Board* board, int square);
 int is_checkmate(Board* board, int which_color);
+int check_stalemate(Board* board, int which_color);
 int get_value(Board* board, int square);
 void get_material_scores(Board* board, int* white, int* black);
 
