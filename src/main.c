@@ -344,7 +344,7 @@ int engine_v_engine(char* fen, int silent)
 
         if (game_win && !silent)
             print_fancy(&board);
-        if (game_win == 1)
+        if (game_win == 2)
         {
             if (!silent)
             {
@@ -355,13 +355,13 @@ int engine_v_engine(char* fen, int silent)
             }
             running = 0;
         }
-        else if (game_win > 1)
+        else if (game_win > 2)
         {
             if (!silent)
             {
-                if (game_win == 3)
+                if (game_win == 8)
                     printf("50 move rule\n");
-                else if (game_win == 4)
+                else if (game_win == 0x10)
                     printf("Three fold repetition\n");
                 printf("Stalemate!\n");
                 char* pgn = export_pgn(&board);
@@ -371,11 +371,11 @@ int engine_v_engine(char* fen, int silent)
             running = 0;
         }
     }
-    if (game_win == 1 && board.to_move)
+    if (game_win == 2 && board.to_move)
         return 1;
-    else if (game_win == 1 && !board.to_move)
+    else if (game_win == 2 && !board.to_move)
         return -1;
-    else if (game_win > 1)
+    else if (game_win > 2)
         return 0;
     else 
         return game_win;
@@ -454,7 +454,7 @@ void play_engine(char* fen)
         int game_win = is_gameover(&board);
         if (game_win)
             print_fancy(&board);
-        if (game_win == 1)
+        if (game_win == 2)
         {
             printf("Checkmate!\n");
             running = 0;
@@ -462,7 +462,7 @@ void play_engine(char* fen)
             printf("%s\n", pgn);
             free(pgn);
         }
-        else if (game_win == 2)
+        else if (game_win > 2)
         {
             printf("Stalemate!\n");
             running = 0;
@@ -532,7 +532,7 @@ int engine_v_stockfish(Engine* engine, int silent, FILE* fp)
 
         if (game_win && !silent)
             print_fancy(&board);
-        if (game_win == 1)
+        if (game_win == 2)
         {
             if (!silent)
             {
@@ -543,13 +543,13 @@ int engine_v_stockfish(Engine* engine, int silent, FILE* fp)
             }
             running = 0;
         }
-        else if (game_win > 1)
+        else if (game_win > 2)
         {
             if (!silent)
             {
-                if (game_win == 3)
+                if (game_win == 8)
                     printf("50 move rule\n");
-                else if (game_win == 4)
+                else if (game_win == 0x10)
                     printf("Three fold repetition\n");
                 printf("Stalemate!\n");
                 char* pgn = export_pgn(&board);
@@ -569,11 +569,11 @@ int engine_v_stockfish(Engine* engine, int silent, FILE* fp)
         }
         free(pgn);
     }
-    if (game_win == 1 && board.to_move)
+    if (game_win == 2 && board.to_move)
         return 1;
-    else if (game_win == 1 && !board.to_move)
+    else if (game_win == 2 && !board.to_move)
         return -1;
-    else if (game_win > 1)
+    else if (game_win > 2)
         return 0;
     else 
         return game_win;
@@ -644,7 +644,7 @@ void play_stockfish(Engine* engine)
         int game_win = is_gameover(&board);
         if (game_win)
             print_fancy(&board);
-        if (game_win == 1)
+        if (game_win == 2)
         {
             printf("Checkmate!\n");
             running = 0;
@@ -652,7 +652,7 @@ void play_stockfish(Engine* engine)
             printf("%s\n", pgn);
             free(pgn);
         }
-        else if (game_win == 2)
+        else if (game_win > 2)
         {
             printf("Stalemate!\n");
             running = 0;
