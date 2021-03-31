@@ -158,6 +158,11 @@ int main(int argc, char** argv)
                 bools |= 0x100;
                 continue;
             }
+            else if (!strcmp(move, "noflip"))
+            {
+                bools &= 0xFFFFFEFF;
+                continue;
+            }
             else if (!strcmp(move, "new"))
             {
                 bools = 0;
