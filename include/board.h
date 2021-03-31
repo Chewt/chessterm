@@ -71,7 +71,7 @@ void default_board(Board* board);
 void empty_board(Board* board);
 void move_square(Board* board, int src, int dest);
 void move_verbose(Board* board, char* dest, char* src);
-void move_san(Board* board, char* move);
+int move_san(Board* board, char* move);
 int is_gameover(Board* board);
 int move_piece(Board* board, Move* move);
 void find_attacker(Board* board, int square, uint8_t piece, Found* founds);
