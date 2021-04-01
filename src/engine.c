@@ -719,27 +719,34 @@ Move Econdensed(Board* board, int depth)
     int i;
     Candidate best = cans[0];
     print_fancy(board);
-    for (i = 0; i < MOVES_PER_POSITION; ++i)
+    int j;
+    for (j = 1; j <= depth; ++j)
     {
-        if (cans[i].weight <= 0)
-            break;
-        /*printf("BEFORE: Cand %c%d to %c%d",cans[i].move.src_file + 'a', 
-                                 8 - cans[i].move.src_rank,
-                                 cans[i].move.dest%8+'a',8-cans[i].move.dest/8);
-        printf(" with weight: %d\n", cans[i].weight);
-        */
-        int new_weight = eval_prune(board, cans[i], -300, 300, depth);
-        if (board->to_move)
-            new_weight *= -1;
-        cans[i].weight += new_weight;
-        printf("Cand %c%d to %c%d",cans[i].move.src_file + 'a', 
-                                 8 - cans[i].move.src_rank,
-                                 cans[i].move.dest%8+'a',8-cans[i].move.dest/8);
-        printf(" with weight: %d\n", cans[i].weight);
-        if (cans[i].weight > best.weight)
-            best = cans[i];
+        for (i = 0; i < 10; ++i)
+        {
+            if (cans[i].weight <= 0)
+                break;
+            /*printf("BEFORE: Cand %c%d to %c%d",cans[i].move.src_file + 'a', 
+              8 - cans[i].move.src_rank,
+              cans[i].move.dest%8+'a',8-cans[i].move.dest/8);
+              printf(" with weight: %d\n", cans[i].weight);
+              */
+            int new_weight = eval_prune(board, cans[i], -300, 300, j);
+            if (board->to_move)
+                new_weight *= -1;
+            cans[i].weight += new_weight;
+            if (j == depth)
+            {
+                printf("Cand %c%d to %c%d",cans[i].move.src_file + 'a', 
+                        8 - cans[i].move.src_rank,
+                        cans[i].move.dest%8+'a',8-cans[i].move.dest/8);
+                printf(" with weight: %d\n", cans[i].weight);
+            }
+            if (cans[i].weight > best.weight)
+                best = cans[i];
+        }
+        qsort(cans, MOVES_PER_POSITION, sizeof(Candidate), comp_cand);
     }
-    qsort(cans, MOVES_PER_POSITION, sizeof(Candidate), comp_cand);
     for (i = 0; i < MOVES_PER_POSITION; ++i)
         if (cans[i].weight != best.weight)
             break;

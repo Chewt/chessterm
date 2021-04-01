@@ -16,6 +16,7 @@ void play_engine();
 void play_stockfish(Engine* engine);
 int engine_v_stockfish(Engine* engine, int silent, FILE* fp);
 int engine_v_engine(char* fen, int silent);
+void dual_engines(Engine* engine, Engine* engineTwo);
 
 int main(int argc, char** argv)
 {
@@ -109,6 +110,24 @@ int main(int argc, char** argv)
                 start_engine(&engine, argv[2]);
                 engine_v_stockfish(&engine, 0, NULL);
                 stop_engine(&engine);
+            }
+            else if (argc == 2)
+                engine_v_engine(argv[1], 0);
+            else
+                engine_v_engine(NULL, 0);
+            continue;
+        }
+        else if (!strcmp(move, "duel"))
+        {
+            if (argc == 5)
+            {
+                Engine engine;
+                Engine engineTwo;
+                start_engine(&engine, argv[2]);
+                start_engine(&engineTwo, argv[4]);
+                dual_engines(&engine, &engineTwo);
+                stop_engine(&engine);
+                stop_engine(&engineTwo);
             }
             else if (argc == 2)
                 engine_v_engine(argv[1], 0);
@@ -597,6 +616,54 @@ void play_stockfish(Engine* engine)
             print_fancy_flipped(&board);
         else
             print_fancy(&board);
+        int game_win = is_gameover(&board);
+        if (game_win)
+            print_fancy(&board);
+        if (game_win == 1)
+        {
+            printf("Checkmate!\n");
+            running = 0;
+            char* pgn = export_pgn(&board);
+            printf("%s\n", pgn);
+            free(pgn);
+        }
+        else if (game_win == 2)
+        {
+            printf("Stalemate!\n");
+            running = 0;
+            char* pgn = export_pgn(&board);
+            printf("%s\n", pgn);
+            free(pgn);
+        }
+    }
+}
+
+void dual_engines(Engine* engine, Engine* engineTwo)
+{
+    int running = 1;
+    int flipped = 0;
+    Board board;
+    default_board(&board);
+    memcpy(board.black_name, engineTwo->name, strlen(engineTwo->name) + 1);
+    memcpy(board.white_name, engine->name, strlen(engine->name) + 1);
+    printf("\n");
+    print_fancy(&board);
+    while (running)
+    {
+        if (board.to_move)
+        {
+            Move engine_move = get_engine_move(&board, engineTwo);
+            move_piece(&board, &engine_move);
+        }
+        else
+        {
+            Move engine_move = get_engine_move(&board, engine);
+            move_piece(&board, &engine_move);
+        }
+        char fen[FEN_SIZE];
+        export_fen(&board, fen);
+        print_fancy(&board);
+        printf("%s\n", fen);
         int game_win = is_gameover(&board);
         if (game_win)
             print_fancy(&board);
