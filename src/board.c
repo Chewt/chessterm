@@ -13,6 +13,19 @@ int is_attacked(Board* board, int square);
 int castle(Board* board, int side);
 void check_king(Board* board, int square, uint8_t piece, Found* founds);
 
+const Move default_move = 
+{
+    .dest = -1,
+    .src_rank = -1,
+    .src_file = -1,
+    .castle = -1,
+    .src_piece = PAWN,
+    .piece_taken = 0,
+    .gave_check = 0,
+    .game_over = 0,
+    .promotion = QUEEN
+};
+
 /* Gets value of piece on passed square */
 int get_value(Board* board, int square)
 {
@@ -197,13 +210,7 @@ int is_legal(Board* board, int dest, int src)
 
     /* Create a deep copy of the board */
     Board t_board;
-    int j;
-    for (j = 0; j < 64; ++j)
-        t_board.position[j] = board->position[j];
-    t_board.to_move = board->to_move;
-    t_board.en_p = board->en_p;
-    t_board.bking_pos = board->bking_pos;
-    t_board.wking_pos = board->wking_pos;
+    memcpy(&t_board, board, sizeof(Board));
 
     /* Make the move on the board copy */
     move_square(&t_board, dest, src);
@@ -214,6 +221,7 @@ int is_legal(Board* board, int dest, int src)
         else
             t_board.position[dest + DOWN] = 0;
     }
+
     int square_check;
     if (board->to_move)
         square_check = t_board.bking_pos;

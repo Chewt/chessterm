@@ -11,19 +11,6 @@
 #define print_debug(...) ((void)0)
 #endif
 
-const Move default_move = 
-{
-    .dest = -1,
-    .src_rank = -1,
-    .src_file = -1,
-    .castle = -1,
-    .src_piece = PAWN,
-    .piece_taken = 0,
-    .gave_check = 0,
-    .game_over = 0,
-    .promotion = QUEEN
-};
-
 /* Prints the algebraic form of a square to stdout */
 void print_square(int i)
 {
@@ -142,6 +129,15 @@ int is_safe_move(Board* board, int dest, int src)
     return result;
 }
 
+int comp_cand(const void* one, const void* two)
+{
+    if (((Candidate*)one)->weight > ((Candidate*)two)->weight)
+        return -1;
+    else if (((Candidate*)one)->weight < ((Candidate*)two)->weight)
+        return 1;
+    return 0;
+}
+
 /* Gets all possible moves from the position and sorts them */
 void get_all_moves(Board* board, Candidate* cans)
 {
@@ -149,14 +145,6 @@ void get_all_moves(Board* board, Candidate* cans)
     memset(cans, 0, sizeof(Candidate) * MOVES_PER_POSITION);
     int cans_ind = 0;
     uint8_t color = (board->to_move) ? BLACK : WHITE;
-    int hanging = -1;
-    for (i = 0; i < 64; ++i)
-    {
-        if (board->position[i] && (board->position[i] & 0x80) == color &&
-                !is_safe(board, i))
-            if (get_value(board, i) > get_value(board, hanging))
-                hanging = i;
-    }
     for (i = 0; i < 64; ++i)
     {
         Found found;
@@ -171,11 +159,15 @@ void get_all_moves(Board* board, Candidate* cans)
             cans[cans_ind].move.src_file = found.squares[j] % 8;
             cans[cans_ind].weight = 1;
             /* Gives checkmate */
+            /*
             if (gives_checkmate(board, i, found.squares[j]))
                 cans[cans_ind].weight += 100;
+            */
             /* Gives check */
+            /*
             if (gives_check(board, i, found.squares[j]))
                 cans[cans_ind].weight++;
+            */
             /* Is moving to a safe square */
             if (is_safe_move(board, i, found.squares[j]))
                 cans[cans_ind].weight += 4;
@@ -186,11 +178,14 @@ void get_all_moves(Board* board, Candidate* cans)
             if ((board->position[i] & 0x80) == (color ^ 0x80))
                 cans[cans_ind].weight++;
             /* Protects a hanging piece */
+            /*
             if (will_protect(board, i, found.squares[j], hanging))
                 cans[cans_ind].weight++;
+            */
             cans_ind++;
         }
     }
+    qsort(cans, MOVES_PER_POSITION, sizeof(Candidate), comp_cand);
 }
 
 /* Returns a random legal move */
@@ -648,6 +643,7 @@ int evaluate_move(Board* board, Candidate can, int depth)
                 board_value = temp;
         }
 
+        //return board_value;
         if (temp_board.to_move)
             return white_score[0] - black_score[0] - old_score + board_value;
         else
@@ -662,6 +658,58 @@ int evaluate_move(Board* board, Candidate can, int depth)
     }
 }
 
+int eval_prune(Board* board, Candidate can, int alpha, int beta, int depth)
+{
+    Board temp_board;
+    memcpy(&temp_board, board, sizeof(Board));
+    move_piece(&temp_board, &can.move);
+    if (check_stalemate(board, temp_board.to_move))
+        return 0;
+    if (depth == 0)
+    {
+        int black_score[6];
+        int white_score[6];
+        get_material_scores(&temp_board, white_score, black_score);
+        return white_score[0] - black_score[0];
+    }
+    else
+    {
+        Candidate cans[MOVES_PER_POSITION];
+        get_all_moves(&temp_board, cans);
+        int i;
+        int board_value;
+        int temp = 0;
+        if (temp_board.to_move)
+            board_value = 300;
+        else
+            board_value = -300;
+        for (i = 0; i < MOVES_PER_POSITION; ++i)
+        {
+            if (cans[i].weight <= 0)
+                break;
+            if (temp_board.to_move)
+            {
+                temp = eval_prune(&temp_board, cans[i], alpha, beta, depth - 1);
+                if (temp < board_value)
+                    board_value = temp;
+                beta = (temp < beta) ? temp : beta;
+                if (beta <= alpha)
+                    break;
+            }
+            else
+            {
+                temp = eval_prune(&temp_board, cans[i], alpha, beta, depth - 1);
+                if (temp > board_value)
+                    board_value = temp;
+                alpha = (temp > alpha) ? temp : alpha;
+                if (beta <= alpha)
+                   break;
+            }
+        }
+        return board_value;
+    }
+}
+
 Move Econdensed(Board* board, int depth)
 {
     Board temp_board;
@@ -669,32 +717,40 @@ Move Econdensed(Board* board, int depth)
     Candidate cans[MOVES_PER_POSITION];
     get_all_moves(board, cans);
     int i;
-    Candidate* best = &cans[0];
-    print_fancy(board);
-    for (i = 0; i < MOVES_PER_POSITION; ++i)
+    Candidate best = cans[0];
+    //print_fancy(board);
+    int j;
+    for (j = 1; j <= depth; ++j)
     {
-        if (cans[i].weight <= 0)
-            continue;
-        /*printf("BEFORE: Cand %c%d to %c%d",cans[i].move.src_file + 'a', 
-                                 8 - cans[i].move.src_rank,
-                                 cans[i].move.dest%8+'a',8-cans[i].move.dest/8);
-        printf(" with weight: %d\n", cans[i].weight);
-        */
-        cans[i].weight += evaluate_move(board, cans[i], depth);
-        /*
-        printf("Cand %c%d to %c%d",cans[i].move.src_file + 'a', 
-                                 8 - cans[i].move.src_rank,
-                                 cans[i].move.dest%8+'a',8-cans[i].move.dest/8);
-        printf(" with weight: %d\n", cans[i].weight);
-        */
-        if (cans[i].weight > best->weight)
-            best = &cans[i];
-        if (cans[i].weight == best->weight)
+        for (i = 0; i < 10; ++i)
         {
-            int chance = rand() % 5;
-            if (chance == 1)
-                best = &cans[i];
+            if (cans[i].weight <= 0)
+                break;
+            /*printf("BEFORE: Cand %c%d to %c%d",cans[i].move.src_file + 'a', 
+              8 - cans[i].move.src_rank,
+              cans[i].move.dest%8+'a',8-cans[i].move.dest/8);
+              printf(" with weight: %d\n", cans[i].weight);
+              */
+            int new_weight = eval_prune(board, cans[i], -300, 300, j);
+            if (board->to_move)
+                new_weight *= -1;
+            cans[i].weight += new_weight;
+            if (j == depth)
+            {
+                printf("Cand %c%d to %c%d",cans[i].move.src_file + 'a', 
+                        8 - cans[i].move.src_rank,
+                        cans[i].move.dest%8+'a',8-cans[i].move.dest/8);
+                printf(" with weight: %d\n", cans[i].weight);
+            }
+            if (cans[i].weight > best.weight)
+                best = cans[i];
         }
+        qsort(cans, MOVES_PER_POSITION, sizeof(Candidate), comp_cand);
     }
-    return best->move;
+    for (i = 0; i < MOVES_PER_POSITION; ++i)
+        if (cans[i].weight != best.weight)
+            break;
+    if (i - 1 > 0)
+        best = cans[rand() % (i - 1)];
+    return best.move;
 }
