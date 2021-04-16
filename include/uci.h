@@ -15,6 +15,7 @@ typedef struct
     char author[100];
     int write;
     int read;
+    int depth;
 } Engine;
 
 void start_engine(Engine* engine, char* engine_exc);

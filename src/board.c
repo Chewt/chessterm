@@ -851,7 +851,7 @@ int check_stalemate(Board* board, int which_color)
         if ((!bn && bb <= 1) || (!bb && bn <= 1))
             stale_black = 1;
         if (stale_black && stale_white)
-            return 2;
+            return 0x4;
     }
     if (king_attacked + UP >= 0 && king_attacked / 8 > 0)
         if (is_legal(board, king_attacked + UP, king_attacked))
@@ -901,7 +901,7 @@ int check_stalemate(Board* board, int which_color)
             board->position[i] = orig_piece;
         }
     }
-    return 2;
+    return 0x4;
 }
 
 /* Returns 1 if the current position is checkmate
@@ -985,7 +985,7 @@ int is_checkmate(Board* board, int which_color)
             board->position[i] = orig_piece;
         }
     }
-    return 1;
+    return 0x2;
 }
 
 /* Returns 2 if the current position is stalemate by three-fold repetition
@@ -1004,7 +1004,7 @@ int check_threefold(Board* board)
                 count++;
         }
         if (count >= 3)
-            return 4;
+            return 0x10;
     }
     return 0;
 }
@@ -1018,12 +1018,12 @@ int is_gameover(Board* board)
     if (board->history_count >= MAX_HISTORY)
     {
         printf("MAXIMUM HISTORY (%u) REACHED\n", MAX_HISTORY);
-        return 2;
+        return 0x20;
     }
     if (board->pos_count >= MAX_STORED_POSITIONS)
     {
         printf("MAXIMUM POSITIONS (%u) REACHED\n", MAX_STORED_POSITIONS);
-        return 2;
+        return 0x40;
     }
     int game_over = is_checkmate(board, board->to_move);
     print_debug("was checkmate? %d\n", game_over);
@@ -1031,7 +1031,7 @@ int is_gameover(Board* board)
         game_over = check_stalemate(board, board->to_move);
     print_debug("was stalemate? %d\n", game_over);
     if (!game_over && board->halfmoves >= 100)
-        game_over = 3;
+        game_over = 0x8;
     print_debug("was 50-move? %d\n", game_over);
     if (!game_over && board->pos_count)
         game_over = check_threefold(board);
@@ -1136,6 +1136,7 @@ void store_position(Board* board, char* dest)
 
 /* Makes a move on the board based on given Move struct and updates board state
  * Use this function when submitting an actual move on the board
+ * Returns 0 for successful move, error otherwise
  */
 int move_piece(Board* board, Move* move)
 {
@@ -1346,7 +1347,7 @@ int move_piece(Board* board, Move* move)
 }
 
 /* Interprets Standard Algebraic Notation and makes a move */
-void move_san(Board* board, char* move)
+int move_san(Board* board, char* move)
 {
     Move this_move;
     this_move.src_piece = PAWN;
@@ -1418,5 +1419,5 @@ void move_san(Board* board, char* move)
     if (destrank != -1 && destfile != -1)
         this_move.dest = destrank * 8 + destfile;
 
-    move_piece(board, &this_move);
+    return move_piece(board, &this_move);
 }

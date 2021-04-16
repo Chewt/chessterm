@@ -27,18 +27,18 @@ void print_example_board(Board* board, int LIGHT, int DARK)
         else
             printf("\e[48;5;%dm", DARK);
         printf(" ");
-        if (square & pawn)
-            (square & black) ? printf("\e[30mp") : printf("\e[37mP");
-        else if (square & bishop)
-            (square & black) ? printf("\e[30mb") : printf("\e[37mB");
-        else if (square & knight)
-            (square & black) ? printf("\e[30mn") : printf("\e[37mN");
-        else if (square & rook)
-            (square & black) ? printf("\e[30mr") : printf("\e[37mR");
-        else if (square & queen)
-            (square & black) ? printf("\e[30mq") : printf("\e[37mQ");
-        else if (square & king)
-            (square & black) ? printf("\e[30mk") : printf("\e[37mK");
+        if (square & PAWN)
+            (square & BLACK) ? printf("\e[30mp") : printf("\e[37mP");
+        else if (square & BISHOP)
+            (square & BLACK) ? printf("\e[30mb") : printf("\e[37mB");
+        else if (square & KNIGHT)
+            (square & BLACK) ? printf("\e[30mn") : printf("\e[37mN");
+        else if (square & ROOK)
+            (square & BLACK) ? printf("\e[30mr") : printf("\e[37mR");
+        else if (square & QUEEN)
+            (square & BLACK) ? printf("\e[30mq") : printf("\e[37mQ");
+        else if (square & KING)
+            (square & BLACK) ? printf("\e[30mk") : printf("\e[37mK");
         else
             printf(" ");
         printf(" \e[0m");

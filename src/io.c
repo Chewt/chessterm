@@ -593,7 +593,7 @@ char* export_pgn(Board* board)
             str_ind += sprintf(pgn + str_ind, "O-O-O");
         if (record.gave_check && !record.game_over)
             str_ind += sprintf(pgn + str_ind, "+");
-        if (record.game_over == 1)
+        if (record.game_over & CHECKMATE)
         {
             str_ind += sprintf(pgn + str_ind, "#");
             if (board->to_move)
@@ -601,7 +601,7 @@ char* export_pgn(Board* board)
             else
                 str_ind += sprintf(pgn + str_ind, " 0-1");
         }
-        if (record.game_over > 1)
+        if (record.game_over > CHECKMATE)
             str_ind += sprintf(pgn + str_ind, " 1/2-1/2");
         str_ind += sprintf(pgn + str_ind, " ");
     }

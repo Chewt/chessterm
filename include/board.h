@@ -65,13 +65,28 @@ typedef struct
     uint16_t pos_count;
 } Board;
 
+enum
+{
+    FLIPPED   = 0x001,
+    CHECKMATE = 0x002,
+    STALEMATE = 0x004,
+    FIFTY     = 0x008,
+    THREEFOLD = 0x010,
+    MAXHIST   = 0x020,
+    MAXPOS    = 0x040,
+    AUTOFLIP  = 0x100,
+    RANDOMSIDE= 0x200,
+    COMMAND   = 0x400,
+    STOP      = 0x80000000
+};
+
 extern const Move default_move;
 
 void default_board(Board* board);
 void empty_board(Board* board);
 void move_square(Board* board, int src, int dest);
 void move_verbose(Board* board, char* dest, char* src);
-void move_san(Board* board, char* move);
+int move_san(Board* board, char* move);
 int is_gameover(Board* board);
 int move_piece(Board* board, Move* move);
 void find_attacker(Board* board, int square, uint8_t piece, Found* founds);
