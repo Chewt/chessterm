@@ -12,12 +12,16 @@
 #else
 #define print_debug(...) ((void)0)
 #endif
+#define printf(...) ((void)0)
 
 void play_engine();
 void play_stockfish(Engine* engine);
 int engine_v_stockfish(Engine* engine, int silent, FILE* fp);
 int engine_v_engine(char* fen, int silent);
 void thousand_games(Engine* white_engine, Engine* black_engine);
+void initialize_white(int* i, int argc, char** argv, Board* board, Engine* engine, int* bools);
+void initialize_black(int* i, int argc, char** argv, Board* board, Engine* engine, int* bools);
+
 
 int main(int argc, char** argv)
 {
@@ -35,13 +39,16 @@ int main(int argc, char** argv)
      * 
      * 0x100 is autoflipping
      * 0x200 was an engine assigned a side randomly
+     * 0x400 is set when a command should be processed rather than a move,
+     *       for example, when there are two engines, process user input
+     *       before letting the engines play
      * 
      * Stop bit should be set to stop the program, should be 0 while running
      */
     int bools = 0;
     #ifdef AUTOFLIP
         if (AUTOFLIP)
-            bools |= 0x100;
+            bools |= AUTOFLIP;
     #endif
 
     Board board;
@@ -52,7 +59,7 @@ int main(int argc, char** argv)
     black_engine.pid = 0;
     int i;
     /* Flags processing */
-    for (i = 1; i<argc; i++){
+    for (i = 1; i<argc && !(bools & STOP); i++){
         if (argv[i][0] == '-')
         {
             char flag = argv[i][1];
@@ -63,12 +70,12 @@ int main(int argc, char** argv)
             }
             else if (flag == 'w' || flag == 'W')
             {
-                start_engine(&white_engine, argv[++i]);
+                initialize_white(&i, argc, argv, &board, &white_engine, &bools);
                 continue;
             }
             else if (flag == 'b' || flag == 'B')
             {
-                start_engine(&black_engine, argv[++i]);
+                initialize_black(&i, argc, argv, &board, &black_engine, &bools);
                 continue;
             }
             else if (flag == 'r' || flag == 'R')
@@ -78,44 +85,38 @@ int main(int argc, char** argv)
                 if (black_engine.pid)
                 {
                     if (!white_engine.pid){
-                        start_engine(&white_engine, argv[i]);
-                        memcpy(board.white_name, white_engine.name, 
-                               strlen(white_engine.name) + 1);
-                        send_ucinewgame(white_engine.write);
-                        bools |= 0x200;
+                        initialize_white(&i, argc, argv, &board, &white_engine, &bools);
                     }
                 }
                 else if (!white_engine.pid && temp)
                 {
-                    start_engine(&white_engine, argv[i]);
-                    memcpy(board.white_name, white_engine.name, 
-                               strlen(white_engine.name) + 1);
-                    send_ucinewgame(white_engine.write);
-                    bools |= 0x200;
+                    initialize_white(&i, argc, argv, &board, &white_engine, &bools);
                 }
                 else
                 {
-                    start_engine(&black_engine, argv[i]);
-                    memcpy(board.black_name, black_engine.name, 
-                               strlen(black_engine.name) + 1);
-                    send_ucinewgame(black_engine.write);
-                    bools |= 0x200;
+                    initialize_black(&i, argc, argv, &board, &black_engine, &bools);
                 }
                 continue;
             }
         }
     }
+    if (black_engine.pid && white_engine.pid)
+        bools |= COMMAND;
+
+    
 
     printf("\n");
-    print_fancy(&board);
+    if (!(bools & STOP))
+        print_fancy(&board);
 
     bools |= is_gameover(&board);
-    while (bools >= 0)
+    while (!(bools & STOP))
     {
         
         /* If human move */
-        if ( board.to_move && !black_engine.pid || 
-            !board.to_move && !white_engine.pid)
+        if (( board.to_move && !black_engine.pid) || 
+            (!board.to_move && !white_engine.pid) || 
+            (bools & COMMAND))
         {
             char move[50];
 
@@ -123,7 +124,8 @@ int main(int argc, char** argv)
             scanf("%30s", move);
             if (!strcmp(move, "exit"))
             {
-                return 0;
+                bools |= STOP;
+                continue;
             }
             else if (!strcmp(move, "status"))
             {
@@ -168,9 +170,22 @@ int main(int argc, char** argv)
                 bools = 0;
                 #ifdef AUTOFLIP
                     if (AUTOFLIP)
-                        bools |= 0x100;
+                        bools |= AUTOFLIP;
                 #endif
                 default_board(&board);
+                if (bools & RANDOMSIDE)
+                {
+                    int temp = rand()%2;
+                    if (temp){
+                        Engine temp_engin = white_engine;
+                        white_engine = black_engine;
+                        black_engine = temp_engin;
+                    }
+                }
+            }
+            else if (!strcmp(move, "go"))
+            {
+                bools &= ~COMMAND;
             }
             else if (!strcmp(move, "thousand"))
             {
@@ -179,7 +194,7 @@ int main(int argc, char** argv)
             }
        
             /* Autoflip */
-            if (!move_san(&board, move) && bools & 0x100)
+            if (!move_san(&board, move) && bools & AUTOFLIP)
             {
                 bools ^= 1;
             }
@@ -198,7 +213,7 @@ int main(int argc, char** argv)
             }
 
             /* Autoflip */
-            if (move_piece(&board, &engine_move) && bools & 0x100)
+            if (!move_piece(&board, &engine_move) && bools & AUTOFLIP)
             {
                 bools ^= 1;
             }
@@ -211,17 +226,18 @@ int main(int argc, char** argv)
             print_fancy(&board);
 
         bools |= is_gameover(&board);
-        if (bools & 0x1E)
+        
+        if (bools & (CHECKMATE | FIFTY | STALEMATE | THREEFOLD | MAXHIST | MAXPOS))
         {
-            if (bools & 0x02)
+            if (bools & CHECKMATE)
             {
                 printf("Checkmate!\n");
             }
             else
             {
-                if (bools & 0x08)
+                if (bools & FIFTY)
                     printf("50 move rule\n");
-                else if (bools & 0x10)
+                else if (bools & THREEFOLD)
                     printf("Three fold repetition\n");
                 printf("Stalemate!\n");
             }
@@ -233,6 +249,10 @@ int main(int argc, char** argv)
             
         }
     }
+    if (white_engine.pid)
+        stop_engine(&white_engine);
+    if (black_engine.pid)
+        stop_engine(&black_engine);
     return 0;
 }
 
@@ -734,4 +754,74 @@ void thousand_games(Engine* white_engine, Engine* black_engine)
     fclose(games);
     stop_engine(white_engine);
     stop_engine(black_engine);
+}
+
+void initialize_black(int* i, int argc, char** argv, Board* board, Engine* engine, int* bools)
+{
+    start_engine(engine, argv[++*i]);
+    memcpy(board->black_name, engine->name, 
+            strlen(engine->name) + 1);
+    send_ucinewgame(engine->write);
+    *i++;
+    if (*i >= argc)
+    {
+        *bools |= STOP;
+    }
+    int j=0;
+    engine->depth = 0;
+    /* Parse engine depth */
+    while (!(*bools & STOP) && argv[*i][j])
+    {
+        if ('0' <= argv[*i][j] && argv[*i][j] <= '9')
+        {
+            engine->depth *= 10;
+            engine->depth += argv[*i][j] - '0';
+        }
+        else 
+        {
+            *bools |= STOP;
+        }
+        j++;
+    }
+    if (*bools & STOP){
+        printf("Invalid use of \"%s\" flag:\n%s ./engine_path "
+                "depth\ndepth must be an integer number "
+                "indicating how many moves ahead the engine "
+                "may look\n", argv[*i-2], argv[*i-2]);
+    }
+}
+
+void initialize_white(int* i, int argc, char** argv, Board* board, Engine* engine, int* bools)
+{
+    start_engine(engine, argv[++(*i)]);
+    memcpy(board->white_name, engine->name, 
+            strlen(engine->name) + 1);
+    send_ucinewgame(engine->write);
+    (*i)++;
+    if (*i >= argc)
+    {
+        *bools |= STOP;
+    }
+    int j=0;
+    engine->depth = 0;
+    /* Parse engine depth */
+    while (!(*bools & STOP) && argv[*i][j])
+    {
+        if ('0' <= argv[*i][j] && argv[*i][j] <= '9')
+        {
+            engine->depth *= 10;
+            engine->depth += argv[*i][j] - '0';
+        }
+        else 
+        {
+            *bools |= STOP;
+        }
+        j++;
+    }
+    if (*bools & STOP){
+        printf("Invalid use of \"%s\" flag:\n%s ./engine_path "
+                "depth\ndepth must be an integer number "
+                "indicating how many moves ahead the engine "
+                "may look\n", argv[(*i)-2], argv[(*i)-2]);
+    }
 }
