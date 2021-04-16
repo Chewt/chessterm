@@ -215,8 +215,8 @@ int main(int argc, char** argv)
             {
                 bools ^= 1;
             }
-        }
 
+        }
 
         if (bools & 1)
             print_fancy_flipped(&board);
@@ -532,6 +532,10 @@ int engine_v_stockfish(Engine* engine, int silent, FILE* fp)
         */
 
         int valid = move_piece(&board, &engine_move);
+        print_fancy(&board);
+        char fen[FEN_SIZE];
+        export_fen(&board, fen);
+        printf("%s\n", fen);
 
         if (valid == -1)
         {
@@ -823,3 +827,4 @@ void initialize_white(int* i, int argc, char** argv, Board* board, Engine* engin
                 "may look\n", argv[(*i)-2], argv[(*i)-2]);
     }
 }
+

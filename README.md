@@ -1,7 +1,7 @@
 # What is it?
 Chessterm is a terminal based chess api. 
 
-It was orginally created to provide a bridge between several chess engines made
+It was originally created to provide a bridge between several chess engines made
 by a group of friends to compete with each other. It is designed to be flexible
 and be adapted to any chess related project that has need of a chess board.
 
@@ -41,7 +41,7 @@ computation depth
 to start the uci compatible engine as a random player with the given 
 computation depth
 
-All of the above flags can be used interchangibly with each other.
+All of the above flags can be used interchangibly with each other.]
 
 In the program you will be presented with a view of the current position and
 a prompt. You can type  
@@ -67,7 +67,7 @@ to have two engines play each other 1000 times
 `: status`  
 to view the current board information, or you can type a move in SAN notation 
 to make a move.  
-example: `: e4` or `: Nf3`  
+Example: `: e4` or `: Nf3`  
 Pieces must be uppercase, and files must be lowercase for the move to be read
 correctly.
 
