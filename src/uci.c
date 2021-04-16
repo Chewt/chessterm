@@ -84,6 +84,7 @@ void stop_engine(Engine* engine)
     close(engine->write);
     int ws;
     waitpid(engine->pid, &ws, 0);
+    engine->pid = NULL;
 }
 
 /* Returns the best move returned by an engine. It provides the engine with
@@ -95,7 +96,10 @@ Move get_engine_move(Board* board, Engine* engine)
     char curr_position[FEN_SIZE];
     export_fen(board, curr_position);
     send_position(engine->write, "fen", curr_position);
-    send_go(engine->write, "depth 4");
+
+    sprintf(curr_position, "depth %d", engine->depth);
+    send_go(engine->write, curr_position);
+
     char* message = get_message(engine->read);
     while (!strstr(message, "bestmove"))
     {
