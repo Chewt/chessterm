@@ -718,7 +718,7 @@ Move Econdensed(Board* board, int depth)
     get_all_moves(board, cans);
     int i;
     Candidate best = cans[0];
-    print_fancy(board);
+    //print_fancy(board);
     int j;
     for (j = 1; j <= depth; ++j)
     {

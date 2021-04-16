@@ -1,7 +1,7 @@
 # What is it?
 Chessterm is a terminal based chess api. 
 
-It was orginally created to provide a bridge between several chess engines made
+It was originally created to provide a bridge between several chess engines made
 by a group of friends to compete with each other. It is designed to be flexible
 and be adapted to any chess related project that has need of a chess board.
 
@@ -31,7 +31,7 @@ the program with
 where fen is an optional string 
 representing a chess position in the Forsyth-Edwards Notation (FEN) format.
 
-example: `$ ./chessterm "rnbq1bnr/1ppp1ppp/6k1/4Q3/4P3/p7/PPP2PPP/RNBQKBNR w KQ - 2 8"`
+Example: `$ ./chessterm "rnbq1bnr/1ppp1ppp/6k1/4Q3/4P3/p7/PPP2PPP/RNBQKBNR w KQ - 2 8"`
 
 If you do not provide a FEN, then the board will be initialized to a standard
 chess board.
@@ -59,7 +59,7 @@ to print the PGN of the game to the screen
 `: status`  
 to view the current board information, or you can type a move in SAN notation
 to make a move.  
-example: `: e4` or `: Nf3`  
+Example: `: e4` or `: Nf3`  
 Pieces must be uppercase, and files must be lowercase for the move to be read
 correctly.
 

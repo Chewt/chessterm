@@ -484,6 +484,10 @@ int engine_v_stockfish(Engine* engine, int silent, FILE* fp)
         */
 
         int valid = move_piece(&board, &engine_move);
+        print_fancy(&board);
+        char fen[FEN_SIZE];
+        export_fen(&board, fen);
+        printf("%s\n", fen);
 
         if (valid == -1)
         {
