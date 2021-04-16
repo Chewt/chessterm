@@ -27,20 +27,21 @@ A test implementation has been provided. Simply run
 `$make`  
 to compile and start
 the program with  
-`$./chessterm [fen]`  
-where fen is an optional string 
-representing a chess position in the Forsyth-Edwards Notation (FEN) format.
+`$./chessterm`  
+The program can be started with the following flags:
+`-f "fen string between quotes"`
+to start the board in a given fen position. Fen must be between quotes
+`-w ./path/to/engine depth`
+to start the uci compatible engine as the white player with the given 
+computation depth
+`-b ./path/to/engine depth`
+to start the uci compatible engine as the black player with the given 
+computation depth
+`-r ./path/to/engine depth`
+to start the uci compatible engine as a random player with the given 
+computation depth
 
-example: `$ ./chessterm "rnbq1bnr/1ppp1ppp/6k1/4Q3/4P3/p7/PPP2PPP/RNBQKBNR w KQ - 2 8"`
-
-If you do not provide a FEN, then the board will be initialized to a standard
-chess board.
-
-Additionally, you can run the program with  
-`$./chessterm -e /path/to/engine`  
-to load a UCI compatible chess engine.  
-The behaviour of the command `itself` changes to play a game between the loaded
-engine and my custom engine, where the loaded engine plays as black.
+All of the above flags can be used interchangibly with each other.
 
 In the program you will be presented with a view of the current position and
 a prompt. You can type  
@@ -48,16 +49,23 @@ a prompt. You can type
 to exit the program,  
 `: flip`  
 to switch perspectives between black and white  
-`: engine`  
-to play against the random move engine, or the loaded engine if present  
-`: itself`  
-to see a game where the engine plays itself  
+`: autoflip`
+to switch perspectives between black and white every move
+`: noflip`
+to disable autoflip
 `: fen`  
 to print the current position's FEN to the screen  
 `: pgn`   
 to print the PGN of the game to the screen  
+
+`: new`
+to start a new game after one has finished
+`: go` 
+to allow two engines to play against each other
+`: thousand`
+to have two engines play each other 1000 times
 `: status`  
-to view the current board information, or you can type a move in SAN notation
+to view the current board information, or you can type a move in SAN notation 
 to make a move.  
 example: `: e4` or `: Nf3`  
 Pieces must be uppercase, and files must be lowercase for the move to be read

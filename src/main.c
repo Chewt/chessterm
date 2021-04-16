@@ -12,7 +12,6 @@
 #else
 #define print_debug(...) ((void)0)
 #endif
-#define printf(...) ((void)0)
 
 void play_engine();
 void play_stockfish(Engine* engine);
@@ -80,7 +79,6 @@ int main(int argc, char** argv)
             }
             else if (flag == 'r' || flag == 'R')
             {
-                i++;
                 int temp = rand() % 2;
                 if (black_engine.pid)
                 {
@@ -758,11 +756,11 @@ void thousand_games(Engine* white_engine, Engine* black_engine)
 
 void initialize_black(int* i, int argc, char** argv, Board* board, Engine* engine, int* bools)
 {
-    start_engine(engine, argv[++*i]);
+    start_engine(engine, argv[++(*i)]);
     memcpy(board->black_name, engine->name, 
             strlen(engine->name) + 1);
     send_ucinewgame(engine->write);
-    *i++;
+    (*i)++;
     if (*i >= argc)
     {
         *bools |= STOP;
@@ -787,7 +785,7 @@ void initialize_black(int* i, int argc, char** argv, Board* board, Engine* engin
         printf("Invalid use of \"%s\" flag:\n%s ./engine_path "
                 "depth\ndepth must be an integer number "
                 "indicating how many moves ahead the engine "
-                "may look\n", argv[*i-2], argv[*i-2]);
+                "may look\n", argv[(*i)-2], argv[(*i)-2]);
     }
 }
 
