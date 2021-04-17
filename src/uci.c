@@ -84,7 +84,7 @@ void stop_engine(Engine* engine)
     close(engine->write);
     int ws;
     waitpid(engine->pid, &ws, 0);
-    engine->pid = NULL;
+    engine->pid = 0;
 }
 
 /* Returns the best move returned by an engine. It provides the engine with
