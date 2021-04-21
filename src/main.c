@@ -854,7 +854,6 @@ void initialize_white(int* i, int argc, char** argv, Board* board, Engine* engin
     }
 }
 
-<<<<<<< HEAD
 void prand(Board *board, Engine* white_engine, Engine* black_engine)
 {
     /* Threshold is how much better an engine must be before being 
@@ -875,11 +874,10 @@ void prand(Board *board, Engine* white_engine, Engine* black_engine)
     int low = 0;
     int mid = precision;
     int nerf = -1;
-    clock_t t = clock();
     FILE* games = fopen("prand.txt", "w");
+    clock_t t = clock();
     for (i = 0; i < num_games && high > low + 1; ++i)
     {
-        clock_t in_t = clock();
         default_board(board);
         if (i & 1)
         {
@@ -898,6 +896,7 @@ void prand(Board *board, Engine* white_engine, Engine* black_engine)
         send_ucinewgame(white_engine->write);
         send_ucinewgame(black_engine->write);
         result = 0;
+        clock_t in_t = clock();
         while (result == 0)
         {
             Move engine_move;
@@ -936,8 +935,11 @@ void prand(Board *board, Engine* white_engine, Engine* black_engine)
                 {
                     dprintf(2, "%s to play\n", black_engine->name);
                 }
+                char fen[FEN_SIZE];
+                export_fen(board, fen);
+                printf("%s\n", fen);
                 dprintf(2, "Move: %d Trying %c%d to %c%d\n", board->moves,
-                        engine_move.src_file + 'a' , engine_move.src_rank + 1, 
+                        engine_move.src_file + 'a' , 8 - engine_move.src_rank, 
                         engine_move.dest%8+'a', 8-engine_move.dest/8);
             }
             result = is_gameover(board);
@@ -1020,5 +1022,3 @@ void prand(Board *board, Engine* white_engine, Engine* black_engine)
     stop_engine(white_engine);
     stop_engine(black_engine);
 }
-=======
->>>>>>> a93093057aa741935a2504603fbeb9a93d309b38
