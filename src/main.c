@@ -240,8 +240,8 @@ int main(int argc, char** argv)
             {
                 bools ^= 1;
             }
-        }
 
+        }
 
         if (bools & 1)
             print_fancy_flipped(&board);
@@ -558,6 +558,10 @@ int engine_v_stockfish(Engine* engine, int silent, FILE* fp)
         */
 
         int valid = move_piece(&board, &engine_move);
+        print_fancy(&board);
+        char fen[FEN_SIZE];
+        export_fen(&board, fen);
+        printf("%s\n", fen);
 
         if (valid == -1)
         {
@@ -850,6 +854,7 @@ void initialize_white(int* i, int argc, char** argv, Board* board, Engine* engin
     }
 }
 
+<<<<<<< HEAD
 void prand(Board *board, Engine* white_engine, Engine* black_engine)
 {
     /* Threshold is how much better an engine must be before being 
@@ -1015,3 +1020,5 @@ void prand(Board *board, Engine* white_engine, Engine* black_engine)
     stop_engine(white_engine);
     stop_engine(black_engine);
 }
+=======
+>>>>>>> a93093057aa741935a2504603fbeb9a93d309b38

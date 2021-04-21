@@ -14,6 +14,8 @@
 #define CLIENT_READ  from_engine[0]
 #define ENGINE_WRITE from_engine[1]
 
+#define DEBUG
+
 #ifdef DEBUG
 #define print_debug(...) fprintf(stderr,__VA_ARGS__)
 #else
@@ -49,12 +51,14 @@ void start_engine(Engine* engine, char* engine_exc)
         char* message = get_message(CLIENT_READ);
         while (!strstr(message, "readyok"))
         {
+            printf("%s\n", message);
             if (strstr(message, "id name"))
                 memcpy(engine->name, message + 8, strlen(message) - 8);
             engine->name[strlen(message) - 7] = '\0';
             free(message);
             message = get_message(CLIENT_READ);
         }
+        printf("%s\n", message);
         free(message);
     }
     else
@@ -92,11 +96,14 @@ Move get_engine_move(Board* board, Engine* engine)
     char curr_position[FEN_SIZE];
     export_fen(board, curr_position);
     send_position(engine->write, "fen", curr_position);
+
     sprintf(curr_position, "depth %d", engine->depth);
     send_go(engine->write, curr_position);
+
     char* message = get_message(engine->read);
     while (!strstr(message, "bestmove"))
     {
+        printf("%s\n", message);
         free(message);
         message = get_message(engine->read);
     }
@@ -111,8 +118,8 @@ Move get_engine_move(Board* board, Engine* engine)
     int dest = (token[2] - 'a') + (8 - (token[3] - '0')) * 8;
     move.dest = dest;
     move.promotion |= move.src_piece & 0x80;
-    //print_debug("%s %u %u %u %u\n", token, move.src_file, move.src_rank,
-    //       move.src_piece, move.dest);
+    print_debug("%s %u %u %u %u\n", token, move.src_file, move.src_rank,
+           move.src_piece, move.dest);
     free(message);
     return move;
 }
