@@ -49,21 +49,25 @@ a prompt. You can type
 to exit the program,  
 `: flip`  
 to switch perspectives between black and white  
-`: autoflip`
-to switch perspectives between black and white every move
-`: noflip`
-to disable autoflip
+`: autoflip`  
+to switch perspectives between black and white every move  
+`: noflip`  
+to disable autoflip  
 `: fen`  
 to print the current position's FEN to the screen  
 `: pgn`   
 to print the PGN of the game to the screen  
 
-`: new`
-to start a new game after one has finished
-`: go` 
-to allow two engines to play against each other
-`: thousand`
-to have two engines play each other 1000 times
+`: new`  
+to start a new game after one has finished  
+`: go`   
+to allow two engines to play against each other  
+`: thousand`  
+to have two engines play each other 1000 times  
+`: prand`  
+to rate one engine as a percentage of another. Example:  
+`Bad engine equates to Good engine performing at 63.0000%`  
+This output means `Bad engine` played against `Good engine` but 37% of `Good engine`'s moves were random.  
 `: status`  
 to view the current board information, or you can type a move in SAN notation 
 to make a move.  
