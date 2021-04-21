@@ -991,7 +991,7 @@ void prand(Board *board, Engine* white_engine, Engine* black_engine)
                 high = mid;
             }
             mid = (high + low) >> 1;
-            i=0;
+            i=-1;
             black_win = 0;
             white_win = 0;
             draw = 0;
