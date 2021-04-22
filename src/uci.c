@@ -14,8 +14,6 @@
 #define CLIENT_READ  from_engine[0]
 #define ENGINE_WRITE from_engine[1]
 
-#define DEBUG
-
 #ifdef DEBUG
 #define print_debug(...) fprintf(stderr,__VA_ARGS__)
 #else
@@ -51,7 +49,7 @@ void start_engine(Engine* engine, char* engine_exc)
         char* message = get_message(CLIENT_READ);
         while (!strstr(message, "readyok"))
         {
-            printf("%s\n", message);
+            print_debug("%s\n", message);
             if (strstr(message, "id name"))
                 memcpy(engine->name, message + 8, strlen(message) - 8);
             engine->name[strlen(message) - 7] = '\0';
@@ -84,7 +82,7 @@ void stop_engine(Engine* engine)
     close(engine->write);
     int ws;
     waitpid(engine->pid, &ws, 0);
-    engine->pid = NULL;
+    engine->pid = 0;
 }
 
 /* Returns the best move returned by an engine. It provides the engine with
@@ -103,7 +101,7 @@ Move get_engine_move(Board* board, Engine* engine)
     char* message = get_message(engine->read);
     while (!strstr(message, "bestmove"))
     {
-        printf("%s\n", message);
+        print_debug("%s\n", message);
         free(message);
         message = get_message(engine->read);
     }

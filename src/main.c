@@ -20,6 +20,7 @@ int engine_v_engine(char* fen, int silent);
 void thousand_games(Engine* white_engine, Engine* black_engine);
 void initialize_white(int* i, int argc, char** argv, Board* board, Engine* engine, int* bools);
 void initialize_black(int* i, int argc, char** argv, Board* board, Engine* engine, int* bools);
+void prand(Board* board, Engine* white_engine, Engine* black_engine);
 
 
 int main(int argc, char** argv)
@@ -180,14 +181,30 @@ int main(int argc, char** argv)
                         black_engine = temp_engin;
                     }
                 }
+                if (white_engine.pid){
+                    send_ucinewgame(white_engine.write);
+                    memcpy(board.white_name, white_engine.name, 
+                           strlen(white_engine.name) + 1);
+                }
+                if (black_engine.pid){
+                    send_ucinewgame(black_engine.write);
+                    memcpy(board.black_name, black_engine.name, 
+                           strlen(black_engine.name) + 1);
+                }
             }
             else if (!strcmp(move, "go"))
             {
                 bools &= ~COMMAND;
+                continue;
             }
             else if (!strcmp(move, "thousand"))
             {
                 thousand_games(&white_engine, &black_engine);
+                continue;
+            }
+            else if (!strcmp(move, "prand"))
+            {
+                prand(&board, &white_engine, &black_engine);
                 continue;
             }
        
@@ -209,9 +226,17 @@ int main(int argc, char** argv)
             {
                 engine_move = get_engine_move(&board, &white_engine);
             }
-
+            
             /* Autoflip */
-            if (!move_piece(&board, &engine_move) && bools & AUTOFLIP)
+            i = move_piece(&board, &engine_move);
+            if (i == -1)
+            {
+                print_debug("%d to play\n", board.to_move);
+                print_debug("Move: %d Trying %c%d to %c%d\n", board.moves,
+                        engine_move.src_file + 'a' , engine_move.src_rank + 1, 
+                        engine_move.dest%8+'a', 8-engine_move.dest/8);
+            }
+            if (!i && bools & AUTOFLIP)
             {
                 bools ^= 1;
             }
@@ -227,6 +252,7 @@ int main(int argc, char** argv)
         
         if (bools & (CHECKMATE | FIFTY | STALEMATE | THREEFOLD | MAXHIST | MAXPOS))
         {
+            bools |= COMMAND;
             if (bools & CHECKMATE)
             {
                 printf("Checkmate!\n");
@@ -734,7 +760,7 @@ void thousand_games(Engine* white_engine, Engine* black_engine)
         printf("Time taken for game %d: %f seconds\n", i + 1, t_taken);
         if (result == 2 && !board.to_move)
             black_win++;
-        else if (result == board.to_move)
+        else if (result == 2 && board.to_move)
             white_win++;
         else if (result & 0x1C)
             draw++;
@@ -828,3 +854,171 @@ void initialize_white(int* i, int argc, char** argv, Board* board, Engine* engin
     }
 }
 
+void prand(Board *board, Engine* white_engine, Engine* black_engine)
+{
+    /* Threshold is how much better an engine must be before being 
+     * nerfed. 
+     *
+     * Precision is how many sig figs in the percentage. */
+    const float threshold = .25;
+    const int min_games = 10;
+    const int num_games = 100;
+    const int precision = 100;
+    int i;
+    int valid_move;
+    int black_win = 0;
+    int white_win = 0;
+    int draw = 0;
+    int result = 0;
+    int high = precision;
+    int low = 0;
+    int mid = precision;
+    int nerf = -1;
+    FILE* games = fopen("prand.txt", "w");
+    clock_t t = clock();
+    for (i = 0; i < num_games && high > low + 1; ++i)
+    {
+        default_board(board);
+        if (i & 1)
+        {
+            memcpy(&board->white_name, black_engine->name, 
+                   strlen(black_engine->name) + 1);
+            memcpy(&board->black_name, white_engine->name, 
+                   strlen(white_engine->name) + 1);
+        }
+        else 
+        {
+            memcpy(&board->black_name, black_engine->name, 
+                   strlen(black_engine->name) + 1);
+            memcpy(&board->white_name, white_engine->name, 
+                   strlen(white_engine->name) + 1);
+        }
+        send_ucinewgame(white_engine->write);
+        send_ucinewgame(black_engine->write);
+        result = 0;
+        clock_t in_t = clock();
+        while (result == 0)
+        {
+            Move engine_move;
+            /* xor i & 1 swaps sides every game */
+            if (board->to_move ^ (i & 1))
+            {
+                if (nerf == 1 && rand()%precision > mid)
+                {
+                    engine_move = Erandom_move(board);
+                } 
+                else 
+                {
+                    engine_move = get_engine_move(board, white_engine);
+                }
+            }
+            else
+            {
+                if (nerf == 0 && (rand()%precision) > mid)
+                {
+                    engine_move = Erandom_move(board);
+                }
+                else
+                {
+                    engine_move = get_engine_move(board, black_engine);
+                }
+            }
+
+            valid_move = move_piece(board, &engine_move);
+            if (valid_move == -1)
+            {
+                if (board->to_move ^ (i & 1))
+                {
+                    dprintf(2, "%s to play\n", white_engine->name);
+                }
+                else 
+                {
+                    dprintf(2, "%s to play\n", black_engine->name);
+                }
+                char fen[FEN_SIZE];
+                export_fen(board, fen);
+                printf("%s\n", fen);
+                dprintf(2, "Move: %d Trying %c%d to %c%d\n", board->moves,
+                        engine_move.src_file + 'a' , 8 - engine_move.src_rank, 
+                        engine_move.dest%8+'a', 8-engine_move.dest/8);
+            }
+            result = is_gameover(board);
+        }
+
+        in_t = clock() - in_t;
+        double t_taken = ((double)in_t)/CLOCKS_PER_SEC;
+        printf("Time taken for game %d: %f seconds\n", i + 1, t_taken);
+        if (result == 2 && board->to_move ^ (i & 1))
+            black_win++;
+        else if (result == 2 && !(board->to_move ^ (i & 1)))
+            white_win++;
+        else if (result & 0x1C)
+            draw++;
+        if (games)
+        {
+            char* pgn = export_pgn(board);
+            if (fprintf(games, "%s\n\n", pgn) < 0)
+            {
+                perror("Couldn't write to file");
+                exit(1);
+            }
+            free(pgn);
+        }
+
+        int score_diff = black_win - white_win;
+        /* abs(score_diff) */
+        score_diff = score_diff > 0 ? score_diff : -1*score_diff;
+        /* Should an engine be nerfed? */
+        if ((float)i * threshold < score_diff && i > min_games)
+        {
+            if (nerf < 0) 
+            {
+                if (white_win > black_win)
+                {
+                    nerf = 1;
+                }
+                else 
+                {
+                    nerf = 0;
+                }
+            }
+            if ((white_win > black_win) ^ nerf)
+            {
+                low = mid;
+            }
+            else
+            {
+                high = mid;
+            }
+            mid = (high + low) >> 1;
+            i=-1;
+            black_win = 0;
+            white_win = 0;
+            draw = 0;
+        }
+    }
+    t = clock() - t;
+    double time_taken = ((double)t)/CLOCKS_PER_SEC;
+    if (nerf == 0)
+    {
+        printf("%s at depth %d equates to %s at depth %d performing at %f%%.", 
+               white_engine->name, white_engine->depth, black_engine->name, 
+               black_engine->depth, 100*(float)mid/(float)precision);
+    } 
+    else if (nerf == 1)
+    {
+        printf("%s at depth %d equates to %s at depth %d performing at %f%%.", 
+               black_engine->name, black_engine->depth, white_engine->name, 
+               white_engine->depth, 100*(float)mid/(float)precision);
+    }
+    else 
+    {
+        printf("%s and %s are evenly matched.", black_engine->name, 
+               white_engine->name);
+    }
+    printf("\nTime taken: %f seconds\n", time_taken);
+    printf("Enter a command to continue\n");
+    fclose(games);
+    stop_engine(white_engine);
+    stop_engine(black_engine);
+}

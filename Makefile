@@ -5,7 +5,7 @@ SOURCES = $(wildcard $(SRCDIR)/*.c)
 OBJECTS = $(SOURCES:$(SRCDIR)%.c=$(OBJDIR)%.o)
 INCLUDES = $(SOURCES:$(SRCDIR)%.c=$(INCLUDEDIR)%.h)
 UNIDEPS = include/settings.h
-CFLAGS = -I$(INCLUDEDIR) -g 
+CFLAGS = -I$(INCLUDEDIR) 
 CC = gcc
 TARGET = chessterm
 
@@ -32,3 +32,7 @@ color_picker:
 clean: 
 	rm -rf $(OBJDIR) /*.o $(TARGET) color_picker include/settings.h
 	$(MAKE) clean -C add_ons
+
+.PHONY: debug
+debug: CFLAGS += -g -D DEBUG
+debug: clean all

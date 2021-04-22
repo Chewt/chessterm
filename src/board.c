@@ -759,15 +759,15 @@ void check_king(Board* board, int square, uint8_t piece, Found* founds)
             founds->num_found++;
             founds->squares[founds->num_found - 1] = square + DOWN;
         }
-    if ((!board->to_move && square == 62 && board->wking_pos == 60) ||
-         (board->to_move && square == 6 && board->bking_pos == 4))
+    if ((!board->to_move && square == 62 && board->wking_pos == 60 && (board->castling & 0x8)) ||
+         (board->to_move && square == 6 && board->bking_pos == 4 && (board->castling & 0x2)))
     {
         founds->castle = 0;
         founds->num_found++;
         founds->squares[founds->num_found - 1] = square - 2;
     }
-    else if ((!board->to_move && square == 58 && board->wking_pos == 60) || 
-            (board->to_move && square == 2 && board->bking_pos == 4))
+    else if ((!board->to_move && square == 58 && board->wking_pos == 60 && (board->castling & 0x4)) || 
+            (board->to_move && square == 2 && board->bking_pos == 4 && (board->castling & 0x1)))
     {
         founds->castle = 1;
         founds->num_found++;
@@ -809,6 +809,13 @@ void find_attacker(Board* board, int square, uint8_t piece, Found* founds)
         check_bishop(board, square, QUEEN|color, &src);
     if (piece & PAWN)
         check_pawn(board, square, PAWN|color, &src);
+    print_debug("Num found before check_for_check: %d\n", src.num_found);
+    int i;
+    for (i = 0; i < src.num_found; ++i)
+    {
+        print_debug("%c%d\n",
+                src.squares[i]%8+'a',8-src.squares[i]/8);
+    }
     if (src.num_found)
         check_for_check(board, square, founds, &src);
 }
@@ -1145,7 +1152,43 @@ int move_piece(Board* board, Move* move)
     Found found;
     find_attacker(board, move->dest, move->src_piece, &found);
     move->castle = found.castle;
+    print_debug("MOVE SRC_PIECE: %d\n", move->src_piece);
+    print_debug("MOVE DEST: %c%d\n", move->dest%8+'a',8-move->dest/8);
     print_debug("NUM FOUND: %d\n", found.num_found);
+    print_debug("Is in check? ");
+    if (board->to_move && is_attacked(board, board->bking_pos))
+    {
+        print_debug("yes.\n");
+        Found temp_fnd;
+        board->to_move = !board->to_move;
+        find_attacker(board, board->bking_pos, ALL_PIECES, &temp_fnd);
+        board->to_move = !board->to_move;
+        print_debug("attackers: %d\n", temp_fnd.num_found);
+        int i;
+        for (i = 0; i < temp_fnd.num_found; ++i)
+        {
+            print_debug("%c%d\n",
+                    temp_fnd.squares[i]%8+'a',8-temp_fnd.squares[i]/8);
+        }
+        board->to_move = BLACK;
+    }
+    if (!board->to_move && is_attacked(board, board->wking_pos))
+    {
+        print_debug("yes.\n");
+        Found temp_fnd;
+        board->to_move = !board->to_move;
+        find_attacker(board, board->bking_pos, ALL_PIECES, &temp_fnd);
+        board->to_move = !board->to_move;
+        print_debug("attackers: %d\n", temp_fnd.num_found);
+        int i;
+        for (i = 0; i < temp_fnd.num_found; ++i)
+        {
+            print_debug("%c%d\n",
+                    temp_fnd.squares[i]%8+'a',8-temp_fnd.squares[i]/8);
+        }
+        board->to_move = WHITE;
+    }
+        
 
     /* Determine which move from list to choose */
     int i;
