@@ -3,6 +3,7 @@
 #include <unistd.h>
 #include <string.h>
 #include <time.h>
+#include <sys/time.h>
 #include "chessterm.h"
 #include "engine.h"
 #include "settings.h"
@@ -18,9 +19,12 @@ void play_stockfish(Engine* engine);
 int engine_v_stockfish(Engine* engine, int silent, FILE* fp);
 int engine_v_engine(char* fen, int silent);
 void thousand_games(Engine* white_engine, Engine* black_engine);
-void initialize_white(int* i, int argc, char** argv, Board* board, Engine* engine, int* bools);
-void initialize_black(int* i, int argc, char** argv, Board* board, Engine* engine, int* bools);
+void initialize_white(int* i, int argc, char** argv, Board* board, Engine*
+        engine, int* bools);
+void initialize_black(int* i, int argc, char** argv, Board* board, Engine*
+        engine, int* bools);
 void prand(Board* board, Engine* white_engine, Engine* black_engine);
+void sanity_check(Board* board, Engine* engine);
 
 
 int main(int argc, char** argv)
@@ -875,7 +879,10 @@ void prand(Board *board, Engine* white_engine, Engine* black_engine)
     int mid = precision;
     int nerf = -1;
     FILE* games = fopen("prand.txt", "w");
-    clock_t t = clock();
+    long t_out;
+    struct timeval timecheck_out;
+    gettimeofday(&timecheck_out, NULL);
+    t_out = (long)timecheck_out.tv_sec * 1000 + (long)timecheck_out.tv_usec / 1000;
     for (i = 0; i < num_games && high > low + 1; ++i)
     {
         default_board(board);
@@ -896,7 +903,10 @@ void prand(Board *board, Engine* white_engine, Engine* black_engine)
         send_ucinewgame(white_engine->write);
         send_ucinewgame(black_engine->write);
         result = 0;
-        clock_t in_t = clock();
+        long t_in;
+        struct timeval timecheck_in;
+        gettimeofday(&timecheck_in, NULL);
+        t_in = (long)timecheck_in.tv_sec * 1000 + (long)timecheck_in.tv_usec / 1000;
         while (result == 0)
         {
             Move engine_move;
@@ -944,9 +954,9 @@ void prand(Board *board, Engine* white_engine, Engine* black_engine)
             }
             result = is_gameover(board);
         }
-
-        in_t = clock() - in_t;
-        double t_taken = ((double)in_t)/CLOCKS_PER_SEC;
+        gettimeofday(&timecheck_in, NULL);
+        t_in = (long)timecheck_in.tv_sec * 1000 + (long)timecheck_in.tv_usec / 1000 - t_in;
+        double t_taken = ((double)t_in) / 1000;
         printf("Time taken for game %d: %f seconds\n", i + 1, t_taken);
         if (result == 2 && board->to_move ^ (i & 1))
             black_win++;
@@ -997,8 +1007,9 @@ void prand(Board *board, Engine* white_engine, Engine* black_engine)
             draw = 0;
         }
     }
-    t = clock() - t;
-    double time_taken = ((double)t)/CLOCKS_PER_SEC;
+    gettimeofday(&timecheck_out, NULL);
+    t_out = (long)timecheck_out.tv_sec * 1000 + (long)timecheck_out.tv_usec / 1000 - t_out;
+    double t_taken = ((double)t_out) / 1000;
     if (nerf == 0)
     {
         printf("%s at depth %d equates to %s at depth %d performing at %f%%.", 
@@ -1016,9 +1027,32 @@ void prand(Board *board, Engine* white_engine, Engine* black_engine)
         printf("%s and %s are evenly matched.", black_engine->name, 
                white_engine->name);
     }
-    printf("\nTime taken: %f seconds\n", time_taken);
+    printf("\nTime taken: %f seconds\n", t_taken);
     printf("Enter a command to continue\n");
     fclose(games);
     stop_engine(white_engine);
     stop_engine(black_engine);
+}
+
+void sanity_check(Board* board, Engine* engine)
+{
+    Board copy;
+    int i;
+    for (i = 0; i < 1000; ++i)
+    {
+        memcpy(&copy, board, sizeof(Board));
+        Move move = get_engine_move(&copy, engine);
+        int valid_move = move_piece(&copy, &move);
+        if (valid_move == -1)
+        {
+            char fen[FEN_SIZE];
+            export_fen(board, fen);
+            printf("%s\n ----------------------------------------------", fen);
+            dprintf(2, "Move: %d Trying %c%d to %c%d\n", board->moves,
+                    move.src_file + 'a' , 8 - move.src_rank, 
+                    move.dest%8+'a', 8-move.dest/8);
+        }
+        else
+            dprintf(2, "Y\n");
+    }
 }
