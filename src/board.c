@@ -1155,10 +1155,10 @@ int move_piece(Board* board, Move* move)
     print_debug("MOVE SRC_PIECE: %d\n", move->src_piece);
     print_debug("MOVE DEST: %c%d\n", move->dest%8+'a',8-move->dest/8);
     print_debug("NUM FOUND: %d\n", found.num_found);
-    print_debug("Is in check? ");
+    print_debug("Is in check?\n");
     if (board->to_move && is_attacked(board, board->bking_pos))
     {
-        print_debug("yes.\n");
+        print_debug("    yes.\n");
         Found temp_fnd;
         board->to_move = !board->to_move;
         find_attacker(board, board->bking_pos, ALL_PIECES, &temp_fnd);
@@ -1174,7 +1174,7 @@ int move_piece(Board* board, Move* move)
     }
     if (!board->to_move && is_attacked(board, board->wking_pos))
     {
-        print_debug("yes.\n");
+        print_debug("    yes.\n");
         Found temp_fnd;
         board->to_move = !board->to_move;
         find_attacker(board, board->bking_pos, ALL_PIECES, &temp_fnd);
