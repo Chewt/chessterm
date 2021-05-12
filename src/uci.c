@@ -56,7 +56,7 @@ void start_engine(Engine* engine, char* engine_exc)
             free(message);
             message = get_message(CLIENT_READ);
         }
-        printf("%s\n", message);
+        print_debug("%s\n", message);
         free(message);
     }
     else
