@@ -1,9 +1,8 @@
 # What is it?
-Chessterm is a terminal based chess api. 
+Chessterm is a terminal based chess interface. 
 
 It was originally created to provide a bridge between several chess engines made
-by a group of friends to compete with each other. It is designed to be flexible
-and be adapted to any chess related project that has need of a chess board.
+by a group of friends to compete with each other.
 
 The current functionality includes:
  - Printing the current position of the board
