@@ -11,7 +11,6 @@ The current functionality includes:
  - Validating any inputted moves
  - exporting FEN and PGN of the game
  - Detection of checkmate and stalemate
- - Basic engine that plays ok-ish moves
 ## Roadmap
 Features that still need to be added
  - ~~Add UCI compatability~~ Minimally implemented
@@ -22,11 +21,10 @@ Features that still need to be added
  - ~~Flip view of the board between black and white perspective~~
  - Networking
 ## Usage
-A test implementation has been provided. Simply run  
-`$make`  
-to compile and start
-the program with  
-`$./chessterm`  
+run
+`$make`
+to compile and start the program with
+`$./chessterm`.   
 The program can be started with the following flags:  
 `-f "fen string between quotes"`  
 to start the board in a given fen position. Fen must be between quotes  
