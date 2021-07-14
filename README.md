@@ -27,17 +27,17 @@ A test implementation has been provided. Simply run
 to compile and start
 the program with  
 `$./chessterm`  
-The program can be started with the following flags:
-`-f "fen string between quotes"`
+The program can be started with the following flags:  
+`-f "fen string between quotes"`  
 to start the board in a given fen position. Fen must be between quotes  
 `-w ./path/to/engine depth`  
-to start the uci compatible engine as the white player with the given   
-computation depth
+to start the uci compatible engine as the white player with the given
+computation depth  
 `-b ./path/to/engine depth`  
-to start the uci compatible engine as the black player with the given 
-computation depth
+to start the uci compatible engine as the black player with the given
+computation depth  
 `-r ./path/to/engine depth`  
-to start the uci compatible engine as a random player with the given 
+to start the uci compatible engine as a random player with the given
 computation depth
 
 All of the above flags can be used interchangibly with each other.  
