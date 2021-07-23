@@ -227,7 +227,6 @@ int main(int argc, char** argv)
                     char filename[50];
                     scanf("%30s", filename);
                     FILE* file = fopen(filename, "w");
-                    printf("%s\n", last_pgn);
                     fwrite(last_pgn, sizeof(char), strlen(last_pgn), file);
                     fwrite("\n", sizeof(char), 1, file);
                     printf("Saved.\n");

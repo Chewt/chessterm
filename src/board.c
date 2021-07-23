@@ -1317,10 +1317,10 @@ int move_piece(Board* board, Move* move)
         {
             record->dest = move->dest;
             record->src_piece = move->src_piece;
-            if (rank_match)
-                record->src_rank = move->src_rank;
-            if (file_match)
-                record->src_file = move->src_file;
+            //if (rank_match)
+                record->src_rank = move_to / 8;
+            //if (file_match)
+                record->src_file = move_to % 8;
             record->piece_taken = board->position[move->dest];
             move_square(board, move->dest, move_to);
             if (move->src_piece == (KING | BLACK))
