@@ -61,6 +61,9 @@ int main(int argc, char** argv)
     white_engine.pid = 0;
     Engine black_engine;
     black_engine.pid = 0;
+
+    char* last_pgn = NULL;
+
     int i;
     /* Flags processing */
     for (i = 1; i<argc && !(bools & STOP); i++){
@@ -211,6 +214,27 @@ int main(int argc, char** argv)
                 prand(&board, &white_engine, &black_engine);
                 continue;
             }
+            else if (!strcmp(move, "save"))
+            {
+                if (!last_pgn)
+                {
+                    printf("No pgn saved\n");
+                }
+                else
+                {
+                    printf("Enter filename "
+                            "(existing files will be overwritten!):" );
+                    char filename[50];
+                    scanf("%30s", filename);
+                    FILE* file = fopen(filename, "w");
+                    printf("%s\n", last_pgn);
+                    fwrite(last_pgn, sizeof(char), strlen(last_pgn), file);
+                    fwrite("\n", sizeof(char), 1, file);
+                    printf("Saved.\n");
+                    fclose(file);
+                }
+                continue;
+            }
        
             /* Autoflip */
             if (!move_san(&board, move) && bools & AUTOFLIP)
@@ -271,6 +295,10 @@ int main(int argc, char** argv)
             }
             char* pgn = export_pgn(&board);
             printf("%s\n", pgn);
+            if (last_pgn)
+                free(last_pgn);
+            last_pgn = malloc(strlen(pgn) + 1);
+            memcpy(last_pgn, pgn, strlen(pgn) + 1);
             free(pgn);
 
             printf("\nTo play again, use \e[38;5;40m: new\e[m \n");
@@ -281,6 +309,8 @@ int main(int argc, char** argv)
         stop_engine(&white_engine);
     if (black_engine.pid)
         stop_engine(&black_engine);
+    if (last_pgn)
+        free(last_pgn);
     return 0;
 }
 
