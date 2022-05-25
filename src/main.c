@@ -128,7 +128,7 @@ int main(int argc, char** argv)
 
             printf(": ");
             scanf("%30s", move);
-            if (!strcmp(move, "exit"))
+            if (!strcmp(move, "exit") || feof(stdin))
             {
                 bools |= STOP;
                 continue;
@@ -304,6 +304,7 @@ int main(int argc, char** argv)
             
         }
     }
+    printf("\n");
     if (white_engine.pid)
         stop_engine(&white_engine);
     if (black_engine.pid)
