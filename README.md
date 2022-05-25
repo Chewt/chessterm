@@ -1,9 +1,8 @@
 # What is it?
-Chessterm is a terminal based chess api. 
+Chessterm is a terminal based chess interface. 
 
 It was originally created to provide a bridge between several chess engines made
-by a group of friends to compete with each other. It is designed to be flexible
-and be adapted to any chess related project that has need of a chess board.
+by a group of friends to compete with each other.
 
 The current functionality includes:
  - Printing the current position of the board
@@ -12,7 +11,6 @@ The current functionality includes:
  - Validating any inputted moves
  - exporting FEN and PGN of the game
  - Detection of checkmate and stalemate
- - Basic engine that plays ok-ish moves
 ## Roadmap
 Features that still need to be added
  - ~~Add UCI compatability~~ Minimally implemented
@@ -23,25 +21,24 @@ Features that still need to be added
  - ~~Flip view of the board between black and white perspective~~
  - Networking
 ## Usage
-A test implementation has been provided. Simply run  
-`$make`  
-to compile and start
-the program with  
-`$./chessterm`  
-The program can be started with the following flags:
-`-f "fen string between quotes"`
-to start the board in a given fen position. Fen must be between quotes
-`-w ./path/to/engine depth`
-to start the uci compatible engine as the white player with the given 
-computation depth
-`-b ./path/to/engine depth`
-to start the uci compatible engine as the black player with the given 
-computation depth
-`-r ./path/to/engine depth`
-to start the uci compatible engine as a random player with the given 
+run
+`$make`
+to compile and start the program with
+`$./chessterm`.   
+The program can be started with the following flags:  
+`-f "fen string between quotes"`  
+to start the board in a given fen position. Fen must be between quotes  
+`-w ./path/to/engine depth`  
+to start the uci compatible engine as the white player with the given
+computation depth  
+`-b ./path/to/engine depth`  
+to start the uci compatible engine as the black player with the given
+computation depth  
+`-r ./path/to/engine depth`  
+to start the uci compatible engine as a random player with the given
 computation depth
 
-All of the above flags can be used interchangibly with each other.]
+All of the above flags can be used interchangibly with each other.  
 
 In the program you will be presented with a view of the current position and
 a prompt. You can type  
