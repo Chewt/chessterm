@@ -19,35 +19,35 @@
  * - Position of the black king.
  * - Position of the white king.
  */
-void board_stats(Board* board)
+void board_stats(Board board)
 {
-    if (board->to_move == 1)
+    if (board.to_move == 1)
         printf("Black");
-    else if (board->to_move == 0)
+    else if (board.to_move == 0)
         printf("White");
     printf(" to move.\nCastling: ");
-    if (board->castling & 0x08)
+    if (board.castling & 0x08)
         printf("K");
-    if (board->castling & 0x04)
+    if (board.castling & 0x04)
         printf("Q");
-    if (board->castling & 0x02)
+    if (board.castling & 0x02)
         printf("k");
-    if (board->castling & 0x01)
+    if (board.castling & 0x01)
         printf("q");
     printf("\nEn pessant: ");
-    if (board->en_p == -1)
+    if (board.en_p == -1)
         printf("None\n");
     else
-        printf("%c%d\n", (board->en_p % 8) + 'a', 8 - (board->en_p / 8));
-    printf("Halfmoves: %d\nFullmoves: %d\n", board->halfmoves, board->moves);
-    printf("Whiteking_pos: %c%d\n", (board->wking_pos % 8) + 'a',
-            8 - (board->wking_pos / 8));
-    printf("Blackking_pos: %c%d\n", (board->bking_pos % 8) + 'a',
-            8 - (board->bking_pos / 8));
+        printf("%c%d\n", (board.en_p % 8) + 'a', 8 - (board.en_p / 8));
+    printf("Halfmoves: %d\nFullmoves: %d\n", board.halfmoves, board.moves);
+    printf("Whiteking_pos: %c%d\n", (board.wking_pos % 8) + 'a',
+            8 - (board.wking_pos / 8));
+    printf("Blackking_pos: %c%d\n", (board.bking_pos % 8) + 'a',
+            8 - (board.bking_pos / 8));
 }
 
 /* Prints the board to the screen */
-void print_board(Board* board)
+void print_board(Board board)
 {
     int i;
     printf("  \u2554");
@@ -56,7 +56,7 @@ void print_board(Board* board)
     printf("\u2557");
     for (i = 0; i < 64; ++i)
     {
-        uint8_t square = board->position[i];
+        uint8_t square = board.position[i];
         if (i % 8 == 0)
             printf("\n%d \u2551", 8 - (i / 8));
         /* Bullshit that colors them checkered-like 
@@ -155,7 +155,7 @@ void print_piece(uint8_t piece)
 /* Prints the board using ascii pieces and shows the current names of the 
  * players along with their material scores.
  */
-void print_fancy(Board* board)
+void print_fancy(Board board)
 {
     int i;
     printf("   \u2554");
@@ -165,8 +165,8 @@ void print_fancy(Board* board)
     int white_score[6];
     int black_score[6];
     const char* piece_chars = "pbnrq";
-    get_material_scores(*board, white_score, black_score);
-    printf(" %s: ", board->black_name);
+    get_material_scores(board, white_score, black_score);
+    printf("AAAEE %s: ", board.black_name);
     if (white_score[0] - black_score[0] < 0)
         printf("%+d ", black_score[0] - white_score[0]);
     int j;
@@ -190,7 +190,7 @@ void print_fancy(Board* board)
     for (i = 0; i < 56; ++i)
         printf("\u2550");
     printf("\u255d");
-    printf(" %s: ", board->white_name);
+    printf(" ŰŐ%s: ", board.white_name);
     if (white_score[0] - black_score[0] > 0)
         printf("%+d ", white_score[0] - black_score[0]);
     for (i = 1; i < 6; ++i)
@@ -204,10 +204,10 @@ void print_fancy(Board* board)
     printf("\e[26F\e[4C");
 
     Move prev_move;
-    if (board->history_count > 0)
-        prev_move = board->history[board->history_count - 1];
+    if (board.history_count > 0)
+        prev_move = board.history[board.history_count - 1];
     else 
-        prev_move = board->history[board->history_count];
+        prev_move = board.history[board.history_count];
     int8_t prev_src = prev_move.src_rank * 8 + prev_move.src_file;
     int8_t prev_dest = prev_move.dest;
 
@@ -216,7 +216,7 @@ void print_fancy(Board* board)
         /* Bullshit that colors them checkered-like 
          * - Courtesy of Zach Gorman
          */
-        uint8_t square = board->position[i];
+        uint8_t square = board.position[i];
         if (prev_dest != -1 && (i == prev_src || i == prev_dest))
         {
             if (i == prev_src)
@@ -244,7 +244,7 @@ void print_fancy(Board* board)
 }
 
 /* Prints the fancy version of the board, but from black's perspective */
-void print_fancy_flipped(Board* board)
+void print_fancy_flipped(Board board)
 {
     int i;
 
@@ -255,8 +255,8 @@ void print_fancy_flipped(Board* board)
     int white_score[6];
     int black_score[6];
     const char* piece_chars = "pbnrq";
-    get_material_scores(*board, white_score, black_score);
-    printf(" %s: ", board->white_name);
+    get_material_scores(board, white_score, black_score);
+    printf(" %s: ", board.white_name);
     if (white_score[0] - black_score[0] > 0)
         printf("%+d ", white_score[0] - black_score[0]);
     int j;
@@ -279,7 +279,7 @@ void print_fancy_flipped(Board* board)
     for (i = 0; i < 56; ++i)
         printf("\u2550");
     printf("\u255d");
-    printf(" %s: ", board->black_name);
+    printf(" %s: ", board.black_name);
     if (white_score[0] - black_score[0] < 0)
         printf("%+d ", black_score[0] - white_score[0]);
     for (i = 1; i < 6; ++i)
@@ -297,7 +297,7 @@ void print_fancy_flipped(Board* board)
         /* Bullshit that colors them checkered-like 
          * - Courtesy of Zach Gorman
          */
-        uint8_t square = board->position[63 - i];
+        uint8_t square = board.position[63 - i];
         if (!(!(i & 1) ^ !(i & 8))) 
             printf("\e[48;5;%dm", LIGHT);
         else
@@ -315,7 +315,7 @@ void print_fancy_flipped(Board* board)
 }
 
 /* Prints the board, but from black's perspective. */
-void print_flipped(Board* board)
+void print_flipped(Board board)
 {
     int i;
     printf("  \u2554");
@@ -324,7 +324,7 @@ void print_flipped(Board* board)
     printf("\u2557");
     for (i = 63; i >= 0; --i)
     {
-        uint8_t square = board->position[i];
+        uint8_t square = board.position[i];
         if ((63 - i) % 8 == 0)
             printf("\n%d \u2551", ((63 - i) / 8) + 1);
         /* Bullshit that colors them checkered-like 

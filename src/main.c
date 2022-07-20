@@ -112,7 +112,7 @@ int main(int argc, char** argv)
 
     printf("\n");
     if (!(bools & STOP))
-        print_fancy(&board);
+        print_fancy(board);
 
     bools |= is_gameover(&board);
     while (!(bools & STOP))
@@ -134,7 +134,7 @@ int main(int argc, char** argv)
             }
             else if (!strcmp(move, "status"))
             {
-                board_stats(&board);
+                board_stats(board);
                 continue;
             }
             else if (!strcmp(move, "fen"))
@@ -155,9 +155,9 @@ int main(int argc, char** argv)
             {
                 bools ^= 1;
                 if (bools & 1)
-                    print_fancy_flipped(&board);
+                    print_fancy_flipped(board);
                 else
-                    print_fancy(&board);
+                    print_fancy(board);
                 continue;
             }
             else if (!strcmp(move, "autoflip"))
@@ -270,9 +270,9 @@ int main(int argc, char** argv)
         }
 
         if (bools & 1)
-            print_fancy_flipped(&board);
+            print_fancy_flipped(board);
         else
-            print_fancy(&board);
+            print_fancy(board);
 
         bools |= is_gameover(&board);
         
@@ -425,7 +425,7 @@ int engine_v_engine(char* fen, int silent)
         */
 
         if (game_win && !silent)
-            print_fancy(&board);
+            print_fancy(board);
         if (game_win == 2)
         {
             if (!silent)
@@ -475,7 +475,7 @@ void play_engine(char* fen)
        board = default_board();
     memcpy(board.black_name, "My Engine\0", 10);
     printf("\n");
-    print_fancy(&board);
+    print_fancy(board);
     while (running)
     {
         if (board.to_move)
@@ -500,7 +500,7 @@ void play_engine(char* fen)
             }
             else if (!strcmp(move, "status"))
             {
-                board_stats(&board);
+                board_stats(board);
                 continue;
             }
             else if (!strcmp(move, "fen"))
@@ -521,21 +521,21 @@ void play_engine(char* fen)
             {
                 flipped = !flipped;
                 if (flipped)
-                    print_fancy_flipped(&board);
+                    print_fancy_flipped(board);
                 else
-                    print_fancy(&board);
+                    print_fancy(board);
                 continue;
             }
             move_san(&board, move);
 
         }
         if (flipped)
-            print_fancy_flipped(&board);
+            print_fancy_flipped(board);
         else
-            print_fancy(&board);
+            print_fancy(board);
         int game_win = is_gameover(&board);
         if (game_win)
-            print_fancy(&board);
+            print_fancy(board);
         if (game_win == 2)
         {
             printf("Checkmate!\n");
@@ -590,7 +590,7 @@ int engine_v_stockfish(Engine* engine, int silent, FILE* fp)
         */
 
         int valid = move_piece(&board, &engine_move);
-        print_fancy(&board);
+        print_fancy(board);
         char fen[FEN_SIZE];
         export_fen(&board, fen);
         printf("%s\n", fen);
@@ -616,7 +616,7 @@ int engine_v_stockfish(Engine* engine, int silent, FILE* fp)
         */
 
         if (game_win && !silent)
-            print_fancy(&board);
+            print_fancy(board);
         if (game_win == 2)
         {
             if (!silent)
@@ -672,7 +672,7 @@ void play_stockfish(Engine* engine)
     Board board = default_board();
     memcpy(board.black_name, engine->name, strlen(engine->name) + 1);
     printf("\n");
-    print_fancy(&board);
+    print_fancy(board);
     while (running)
     {
         if (board.to_move)
@@ -692,7 +692,7 @@ void play_stockfish(Engine* engine)
             }
             else if (!strcmp(move, "status"))
             {
-                board_stats(&board);
+                board_stats(board);
                 continue;
             }
             else if (!strcmp(move, "fen"))
@@ -713,21 +713,21 @@ void play_stockfish(Engine* engine)
             {
                 flipped = !flipped;
                 if (flipped)
-                    print_fancy_flipped(&board);
+                    print_fancy_flipped(board);
                 else
-                    print_fancy(&board);
+                    print_fancy(board);
                 continue;
             }
             move_san(&board, move);
 
         }
         if (flipped)
-            print_fancy_flipped(&board);
+            print_fancy_flipped(board);
         else
-            print_fancy(&board);
+            print_fancy(board);
         int game_win = is_gameover(&board);
         if (game_win)
-            print_fancy(&board);
+            print_fancy(board);
         if (game_win == 2)
         {
             printf("Checkmate!\n");
