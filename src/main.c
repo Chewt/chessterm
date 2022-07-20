@@ -55,8 +55,7 @@ int main(int argc, char** argv)
             bools |= AUTOFLIP;
     #endif
 
-    Board board;
-    default_board(&board); 
+    Board board = default_board(); 
     Engine white_engine;
     white_engine.pid = 0;
     Engine black_engine;
@@ -178,7 +177,7 @@ int main(int argc, char** argv)
                     if (AUTOFLIP)
                         bools |= AUTOFLIP;
                 #endif
-                default_board(&board);
+                board = default_board();
                 if (bools & RANDOMSIDE)
                 {
                     int temp = rand()%2;
@@ -383,7 +382,7 @@ int engine_v_engine(char* fen, int silent)
     if (fen != NULL)
         load_fen(&board, fen);
     else
-        default_board(&board);
+        board = default_board();
     memcpy(board.black_name, "My Engine\0", 10);
     memcpy(board.white_name, "My Engine\0", 10);
     int game_win = -2;
@@ -473,7 +472,7 @@ void play_engine(char* fen)
     if (fen != NULL)
         load_fen(&board, fen);
     else
-        default_board(&board);
+       board = default_board();
     memcpy(board.black_name, "My Engine\0", 10);
     printf("\n");
     print_fancy(&board);
@@ -563,8 +562,7 @@ void play_engine(char* fen)
 int engine_v_stockfish(Engine* engine, int silent, FILE* fp)
 {
     int running = 1;
-    Board board;
-    default_board(&board);
+    Board board = default_board();
     send_ucinewgame(engine->write);
     memcpy(board.black_name, engine->name, strlen(engine->name) + 1);
     memcpy(board.white_name, "My Engine\0", 10);
@@ -671,8 +669,7 @@ void play_stockfish(Engine* engine)
 {
     int running = 1;
     int flipped = 0;
-    Board board;
-    default_board(&board);
+    Board board = default_board();
     memcpy(board.black_name, engine->name, strlen(engine->name) + 1);
     printf("\n");
     print_fancy(&board);
@@ -764,7 +761,7 @@ void thousand_games(Engine* white_engine, Engine* black_engine)
     for (i = 0; i < 1000; ++i)
     {
         clock_t in_t = clock();
-        default_board(&board);
+        board = default_board();
         send_ucinewgame(white_engine->write);
         send_ucinewgame(black_engine->write);
         while (result == 0)
@@ -915,7 +912,7 @@ void prand(Board *board, Engine* white_engine, Engine* black_engine)
     t_out = (long)timecheck_out.tv_sec * 1000 + (long)timecheck_out.tv_usec / 1000;
     for (i = 0; i < num_games && high > low + 1; ++i)
     {
-        default_board(board);
+        *board = default_board();
         if (i & 1)
         {
             memcpy(&board->white_name, black_engine->name, 
@@ -1070,7 +1067,7 @@ void sanity_check(Board* board, Engine* engine)
     int i;
     for (i = 0; i < 1000; ++i)
     {
-        memcpy(&copy, board, sizeof(Board));
+        copy = *board;
         Move move = get_engine_move(&copy, engine);
         int valid_move = move_piece(&copy, &move);
         if (valid_move == -1)

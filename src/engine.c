@@ -81,10 +81,10 @@ int is_safe(Board* board, int src)
     for (i = 0; i < found.num_found; ++i)
     {
         int curr = found.squares[i];
-        if (get_value(board, curr) < lowest_value)
-            lowest_value = get_value(board, curr);
+        if (get_value(*board, curr) < lowest_value)
+            lowest_value = get_value(*board, curr);
     }
-    if (lowest_value >= get_value(board, src) && 
+    if (lowest_value >= get_value(*board, src) && 
           found.num_found <= is_protected(board, src, -1))
         return 1;
     return 0;
@@ -172,7 +172,7 @@ void get_all_moves(Board* board, Candidate* cans)
             if (is_safe_move(board, i, found.squares[j]))
                 cans[cans_ind].weight += 4;
             /* Takes a piece of higher value than itself */
-            if (get_value(board, i) > get_value(board, found.squares[j]))
+            if (get_value(*board, i) > get_value(*board, found.squares[j]))
                 cans[cans_ind].weight++;
             /* Takes an enemy piece */
             if ((board->position[i] & 0x80) == (color ^ 0x80))
@@ -303,7 +303,7 @@ Move Esafe(Board* board, int protecc)
         {
             if (board->position[i] && (board->position[i] & 0x80) == color &&
                                       !is_safe(board, i))
-                if (get_value(board, i) > get_value(board, hanging))
+                if (get_value(*board, i) > get_value(*board, hanging))
                     hanging = i;
         }
     }
@@ -377,7 +377,7 @@ Move Esafeaggro(Board* board, int protecc)
         {
             if (board->position[i] && (board->position[i] & 0x80) == color &&
                     !is_safe(board, i))
-                if (get_value(board, i) > get_value(board, hanging))
+                if (get_value(*board, i) > get_value(*board, hanging))
                     hanging = i;
         }
     }
@@ -394,8 +394,7 @@ Move Esafeaggro(Board* board, int protecc)
             {
                 int target = found_moves.squares[j];
                 if (is_safe_move(board, curr_square, target) ||
-                        get_value(board, curr_square) > get_value(board,
-                            target))
+                        get_value(*board, curr_square) > get_value(*board, target))
                 {
                 if (hanging != -1)
                 {
@@ -451,7 +450,7 @@ Move Enohang(Board* board, int protecc)
         {
             if (board->position[i] && (board->position[i] & 0x80) == color &&
                     !is_safe(board, i))
-                if (get_value(board, i) > get_value(board, hanging))
+                if (get_value(*board, i) > get_value(*board, hanging))
                     hanging = i;
         }
     }
@@ -467,7 +466,7 @@ Move Enohang(Board* board, int protecc)
             int target = found_moves.squares[j];
             if (gives_check(board, curr_square, found_moves.squares[j]) && 
                      (is_safe_move(board, curr_square, target) ||
-                      get_value(board, curr_square) > get_value(board, target)))
+                      get_value(*board, curr_square) > get_value(*board, target)))
             {
                 if (hanging != -1)
                 {
@@ -524,7 +523,7 @@ Move Eideal(Board* board, int protecc)
         {
             if (board->position[i] && (board->position[i] & 0x80) == color &&
                     !is_safe(board, i))
-                if (get_value(board, i) > get_value(board, hanging))
+                if (get_value(*board, i) > get_value(*board, hanging))
                     hanging = i;
         }
     }
@@ -542,8 +541,7 @@ Move Eideal(Board* board, int protecc)
                 int target = found_moves.squares[j];
                 if (gives_check(board, curr_square, found_moves.squares[j]) &&
                         (is_safe_move(board, curr_square, target) ||
-                         get_value(board, curr_square) > get_value(board,
-                             target)))
+                         get_value(*board, curr_square) > get_value(*board, target)))
                 {
                 if (hanging != -1)
                 {
@@ -615,18 +613,17 @@ Move Emateinone(Board* board)
 
 int evaluate_move(Board* board, Candidate can, int depth)
 {
-    Board temp_board;
-    memcpy(&temp_board, board, sizeof(Board));
+    Board temp_board = *board;
     int black_score[6];
     int white_score[6];
     int old_score = 0;
-    get_material_scores(&temp_board, white_score, black_score);
+    get_material_scores(temp_board, white_score, black_score);
     if (!temp_board.to_move)
         old_score = white_score[0] - black_score[0];
     else
         old_score = black_score[0] - white_score[0];
     move_piece(&temp_board, &can.move);
-    get_material_scores(&temp_board, white_score, black_score);
+    get_material_scores(temp_board, white_score, black_score);
     int board_value = 200;
     if (depth > 0)
     {
@@ -660,8 +657,7 @@ int evaluate_move(Board* board, Candidate can, int depth)
 
 int eval_prune(Board* board, Candidate can, int alpha, int beta, int depth)
 {
-    Board temp_board;
-    memcpy(&temp_board, board, sizeof(Board));
+    Board temp_board = *board;
     move_piece(&temp_board, &can.move);
     if (check_stalemate(board, temp_board.to_move))
         return 0;
@@ -669,7 +665,7 @@ int eval_prune(Board* board, Candidate can, int alpha, int beta, int depth)
     {
         int black_score[6];
         int white_score[6];
-        get_material_scores(&temp_board, white_score, black_score);
+        get_material_scores(temp_board, white_score, black_score);
         return white_score[0] - black_score[0];
     }
     else

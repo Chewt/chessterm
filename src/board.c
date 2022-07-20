@@ -27,11 +27,11 @@ const Move default_move =
 };
 
 /* Gets value of piece on passed square */
-int get_value(Board* board, int square)
+int get_value(Board board, int square)
 {
     uint8_t piece;
     if (square < 64 && square >= 0)
-        piece = board->position[square];
+        piece = board.position[square];
     else
         return 0;
     if (piece & PAWN)
@@ -50,7 +50,7 @@ int get_value(Board* board, int square)
 
 /* Populates white_score and black_score with the material score of the board
  */
-void get_material_scores(Board* board, int* white_score, int* black_score)
+void get_material_scores(Board board, int* white_score, int* black_score)
 {
     int i;
     white_score[0] = 0; /* First element is score counter */ 
@@ -67,99 +67,94 @@ void get_material_scores(Board* board, int* white_score, int* black_score)
     black_score[5] = 1;
     for (i = 0; i < 64; ++i)
     {
-        if (board->position[i] & 0x80)
+        if (board.position[i] & 0x80)
         {
             black_score[0] += get_value(board, i);
-            if (board->position[i] & PAWN)
-                black_score[1]--;
-            if (board->position[i] & BISHOP)
-                black_score[2]--;
-            if (board->position[i] & KNIGHT)
-                black_score[3]--;
-            if (board->position[i] & ROOK)
-                black_score[4]--;
-            if (board->position[i] & QUEEN)
-                black_score[5]--;
+            for (int j = 0; j < 5; j++) 
+            {
+                if(board.position[i] & (1 << j))
+                    black_score[j + 1]--;
+            }
         }
         else
         {
             white_score[0] += get_value(board, i);
-            if (board->position[i] & PAWN)
-                white_score[1]--;
-            if (board->position[i] & BISHOP)
-                white_score[2]--;
-            if (board->position[i] & KNIGHT)
-                white_score[3]--;
-            if (board->position[i] & ROOK)
-                white_score[4]--;
-            if (board->position[i] & QUEEN)
-                white_score[5]--;
+            for (int j = 0; j < 5; j++) 
+            {
+                if(board.position[i] & (1 << j))
+                    white_score[j + 1]--;
+            }
         }
     }
 }
 
 /* Sets board state to all default values */
-void empty_board(Board* board)
+Board empty_board()
 {
-    board->to_move = 0;
-    board->castling = 0x00;
-    board->en_p = -1;
-    board->halfmoves = 0;
-    board->moves = 1;
-    board->bking_pos = 0;
-    board->wking_pos = 0;
-    board->pos_count = 0;
-    board->white_name[0] = '\0';
-    board->black_name[0] = '\0';
+    Board ret;
+    ret.to_move = 0;
+    ret.castling = 0x00;
+    ret.en_p = -1;
+    ret.halfmoves = 0;
+    ret.moves = 1;
+    ret.bking_pos = 0;
+    ret.wking_pos = 0;
+    ret.pos_count = 0;
+    ret.white_name[0] = '\0';
+    ret.black_name[0] = '\0';
     int i;
     for (i = 0; i < 64; ++i)
-        board->position[i] = 0;
-    board->history_count = 0;
+        ret.position[i] = 0;
+    ret.history_count = 0;
     for (i = 0; i < MAX_HISTORY; ++i)
     {
-        board->history[i].dest = -1;
-        board->history[i].src_piece = -1;
-        board->history[i].src_rank = -1;
-        board->history[i].src_file = -1;
-        board->history[i].piece_taken = 0;
-        board->history[i].gave_check = 0;
-        board->history[i].castle = -1;
-        board->history[i].game_over = 0;
-        board->history[i].promotion = 0;
+        ret.history[i].dest = -1;
+        ret.history[i].src_piece = -1;
+        ret.history[i].src_rank = -1;
+        ret.history[i].src_file = -1;
+        ret.history[i].piece_taken = 0;
+        ret.history[i].gave_check = 0;
+        ret.history[i].castle = -1;
+        ret.history[i].game_over = 0;
+        ret.history[i].promotion = 0;
     }
+
+    return ret;
 }
 
 /* Sets board to default chess starting position */
-void default_board(Board* board)
+Board default_board()
 {
+    Board ret = empty_board();
     int i;
-    empty_board(board);
-    board->bking_pos = 4;
-    board->wking_pos = 60;
-    board->castling = 0x0F;
-    memcpy(board->white_name, "White\0", 6);
-    memcpy(board->black_name, "Black\0", 6);
-    board->position[0] = ROOK   | BLACK;
-    board->position[1] = KNIGHT | BLACK;
-    board->position[2] = BISHOP | BLACK;
-    board->position[3] = QUEEN  | BLACK;
-    board->position[4] = KING   | BLACK;
-    board->position[5] = BISHOP | BLACK;
-    board->position[6] = KNIGHT | BLACK;
-    board->position[7] = ROOK   | BLACK;
+    ret.bking_pos = 4;
+    ret.wking_pos = 60;
+    ret.castling = 0x0F;
+    memcpy(ret.white_name, "White\0", 6);
+    memcpy(ret.black_name, "Black\0", 6);
+    ret.position[0] = ROOK   | BLACK;
+    ret.position[1] = KNIGHT | BLACK;
+    ret.position[2] = BISHOP | BLACK;
+    ret.position[3] = QUEEN  | BLACK;
+    ret.position[4] = KING   | BLACK;
+    ret.position[5] = BISHOP | BLACK;
+    ret.position[6] = KNIGHT | BLACK;
+    ret.position[7] = ROOK   | BLACK;
     for (i = 0; i < 8; ++i)
     {
-        board->position[i + 8]     = PAWN | BLACK;
-        board->position[i + 8 * 6] = PAWN | WHITE;
+        ret.position[i + 8]     = PAWN | BLACK;
+        ret.position[i + 8 * 6] = PAWN | WHITE;
     }
-    board->position[0 + 8 * 7] = ROOK   | WHITE;
-    board->position[1 + 8 * 7] = KNIGHT | WHITE;
-    board->position[2 + 8 * 7] = BISHOP | WHITE;
-    board->position[3 + 8 * 7] = QUEEN  | WHITE;
-    board->position[4 + 8 * 7] = KING   | WHITE;
-    board->position[5 + 8 * 7] = BISHOP | WHITE;
-    board->position[6 + 8 * 7] = KNIGHT | WHITE;
-    board->position[7 + 8 * 7] = ROOK   | WHITE;
+    ret.position[0 + 8 * 7] = ROOK   | WHITE;
+    ret.position[1 + 8 * 7] = KNIGHT | WHITE;
+    ret.position[2 + 8 * 7] = BISHOP | WHITE;
+    ret.position[3 + 8 * 7] = QUEEN  | WHITE;
+    ret.position[4 + 8 * 7] = KING   | WHITE;
+    ret.position[5 + 8 * 7] = BISHOP | WHITE;
+    ret.position[6 + 8 * 7] = KNIGHT | WHITE;
+    ret.position[7 + 8 * 7] = ROOK   | WHITE;
+
+    return ret;
 }
 
 
@@ -209,8 +204,7 @@ int is_legal(Board* board, int dest, int src)
         return 0;
 
     /* Create a deep copy of the board */
-    Board t_board;
-    memcpy(&t_board, board, sizeof(Board));
+    Board t_board = *board;
 
     /* Make the move on the board copy */
     move_square(&t_board, dest, src);

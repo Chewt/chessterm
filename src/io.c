@@ -165,7 +165,7 @@ void print_fancy(Board* board)
     int white_score[6];
     int black_score[6];
     const char* piece_chars = "pbnrq";
-    get_material_scores(board, white_score, black_score);
+    get_material_scores(*board, white_score, black_score);
     printf(" %s: ", board->black_name);
     if (white_score[0] - black_score[0] < 0)
         printf("%+d ", black_score[0] - white_score[0]);
@@ -255,7 +255,7 @@ void print_fancy_flipped(Board* board)
     int white_score[6];
     int black_score[6];
     const char* piece_chars = "pbnrq";
-    get_material_scores(board, white_score, black_score);
+    get_material_scores(*board, white_score, black_score);
     printf(" %s: ", board->white_name);
     if (white_score[0] - black_score[0] > 0)
         printf("%+d ", white_score[0] - black_score[0]);

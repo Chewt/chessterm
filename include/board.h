@@ -82,8 +82,8 @@ enum
 
 extern const Move default_move;
 
-void default_board(Board* board);
-void empty_board(Board* board);
+Board default_board();
+Board empty_board();
 void move_square(Board* board, int src, int dest);
 void move_verbose(Board* board, char* dest, char* src);
 int move_san(Board* board, char* move);
@@ -94,8 +94,8 @@ int is_legal(Board* board, int dest, int src);
 int is_attacked(Board* board, int square);
 int is_checkmate(Board* board, int which_color);
 int check_stalemate(Board* board, int which_color);
-int get_value(Board* board, int square);
-void get_material_scores(Board* board, int* white, int* black);
+int get_value(Board board, int square);
+void get_material_scores(Board board, int* white, int* black);
 
 void stress_test(Board* board, int times);
 
