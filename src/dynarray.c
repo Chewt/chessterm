@@ -9,36 +9,21 @@
  * Email: johnhayd@oregonstate.edu
  */
 
+#include <stdio.h>
 #include <stdlib.h>
 
 #include "dynarray.h"
-
-/*
- * This is the definition of the dynamic array structure you'll use for your
- * implementation.  Importantly, your dynamic array implementation will store
- * each data element as a void* value.  This will permit data of any type to
- * be stored in your array.  Because each individual element will be stored in
- * your array as type void*, the data array needs to be an array of void*.
- * Hence it is of type void**.
- *
- * You should not modify this structure.
- */
-struct dynarray {
-    void** data;
-    int size;
-    int capacity;
-};
 
 /*
  * This function should allocate and initialize a new, empty dynamic array and
  * return a pointer to it.  The array you allocate should have an initial
  * capacity of 2.
  */
-struct dynarray* dynarray_create() {
-    struct dynarray* da = (struct dynarray*) malloc(sizeof(struct dynarray));
-    da->data = (void*) malloc(sizeof(void*) * 2);
-    da->size = 0;
-    da->capacity = 2;
+struct dynarray dynarray_create() {
+    struct dynarray da;
+    da.data = (void**) malloc(sizeof(void*) * 2);
+    da.size = -1;
+    da.capacity = 2;
 
     return da;
 }
@@ -54,18 +39,16 @@ struct dynarray* dynarray_create() {
  * Params:
  *   da - the dynamic array to be destroyed.  May not be NULL.
  */
-void dynarray_free(struct dynarray* da) {
-    free(da->data);
-    free(da);
-    return;
+void dynarray_free(struct dynarray da) {
+    free(da.data);
 }
 
 /*
  * This function should return the size of a given dynamic array (i.e. the
  * number of elements stored in it, not the capacity).
  */
-int dynarray_size(struct dynarray* da) {
-    return da->size;
+int dynarray_size(struct dynarray da) {
+    return da.size;
 }
 
 /*
@@ -82,21 +65,22 @@ int dynarray_size(struct dynarray* da) {
  *     which means that a pointer of any type can be passed.
  */
 void dynarray_insert(struct dynarray* da, void* val) {
-    if (da != NULL)
+    if (da == NULL)
     {
-        if (da->size >= da->capacity)
-        {
-            void** temparr = (void*) malloc(da->size * sizeof(void*) * 2);
-            for (int i = 0; i < da->size; i++)
-                temparr[i] = da->data[i];
-            free(da->data);
-            da->data = temparr;
-            da->capacity *= 2;
-        }
-        da->data[da->size] = val;
-        da->size++;
+        fputs("[ERROR] Invalid argument in `dynarray_insert` call", stderr);
+        exit(EXIT_FAILURE);
     }
-    return;
+    if (++da->size >= da->capacity)
+    {
+        void** temparr = (void**) realloc(da->data, da->capacity *= sizeof(void*) * 2);
+        if (temparr == NULL)
+        {
+            fputs("[ERROR] realloc failed in `dynarray_insert` call", stderr);
+            exit(EXIT_FAILURE);
+        }
+        da->data = temparr;
+    }
+    da->data[da->size] = val;
 }
 
 /*
@@ -115,12 +99,14 @@ void dynarray_insert(struct dynarray* da, void* val) {
  *     elements stored in the array.
  */
 void dynarray_remove(struct dynarray* da, int idx) {
-    if (idx < da->size && idx >= 0)
+    if (da == NULL || idx > da->size || idx < 0)
     {
-        for (int i = idx + 1; i < da->size; ++i)
-            da->data[i - 1] = da->data[i];
-        da->size--;
+        fputs("[ERROR] Invalid arguments in `dynarray_remove` call", stderr);
+        exit(EXIT_FAILURE);
     }
+    for (int i = idx + 1; i < da->size; ++i)
+        da->data[i - 1] = da->data[i];
+    da->size--;
     return;
 }
 
@@ -134,10 +120,13 @@ void dynarray_remove(struct dynarray* da, int idx) {
  *     of `idx` must be between 0 (inclusive) and n (exclusive), where n is the
  *     number of elements stored in the array.
  */
-void* dynarray_get(struct dynarray* da, int idx) {
-    if (idx < da->size && idx >= 0)
-        return da->data[idx];
-    return NULL;
+void* dynarray_get(struct dynarray da, int idx) {
+    if (idx > da.size || idx < 0)
+    {
+        fputs("[ERROR] Invalid arguments in `dynarray_get` call", stderr);
+        exit(EXIT_FAILURE);
+    }
+    return da.data[idx];
 }
 
 /*
@@ -152,22 +141,20 @@ void* dynarray_get(struct dynarray* da, int idx) {
  *   val - the new value to be set.  Note that this parameter has type void*,
  *     which means that a pointer of any type can be passed.
  */
-void dynarray_set(struct dynarray* da, int idx, void* val) {
-    if (idx < da->size && idx >= 0)
-        da->data[idx] = val;
-    return;
+void dynarray_set(struct dynarray da, int idx, void* val) {
+    if (idx > da.size || idx < 0)
+    {
+        fputs("[ERROR] Invalid arguments in `dynarray_set` call", stderr);
+        exit(EXIT_FAILURE);
+    }
+    da.data[idx] = val;
 }
 
 /*
  * This function returns a truncated array of all the data.
  * The last element in this array will be NULL.
  */
-void** dynarray_raw(struct dynarray* da)
+void** dynarray_raw(struct dynarray da)
 {
-    void** raw = malloc(sizeof(void*) * (da->size + 1));
-    int i;
-    for (i = 0; i < dynarray_size(da); ++i)
-        raw[i] = dynarray_get(da, i);
-    raw[da->size] = NULL;
-    return raw;
+    return da.data;
 }

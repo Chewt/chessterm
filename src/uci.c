@@ -214,13 +214,13 @@ void send_quit(int fd)
 /* Gets a single line of output from the engine. */
 char* get_message(int fd)
 {
-    struct dynarray* all_bytes = dynarray_create();
+    struct dynarray all_bytes = dynarray_create();
     int bytes_read = 0;
     do 
     {
         char* curr_byte = malloc(1);
         int charsRead = read(fd, curr_byte, 1);
-        dynarray_insert(all_bytes, curr_byte);
+        dynarray_insert(&all_bytes, curr_byte);
         if (charsRead < 0)
         {
             perror("Failed to read");
