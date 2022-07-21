@@ -70,8 +70,7 @@ void print_example_board(Board* board, int LIGHT, int DARK)
 
 void pick_square_colors(int *light_squares, int *dark_squares, int smol){
 
-  Board board;
-  default_board(&board);
+  Board board = default_board();
   int square = 0;
   while(1==1){
     printf("Use arrow keys or wasd to navigate and enter to select.\nSelect the color for ");

@@ -130,8 +130,8 @@ Board default_board()
     ret.bking_pos = 4;
     ret.wking_pos = 60;
     ret.castling = 0x0F;
-    memcpy(ret.white_name, "White\0", 6);
-    memcpy(ret.black_name, "Black\0", 6);
+    memcpy(ret.white_name, "White", 6);
+    memcpy(ret.black_name, "Black", 6);
     ret.position[0] = ROOK   | BLACK;
     ret.position[1] = KNIGHT | BLACK;
     ret.position[2] = BISHOP | BLACK;

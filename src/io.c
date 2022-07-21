@@ -166,7 +166,7 @@ void print_fancy(Board board)
     int black_score[6];
     const char* piece_chars = "pbnrq";
     get_material_scores(board, white_score, black_score);
-    printf("AAAEE %s: ", board.black_name);
+    printf(" %s: ", board.black_name);
     if (white_score[0] - black_score[0] < 0)
         printf("%+d ", black_score[0] - white_score[0]);
     int j;
@@ -190,7 +190,7 @@ void print_fancy(Board board)
     for (i = 0; i < 56; ++i)
         printf("\u2550");
     printf("\u255d");
-    printf(" ŰŐ%s: ", board.white_name);
+    printf(" %s: ", board.white_name);
     if (white_score[0] - black_score[0] > 0)
         printf("%+d ", white_score[0] - black_score[0]);
     for (i = 1; i < 6; ++i)
@@ -393,7 +393,7 @@ int string_to_int(char* str)
 /* Loads a board state from a FEN */
 void load_fen(Board* board, char* fen)
 {
-    empty_board(board);
+    *board = empty_board();
     char* fen_copy = malloc(strlen(fen) + 1);
     strcpy(fen_copy, fen);
     char* token = NULL;

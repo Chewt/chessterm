@@ -383,8 +383,8 @@ int engine_v_engine(char* fen, int silent)
         load_fen(&board, fen);
     else
         board = default_board();
-    memcpy(board.black_name, "My Engine\0", 10);
-    memcpy(board.white_name, "My Engine\0", 10);
+    memcpy(board.black_name, "My Engine", 10);
+    memcpy(board.white_name, "My Engine", 10);
     int game_win = -2;
     while (running)
     {
@@ -473,7 +473,7 @@ void play_engine(char* fen)
         load_fen(&board, fen);
     else
        board = default_board();
-    memcpy(board.black_name, "My Engine\0", 10);
+    memcpy(board.black_name, "My Engine", 10);
     printf("\n");
     print_fancy(board);
     while (running)
@@ -565,7 +565,7 @@ int engine_v_stockfish(Engine* engine, int silent, FILE* fp)
     Board board = default_board();
     send_ucinewgame(engine->write);
     memcpy(board.black_name, engine->name, strlen(engine->name) + 1);
-    memcpy(board.white_name, "My Engine\0", 10);
+    memcpy(board.white_name, "My Engine", 10);
     int game_win = -2;
     while (running)
     {
