@@ -8,3 +8,4 @@ include/settings.h
 tags
 stockfish
 *.txt
+.ccls*

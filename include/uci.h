@@ -1,7 +1,9 @@
 #ifndef UCI_H
 #define UCI_H
 
+#include <stdlib.h>
 #include "board.h"
+
 enum
 {
     OFF,

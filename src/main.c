@@ -138,6 +138,12 @@ int main(int argc, char** argv)
                 board_stats(&board);
                 continue;
             }
+            else if (!strcmp(move, "undo"))
+            {
+                UndoMove(&board);
+                print_fancy(&board);
+                continue;
+            }
             else if (!strcmp(move, "fen"))
             {
                 char fen[FEN_SIZE];
@@ -148,6 +154,13 @@ int main(int argc, char** argv)
             else if (!strcmp(move, "pgn"))
             {
                 char* pgn = export_pgn(&board);
+                printf("%s\n", pgn);
+                free(pgn);
+                continue;
+            }
+            else if (!strcmp(move, "moves"))
+            {
+                char* pgn = export_moves(&board);
                 printf("%s\n", pgn);
                 free(pgn);
                 continue;

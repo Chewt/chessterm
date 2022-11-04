@@ -9,6 +9,9 @@
 #define print_debug(...) ((void)0)
 #endif
 
+Board history[MAX_HISTORY];
+int n_history = 0;
+
 int is_attacked(Board* board, int square);
 int castle(Board* board, int side);
 void check_king(Board* board, int square, uint8_t piece, Found* founds);
@@ -1147,6 +1150,9 @@ void store_position(Board* board, char* dest)
  */
 int move_piece(Board* board, Move* move)
 {
+    /* Add current board state to history before making the move */
+    memcpy(history + n_history, board, sizeof(Board));
+    n_history++;
 
     /* Get list of valid moves */
     Found found;
@@ -1387,6 +1393,15 @@ int move_piece(Board* board, Move* move)
                 board->position[0] != (ROOK|BLACK))
             board->castling &= 0xFE;
     return 0;
+}
+
+void UndoMove(Board* board)
+{
+    if (n_history > 0)
+    {
+        n_history--;
+        memcpy(board, history + n_history, sizeof(Board));
+    }
 }
 
 /* Interprets Standard Algebraic Notation and makes a move */

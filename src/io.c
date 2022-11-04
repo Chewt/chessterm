@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "io.h"
 #include "board.h"
 #include "settings.h"
 
@@ -556,6 +557,29 @@ void export_fen(Board* board, char* fen)
     str_ind += sprintf(fen + str_ind, "%d", board->halfmoves);
     fen[str_ind++] = ' ';
     sprintf(fen + str_ind, "%d", board->moves);
+}
+
+char* export_moves(Board* board)
+{
+    char* moves = malloc((int)board->history_count * 5 + 1);
+    int str_ind = 0;
+    int i;
+    for (i = 0; i < board->history_count; ++i)
+    {
+        Move record = board->history[i];
+        if (record.src_file != -1)
+            str_ind += sprintf(moves + str_ind, "%c", 'a' + record.src_file);
+        if (record.src_rank != -1)
+            str_ind += sprintf(moves + str_ind, "%c", '0' + 8 - record.src_rank);
+        if (record.dest != -1)
+        {
+            str_ind += sprintf(moves + str_ind, "%c", record.dest % 8 + 'a');
+            str_ind += sprintf(moves + str_ind, "%c", 8 - record.dest / 8 + '0');
+        }
+        str_ind += sprintf(moves + str_ind, " ");
+    }
+    moves[str_ind] = '\0';
+    return moves;
 }
 
 /* Returns a cstring on the heap which contains a PGN of the game */

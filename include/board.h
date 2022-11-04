@@ -1,6 +1,5 @@
 #ifndef BOARD_H
 #define BOARD_H
-
 #include <stdint.h>
 #define MAX_HISTORY 1000
 #define MAX_STORED_POSITIONS 102
@@ -96,6 +95,7 @@ int is_checkmate(Board* board, int which_color);
 int check_stalemate(Board* board, int which_color);
 int get_value(Board* board, int square);
 void get_material_scores(Board* board, int* white, int* black);
+void UndoMove(Board* board);
 
 void stress_test(Board* board, int times);
 
