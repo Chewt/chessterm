@@ -15,6 +15,7 @@ int n_history = 0;
 int is_attacked(Board* board, int square);
 int castle(Board* board, int side);
 void check_king(Board* board, int square, uint8_t piece, Found* founds);
+void store_position(Board* board, char* dest);
 
 const Move default_move = 
 {
@@ -163,6 +164,7 @@ void default_board(Board* board)
     board->position[5 + 8 * 7] = BISHOP | WHITE;
     board->position[6 + 8 * 7] = KNIGHT | WHITE;
     board->position[7 + 8 * 7] = ROOK   | WHITE;
+    store_position(board, board->position_hist[board->pos_count++]);
 }
 
 
@@ -1004,16 +1006,13 @@ int is_checkmate(Board* board, int which_color)
 int check_threefold(Board* board)
 {
     int i;
-    int j;
-    for (i = 0; i < board->pos_count; ++i)
+    int count = 0;
+    for (i = 0; i < board->pos_count - 1; ++i)
     {
-        int count = 0;
-        for (j = 0; j < board->pos_count; ++j)
-        {
-            if (!strcmp(board->position_hist[i], board->position_hist[j]))
-                count++;
-        }
-        if (count >= 3)
+        if (!strcmp(board->position_hist[board->pos_count - 1],
+                    board->position_hist[i]))
+            count++;
+        if (count >= 2)
             return 0x10;
     }
     return 0;
@@ -1118,11 +1117,13 @@ void store_position(Board* board, char* dest)
         dest[str_ind++] = '0' + empty;
 
     dest[str_ind++] = ' ';
+    /*
     if (board->to_move)
         dest[str_ind++] = 'b';
     else
         dest[str_ind++] = 'w';
-    dest[str_ind++] = ' ';
+        */
+    //dest[str_ind++] = ' ';
     if (board->castling & 0x08)
         dest[str_ind++] = 'K';
     if (board->castling & 0x04)
