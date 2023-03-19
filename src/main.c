@@ -4,6 +4,7 @@
 #include <string.h>
 #include <time.h>
 #include <sys/time.h>
+#include <argp.h>
 #include "chessterm.h"
 #include "engine.h"
 #include "settings.h"
@@ -14,23 +15,58 @@
 #define print_debug(...) ((void)0)
 #endif
 
-void play_engine();
-void play_stockfish(Engine* engine);
+void play_build_in_engine();
+void play_engine(Engine* engine);
 int engine_v_stockfish(Engine* engine, int silent, FILE* fp);
 int engine_v_engine(char* fen, int silent);
 void thousand_games(Engine* white_engine, Engine* black_engine);
-void initialize_white(int* i, int argc, char** argv, Board* board, Engine*
-        engine, int* bools);
-void initialize_black(int* i, int argc, char** argv, Board* board, Engine*
-        engine, int* bools);
+void initialize_white(char* e_path, int depth, Board* board, Engine* engine);
+void initialize_black(char* e_path, int depth, Board* board, Engine* engine);
 void prand(Board* board, Engine* white_engine, Engine* black_engine);
 void sanity_check(Board* board, Engine* engine);
 
+struct flags { 
+    char* fen;
+    char* white_engine;
+    char* black_engine;
+    int white_depth;
+    int black_depth;
+    int random;
+};
+static int parse_opt (int key, char *arg, struct argp_state *state)
+{
+    struct flags *flags = state->input;
+    switch (key)
+    {
+        case 'f': 
+            flags->fen = arg;
+            break;
+        case 'w':
+            flags->white_engine = arg;
+            break;
+        case 'b':
+            flags->black_engine = arg;
+            break;
+        case 'r':
+            flags->random = 1;
+            break;
+        case 500:
+            flags->white_depth = 1;
+            break;
+        case 501:
+            flags->black_depth = 1;
+            break;
+    }
+    return 0;
+}
 
 int main(int argc, char** argv)
 {
     srand(time(0));
-    
+
+    // Switch to alternate buffer
+    //printf("\e[?1049h\e[2J");
+
     /* Each bit will correlate to a boolean:
      * 0x80000000 stop, can check bools < 0
      * 0x01 is flipped
@@ -64,52 +100,65 @@ int main(int argc, char** argv)
 
     char* last_pgn = NULL;
 
-    int i;
     /* Flags processing */
-    for (i = 1; i<argc && !(bools & STOP); i++){
-        if (argv[i][0] == '-')
+    struct flags flags;
+    flags.fen = NULL;
+    flags.black_engine = NULL;
+    flags.white_engine = NULL;
+    flags.white_depth = 5;
+    flags.black_depth = 5;
+    flags.random = 0;
+
+    struct argp_option options[] = {
+        {"fen", 'f', "STRING", 0, 
+            "Supply a FEN to determine the starting position of the game."},
+        {"white_engine", 'w', "PATH", 0, 
+            "The path of the engine that will play as white."},
+        {"black_engine", 'b', "PATH", 0, 
+            "The path of the engine that will play as black."},
+        {"random", 'r', 0, 0, 
+            "Randomly assign engine(s) to black or white."},
+        {"white_depth", 500, 0, 0, 
+            "The depth that the white engine should look."},
+        {"black_depth", 501, 0, 0, 
+            "The depth that the white engine should look."},
+        {0}};
+    struct argp argp = { options, parse_opt };
+    int r = argp_parse(&argp, argc, argv, 0, 0, &flags);
+    if (flags.fen)
+        load_fen(&board, flags.fen);
+    if (flags.random)
+    {
+        int temp = rand() % 2;
+        if (flags.white_engine && flags.black_engine && temp)
         {
-            char flag = argv[i][1];
-            if (flag == 'f' || flag == 'F')
-            {
-                load_fen(&board, argv[++i]);
-                continue;
-            }
-            else if (flag == 'w' || flag == 'W')
-            {
-                initialize_white(&i, argc, argv, &board, &white_engine, &bools);
-                continue;
-            }
-            else if (flag == 'b' || flag == 'B')
-            {
-                initialize_black(&i, argc, argv, &board, &black_engine, &bools);
-                continue;
-            }
-            else if (flag == 'r' || flag == 'R')
-            {
-                int temp = rand() % 2;
-                if (black_engine.pid)
-                {
-                    if (!white_engine.pid){
-                        initialize_white(&i, argc, argv, &board, &white_engine, &bools);
-                    }
-                }
-                else if (!white_engine.pid && temp)
-                {
-                    initialize_white(&i, argc, argv, &board, &white_engine, &bools);
-                }
-                else
-                {
-                    initialize_black(&i, argc, argv, &board, &black_engine, &bools);
-                }
-                continue;
-            }
+            char* temp_e = flags.white_engine;
+            int temp_d = flags.white_depth;
+            flags.white_engine = flags.black_engine;
+            flags.white_depth = flags.black_depth;
+            flags.black_engine = temp_e;
+            flags.black_depth = temp_d;
+        }
+        else if (flags.white_engine && temp)
+        {
+            flags.black_engine = flags.black_engine;
+            flags.black_depth = flags.black_depth;
+            flags.white_engine = NULL;
+        }
+        else if (flags.black_engine && temp)
+        {
+            flags.white_engine = flags.black_engine;
+            flags.white_depth = flags.black_depth;
+            flags.black_engine = NULL;
         }
     }
+    if (flags.white_engine)
+        initialize_white(flags.white_engine, flags.white_depth, &board, &white_engine);
+    if (flags.black_engine)
+        initialize_black(flags.black_engine, flags.black_depth, &board, &black_engine);
+
     if (black_engine.pid && white_engine.pid)
         bools |= COMMAND;
-
-    
 
     printf("\n");
     if (!(bools & STOP))
@@ -128,6 +177,8 @@ int main(int argc, char** argv)
 
             printf(": ");
             scanf("%30s", move);
+
+
             if (!strcmp(move, "exit") || feof(stdin))
             {
                 bools |= STOP;
@@ -248,6 +299,9 @@ int main(int argc, char** argv)
                 continue;
             }
        
+            // Clear Screen
+            printf("\e[2J\n");
+
             /* Autoflip */
             if (!move_san(&board, move) && bools & AUTOFLIP)
             {
@@ -268,6 +322,7 @@ int main(int argc, char** argv)
             }
             
             /* Autoflip */
+            int i;
             i = move_piece(&board, &engine_move);
             if (i == -1)
             {
@@ -324,6 +379,10 @@ int main(int argc, char** argv)
         stop_engine(&black_engine);
     if (last_pgn)
         free(last_pgn);
+
+    // Switch to regular buffer
+    //printf("\e[?1049l");
+
     return 0;
 }
 
@@ -478,7 +537,7 @@ int engine_v_engine(char* fen, int silent)
 }
 
 /* Play a game against my custom engine */
-void play_engine(char* fen)
+void play_build_in_engine(char* fen)
 {
     int running = 1;
     int flipped = 0;
@@ -680,7 +739,7 @@ int engine_v_stockfish(Engine* engine, int silent, FILE* fp)
 }
 
 /* Play a game against the loaded uci engine */
-void play_stockfish(Engine* engine)
+void play_engine(Engine* engine)
 {
     int running = 1;
     int flipped = 0;
@@ -831,74 +890,20 @@ void thousand_games(Engine* white_engine, Engine* black_engine)
     stop_engine(black_engine);
 }
 
-void initialize_black(int* i, int argc, char** argv, Board* board, Engine* engine, int* bools)
+void initialize_black(char* e_path, int depth, Board* board, Engine* engine)
 {
-    start_engine(engine, argv[++(*i)]);
-    memcpy(board->black_name, engine->name, 
-            strlen(engine->name) + 1);
+    start_engine(engine, e_path);
+    memcpy(board->black_name, engine->name, strlen(engine->name) + 1);
     send_ucinewgame(engine->write);
-    (*i)++;
-    if (*i >= argc)
-    {
-        *bools |= STOP;
-    }
-    int j=0;
-    engine->depth = 0;
-    /* Parse engine depth */
-    while (!(*bools & STOP) && argv[*i][j])
-    {
-        if ('0' <= argv[*i][j] && argv[*i][j] <= '9')
-        {
-            engine->depth *= 10;
-            engine->depth += argv[*i][j] - '0';
-        }
-        else 
-        {
-            *bools |= STOP;
-        }
-        j++;
-    }
-    if (*bools & STOP){
-        printf("Invalid use of \"%s\" flag:\n%s ./engine_path "
-                "depth\ndepth must be an integer number "
-                "indicating how many moves ahead the engine "
-                "may look\n", argv[(*i)-2], argv[(*i)-2]);
-    }
+    engine->depth = depth;
 }
 
-void initialize_white(int* i, int argc, char** argv, Board* board, Engine* engine, int* bools)
+void initialize_white(char* e_path, int depth, Board* board, Engine* engine)
 {
-    start_engine(engine, argv[++(*i)]);
-    memcpy(board->white_name, engine->name, 
-            strlen(engine->name) + 1);
+    start_engine(engine, e_path);
+    memcpy(board->white_name, engine->name, strlen(engine->name) + 1);
     send_ucinewgame(engine->write);
-    (*i)++;
-    if (*i >= argc)
-    {
-        *bools |= STOP;
-    }
-    int j=0;
-    engine->depth = 0;
-    /* Parse engine depth */
-    while (!(*bools & STOP) && argv[*i][j])
-    {
-        if ('0' <= argv[*i][j] && argv[*i][j] <= '9')
-        {
-            engine->depth *= 10;
-            engine->depth += argv[*i][j] - '0';
-        }
-        else 
-        {
-            *bools |= STOP;
-        }
-        j++;
-    }
-    if (*bools & STOP){
-        printf("Invalid use of \"%s\" flag:\n%s ./engine_path "
-                "depth\ndepth must be an integer number "
-                "indicating how many moves ahead the engine "
-                "may look\n", argv[(*i)-2], argv[(*i)-2]);
-    }
+    engine->depth = depth;
 }
 
 void prand(Board *board, Engine* white_engine, Engine* black_engine)
