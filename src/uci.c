@@ -61,8 +61,10 @@ void start_engine(Engine* engine, char* engine_exc)
     }
     else
     {
+        FILE* err = fopen("/dev/null", "w");
         dup2(ENGINE_READ,  0);
         dup2(ENGINE_WRITE, 1);
+        dup2(fileno(err),  2);
 
         close(CLIENT_READ);
         close(CLIENT_WRITE);
