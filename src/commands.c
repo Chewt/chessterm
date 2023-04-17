@@ -183,7 +183,9 @@ int is_networked_command(char input[COMMAND_LENGTH])
 {
     int terms;
     char tokens[256][256];
-    terms = tokenize_command(input, tokens);
+    char input_copy[COMMAND_LENGTH];
+    memcpy(input_copy, input, COMMAND_LENGTH);
+    terms = tokenize_command(input_copy, tokens);
 
     if (!strcmp(tokens[0], "help"))
         return 0;
