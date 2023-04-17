@@ -258,9 +258,9 @@ int main(int argc, char** argv)
             {
                 printf(": ");
                 scanf("%30s", move);
-                if (host >= 0)
+                if (host >= 0 && is_networked_command(move))
                     SendCommand(host, move);
-                else if (client >= 0)
+                else if (client >= 0 && is_networked_command(move))
                     SendCommand(client, move);
                 res = ProcessCommand(&board, move);
             }

@@ -11,6 +11,7 @@ typedef struct
 
 } Command;
 
+int is_networked_command(char input[COMMAND_LENGTH]);
 int ProcessCommand(Board* board, char input[COMMAND_LENGTH]);
 
 #endif

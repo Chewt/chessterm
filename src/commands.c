@@ -30,6 +30,7 @@ struct Command
 {
     char* name;
     int (*func)(Board* board, int n_tokens, char tokens[][256]);
+    int is_networked;
     char* help;
 };
 
@@ -133,7 +134,23 @@ int SaveCommand(Board* board, int n_tokens, char tokens[][256])
     return 0;
 }
 
-int ProcessCommand(Board* board, char input[COMMAND_LENGTH])
+
+struct Command commands[] = {
+    {"status", StatusCommand, 0, "See debug stats about boardstate"},
+    {"undo", UndoCommand, 1, "Undo last move"},
+    {"fen", FenCommand, 0, "Print FEN of current board position to screen"},
+    {"pgn", PGNCommand, 0, "Print PGN game to screen"},
+    {"moves", MovesCommand, 0, "Print game's moves in long notation"},
+    {"flip", FlipCommand, 0, "Flip board orientation"},
+    {"autoflip", AutoFlipCommand, 0, "Flip board orientation on every turn"},
+    {"new", NewCommand, 1, "Start a new game"},
+    {"go", GoCommand, 1, "Start a game between two loaded engines"},
+    {"save", SaveCommand, 0, "Save game PGN to file"},
+    {"exit", ExitCommand, 1, "Exit Program"},
+    { 0 }
+};
+
+int tokenize_command(char input[COMMAND_LENGTH], char tokens[][256])
 {
     char* save_ptr;
     char* token;
@@ -147,23 +164,7 @@ int ProcessCommand(Board* board, char input[COMMAND_LENGTH])
             i++;
     }
 
-    struct Command commands[] = {
-    {"status", StatusCommand, "See debug stats about boardstate"},
-    {"undo", UndoCommand, "Undo last move"},
-    {"fen", FenCommand, "Print FEN of current board position to screen"},
-    {"pgn", PGNCommand, "Print PGN game to screen"},
-    {"moves", MovesCommand, "Print game's moves in long notation"},
-    {"flip", FlipCommand, "Flip board orientation"},
-    {"autoflip", AutoFlipCommand, "Flip board orientation on every turn"},
-    {"new", NewCommand, "Start a new game"},
-    {"go", GoCommand, "Start a game between two loaded engines"},
-    {"save", SaveCommand, "Save game PGN to file"},
-    {"exit", ExitCommand, "Exit Program"},
-    { 0 }
-    };
-
     int terms = 0;
-    char tokens[256][256];
     token = strtok_r(input, " ", &save_ptr);
     if (token == NULL)
         return -1;
@@ -175,8 +176,39 @@ int ProcessCommand(Board* board, char input[COMMAND_LENGTH])
         token = strtok_r(NULL, " ", &save_ptr);
         terms++;
     }
+    return terms;
+}
+
+int is_networked_command(char input[COMMAND_LENGTH])
+{
+    int terms;
+    char tokens[256][256];
+    terms = tokenize_command(input, tokens);
+
+    if (!strcmp(tokens[0], "help"))
+        return 0;
+    int i = 0;
+    while (commands[i].name != NULL)
+    {
+        if (!strcmp(commands[i].name, tokens[0]))
+        {
+            return commands[i].is_networked;
+        }
+        i++;
+    }
+    return 1;
+}
+
+int ProcessCommand(Board* board, char input[COMMAND_LENGTH])
+{
+    int terms;
+    char tokens[256][256];
+    terms = tokenize_command(input, tokens);
+    if (terms < 0)
+        return -1;
 
     int return_val = -2;
+    int i;
     if (!strcmp(tokens[0], "help"))
     {
         i = 0;
