@@ -318,16 +318,34 @@ void print_fancy_flipped(Board* board)
 
     printf("\e[26F\e[4C");
 
+    Move prev_move;
+    if (board->history_count > 0)
+        prev_move = board->history[board->history_count - 1];
+    else 
+        prev_move = board->history[board->history_count];
+    int8_t prev_src = 63 - (prev_move.src_rank * 8 + prev_move.src_file);
+    int8_t prev_dest = 63 - prev_move.dest;
+
     for (i = 0; i < 64; ++i)
     {
         /* Bullshit that colors them checkered-like 
          * - Courtesy of Zach Gorman
          */
         uint8_t square = board->position[63 - i];
-        if (!(!(i & 1) ^ !(i & 8))) 
-            printf("\e[48;5;%dm", LIGHT);
-        else
-            printf("\e[48;5;%dm", DARK);
+        if (prev_dest != -1 && (i == prev_src || i == prev_dest))
+        {
+            if (i == prev_src)
+                printf("\e[48;5;6m");
+            if (i == prev_dest)
+                printf("\e[48;5;12m");
+        } 
+        else 
+        {
+            if (!(!(i & 1) ^ !(i & 8)))
+                printf("\e[48;5;%dm", LIGHT);
+            else
+                printf("\e[48;5;%dm", DARK);
+        }
 
         printf("\e[1m");
         (square & BLACK) ? printf("\e[38;5;232m") : printf("\e[37m");

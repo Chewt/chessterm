@@ -9,6 +9,7 @@
 #include "engine.h"
 #include "settings.h"
 #include "commands.h"
+#include "networking.h"
 
 
 #ifdef DEBUG
@@ -34,6 +35,9 @@ struct flags {
     int white_depth;
     int black_depth;
     int random;
+    int is_server;
+    char *host;
+    int port;
 };
 static int parse_opt (int key, char *arg, struct argp_state *state)
 {
@@ -58,6 +62,15 @@ static int parse_opt (int key, char *arg, struct argp_state *state)
         case 501:
             flags->black_depth = 1;
             break;
+        case 'h':
+            flags->is_server = 1;
+            break;
+        case 'c':
+            flags->host = arg;
+            break;
+        case 'p':
+            flags->port = atoi(arg);
+
     }
     return 0;
 }
@@ -112,6 +125,10 @@ int main(int argc, char** argv)
     flags.white_depth = 5;
     flags.black_depth = 5;
     flags.random = 0;
+    flags.is_server = 0;
+    flags.host = NULL;
+    flags.port = 0;
+
 
     struct argp_option options[] = {
         {"fen", 'f', "STRING", 0, 
@@ -126,6 +143,9 @@ int main(int argc, char** argv)
             "The depth that the white engine should look."},
         {"black_depth", 501, 0, 0, 
             "The depth that the white engine should look."},
+        { "host", 'h', 0, 0, "Allow connections from another player", 0},
+        { "connect", 'c', "IP", 0, "Connect to a host", 0},
+        { "port", 'p', "PORT", 0, "Port for connecting to host", 0},
         {0}};
     struct argp argp = { options, parse_opt };
     int r = argp_parse(&argp, argc, argv, 0, 0, &flags);
@@ -157,12 +177,30 @@ int main(int argc, char** argv)
         }
     }
     if (flags.white_engine)
-        initialize_white(flags.white_engine, flags.white_depth, &board, &white_engine);
+    {
+        initialize_white(flags.white_engine, flags.white_depth, &board,
+                         &white_engine);
+    }
     if (flags.black_engine)
-        initialize_black(flags.black_engine, flags.black_depth, &board, &black_engine);
-
+    {
+        initialize_black(flags.black_engine, flags.black_depth, &board,
+                         &black_engine);
+    }
     if (black_engine.pid && white_engine.pid)
         bools |= COMMAND;
+
+    /* Set up networking */
+    int client = -1;
+    int host = -1;
+    if (flags.is_server && flags.port)
+    {
+        client = SetupServer(flags.port);
+        bools |= FLIPPED;
+    }
+    else if (flags.host && flags.port)
+    {
+        host = SetupClient(flags.host, flags.port);
+    }
 
     printf("\n");
     if (!(bools & STOP))
@@ -186,10 +224,47 @@ int main(int argc, char** argv)
         {
             char move[256];
 
-            printf(": ");
-            scanf("%30s", move);
+            int res = 0;
 
-            int res = ProcessCommand(&board, move);
+            if (host >= 0 && board.to_move == 1)
+            {
+                printf("Waiting on opponent...\n");
+                char* response = RecvCommand(host);
+                if (response == NULL)
+                {
+                    printf("Connection to host broken\n");
+                    break;
+                }
+                snprintf(board.notes, NOTES_LENGTH, "%s\n", response);
+                res = ProcessCommand(&board, response);
+                strcpy(move, response);
+                free(response);
+            }
+            else if (client >= 0 && board.to_move == 0)
+            {
+                printf("Waiting on opponent...\n");
+                char* response = RecvCommand(client);
+                if (response == NULL)
+                {
+                    printf("Connection to client broken\n");
+                    break;
+                }
+                snprintf(board.notes, NOTES_LENGTH, "%s\n", response);
+                res = ProcessCommand(&board, response);
+                strcpy(move, response);
+                free(response);
+            }
+            else
+            {
+                printf(": ");
+                scanf("%30s", move);
+                if (host >= 0)
+                    SendCommand(host, move);
+                else if (client >= 0)
+                    SendCommand(client, move);
+                res = ProcessCommand(&board, move);
+            }
+
             if (res == NEWGAME)
             {
                 if (white_engine.pid){
