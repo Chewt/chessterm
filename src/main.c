@@ -8,6 +8,8 @@
 #include "chessterm.h"
 #include "engine.h"
 #include "settings.h"
+#include "commands.h"
+
 
 #ifdef DEBUG
 #define print_debug(...) fprintf(stderr,__VA_ARGS__)
@@ -15,7 +17,7 @@
 #define print_debug(...) ((void)0)
 #endif
 
-void play_build_in_engine();
+void play_build_in_engine(char* fen);
 void play_engine(Engine* engine);
 int engine_v_stockfish(Engine* engine, int silent, FILE* fp);
 int engine_v_engine(char* fen, int silent);
@@ -91,7 +93,9 @@ int main(int argc, char** argv)
             bools |= AUTOFLIP;
     #endif
 
+    char notes[NOTES_LENGTH];
     Board board;
+    board.notes = notes;
     default_board(&board); 
     Engine white_engine;
     white_engine.pid = 0;
@@ -167,91 +171,27 @@ int main(int argc, char** argv)
     bools |= is_gameover(&board);
     while (!(bools & STOP))
     {
-        
+        printf("\e[2J\e[H");
+        if (bools & FLIPPED)
+            print_fancy_flipped(&board);
+        else
+            print_fancy(&board);
+        printf("%s", board.notes);
+        board.notes[0] = '\0';
+
         /* If human move */
         if (( board.to_move && !black_engine.pid) || 
             (!board.to_move && !white_engine.pid) || 
             (bools & COMMAND))
         {
-            char move[50];
+            char move[256];
 
             printf(": ");
             scanf("%30s", move);
 
-
-            if (!strcmp(move, "exit") || feof(stdin))
+            int res = ProcessCommand(&board, move);
+            if (res == NEWGAME)
             {
-                bools |= STOP;
-                continue;
-            }
-            else if (!strcmp(move, "status"))
-            {
-                board_stats(&board);
-                continue;
-            }
-            else if (!strcmp(move, "undo"))
-            {
-                UndoMove(&board);
-                print_fancy(&board);
-                continue;
-            }
-            else if (!strcmp(move, "fen"))
-            {
-                char fen[FEN_SIZE];
-                export_fen(&board, fen);
-                printf("%s\n", fen);
-                continue;
-            }
-            else if (!strcmp(move, "pgn"))
-            {
-                char* pgn = export_pgn(&board);
-                printf("%s\n", pgn);
-                free(pgn);
-                continue;
-            }
-            else if (!strcmp(move, "moves"))
-            {
-                char* pgn = export_moves(&board);
-                printf("%s\n", pgn);
-                free(pgn);
-                continue;
-            }
-            else if (!strcmp(move, "flip"))
-            {
-                bools ^= 1;
-                if (bools & 1)
-                    print_fancy_flipped(&board);
-                else
-                    print_fancy(&board);
-                continue;
-            }
-            else if (!strcmp(move, "autoflip"))
-            {
-                bools |= 0x100;
-                continue;
-            }
-            else if (!strcmp(move, "noflip"))
-            {
-                bools &= 0xFFFFFEFF;
-                continue;
-            }
-            else if (!strcmp(move, "new"))
-            {
-                bools = 0;
-                #ifdef AUTOFLIP
-                    if (AUTOFLIP)
-                        bools |= AUTOFLIP;
-                #endif
-                default_board(&board);
-                if (bools & RANDOMSIDE)
-                {
-                    int temp = rand()%2;
-                    if (temp){
-                        Engine temp_engin = white_engine;
-                        white_engine = black_engine;
-                        black_engine = temp_engin;
-                    }
-                }
                 if (white_engine.pid){
                     send_ucinewgame(white_engine.write);
                     memcpy(board.white_name, white_engine.name, 
@@ -263,44 +203,11 @@ int main(int argc, char** argv)
                            strlen(black_engine.name) + 1);
                 }
             }
-            else if (!strcmp(move, "go"))
+            if (res != MOVE)
             {
-                bools &= ~COMMAND;
+                bools ^= res;
                 continue;
             }
-            else if (!strcmp(move, "thousand"))
-            {
-                thousand_games(&white_engine, &black_engine);
-                continue;
-            }
-            else if (!strcmp(move, "prand"))
-            {
-                prand(&board, &white_engine, &black_engine);
-                continue;
-            }
-            else if (!strcmp(move, "save"))
-            {
-                if (!last_pgn)
-                {
-                    printf("No pgn saved\n");
-                }
-                else
-                {
-                    printf("Enter filename "
-                            "(existing files will be overwritten!):" );
-                    char filename[50];
-                    scanf("%30s", filename);
-                    FILE* file = fopen(filename, "w");
-                    fwrite(last_pgn, sizeof(char), strlen(last_pgn), file);
-                    fwrite("\n", sizeof(char), 1, file);
-                    printf("Saved.\n");
-                    fclose(file);
-                }
-                continue;
-            }
-       
-            // Clear Screen
-            printf("\e[2J\n");
 
             /* Autoflip */
             if (!move_san(&board, move) && bools & AUTOFLIP)
@@ -321,7 +228,6 @@ int main(int argc, char** argv)
                 engine_move = get_engine_move(&board, &white_engine);
             }
             
-            /* Autoflip */
             int i;
             i = move_piece(&board, &engine_move);
             if (i == -1)
@@ -331,6 +237,8 @@ int main(int argc, char** argv)
                         engine_move.src_file + 'a' , engine_move.src_rank + 1, 
                         engine_move.dest%8+'a', 8-engine_move.dest/8);
             }
+
+            /* Autoflip */
             if (!i && bools & AUTOFLIP)
             {
                 bools ^= 1;
@@ -338,10 +246,6 @@ int main(int argc, char** argv)
 
         }
 
-        if (bools & 1)
-            print_fancy_flipped(&board);
-        else
-            print_fancy(&board);
 
         bools |= is_gameover(&board);
         

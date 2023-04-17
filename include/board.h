@@ -4,6 +4,7 @@
 #define MAX_HISTORY 1000
 #define MAX_STORED_POSITIONS 102
 #define MAX_POSITION_STRING 82
+#define NOTES_LENGTH 4096
 
 enum Pieces
 {
@@ -62,6 +63,7 @@ typedef struct
     Move history[MAX_HISTORY];
     char position_hist[MAX_STORED_POSITIONS][MAX_POSITION_STRING];
     uint16_t pos_count;
+    char* notes;
 } Board;
 
 enum
@@ -73,9 +75,11 @@ enum
     THREEFOLD = 0x010,
     MAXHIST   = 0x020,
     MAXPOS    = 0x040,
+    NEWGAME   = 0x080,
     AUTOFLIP  = 0x100,
     RANDOMSIDE= 0x200,
     COMMAND   = 0x400,
+    MOVE      = 0x40000000,
     STOP      = 0x80000000
 };
 

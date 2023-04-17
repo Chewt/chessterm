@@ -165,6 +165,8 @@ void default_board(Board* board)
     board->position[6 + 8 * 7] = KNIGHT | WHITE;
     board->position[7 + 8 * 7] = ROOK   | WHITE;
     store_position(board, board->position_hist[board->pos_count++]);
+    if (board->notes)
+        board->notes[0] = '\0';
 }
 
 

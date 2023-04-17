@@ -20,31 +20,56 @@
  * - Position of the black king.
  * - Position of the white king.
  */
-void board_stats(Board* board)
+void board_stats(Board *board) 
 {
-    if (board->to_move == 1)
-        printf("Black");
-    else if (board->to_move == 0)
-        printf("White");
-    printf(" to move.\nCastling: ");
-    if (board->castling & 0x08)
-        printf("K");
-    if (board->castling & 0x04)
-        printf("Q");
-    if (board->castling & 0x02)
-        printf("k");
-    if (board->castling & 0x01)
-        printf("q");
-    printf("\nEn pessant: ");
-    if (board->en_p == -1)
-        printf("None\n");
-    else
-        printf("%c%d\n", (board->en_p % 8) + 'a', 8 - (board->en_p / 8));
-    printf("Halfmoves: %d\nFullmoves: %d\n", board->halfmoves, board->moves);
-    printf("Whiteking_pos: %c%d\n", (board->wking_pos % 8) + 'a',
-            8 - (board->wking_pos / 8));
-    printf("Blackking_pos: %c%d\n", (board->bking_pos % 8) + 'a',
-            8 - (board->bking_pos / 8));
+  int chars_printed = 0;
+  if (board->to_move == 1) {
+    chars_printed += snprintf(board->notes + chars_printed,
+                              NOTES_LENGTH - strlen(board->notes), "Black");
+  } else if (board->to_move == 0) {
+    chars_printed += snprintf(board->notes + chars_printed,
+                              NOTES_LENGTH - strlen(board->notes), "White");
+  }
+  chars_printed += snprintf(board->notes + chars_printed,
+               NOTES_LENGTH - strlen(board->notes), " to move.\nCastling: ");
+  if (board->castling & 0x08) {
+    chars_printed += snprintf(board->notes + chars_printed,
+                              NOTES_LENGTH - strlen(board->notes), "K");
+  }
+  if (board->castling & 0x04) {
+    chars_printed += snprintf(board->notes + chars_printed,
+                              NOTES_LENGTH - strlen(board->notes), "Q");
+  }
+  if (board->castling & 0x02) {
+    chars_printed += snprintf(board->notes + chars_printed,
+                              NOTES_LENGTH - strlen(board->notes), "k");
+  }
+  if (board->castling & 0x01) {
+    chars_printed += snprintf(board->notes + chars_printed,
+                              NOTES_LENGTH - strlen(board->notes), "q");
+  }
+  chars_printed +=
+      snprintf(board->notes + chars_printed,
+               NOTES_LENGTH - strlen(board->notes), "\nEn pessant: ");
+  if (board->en_p == -1) {
+    chars_printed += snprintf(board->notes + chars_printed,
+                              NOTES_LENGTH - strlen(board->notes), "None\n");
+  } else {
+    chars_printed += snprintf(board->notes + chars_printed,
+                              NOTES_LENGTH - strlen(board->notes), "%c%d\n",
+                              (board->en_p % 8) + 'a', 8 - (board->en_p / 8));
+  }
+  chars_printed += snprintf(
+      board->notes + chars_printed, NOTES_LENGTH - strlen(board->notes),
+      "Halfmoves: %d\nFullmoves: %d\n", board->halfmoves, board->moves);
+  chars_printed +=
+      snprintf(board->notes + chars_printed,
+               NOTES_LENGTH - strlen(board->notes), "Whiteking_pos: %c%d\n",
+               (board->wking_pos % 8) + 'a', 8 - (board->wking_pos / 8));
+  chars_printed +=
+      snprintf(board->notes + chars_printed,
+               NOTES_LENGTH - strlen(board->notes), "Blackking_pos: %c%d\n",
+               (board->bking_pos % 8) + 'a', 8 - (board->bking_pos / 8));
 }
 
 /* Prints the board to the screen */
@@ -241,7 +266,7 @@ void print_fancy(Board* board)
         if (i % 8 == 7)
             printf("\u2551\e[3E\e[4C");
     }
-    printf("\e[8E\n");
+    printf("\e[1E\n");
 }
 
 /* Prints the fancy version of the board, but from black's perspective */
@@ -312,7 +337,7 @@ void print_fancy_flipped(Board* board)
         if (i % 8 == 7)
             printf("\u2551\e[3E\e[4C");
     }
-    printf("\e[8E\n");
+    printf("\e[1E\n");
 }
 
 /* Prints the board, but from black's perspective. */
