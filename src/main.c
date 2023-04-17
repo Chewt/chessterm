@@ -356,6 +356,10 @@ int main(int argc, char** argv)
         stop_engine(&white_engine);
     if (black_engine.pid)
         stop_engine(&black_engine);
+    if (host >= 0)
+        CloseClient(host);
+    if (client >= 0)
+        CloseServer(client);
     if (last_pgn)
         free(last_pgn);
 
