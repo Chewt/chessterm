@@ -192,6 +192,8 @@ int main(int argc, char** argv)
     /* Set up networking */
     int client = -1;
     int host = -1;
+    int host_col = 1;
+    int client_col = 0;
     if (flags.is_server && flags.port)
     {
         client = SetupServer(flags.port);
@@ -223,46 +225,30 @@ int main(int argc, char** argv)
             (bools & COMMAND))
         {
             char move[256];
-
             int res = 0;
 
-            if (host >= 0 && board.to_move == 1)
+            if ((host   >= 0 && board.to_move == host_col) ||
+                (client >= 0 && board.to_move == client_col)) 
             {
-                printf("Waiting on opponent...\n");
-                char* response = RecvCommand(host);
-                if (response == NULL)
-                {
-                    printf("Connection to host broken\n");
-                    break;
-                }
-                snprintf(board.notes, NOTES_LENGTH, "%s\n", response);
-                res = ProcessCommand(&board, response);
-                strcpy(move, response);
-                free(response);
-            }
-            else if (client >= 0 && board.to_move == 0)
-            {
-                printf("Waiting on opponent...\n");
-                char* response = RecvCommand(client);
-                if (response == NULL)
-                {
-                    printf("Connection to client broken\n");
-                    break;
-                }
-                snprintf(board.notes, NOTES_LENGTH, "%s\n", response);
-                res = ProcessCommand(&board, response);
-                strcpy(move, response);
-                free(response);
-            }
-            else
-            {
-                printf(": ");
-                scanf("%30s", move);
-                if (host >= 0 && is_networked_command(move))
-                    SendCommand(host, move);
-                else if (client >= 0 && is_networked_command(move))
-                    SendCommand(client, move);
-                res = ProcessCommand(&board, move);
+              int user = (host > 0) ? host : client;
+              printf("Waiting on opponent...\n");
+              char *response = RecvCommand(user);
+              if (response == NULL) {
+                printf("Connection to other user broken\n");
+                break;
+              }
+              snprintf(board.notes, NOTES_LENGTH, "%s\n", response);
+              res = ProcessCommand(&board, response);
+              strcpy(move, response);
+              free(response);
+            } else {
+              printf(": ");
+              scanf("%30s", move);
+              if (host >= 0 && is_networked_command(move))
+                SendCommand(host, move);
+              else if (client >= 0 && is_networked_command(move))
+                SendCommand(client, move);
+              res = ProcessCommand(&board, move);
             }
 
             if (res == NEWGAME)
@@ -278,7 +264,15 @@ int main(int argc, char** argv)
                            strlen(black_engine.name) + 1);
                 }
             }
-            if (res != MOVE)
+            else if (res == SWAP)
+            {
+                int t = host_col;
+                host_col = client_col;
+                client_col = t;
+                bools ^= FLIPPED;
+                continue;
+            }
+            else if (res != MOVE)
             {
                 bools ^= res;
                 continue;

@@ -134,6 +134,12 @@ int SaveCommand(Board* board, int n_tokens, char tokens[][256])
     return 0;
 }
 
+int SwapCommand(Board* board, int n_tokens, char tokens[][256])
+{
+    if (n_tokens != 1 || strcmp(tokens[0], "swap"))
+        return -1;
+    return SWAP;
+}
 
 struct Command commands[] = {
     {"status", StatusCommand, 0, "See debug stats about boardstate"},
@@ -146,6 +152,7 @@ struct Command commands[] = {
     {"new", NewCommand, 1, "Start a new game"},
     {"go", GoCommand, 1, "Start a game between two loaded engines"},
     {"save", SaveCommand, 0, "Save game PGN to file"},
+    {"swap", SwapCommand, 1, "Swap colors of online play"},
     {"exit", ExitCommand, 1, "Exit Program"},
     { 0 }
 };

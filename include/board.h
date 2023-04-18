@@ -79,6 +79,7 @@ enum
     AUTOFLIP  = 0x100,
     RANDOMSIDE= 0x200,
     COMMAND   = 0x400,
+    SWAP      = 0x800,
     MOVE      = 0x40000000,
     STOP      = 0x80000000
 };
