@@ -38,6 +38,7 @@ struct flags {
     int is_server;
     char *host;
     int port;
+    int swap;
 };
 static int parse_opt (int key, char *arg, struct argp_state *state)
 {
@@ -70,7 +71,8 @@ static int parse_opt (int key, char *arg, struct argp_state *state)
             break;
         case 'p':
             flags->port = atoi(arg);
-
+        case 502:
+            flags->swap = 1;
     }
     return 0;
 }
@@ -128,6 +130,7 @@ int main(int argc, char** argv)
     flags.is_server = 0;
     flags.host = NULL;
     flags.port = 0;
+    flags.swap = 0;
 
 
     struct argp_option options[] = {
@@ -146,6 +149,7 @@ int main(int argc, char** argv)
         { "host", 'h', 0, 0, "Allow connections from another player", 0},
         { "connect", 'c', "IP", 0, "Connect to a host", 0},
         { "port", 'p', "PORT", 0, "Port for connecting to host", 0},
+        { "swap", 502, 0, 0, "Swap colors for host and client", 0},
         {0}};
     struct argp argp = { options, parse_opt };
     int r = argp_parse(&argp, argc, argv, 0, 0, &flags);
@@ -197,11 +201,40 @@ int main(int argc, char** argv)
     if (flags.is_server && flags.port)
     {
         client = SetupServer(flags.port);
-        bools |= FLIPPED;
+        if (flags.swap)
+        {
+            int t = host_col;
+            host_col = client_col;
+            client_col = t; 
+            SendCommand(client, "swap");
+        }
+        else
+            bools |= FLIPPED;
+        SendCommand(client, "ready");
     }
     else if (flags.host && flags.port)
     {
         host = SetupClient(flags.host, flags.port);
+        int setup_finished = 0;
+        while (!setup_finished)
+        {
+            char* resp = RecvCommand(host);
+            if (resp== NULL) {
+                printf("Connection to other user broken\n");
+                exit(0);
+            }
+            int rv = ProcessCommand(&board, resp);
+            if (rv == SWAP)
+            {
+                int t = host_col;
+                host_col = client_col;
+                client_col = t; 
+                bools |= FLIPPED;
+            }
+            if (!strcmp(resp, "ready"))
+                setup_finished = 1;
+            free(resp);
+        }
     }
 
     printf("\n");
@@ -237,7 +270,7 @@ int main(int argc, char** argv)
                 printf("Connection to other user broken\n");
                 break;
               }
-              snprintf(board.notes, NOTES_LENGTH, "%s\n", response);
+              //snprintf(board.notes, NOTES_LENGTH, "%s\n", response);
               res = ProcessCommand(&board, response);
               strcpy(move, response);
               free(response);
