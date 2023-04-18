@@ -136,16 +136,18 @@ int main(int argc, char** argv)
     struct argp_option options[] = {
         {"fen", 'f', "STRING", 0, 
             "Supply a FEN to determine the starting position of the game."},
+        {0, 0, 0, 0, "Engines:", 1},
         {"white_engine", 'w', "PATH", 0, 
             "The path of the engine that will play as white."},
         {"black_engine", 'b', "PATH", 0, 
             "The path of the engine that will play as black."},
-        {"random", 'r', 0, 0, 
-            "Randomly assign engine(s) to black or white."},
         {"white_depth", 500, 0, 0, 
             "The depth that the white engine should look."},
         {"black_depth", 501, 0, 0, 
             "The depth that the white engine should look."},
+        {"random", 'r', 0, 0, 
+            "Randomly assign engine(s) to black or white."},
+        {0,0,0,0, "Networking:", 7},
         { "host", 'h', 0, 0, "Allow connections from another player", 0},
         { "connect", 'c', "IP", 0, "Connect to a host", 0},
         { "port", 'p', "PORT", 0, "Port for connecting to host", 0},
@@ -210,6 +212,11 @@ int main(int argc, char** argv)
         }
         else
             bools |= FLIPPED;
+        if (flags.fen)
+        {
+            SendCommand(client, "loadfen");
+            SendCommand(client, flags.fen);
+        }
         SendCommand(client, "ready");
     }
     else if (flags.host && flags.port)
@@ -230,6 +237,12 @@ int main(int argc, char** argv)
                 host_col = client_col;
                 client_col = t; 
                 bools |= FLIPPED;
+            }
+            if (!strcmp(resp, "loadfen"))
+            {
+                free(resp);
+                resp = RecvCommand(host);
+                load_fen(&board, resp);
             }
             if (!strcmp(resp, "ready"))
                 setup_finished = 1;
