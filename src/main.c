@@ -129,7 +129,7 @@ int main(int argc, char** argv)
     flags.random = 0;
     flags.is_server = 0;
     flags.host = NULL;
-    flags.port = 0;
+    flags.port = 5000;
     flags.swap = 0;
 
 
