@@ -366,29 +366,44 @@ int main(int argc, char** argv)
         
         if (bools & (CHECKMATE | FIFTY | STALEMATE | THREEFOLD | MAXHIST | MAXPOS))
         {
+            int idx = 0;
             bools |= COMMAND;
             if (bools & CHECKMATE)
             {
-                printf("Checkmate!\n");
+                idx += snprintf(board.notes + idx,
+                                NOTES_LENGTH - strlen(board.notes),
+                                "Checkmate!\n");
             }
             else
             {
                 if (bools & FIFTY)
-                    printf("50 move rule\n");
+                {
+                    idx += snprintf(board.notes + idx,
+                                    NOTES_LENGTH - strlen(board.notes),
+                                    "50 move rule\n");
+                }
                 else if (bools & THREEFOLD)
-                    printf("Three fold repetition\n");
-                printf("Stalemate!\n");
+                {
+                    idx += snprintf(board.notes + idx,
+                                    NOTES_LENGTH - strlen(board.notes),
+                                    "Three fold repetition\n");
+                }
+                idx += snprintf(board.notes + idx,
+                                NOTES_LENGTH - strlen(board.notes),
+                                "Stalemate!\n");
             }
             char* pgn = export_pgn(&board);
-            printf("%s\n", pgn);
+            idx += snprintf(board.notes + idx,
+                            NOTES_LENGTH - strlen(board.notes), "%s\n", pgn);
             if (last_pgn)
                 free(last_pgn);
             last_pgn = malloc(strlen(pgn) + 1);
             memcpy(last_pgn, pgn, strlen(pgn) + 1);
             free(pgn);
 
-            printf("\nTo play again, use \e[38;5;40m: new\e[m \n");
-            
+            idx += snprintf(board.notes + idx, 
+                    NOTES_LENGTH - strlen(board.notes), 
+                    "\nTo play again, use \e[38;5;40m: new\e[m \n");
         }
     }
     printf("\n");
