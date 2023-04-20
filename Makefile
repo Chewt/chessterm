@@ -36,3 +36,11 @@ clean:
 .PHONY: debug
 debug: CFLAGS += -g -D DEBUG
 debug: clean all
+
+.PHONY: install
+install: all
+	@sudo cp $(TARGET) /usr/bin/$(TARGET)
+
+.PHONY: uninstall
+uninstall: 
+	@sudo rm -f /usr/bin/$(TARGET)
