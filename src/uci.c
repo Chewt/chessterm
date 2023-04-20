@@ -69,8 +69,20 @@ void start_engine(Engine* engine, char* engine_exc)
         close(CLIENT_READ);
         close(CLIENT_WRITE);
 
-        char* args[] = {engine_exc, NULL};
-        execvp(engine_exc, args);
+        char** args = calloc(sizeof(char*), 100);
+
+        int i = 0;
+        char* save_ptr;
+        char* token;
+        token = strtok_r(engine_exc, " ", &save_ptr);
+        while (token != NULL)
+        {
+            args[i] = malloc(strlen(token) + 1);
+            memcpy(args[i], token, strlen(token) + 1);
+            token = strtok_r(NULL, " ", &save_ptr);
+            ++i;
+        }
+        execvp(args[0], args);
     }
 }
 
