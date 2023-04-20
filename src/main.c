@@ -5,6 +5,7 @@
 #include <time.h>
 #include <sys/time.h>
 #include <argp.h>
+#include <poll.h>
 #include "chessterm.h"
 #include "engine.h"
 #include "settings.h"
@@ -272,29 +273,48 @@ int main(int argc, char** argv)
         {
             char move[256];
             int res = 0;
-
-            if ((host   >= 0 && board.to_move == host_col) ||
-                (client >= 0 && board.to_move == client_col)) 
+            if (host >= 0 || client >= 0)
             {
-              int user = (host > 0) ? host : client;
-              printf("Waiting on opponent...\n");
-              char *response = RecvCommand(user);
-              if (response == NULL) {
-                printf("Connection to other user broken\n");
-                break;
-              }
-              //snprintf(board.notes, NOTES_LENGTH, "%s\n", response);
-              res = ProcessCommand(&board, response);
-              strcpy(move, response);
-              free(response);
-            } else {
-              printf(": ");
-              scanf("%30s", move);
-              if (host >= 0 && is_networked_command(move))
-                SendCommand(host, move);
-              else if (client >= 0 && is_networked_command(move))
-                SendCommand(client, move);
-              res = ProcessCommand(&board, move);
+                struct pollfd inputs[2];
+                inputs[0].fd = 0;
+                inputs[0].events = POLLIN;
+                inputs[1].fd = (host >= 0) ? host : client;
+                inputs[1].events = POLLIN;
+                int opponent_color = (host >= 0) ? host_col : client_col;
+                if (board.to_move == opponent_color)
+                    printf("Waiting on opponent...\n");
+                printf(": ");
+                fflush(stdout);
+                int ret_poll;
+                while ((ret_poll = poll(inputs, 2, 100)) == 0);
+                if (ret_poll > 0)
+                {
+                    int user = (host >= 0) ? host : client;
+                    if (inputs[0].revents & POLLIN)
+                    {
+                        scanf("%30s", move);
+                        res = ProcessCommand(&board, move);
+                        if (res == MOVE && board.to_move == opponent_color)
+                            continue;
+                        if (is_networked_command(move))
+                            SendCommand(user, move);
+                    }
+                    if (inputs[1].revents & POLLIN)
+                    {
+                        char* response = RecvCommand(user);
+                        if (response == NULL)
+                        {
+                            printf("Connection to opponent broken\n");
+                            break;
+                        }
+                        printf("%s\n", response);
+                        res = ProcessCommand(&board, response);
+                        strcpy(move, response);
+                        free(response);
+                        if (res == MOVE && board.to_move != opponent_color)
+                            continue;
+                    }
+                }
             }
 
             if (res == NEWGAME)
