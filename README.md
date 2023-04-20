@@ -19,55 +19,19 @@ Features that still need to be added
  - Load/save FEN from/to files
  - ~~export~~/import PGN format
  - ~~Flip view of the board between black and white perspective~~
- - Networking
+ - ~~Networking~~
 ## Usage
 run
 `$make`
 to compile and start the program with
 `$./chessterm`.   
-The program can be started with the following flags:  
-`-f "fen string between quotes"`  
-to start the board in a given fen position. Fen must be between quotes  
-`-w ./path/to/engine depth`  
-to start the uci compatible engine as the white player with the given
-computation depth  
-`-b ./path/to/engine depth`  
-to start the uci compatible engine as the black player with the given
-computation depth  
-`-r ./path/to/engine depth`  
-to start the uci compatible engine as a random player with the given
-computation depth
-
-All of the above flags can be used interchangibly with each other.  
+A list of command line arguments can be seen with `$./chessterm --help`  
 
 In the program you will be presented with a view of the current position and
 a prompt. You can type  
-`: exit`  
-to exit the program,  
-`: flip`  
-to switch perspectives between black and white  
-`: autoflip`  
-to switch perspectives between black and white every move  
-`: noflip`  
-to disable autoflip  
-`: fen`  
-to print the current position's FEN to the screen  
-`: pgn`   
-to print the PGN of the game to the screen  
-
-`: new`  
-to start a new game after one has finished  
-`: go`   
-to allow two engines to play against each other  
-`: thousand`  
-to have two engines play each other 1000 times  
-`: prand`  
-to rate one engine as a percentage of another. Example:  
-`Bad engine equates to Good engine performing at 63.0000%`  
-This output means `Bad engine` played against `Good engine` but 37% of `Good engine`'s moves were random.  
-`: status`  
-to view the current board information, or you can type a move in SAN notation 
-to make a move.  
+`: help`  
+to see all of the commands you can run while the program is runinng.
+You can also type a move in SAN notation to make a move.  
 Example: `: e4` or `: Nf3`  
 Pieces must be uppercase, and files must be lowercase for the move to be read
 correctly.
