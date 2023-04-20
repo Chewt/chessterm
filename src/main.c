@@ -316,6 +316,12 @@ int main(int argc, char** argv)
                     }
                 }
             }
+            else
+            {
+                printf(": ");
+                scanf("%30s", move);
+                res = ProcessCommand(&board, move);
+            }
 
             if (res == NEWGAME)
             {
