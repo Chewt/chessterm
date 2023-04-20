@@ -1,6 +1,8 @@
 # What is it?
 Chessterm is a terminal based chess interface. 
 
+![Imgur](https://imgur.com/Nl37KYV.png)
+
 It was originally created to provide a bridge between several chess engines made
 by a group of friends to compete with each other.
 
