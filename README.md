@@ -22,7 +22,7 @@ Features that still need to be added
  - ~~Networking~~
 
 ## Install
-Install from AUR ![here](https://aur.archlinux.org/chessterm)  
+Install from AUR [here](https://aur.archlinux.org/packages/chessterm)  
 run `$make install` to compile the program and install it.
 
 # Usage
