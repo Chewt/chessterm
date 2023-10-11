@@ -59,10 +59,10 @@ static int parse_opt (int key, char *arg, struct argp_state *state)
             flags->random = 1;
             break;
         case 500:
-            flags->white_depth = 1;
+            flags->white_depth = atoi(arg);
             break;
         case 501:
-            flags->black_depth = 1;
+            flags->black_depth = atoi(arg);
             break;
         case 'h':
             flags->is_server = 1;
@@ -142,9 +142,9 @@ int main(int argc, char** argv)
             "The path of the engine that will play as white."},
         {"black_engine", 'b', "PATH", 0, 
             "The path of the engine that will play as black."},
-        {"white_depth", 500, 0, 0, 
+        {"white_depth", 500, "DEPTH", 0, 
             "The depth that the white engine should look."},
-        {"black_depth", 501, 0, 0, 
+        {"black_depth", 501, "DEPTH", 0, 
             "The depth that the white engine should look."},
         {"random", 'r', 0, 0, 
             "Randomly assign engine(s) to black or white."},
