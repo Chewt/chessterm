@@ -114,7 +114,7 @@ int GoCommand(Board* board, int n_tokens, char tokens[][256])
 {
     if (n_tokens != 1 || strcmp(tokens[0], "go"))
         return -1;
-    return 0;
+    return COMMAND;
 }
 
 int SaveCommand(Board* board, int n_tokens, char tokens[][256])
