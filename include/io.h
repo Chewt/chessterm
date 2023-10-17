@@ -15,4 +15,7 @@ void export_fen(Board* board, char* fen);
 char* export_pgn(Board* board);
 char* export_moves(Board* board);
 
+// ncurses
+void print_boardw(Board* board);
+void print_notesw(Board* board);
 #endif

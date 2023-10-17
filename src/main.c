@@ -1,3 +1,4 @@
+#include <curses.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
@@ -6,8 +7,11 @@
 #include <sys/time.h>
 #include <argp.h>
 #include <poll.h>
+#include <ncurses.h>
+#include <locale.h>
 #include "chessterm.h"
 #include "engine.h"
+#include "io.h"
 #include "settings.h"
 #include "commands.h"
 #include "networking.h"
@@ -251,20 +255,25 @@ int main(int argc, char** argv)
         }
     }
 
-    printf("\n");
+    setlocale(LC_ALL, "");
+    initscr();
+
+    //printf("\n");
     if (!(bools & STOP))
-        print_fancy(&board);
+    {
+        print_boardw(&board);
+        print_notesw(&board);
+        refresh();
+    }
 
     bools |= is_gameover(&board);
     while (!(bools & STOP))
     {
-        printf("\e[2J\e[H");
         if (bools & FLIPPED)
-            print_fancy_flipped(&board);
+            print_boardw(&board); // flipped not done yet
         else
-            print_fancy(&board);
-        printf("%s", board.notes);
-        board.notes[0] = '\0';
+            print_boardw(&board);
+        print_notesw(&board);
 
         /* If human move */
         if (( board.to_move && !black_engine.pid) || 
@@ -283,8 +292,11 @@ int main(int argc, char** argv)
                 int opponent_color = (host >= 0) ? host_col : client_col;
                 if (board.to_move == opponent_color)
                     printf("Waiting on opponent...\n");
-                printf(": ");
-                fflush(stdout);
+                mvprintw(getcury(stdscr), 0, ": ");
+                echo();
+                refresh();
+                //printf(": ");
+                //fflush(stdout);
                 int ret_poll;
                 while ((ret_poll = poll(inputs, 2, 100)) == 0);
                 if (ret_poll > 0)
@@ -292,7 +304,8 @@ int main(int argc, char** argv)
                     int user = (host >= 0) ? host : client;
                     if (inputs[0].revents & POLLIN)
                     {
-                        scanf("%30s", move);
+                        //scanf("%30s", move);
+                        getnstr(move, 30);
                         res = ProcessCommand(&board, move);
                         if (res == MOVE && board.to_move == opponent_color)
                             continue;
@@ -318,8 +331,12 @@ int main(int argc, char** argv)
             }
             else
             {
-                printf(": ");
-                scanf("%30s", move);
+                //printf(": ");
+                //scanf("%30s", move);
+                mvprintw(getcury(stdscr), 0, ": ");
+                echo();
+                refresh();
+                getnstr(move, 30);
                 res = ProcessCommand(&board, move);
             }
 

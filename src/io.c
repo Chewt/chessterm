@@ -1,6 +1,9 @@
+#include <curses.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <ncurses.h>
+#include <wchar.h>
 #include "io.h"
 #include "board.h"
 #include "settings.h"
@@ -9,6 +12,8 @@
 #define LIGHT 179
 #define DARK  58
 #endif
+
+#define BRIGHT_WHITE 15
 
 /* Prints information about the current position to the screen.
  * It will print the following information:
@@ -129,6 +134,163 @@ void print_board(Board* board)
     for (i = 0; i < 8; i++)
         printf("   %c", 'a' + i);
     printf("\n");
+}
+
+enum {
+    LIGHT_SQUARE = 1,
+    DARK_SQUARE,
+    LIGHT_PIECE_LIGHT,
+    LIGHT_PIECE_DARK,
+    DARK_PIECE_LIGHT,
+    DARK_PIECE_DARK
+};
+
+/* Prints the ascii representation of the passed piece to the board. It will
+ * take up 7 collumns and 3 rows
+ */
+void mvprint_piecew(int y, int x, uint8_t piece)
+{
+    attron(A_BOLD);
+    if (piece & PAWN)
+    {
+        mvaddstr(y    , x, "   O   ");
+        mvaddstr(y + 1, x, "  ( )  ");
+        mvaddstr(y + 2, x, "  ===  ");
+    }
+    else if (piece & BISHOP)
+    {
+        mvaddstr(y    , x, "  (/)  ");
+        mvaddstr(y + 1, x, "  / \\  ");
+        mvaddstr(y + 2, x, "  ===  ");
+    }
+    else if (piece & KNIGHT)
+    {
+        mvaddstr(y    , x, "  <*^  ");
+        mvaddstr(y + 1, x, "  / |  ");
+        mvaddstr(y + 2, x, "  ===  ");
+    }
+    else if (piece & ROOK)
+    {
+        mvaddstr(y    , x, "  ooo  ");
+        mvaddstr(y + 1, x, "  | |  ");
+        mvaddstr(y + 2, x, "  ===  ");
+    }
+    else if (piece & KING)
+    {
+        mvaddstr(y    , x, "  ^+^  ");
+        mvaddstr(y + 1, x, "  )|(  ");
+        mvaddstr(y + 2, x, "  ===  ");
+    }
+    else if (piece & QUEEN)
+    {
+        mvaddstr(y    , x, "  oOo  ");
+        mvaddstr(y + 1, x, "  )|(  ");
+        mvaddstr(y + 2, x, "  ===  ");
+    }
+    else
+    {
+        mvaddstr(y    , x, "       ");
+        mvaddstr(y + 1, x, "       ");
+        mvaddstr(y + 2, x, "       ");
+    }
+    attroff(A_BOLD);
+}
+
+void print_boardw(Board* board)
+{
+    // Initialize colors needed for the board
+    start_color();
+
+    init_color(BRIGHT_WHITE, 1000, 1000, 1000);
+    init_pair(LIGHT_SQUARE,      COLOR_YELLOW, COLOR_YELLOW);
+    init_pair(DARK_SQUARE ,      COLOR_GREEN, COLOR_GREEN);
+    init_pair(LIGHT_PIECE_LIGHT, BRIGHT_WHITE, COLOR_YELLOW);
+    init_pair(LIGHT_PIECE_DARK,  BRIGHT_WHITE, COLOR_GREEN );
+    init_pair(DARK_PIECE_LIGHT,  COLOR_BLACK, COLOR_YELLOW);
+    init_pair(DARK_PIECE_DARK,   COLOR_BLACK, COLOR_GREEN );
+    int x_pos = 0;
+    int y_pos = 0;
+
+    // Determine where the board should be placed on the screen
+    int width_needed = 7 * 8 + 12;
+    int start_xpos = 0;
+    int max_x = getmaxx(stdscr);
+    if ((max_x / 2) >= (width_needed / 2)) 
+        x_pos = start_xpos = (max_x / 2) - (width_needed / 2);
+
+    // Set screen to blank
+    clear();
+    
+    // Set up fancy border
+    mvaddstr(y_pos, x_pos, "   ╔════════════════════════════════════════════════════════╗");
+    y_pos++;
+    int i;
+    for (i = 0; i < 24; ++i)
+        mvaddstr(y_pos + i, x_pos, "   ║                                                        ║");
+    mvaddstr(y_pos + 24, x_pos, "   ╚════════════════════════════════════════════════════════╝");
+    x_pos += 4;
+    // Print pieces
+    int x_edge = x_pos;
+    for (i = 0; i < 64; ++i)
+    {
+        if ((i + (i / 8)) % 2 == 0)
+        {
+            if (board->position[i] == 0)
+                attrset(COLOR_PAIR(LIGHT_SQUARE));
+            else if (board->position[i] & BLACK)
+                attrset(COLOR_PAIR(DARK_PIECE_LIGHT));
+            else
+                attrset(COLOR_PAIR(LIGHT_PIECE_LIGHT));
+        }
+        else
+        {
+            if (board->position[i] == 0)
+                attrset(COLOR_PAIR(DARK_SQUARE));
+            else if (board->position[i] & BLACK)
+                attrset(COLOR_PAIR(DARK_PIECE_DARK));
+            else
+                attrset(COLOR_PAIR(LIGHT_PIECE_DARK));
+        }
+        if (i && (i % 8 == 0))
+        {
+            y_pos += 3;
+            x_pos = x_edge;
+        }
+        mvprint_piecew(y_pos, x_pos, board->position[i]);
+        x_pos += 7;
+    }
+    move(y_pos + 4, x_edge - 1);
+}
+
+void print_notesw(Board* board)
+{
+    // Count how many lines the notes have
+    char c;
+    int i = 0;
+    int linecount = 0;
+    while ((c = board->notes[i++]) != '\0')
+    {
+        if (c == '\n')
+            linecount++;
+    }
+
+    // Print notes and adjust starting y for notes
+    int x, y;
+    x = 0;
+    y = getcury(stdscr);
+    if ((getmaxy(stdscr) - y) <= linecount)
+        y -= linecount;
+    i = 0;
+    while ((c = board->notes[i++]) != '\0')
+    {
+        if (c == '\n')
+            move(++y, x = 0);
+        else
+            mvaddch(y, x++, c);
+    }
+
+    // Reset notes to empty
+    board->notes[0] = '\0';
 }
 
 /* Prints the ascii representation of the passed piece to the board. It will
