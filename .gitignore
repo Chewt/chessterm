@@ -9,3 +9,5 @@ tags
 stockfish
 *.txt
 .ccls*
+compile_commands.json
+.cache/

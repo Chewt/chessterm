@@ -1028,12 +1028,12 @@ int is_gameover(Board* board)
 {
     if (board->history_count >= MAX_HISTORY)
     {
-        printf("MAXIMUM HISTORY (%u) REACHED\n", MAX_HISTORY);
+        snprintf(board->notes, 245, "MAXIMUM HISTORY (%u) REACHED\n", MAX_HISTORY);
         return 0x20;
     }
     if (board->pos_count >= MAX_STORED_POSITIONS)
     {
-        printf("MAXIMUM POSITIONS (%u) REACHED\n", MAX_STORED_POSITIONS);
+        snprintf(board->notes, 256, "MAXIMUM POSITIONS (%u) REACHED\n", MAX_STORED_POSITIONS);
         return 0x40;
     }
     int game_over = is_checkmate(board, board->to_move);
@@ -1263,18 +1263,18 @@ int move_piece(Board* board, Move* move)
     /* Make move */
     if (move_to == -2)
     {
-        printf("Ambigous move, more than one piece can move there.\n");
-        printf("%d. ", board->moves);
+        int chars_printed = snprintf(board->notes, 256, "Ambigous move, more than one piece can move there.\n");
+        chars_printed += snprintf(board->notes + chars_printed, 256, "%d. ", board->moves);
         if (board->to_move)
-            printf("... ");
-        printf("0x%X from %c%d to %c%d\n", move->src_piece, 
+            chars_printed += snprintf(board->notes + chars_printed, 256, "... ");
+        snprintf(board->notes + chars_printed, 256, "0x%X from %c%d to %c%d\n", move->src_piece, 
                 move->src_file + 'a', 8 - move->src_rank,
                 move->dest % 8 + 'a', 8 - move->dest / 8);
         return -1;
     }
     else if (move_to == -1)
     {
-        printf("Move not valid.\n");
+        snprintf(board->notes, 256, "Move not valid.\n");
         return -1;
     }
     else
@@ -1285,7 +1285,7 @@ int move_piece(Board* board, Move* move)
             print_debug("CASTLING\n");
             int success = castle(board, move->castle);
             if (!success)
-                printf("Move not valid.\n");
+                snprintf(board->notes, 256, "Move not valid.\n");
             else
             {
                 if (move->castle == 0)

@@ -225,10 +225,19 @@ void print_boardw(Board* board)
     mvaddstr(y_pos, x_pos, "   ╔════════════════════════════════════════════════════════╗");
     y_pos++;
     int i;
+    int nums = 8;
     for (i = 0; i < 24; ++i)
-        mvaddstr(y_pos + i, x_pos, "   ║                                                        ║");
+    {
+        if (!((i + 2) % 3))
+        {
+            mvaddch(y_pos + i, x_pos, '0' + nums--);
+        }
+        mvaddstr(y_pos + i, x_pos + 1, "  ║                                                        ║");
+    }
     mvaddstr(y_pos + 24, x_pos, "   ╚════════════════════════════════════════════════════════╝");
+    mvaddstr(y_pos + 25, x_pos, "       a      b      c      d      e      f      g      h    ");
     x_pos += 4;
+
     // Print pieces
     int x_edge = x_pos;
     for (i = 0; i < 64; ++i)
@@ -259,7 +268,9 @@ void print_boardw(Board* board)
         mvprint_piecew(y_pos, x_pos, board->position[i]);
         x_pos += 7;
     }
-    move(y_pos + 4, x_edge - 1);
+    move(y_pos + 5, x_edge - 1);
+    attrset(COLOR_PAIR(LIGHT_SQUARE));
+    attroff(COLOR_PAIR(LIGHT_SQUARE));
 }
 
 void print_notesw(Board* board)

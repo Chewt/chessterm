@@ -274,6 +274,7 @@ int main(int argc, char** argv)
         else
             print_boardw(&board);
         print_notesw(&board);
+        refresh();
 
         /* If human move */
         if (( board.to_move && !black_engine.pid) || 
@@ -449,6 +450,7 @@ int main(int argc, char** argv)
                     "\nTo play again, use \e[38;5;40m: new\e[m \n");
         }
     }
+    endwin();
     printf("\n");
     if (white_engine.pid)
         stop_engine(&white_engine);
@@ -460,6 +462,7 @@ int main(int argc, char** argv)
         CloseServer(client);
     if (last_pgn)
         free(last_pgn);
+    print_fancy(&board);
 
     // Switch to regular buffer
     //printf("\e[?1049l");
