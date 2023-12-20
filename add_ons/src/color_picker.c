@@ -19,10 +19,10 @@ void print_example_board(Board* board, int LIGHT, int DARK)
         uint8_t square = board->position[i];
         if (i % 8 == 0)
             printf("\n\u2551");
-        /* Bullshit that colors them checkered-like 
+        /* Bullshit that colors them checkered-like
          * - Courtesy of Zach Gorman
          */
-        if (!(!(i & 1) ^ !(i & 8))) 
+        if (!(!(i & 1) ^ !(i & 8)))
             printf("\e[48;5;%dm", LIGHT);
         else
             printf("\e[48;5;%dm", DARK);
@@ -65,12 +65,13 @@ void print_example_board(Board* board, int LIGHT, int DARK)
 
 /*
   light_squares and dark_squares should be set to the current color values
-  between 16 and 255. 
+  between 16 and 255.
 */
 
 void pick_square_colors(int *light_squares, int *dark_squares, int smol){
 
   Board board;
+  board.notes = NULL;
   default_board(&board);
   int square = 0;
   while(1==1){
