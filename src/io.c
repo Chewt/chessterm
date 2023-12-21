@@ -5,8 +5,10 @@
 #include "board.h"
 #include "settings.h"
 
-#ifndef SETTINGS
+#ifndef LIGHT
 #define LIGHT 179
+#endif
+#ifndef DARK
 #define DARK  58
 #endif
 
@@ -20,7 +22,7 @@
  * - Position of the black king.
  * - Position of the white king.
  */
-void board_stats(Board *board) 
+void board_stats(Board *board)
 {
   int chars_printed = 0;
   if (board->to_move == 1) {
@@ -85,10 +87,10 @@ void print_board(Board* board)
         uint8_t square = board->position[i];
         if (i % 8 == 0)
             printf("\n%d \u2551", 8 - (i / 8));
-        /* Bullshit that colors them checkered-like 
+        /* Bullshit that colors them checkered-like
          * - Courtesy of Zach Gorman
          */
-        if (!(!(i & 1) ^ !(i & 8))) 
+        if (!(!(i & 1) ^ !(i & 8)))
             printf("\e[48;5;%dm", LIGHT);
         else
             printf("\e[48;5;%dm", DARK);
@@ -178,7 +180,7 @@ void print_piece(uint8_t piece)
                "       \e[2A");
 }
 
-/* Prints the board using ascii pieces and shows the current names of the 
+/* Prints the board using ascii pieces and shows the current names of the
  * players along with their material scores.
  */
 void print_fancy(Board* board)
@@ -200,7 +202,7 @@ void print_fancy(Board* board)
         for (j = 0; j < white_score[6 - i]; ++j)
             printf("%c", piece_chars[5 - i] - 32);
     printf("\n");
-    
+
     for (i = 0; i < 24; ++i)
     {
         if (i % 3 == 1)
@@ -232,14 +234,14 @@ void print_fancy(Board* board)
     Move prev_move;
     if (board->history_count > 0)
         prev_move = board->history[board->history_count - 1];
-    else 
+    else
         prev_move = board->history[board->history_count];
     int8_t prev_src = prev_move.src_rank * 8 + prev_move.src_file;
     int8_t prev_dest = prev_move.dest;
 
     for (i = 0; i < 64; ++i)
     {
-        /* Bullshit that colors them checkered-like 
+        /* Bullshit that colors them checkered-like
          * - Courtesy of Zach Gorman
          */
         uint8_t square = board->position[i];
@@ -252,7 +254,7 @@ void print_fancy(Board* board)
         }
         else
         {
-            if (!(!(i & 1) ^ !(i & 8))) 
+            if (!(!(i & 1) ^ !(i & 8)))
                 printf("\e[48;5;%dm", LIGHT);
             else
                 printf("\e[48;5;%dm", DARK);
@@ -321,14 +323,14 @@ void print_fancy_flipped(Board* board)
     Move prev_move;
     if (board->history_count > 0)
         prev_move = board->history[board->history_count - 1];
-    else 
+    else
         prev_move = board->history[board->history_count];
     int8_t prev_src = 63 - (prev_move.src_rank * 8 + prev_move.src_file);
     int8_t prev_dest = 63 - prev_move.dest;
 
     for (i = 0; i < 64; ++i)
     {
-        /* Bullshit that colors them checkered-like 
+        /* Bullshit that colors them checkered-like
          * - Courtesy of Zach Gorman
          */
         uint8_t square = board->position[63 - i];
@@ -338,8 +340,8 @@ void print_fancy_flipped(Board* board)
                 printf("\e[48;5;6m");
             if (i == prev_dest)
                 printf("\e[48;5;12m");
-        } 
-        else 
+        }
+        else
         {
             if (!(!(i & 1) ^ !(i & 8)))
                 printf("\e[48;5;%dm", LIGHT);
@@ -371,10 +373,10 @@ void print_flipped(Board* board)
         uint8_t square = board->position[i];
         if ((63 - i) % 8 == 0)
             printf("\n%d \u2551", ((63 - i) / 8) + 1);
-        /* Bullshit that colors them checkered-like 
+        /* Bullshit that colors them checkered-like
          * - Courtesy of Zach Gorman
          */
-        if (!(!(i & 1) ^ !(i & 8))) 
+        if (!(!(i & 1) ^ !(i & 8)))
             printf("\e[48;5;%dm", LIGHT);
         else
             printf("\e[48;5;%dm", DARK);
@@ -464,15 +466,15 @@ void load_fen(Board* board, char* fen)
         }
         else if (curr_char == 'P')
             board->position[square_ind++] = PAWN   | WHITE;
-        else if (curr_char == 'B')   
+        else if (curr_char == 'B')
             board->position[square_ind++] = BISHOP | WHITE;
-        else if (curr_char == 'N')   
+        else if (curr_char == 'N')
             board->position[square_ind++] = KNIGHT | WHITE;
-        else if (curr_char == 'R')   
+        else if (curr_char == 'R')
             board->position[square_ind++] = ROOK   | WHITE;
-        else if (curr_char == 'Q')   
+        else if (curr_char == 'Q')
             board->position[square_ind++] = QUEEN  | WHITE;
-        else if (curr_char == 'K')   
+        else if (curr_char == 'K')
         {
             board->wking_pos = square_ind;
             board->position[square_ind++] = KING   | WHITE;

@@ -5,11 +5,11 @@ SOURCES = $(wildcard $(SRCDIR)/*.c)
 OBJECTS = $(SOURCES:$(SRCDIR)%.c=$(OBJDIR)%.o)
 INCLUDES = $(SOURCES:$(SRCDIR)%.c=$(INCLUDEDIR)%.h)
 UNIDEPS = include/settings.h
-CFLAGS = -I$(INCLUDEDIR) 
+CFLAGS = -I$(INCLUDEDIR)
 CC = gcc
 TARGET = chessterm
 
-.PHONY: all 
+.PHONY: all
 all: $(TARGET)
 
 $(TARGET): $(OBJECTS)
@@ -25,11 +25,11 @@ $(UNIDEPS):
 	@touch $@
 
 .PHONY: color_picker
-color_picker: 
+color_picker: obj/board.o
 	$(MAKE) -C add_ons
 
 .PHONY: clean
-clean: 
+clean:
 	rm -rf $(OBJDIR) /*.o $(TARGET) color_picker include/settings.h
 	$(MAKE) clean -C add_ons
 
@@ -42,5 +42,5 @@ install: all
 	@sudo cp $(TARGET) /usr/bin/$(TARGET)
 
 .PHONY: uninstall
-uninstall: 
+uninstall:
 	@sudo rm -f /usr/bin/$(TARGET)
