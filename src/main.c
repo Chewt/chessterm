@@ -364,6 +364,10 @@ int main(int argc, char** argv)
                 bools ^= FLIPPED;
                 continue;
             }
+            else if (res == THEME) {
+                color_picker(&config);
+                continue;
+            }
             else if (res != MOVE)
             {
                 bools ^= res;

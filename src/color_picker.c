@@ -264,10 +264,6 @@ void pick_square_colors(Config* config, int smol){
       printf("\e[H\e[2B");
       int x = 0, y = 0;
       int result = move_cursor(&x, &y, 0, maxx, 0, maxy, 1, 1);
-      // if (y >= 0)
-      //     printf("\e[%dA", y+1);
-      // if (x > 0)
-      //     printf("\e[%dD", x);
       switch (result) {
           case SWITCH_MODE:
               color_mode = (color_mode == 16) ? 256 : 16;
@@ -282,17 +278,17 @@ void pick_square_colors(Config* config, int smol){
           case QUIT:
               return;
           case ACCEPT:
-              if (square){
-                  light_squares = (color_mode == 256) ? 16 + x + 36*y : 40 + x;
-              }else{
-                  dark_squares = (color_mode == 256) ? 16 + x + 36*y : 40 + x;
-              }
               if (x > (maxx - 11) && y == (maxy - 1)){
                   printf("\n");
                   config->color_mode = color_mode;
                   config->board_color_light = light_squares;
                   config->board_color_dark = dark_squares;
                   return;
+              }
+              if (square){
+                  light_squares = (color_mode == 256) ? 16 + x + 36*y : 40 + x;
+              }else{
+                  dark_squares = (color_mode == 256) ? 16 + x + 36*y : 40 + x;
               }
               square = !square;
               printf("\e[F");
