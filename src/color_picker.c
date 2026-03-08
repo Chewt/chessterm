@@ -214,7 +214,7 @@ void pick_square_colors(Config* config, int smol){
           printf("light");
       else
           printf("dark");
-      printf(" squares   \n");
+      printf(" squares. 'q' to cancel, SPACE to switch color modes\n");
 
       if (color_mode == 16) {
           maxx = 20;
