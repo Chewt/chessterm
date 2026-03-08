@@ -183,7 +183,7 @@ void print_piece(uint8_t piece)
 /* Prints the board using ascii pieces and shows the current names of the
  * players along with their material scores.
  */
-void print_fancy(Board* board)
+void print_fancy(Board* board, Config* config)
 {
     int i;
     printf("   \u2554");
@@ -255,9 +255,9 @@ void print_fancy(Board* board)
         else
         {
             if (!(!(i & 1) ^ !(i & 8)))
-                printf("\e[48;5;%dm", LIGHT);
+                printf("\e[48;5;%dm", config->board_color_light);
             else
-                printf("\e[48;5;%dm", DARK);
+                printf("\e[48;5;%dm", config->board_color_dark);
         }
 
         printf("\e[1m");
@@ -272,7 +272,7 @@ void print_fancy(Board* board)
 }
 
 /* Prints the fancy version of the board, but from black's perspective */
-void print_fancy_flipped(Board* board)
+void print_fancy_flipped(Board* board, Config* config)
 {
     int i;
 
@@ -344,9 +344,9 @@ void print_fancy_flipped(Board* board)
         else
         {
             if (!(!(i & 1) ^ !(i & 8)))
-                printf("\e[48;5;%dm", LIGHT);
+                printf("\e[48;5;%dm", config->board_color_light);
             else
-                printf("\e[48;5;%dm", DARK);
+                printf("\e[48;5;%dm", config->board_color_dark);
         }
 
         printf("\e[1m");

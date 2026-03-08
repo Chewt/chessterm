@@ -13,6 +13,7 @@
 #include "commands.h"
 #include "networking.h"
 #include "color_picker.h"
+#include "config.h"
 
 #ifdef DEBUG
 #define print_debug(...) fprintf(stderr,__VA_ARGS__)
@@ -20,10 +21,10 @@
 #define print_debug(...) ((void)0)
 #endif
 
-void play_build_in_engine(char* fen);
-void play_engine(Engine* engine);
-int engine_v_stockfish(Engine* engine, int silent, FILE* fp);
-int engine_v_engine(char* fen, int silent);
+void play_build_in_engine(char* fen, Config* config);
+void play_engine(Engine* engine, Config* config);
+int engine_v_stockfish(Engine* engine, int silent, FILE* fp, Config* config);
+int engine_v_engine(char* fen, int silent, Config* config);
 void thousand_games(Engine* white_engine, Engine* black_engine);
 void initialize_white(char* e_path, int depth, Board* board, Engine* engine);
 void initialize_black(char* e_path, int depth, Board* board, Engine* engine);
@@ -42,6 +43,7 @@ struct flags {
     int port;
     int swap;
     int color_picker;
+    char* config;
 };
 
 static int parse_opt (int key, char *arg, struct argp_state *state)
@@ -81,6 +83,9 @@ static int parse_opt (int key, char *arg, struct argp_state *state)
             break;
         case 503:
             flags->color_picker = 1;
+            break;
+        case 504:
+            flags->config = arg;
             break;
     }
     return 0;
@@ -155,6 +160,7 @@ int main(int argc, char** argv)
         { "swap", 502, 0, 0, "Swap colors for host and client.", 0},
         {0,0,0,0, "Configuration:", 3}, // Configuration Group
         { "color_picker", 503, 0, 0, "Open the color picker menu instead of chessterm.", 0},
+        { "config", 504, "PATH", 0, "Path to optional config file", 0},
         {0}};
     struct argp argp = { options, parse_opt };
     int r = argp_parse(&argp, argc, argv, 0, 0, &flags);
@@ -258,18 +264,29 @@ int main(int argc, char** argv)
         }
     }
 
+    Config config;
+    if (flags.config) {
+        printf("Reading config from file: %s\n", flags.config);
+        config = read_config_file(flags.config);
+    } else {
+        printf("Config flag empty! Loading default config.\n");
+        config = default_config();
+    }
+
+    printf("%d %d\n", config.board_color_light, config.board_color_dark);
+
     printf("\n");
     if (!(bools & STOP))
-        print_fancy(&board);
+        print_fancy(&board, &config);
 
     bools |= is_gameover(&board);
     while (!(bools & STOP))
     {
         printf("\e[2J\e[H");
         if (bools & FLIPPED)
-            print_fancy_flipped(&board);
+            print_fancy_flipped(&board, &config);
         else
-            print_fancy(&board);
+            print_fancy(&board, &config);
         printf("%s", board.notes);
         board.notes[0] = '\0';
 
@@ -519,7 +536,7 @@ void print_last_move(Board* board)
 /* Runs a game between my custom engine and itself. If silent is non-zero, there
  * will be no output regarding the game
  */
-int engine_v_engine(char* fen, int silent)
+int engine_v_engine(char* fen, int silent, Config* config)
 {
     int running = 1;
     Board board;
@@ -569,7 +586,7 @@ int engine_v_engine(char* fen, int silent)
         */
 
         if (game_win && !silent)
-            print_fancy(&board);
+            print_fancy(&board, config);
         if (game_win == 2)
         {
             if (!silent)
@@ -608,7 +625,7 @@ int engine_v_engine(char* fen, int silent)
 }
 
 /* Play a game against my custom engine */
-void play_build_in_engine(char* fen)
+void play_build_in_engine(char* fen, Config* config)
 {
     int running = 1;
     int flipped = 0;
@@ -619,7 +636,7 @@ void play_build_in_engine(char* fen)
         default_board(&board);
     memcpy(board.black_name, "My Engine\0", 10);
     printf("\n");
-    print_fancy(&board);
+    print_fancy(&board, config);
     while (running)
     {
         if (board.to_move)
@@ -665,21 +682,21 @@ void play_build_in_engine(char* fen)
             {
                 flipped = !flipped;
                 if (flipped)
-                    print_fancy_flipped(&board);
+                    print_fancy_flipped(&board, config);
                 else
-                    print_fancy(&board);
+                    print_fancy(&board, config);
                 continue;
             }
             move_san(&board, move);
 
         }
         if (flipped)
-            print_fancy_flipped(&board);
+            print_fancy_flipped(&board, config);
         else
-            print_fancy(&board);
+            print_fancy(&board, config);
         int game_win = is_gameover(&board);
         if (game_win)
-            print_fancy(&board);
+            print_fancy(&board, config);
         if (game_win == 2)
         {
             printf("Checkmate!\n");
@@ -703,7 +720,7 @@ void play_build_in_engine(char* fen)
  * though that is what I named this function. I will probably rename it at some
  * point.
  */
-int engine_v_stockfish(Engine* engine, int silent, FILE* fp)
+int engine_v_stockfish(Engine* engine, int silent, FILE* fp, Config* config)
 {
     int running = 1;
     Board board;
@@ -735,7 +752,7 @@ int engine_v_stockfish(Engine* engine, int silent, FILE* fp)
         */
 
         int valid = move_piece(&board, &engine_move);
-        print_fancy(&board);
+        print_fancy(&board, config);
         char fen[FEN_SIZE];
         export_fen(&board, fen);
         printf("%s\n", fen);
@@ -761,7 +778,7 @@ int engine_v_stockfish(Engine* engine, int silent, FILE* fp)
         */
 
         if (game_win && !silent)
-            print_fancy(&board);
+            print_fancy(&board, config);
         if (game_win == 2)
         {
             if (!silent)
@@ -810,7 +827,7 @@ int engine_v_stockfish(Engine* engine, int silent, FILE* fp)
 }
 
 /* Play a game against the loaded uci engine */
-void play_engine(Engine* engine)
+void play_engine(Engine* engine, Config* config)
 {
     int running = 1;
     int flipped = 0;
@@ -818,7 +835,7 @@ void play_engine(Engine* engine)
     default_board(&board);
     memcpy(board.black_name, engine->name, strlen(engine->name) + 1);
     printf("\n");
-    print_fancy(&board);
+    print_fancy(&board, config);
     while (running)
     {
         if (board.to_move)
@@ -859,21 +876,21 @@ void play_engine(Engine* engine)
             {
                 flipped = !flipped;
                 if (flipped)
-                    print_fancy_flipped(&board);
+                    print_fancy_flipped(&board, config);
                 else
-                    print_fancy(&board);
+                    print_fancy(&board, config);
                 continue;
             }
             move_san(&board, move);
 
         }
         if (flipped)
-            print_fancy_flipped(&board);
+            print_fancy_flipped(&board, config);
         else
-            print_fancy(&board);
+            print_fancy(&board, config);
         int game_win = is_gameover(&board);
         if (game_win)
-            print_fancy(&board);
+            print_fancy(&board, config);
         if (game_win == 2)
         {
             printf("Checkmate!\n");

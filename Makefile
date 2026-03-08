@@ -27,7 +27,6 @@ $(UNIDEPS):
 .PHONY: clean
 clean:
 	rm -rf $(OBJDIR) /*.o $(TARGET) color_picker include/settings.h
-	$(MAKE) clean -C add_ons
 
 .PHONY: debug
 debug: CFLAGS += -g -D DEBUG

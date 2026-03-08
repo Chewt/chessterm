@@ -12,3 +12,4 @@ stockfish
 .cache/
 compile_commands.json
 todo.md
+config
