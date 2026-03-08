@@ -48,3 +48,14 @@ Any chess engine that supports the Universal Chess Interface (UCI) protocol can
 be connected to chessterm with the `chessterm --white_engine="PATH/TO/ENGINE"`.
 You can replace `--white_engine` with `--black_engine` to make the engine play
 as black.
+
+# Color Picker
+The `--color_picker` flag will let you select the color of the dark and light squares on 
+the chess board. 
+Make sure your terminal has at least 25 lines vertically to display properly.
+If you find yourself with fewer than 25 lines, Ctrl-C or moving the cursor to
+the bottom right and pressing enter will quit without changing the colors. 
+This add-on modifies the settings.h so for changes to take effect you must 
+run   $ make clean   in your chessterm directory. 
+If you don't need the chessboard output, use   -s   flag or the   small   
+or   smol   option.

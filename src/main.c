@@ -6,12 +6,13 @@
 #include <sys/time.h>
 #include <argp.h>
 #include <poll.h>
-#include "chessterm.h"
+#include "uci.h"
+#include "io.h"
 #include "engine.h"
 #include "settings.h"
 #include "commands.h"
 #include "networking.h"
-
+#include "color_picker.h"
 
 #ifdef DEBUG
 #define print_debug(...) fprintf(stderr,__VA_ARGS__)
@@ -40,7 +41,9 @@ struct flags {
     char *host;
     int port;
     int swap;
+    int color_picker;
 };
+
 static int parse_opt (int key, char *arg, struct argp_state *state)
 {
     struct flags *flags = state->input;
@@ -72,8 +75,13 @@ static int parse_opt (int key, char *arg, struct argp_state *state)
             break;
         case 'p':
             flags->port = atoi(arg);
+            break;
         case 502:
             flags->swap = 1;
+            break;
+        case 503:
+            flags->color_picker = 1;
+            break;
     }
     return 0;
 }
@@ -121,23 +129,15 @@ int main(int argc, char** argv)
     char* last_pgn = NULL;
 
     /* Flags processing */
-    struct flags flags;
-    flags.fen = NULL;
-    flags.black_engine = NULL;
-    flags.white_engine = NULL;
+    struct flags flags = {0};
     flags.white_depth = 5;
     flags.black_depth = 5;
-    flags.random = 0;
-    flags.is_server = 0;
-    flags.host = NULL;
-    flags.port = 5000;
-    flags.swap = 0;
 
 
     struct argp_option options[] = {
         {"fen", 'f', "STRING", 0, 
             "Supply a FEN to determine the starting position of the game."},
-        {0, 0, 0, 0, "Engines:", 1},
+        {0, 0, 0, 0, "Engines:", 1}, // Engine Group
         {"white_engine", 'w', "PATH", 0, 
             "The path of the engine that will play as white."},
         {"black_engine", 'b', "PATH", 0, 
@@ -148,14 +148,21 @@ int main(int argc, char** argv)
             "The depth that the white engine should look."},
         {"random", 'r', 0, 0, 
             "Randomly assign engine(s) to black or white."},
-        {0,0,0,0, "Networking:", 7},
+        {0,0,0,0, "Networking:", 2}, // Networking Group
         { "host", 'h', 0, 0, "Allow connections from another player", 0},
-        { "connect", 'c', "IP", 0, "Connect to a host", 0},
-        { "port", 'p', "PORT", 0, "Port for connecting to host", 0},
-        { "swap", 502, 0, 0, "Swap colors for host and client", 0},
+        { "connect", 'c', "IP", 0, "Connect to a host.", 0},
+        { "port", 'p', "PORT", 0, "Port for connecting to host.", 0},
+        { "swap", 502, 0, 0, "Swap colors for host and client.", 0},
+        {0,0,0,0, "Configuration:", 3}, // Configuration Group
+        { "color_picker", 503, 0, 0, "Open the color picker menu instead of chessterm.", 0},
         {0}};
     struct argp argp = { options, parse_opt };
     int r = argp_parse(&argp, argc, argv, 0, 0, &flags);
+    if (flags.color_picker)
+    {
+        printf("Color picker\n");
+        return color_picker(argc, argv);
+    }
     if (flags.fen)
         load_fen(&board, flags.fen);
     if (flags.random)
