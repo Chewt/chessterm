@@ -239,6 +239,25 @@ void print_fancy(Board* board, Config* config)
     int8_t prev_src = prev_move.src_rank * 8 + prev_move.src_file;
     int8_t prev_dest = prev_move.dest;
 
+    // Set up colors
+    const char* FOREGROUND_256 = "38;5;";
+    const char* BACKGROUND_256 = "48;5;";
+    const char* FOREGROUND_16  = "";
+    const char* BACKGROUND_16  = "";
+
+    const char* colormode_foreground;
+    if (config->color_mode == 16) {
+        colormode_foreground = FOREGROUND_16;
+    } else {
+        colormode_foreground = FOREGROUND_256;
+    }
+    const char* colormode_background;
+    if (config->color_mode == 16) {
+        colormode_background = BACKGROUND_16;
+    } else {
+        colormode_background = BACKGROUND_256;
+    }
+
     for (i = 0; i < 64; ++i)
     {
         /* Bullshit that colors them checkered-like
@@ -255,9 +274,9 @@ void print_fancy(Board* board, Config* config)
         else
         {
             if (!(!(i & 1) ^ !(i & 8)))
-                printf("\e[48;5;%dm", config->board_color_light);
+                printf("\e[%s%dm", colormode_background, config->board_color_light);
             else
-                printf("\e[48;5;%dm", config->board_color_dark);
+                printf("\e[%s%dm", colormode_background, config->board_color_dark);
         }
 
         printf("\e[1m");
@@ -328,6 +347,25 @@ void print_fancy_flipped(Board* board, Config* config)
     int8_t prev_src = 63 - (prev_move.src_rank * 8 + prev_move.src_file);
     int8_t prev_dest = 63 - prev_move.dest;
 
+    // Set up colors
+    const char* FOREGROUND_256 = "38;5;";
+    const char* BACKGROUND_256 = "48;5;";
+    const char* FOREGROUND_16  = "";
+    const char* BACKGROUND_16  = "";
+
+    const char* colormode_foreground;
+    if (config->color_mode == 16) {
+        colormode_foreground = FOREGROUND_16;
+    } else {
+        colormode_foreground = FOREGROUND_256;
+    }
+    const char* colormode_background;
+    if (config->color_mode == 16) {
+        colormode_background = BACKGROUND_16;
+    } else {
+        colormode_background = BACKGROUND_256;
+    }
+
     for (i = 0; i < 64; ++i)
     {
         /* Bullshit that colors them checkered-like
@@ -344,9 +382,9 @@ void print_fancy_flipped(Board* board, Config* config)
         else
         {
             if (!(!(i & 1) ^ !(i & 8)))
-                printf("\e[48;5;%dm", config->board_color_light);
+                printf("\e[%s%dm", colormode_background, config->board_color_light);
             else
-                printf("\e[48;5;%dm", config->board_color_dark);
+                printf("\e[%s%dm", colormode_background, config->board_color_dark);
         }
 
         printf("\e[1m");

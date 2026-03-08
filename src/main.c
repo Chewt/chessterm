@@ -164,10 +164,15 @@ int main(int argc, char** argv)
         {0}};
     struct argp argp = { options, parse_opt };
     int r = argp_parse(&argp, argc, argv, 0, 0, &flags);
+    Config config;
+    if (flags.config) {
+        config = read_config_file(flags.config);
+    } else {
+        config = default_config();
+    }
     if (flags.color_picker)
     {
-        printf("Color picker\n");
-        return color_picker(argc, argv);
+        return color_picker(&config);
     }
     if (flags.fen)
         load_fen(&board, flags.fen);
@@ -262,15 +267,6 @@ int main(int argc, char** argv)
                 setup_finished = 1;
             free(resp);
         }
-    }
-
-    Config config;
-    if (flags.config) {
-        printf("Reading config from file: %s\n", flags.config);
-        config = read_config_file(flags.config);
-    } else {
-        printf("Config flag empty! Loading default config.\n");
-        config = default_config();
     }
 
     printf("%d %d\n", config.board_color_light, config.board_color_dark);
