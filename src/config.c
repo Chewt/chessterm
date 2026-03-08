@@ -53,9 +53,33 @@ Config default_config() {
     return config;
 }
 
+char* locate_config() {
+    char* homedir = getenv("HOME");
+    if (homedir == NULL)
+        return NULL;
+    // Try to access config file
+    char* config_path = malloc(256);
+    snprintf(config_path, 256, "%s/.config/chessterm/config", homedir);
+    FILE* f = fopen(config_path, "r");
+    if (f == NULL) {
+        free(config_path);
+        return NULL;
+    }
+    fclose(f);
+    return config_path;
+}
+
 Config read_config_file(char* config_path) {
+    // Try to locate config path if one is not passed
+    int config_path_needs_freed = 0;
+    if (config_path == NULL) {
+        config_path_needs_freed = 1;
+        config_path = locate_config();
+    }
+
     // Get contents of config file
     FILE* f = fopen(config_path, "r");
+    if (config_path != NULL && config_path_needs_freed) free(config_path);
     if (f == NULL) {
         return default_config();
     }
@@ -95,6 +119,7 @@ Config read_config_file(char* config_path) {
             config.piece_art = ASCII;
         else if (!strncmp(art_style, PIECE_ART_UNICODE, strlen(PIECE_ART_UNICODE)))
             config.piece_art = UNICODE;
+        free(art_style);
     }
 
     free(file_content);

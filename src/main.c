@@ -164,12 +164,7 @@ int main(int argc, char** argv)
         {0}};
     struct argp argp = { options, parse_opt };
     int r = argp_parse(&argp, argc, argv, 0, 0, &flags);
-    Config config;
-    if (flags.config) {
-        config = read_config_file(flags.config);
-    } else {
-        config = default_config();
-    }
+    Config config = read_config_file(flags.config);
     if (flags.color_picker)
     {
         return color_picker(&config);

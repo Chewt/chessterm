@@ -52,3 +52,5 @@ as black.
 # Color Picker
 The `--color_picker` flag will let you select the color of the dark and light squares on 
 the chess board, and provide you with the lines you can add to your config file to theme your game. Additionally the color picker can be accessed while playing with the `theme` command. The theme will not persist after the program closes.
+
+You may pass your config with `--config path/to/config` or create a file named `config` in the directory `$HOME/.config/chessterm`.
