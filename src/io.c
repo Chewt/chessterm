@@ -133,46 +133,101 @@ void print_board(Board* board)
     printf("\n");
 }
 
+const char piece_art[NUM_ART_STYLES][NUM_PIECES][128] = {
+    { // ASCII
+        { // PAWN
+            "   O   \e[B\e[7D"
+            "  ( )  \e[B\e[7D"
+            "  ===  \e[2A"     
+        },
+        { // BISHOP
+            "  (/)  \e[B\e[7D"
+            "  / \\  \e[B\e[7D"
+            "  ===  \e[2A"     
+        },
+        { // KNIGHT
+            "  <*^  \e[B\e[7D"
+            "  / |  \e[B\e[7D"
+            "  ===  \e[2A"
+        },
+        { // ROOK
+            "  ooo  \e[B\e[7D"
+            "  | |  \e[B\e[7D"
+            "  ===  \e[2A"     
+        },
+        { // KING
+            "  ^+^  \e[B\e[7D"
+            "  )|(  \e[B\e[7D"
+            "  ===  \e[2A"    
+        },
+        { // QUEEN
+            "  oOo  \e[B\e[7D"
+            "  )|(  \e[B\e[7D"
+            "  ===  \e[2A"     
+        }
+    },
+    { // UNICODE
+        { // PAWN
+            "  🬵🬹🬱  \e[B\e[7D"
+            "  🬬█🬝  \e[B\e[7D"
+            " 🬞🬻█🬺🬏 \e[2A"     
+        },
+        { // BISHOP
+            "  🬵█🬱  \e[B\e[7D"
+            "  🬩█🬝  \e[B\e[7D"
+            " 🬞🬻█🬺🬏 \e[2A"
+        },
+        { // KNIGHT
+            " 🬦███🬓 \e[B\e[7D"
+            " 🬉🬆🬷█🬄 \e[B\e[7D"
+            " 🬦███🬓 \e[2A"
+        },
+        { // ROOK
+            " 🬦🬱🬹🬵🬓 \e[B\e[7D"
+            "  ███  \e[B\e[7D"
+            " 🬞███🬏 \e[2A"     
+        },
+        { // KING
+            "  🬺█🬻  \e[B\e[7D"
+            "  🬨█🬕  \e[B\e[7D"
+            " 🬞🬻█🬺🬏 \e[2A"    
+        },
+        { // QUEEN
+            "  🬫█🬛  \e[B\e[7D"
+            "  🬨█🬕  \e[B\e[7D"
+            " 🬞🬻█🬺🬏 \e[2A"     
+        }
+    }
+};
+
 /* Prints the ascii representation of the passed piece to the board. It will
  * take up 5 collumns and 3 rows
  */
-void print_piece(uint8_t piece)
+void print_piece(uint8_t piece, Config* config)
 {
     if (piece & PAWN)
     {
-        printf("   O   \e[B\e[7D"
-               "  ( )  \e[B\e[7D"
-               "  ===  \e[2A");
+        printf("%s", piece_art[config->piece_art][CHESS_PAWN]);
     }
     else if (piece & BISHOP)
     {
-        printf("  (/)  \e[B\e[7D"
-               "  / \\  \e[B\e[7D"
-               "  ===  \e[2A");
+        printf("%s", piece_art[config->piece_art][CHESS_BISHOP]);
     }
     else if (piece & KNIGHT)
     {
-        printf("  <*^  \e[B\e[7D"
-               "  / |  \e[B\e[7D"
-               "  ===  \e[2A");
+        printf("%s", piece_art[config->piece_art][CHESS_KNIGHT]);
     }
     else if (piece & ROOK)
     {
-        printf("  ooo  \e[B\e[7D"
-               "  | |  \e[B\e[7D"
-               "  ===  \e[2A");
+        printf("%s", piece_art[config->piece_art][CHESS_ROOK]);
     }
     else if (piece & KING)
     {
-        printf("  ^+^  \e[B\e[7D"
-               "  )|(  \e[B\e[7D"
-               "  ===  \e[2A");
+        printf("%s", piece_art[config->piece_art][CHESS_KING]);
     }
     else if (piece & QUEEN)
     {
-        printf("  oOo  \e[B\e[7D"
-               "  )|(  \e[B\e[7D"
-               "  ===  \e[2A");
+        printf("%s", piece_art[config->piece_art][CHESS_QUEEN]);
     }
     else
         printf("       \e[B\e[7D"
@@ -281,7 +336,7 @@ void print_fancy(Board* board, Config* config)
 
         printf("\e[1m");
         (square & BLACK) ? printf("\e[38;5;232m") : printf("\e[37m");
-        print_piece(square);
+        print_piece(square, config);
         printf("\e[0m");
 
         if (i % 8 == 7)
@@ -389,7 +444,7 @@ void print_fancy_flipped(Board* board, Config* config)
 
         printf("\e[1m");
         (square & BLACK) ? printf("\e[38;5;232m") : printf("\e[37m");
-        print_piece(square);
+        print_piece(square, config);
         printf("\e[0m");
 
         if (i % 8 == 7)

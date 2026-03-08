@@ -16,4 +16,20 @@ void export_fen(Board* board, char* fen);
 char* export_pgn(Board* board);
 char* export_moves(Board* board);
 
+enum art_styles {
+    ASCII,
+    UNICODE,
+    NUM_ART_STYLES
+};
+
+enum chess_pieces {
+    CHESS_PAWN,
+    CHESS_BISHOP,
+    CHESS_KNIGHT,
+    CHESS_ROOK,
+    CHESS_KING,
+    CHESS_QUEEN,
+    NUM_PIECES
+};
+
 #endif

@@ -11,11 +11,16 @@
 #define CONFIG_STR_LIGHT_COLOR "board_color_light="
 #define CONFIG_STR_DARK_COLOR "board_color_dark="
 #define CONFIG_STR_COLOR_MODE "color_mode="
+#define CONFIG_STR_PIECE_ART "piece_art="
+
+#define PIECE_ART_ASCII "ascii"
+#define PIECE_ART_UNICODE "unicode"
 
 typedef struct {
     int color_mode;
     int board_color_light;
     int board_color_dark;
+    int piece_art;
 } Config;
 
 Config read_config_file(char* config_path);
