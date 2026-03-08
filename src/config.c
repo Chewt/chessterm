@@ -29,6 +29,11 @@ char* get_str_option(char* option, char* file_content) {
     char* content_copy = malloc(strlen(file_content) + 1);
     strcpy(content_copy, file_content);
     char* save_ptr_lines = NULL;
+    // TODO: This will not find lines that do not end in newlines, for example
+    // if a config has only one line in it and does not end in a newline.
+    // Technically POSIX standard specifies that text files must always end in
+    // newline characters, but ideally I should account for the case where there
+    // isn't one anyway.
     char* line = strtok_r(content_copy, "\n", &save_ptr_lines);
     while (line != NULL) {
         if (!strncmp(option, line, strlen(option))) {
