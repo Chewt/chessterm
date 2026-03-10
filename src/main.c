@@ -148,9 +148,9 @@ int main(int argc, char** argv)
         {"black_engine", 'b', "PATH", 0, 
             "The path of the engine that will play as black."},
         {"white_depth", 500, "DEPTH", 0, 
-            "The depth that the white engine should look."},
+            "The depth that the white engine should look. Must be a positive, non-zero integer."},
         {"black_depth", 501, "DEPTH", 0, 
-            "The depth that the white engine should look."},
+            "The depth that the white engine should look. Must be a positive, non-zero integer."},
         {"random", 'r', 0, 0, 
             "Randomly assign engine(s) to black or white."},
         {0,0,0,0, "Networking:", 2}, // Networking Group
@@ -171,6 +171,12 @@ int main(int argc, char** argv)
     }
     if (flags.fen)
         load_fen(&board, flags.fen);
+
+    // Depth validation
+    if ((flags.white_depth <= 0) || (flags.black_depth <= 0)) {
+        fprintf(stderr, "engine depth must be a positive, non-zero integer\n");
+        return 1;
+    }
     if (flags.random)
     {
         int temp = rand() % 2;
