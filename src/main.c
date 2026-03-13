@@ -356,6 +356,7 @@ int main(int argc, char** argv)
                     memcpy(board.black_name, black_engine.name, 
                            strlen(black_engine.name) + 1);
                 }
+                bools &= ~(CHECKMATE | FIFTY | STALEMATE | THREEFOLD | MAXHIST | MAXPOS);
             }
             else if (res == SWAP)
             {
