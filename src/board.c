@@ -1398,13 +1398,15 @@ int move_piece(Board* board, Move* move)
     return 0;
 }
 
-void UndoMove(Board* board)
+void UndoMove(Board* board, int n)
 {
-    if (n_history > 0)
-    {
-        n_history--;
-        memcpy(board, history + n_history, sizeof(Board));
+    if (n == 0 || n_history == 0) return;
+
+    n_history -= n;
+    if (n_history < 0) {
+        n_history = 0;
     }
+    memcpy(board, history + n_history, sizeof(Board));
 }
 
 /* Interprets Standard Algebraic Notation and makes a move */

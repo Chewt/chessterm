@@ -51,9 +51,12 @@ int ExitCommand(Board* board, int n_tokens, char tokens[][256])
 
 int UndoCommand(Board* board, int n_tokens, char tokens[][256])
 {
-    if (n_tokens != 1 || strcmp(tokens[0], "undo"))
+    if (n_tokens > 2 || strcmp(tokens[0], "undo"))
         return -1;
-    UndoMove(board);
+    int n_undos = 1;
+    if (n_tokens == 2)
+        n_undos = strtol(tokens[1], NULL, 10);
+    UndoMove(board, n_undos);
     return 0;
 }
 

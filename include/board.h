@@ -101,7 +101,7 @@ int is_checkmate(Board* board, int which_color);
 int check_stalemate(Board* board, int which_color);
 int get_value(Board* board, int square);
 void get_material_scores(Board* board, int* white, int* black);
-void UndoMove(Board* board);
+void UndoMove(Board* board, int n);
 
 void stress_test(Board* board, int times);
 
