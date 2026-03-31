@@ -89,7 +89,7 @@ Config read_config_file(char* config_path) {
         return default_config();
     }
     fseek(f, 0, SEEK_END);
-    size_t file_size = ftell(f);
+    int file_size = ftell(f);
     if (file_size == -1) {
         return default_config();
     }

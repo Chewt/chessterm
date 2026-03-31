@@ -69,7 +69,7 @@ void start_engine(Engine* engine, char* engine_exc)
         close(CLIENT_READ);
         close(CLIENT_WRITE);
 
-        char** args = calloc(sizeof(char*), 100);
+        char** args = calloc(100, sizeof(char*));
 
         int i = 0;
         char* save_ptr;

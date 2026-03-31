@@ -295,7 +295,6 @@ Move Esafe(Board* board, int protecc)
     pieces |= (board->to_move) ? BLACK : WHITE;
     move.promotion |= (board->to_move) ? BLACK : WHITE;
     uint8_t color = pieces & 0x80;
-    int start_square = rand() % 64;
     int hanging = -1;
     if (protecc)
     {
@@ -369,7 +368,6 @@ Move Esafeaggro(Board* board, int protecc)
     pieces |= (board->to_move) ? BLACK : WHITE;
     move.promotion |= (board->to_move) ? BLACK : WHITE;
     uint8_t color = pieces & 0x80;
-    int start_square = rand() % 64;
     int hanging = -1;
     if (protecc)
     {
@@ -455,7 +453,6 @@ Move Enohang(Board* board, int protecc)
                     hanging = i;
         }
     }
-    int start_square = rand() % 64;
     for (i = 0; i < 128; ++i)
     {
         int curr_square = (rand() % 64 + i) % 64;
@@ -584,7 +581,6 @@ Move Emateinone(Board* board)
     Move move = default_move;
     int i;
     uint8_t pieces = ALL_PIECES;
-    uint8_t opp_color = (board->to_move) ? WHITE : BLACK;
     pieces |= (board->to_move) ? BLACK : WHITE;
     move.promotion |= (board->to_move) ? BLACK : WHITE;
     for (i = 0; i < 64; ++i)
@@ -594,7 +590,6 @@ Move Emateinone(Board* board)
         int j;
         for (j = 0; j < found_moves.num_found; ++j)
         {
-            int m = found_moves.squares[j];
             if (gives_checkmate(board, i, found_moves.squares[j]))
             {
                 move.dest = i;

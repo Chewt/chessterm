@@ -9,7 +9,6 @@
 #include "uci.h"
 #include "io.h"
 #include "engine.h"
-#include "settings.h"
 #include "commands.h"
 #include "networking.h"
 #include "color_picker.h"
@@ -157,7 +156,7 @@ int main(int argc, char** argv)
         { "config", 504, "PATH", 0, "Path to optional config file", 0},
         {0}};
     struct argp argp = { options, parse_opt };
-    int r = argp_parse(&argp, argc, argv, 0, 0, &flags);
+    argp_parse(&argp, argc, argv, 0, 0, &flags);
     Config config = read_config_file(flags.config);
     if (flags.color_picker)
     {

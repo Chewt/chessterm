@@ -3,7 +3,6 @@
 #include <string.h>
 #include "io.h"
 #include "board.h"
-#include "settings.h"
 
 #ifndef LIGHT
 #define LIGHT 179
@@ -295,17 +294,9 @@ void print_fancy(Board* board, Config* config)
     int8_t prev_dest = prev_move.dest;
 
     // Set up colors
-    const char* FOREGROUND_256 = "38;5;";
     const char* BACKGROUND_256 = "48;5;";
-    const char* FOREGROUND_16  = "";
     const char* BACKGROUND_16  = "";
 
-    const char* colormode_foreground;
-    if (config->color_mode == 16) {
-        colormode_foreground = FOREGROUND_16;
-    } else {
-        colormode_foreground = FOREGROUND_256;
-    }
     const char* colormode_background;
     if (config->color_mode == 16) {
         colormode_background = BACKGROUND_16;
@@ -403,17 +394,9 @@ void print_fancy_flipped(Board* board, Config* config)
     int8_t prev_dest = 63 - prev_move.dest;
 
     // Set up colors
-    const char* FOREGROUND_256 = "38;5;";
     const char* BACKGROUND_256 = "48;5;";
-    const char* FOREGROUND_16  = "";
     const char* BACKGROUND_16  = "";
 
-    const char* colormode_foreground;
-    if (config->color_mode == 16) {
-        colormode_foreground = FOREGROUND_16;
-    } else {
-        colormode_foreground = FOREGROUND_256;
-    }
     const char* colormode_background;
     if (config->color_mode == 16) {
         colormode_background = BACKGROUND_16;
