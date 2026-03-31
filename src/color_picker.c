@@ -1,6 +1,8 @@
 #include <stdio.h>
+#include <string.h>
 #include "cursor_move.h"
 #include "board.h"
+#include "io.h"
 #include "config.h"
 
 /*
@@ -201,9 +203,8 @@ void pick_square_colors(Config* config, int smol){
   default_board(&board);
   int square = 0;
 
-  int light_squares = config->board_color_light;
-  int dark_squares = config->board_color_dark;
-  int color_mode = config->color_mode;
+  Config temp_config;
+  memcpy(&temp_config, config, sizeof(*config));
 
   int maxx, maxy;
 
@@ -216,15 +217,15 @@ void pick_square_colors(Config* config, int smol){
           printf("dark");
       printf(" squares. 'q' to cancel, SPACE to switch color modes\n");
 
-      if (color_mode == 16) {
+      if (temp_config.color_mode == 16) {
           maxx = 20;
           maxy = 1;
           // Print 16 color pallet
           for (int colo = 40; colo < 48; colo++){
               printf("\e[%dm", colo);
-              if (colo == light_squares)
+              if (colo == temp_config.board_color_light)
                   printf("\e[30mL\e[0m");
-              else if (colo == dark_squares)
+              else if (colo == temp_config.board_color_dark)
                   printf("\e[37mD\e[0m");
               else
                   printf(" ");
@@ -237,9 +238,9 @@ void pick_square_colors(Config* config, int smol){
           for (int bright = 0; bright < 6; bright++){
               for (int colo = 0; colo < 36; colo++){
                   printf("\e[48;5;%dm", 16 + colo + 36*bright);
-                  if (16 + colo + 36*bright == light_squares)
+                  if (16 + colo + 36*bright == temp_config.board_color_light)
                       printf("\e[30mL\e[0m");
-                  else if (16 + colo + 36*bright == dark_squares)
+                  else if (16 + colo + 36*bright == temp_config.board_color_dark)
                       printf("\e[37mD\e[0m");
                   else
                       printf(" ");
@@ -249,9 +250,9 @@ void pick_square_colors(Config* config, int smol){
           }
           for (int grey = 232; grey < 256; grey++){
               printf("\e[48;5;%dm", grey);
-              if (grey == light_squares)
+              if (grey == temp_config.board_color_light)
                   printf("\e[30mL\e[0m");
-              else if (grey == dark_squares)
+              else if (grey == temp_config.board_color_dark)
                   printf("\e[37mD\e[0m");
               else
                   printf(" ");
@@ -259,20 +260,19 @@ void pick_square_colors(Config* config, int smol){
       }
       printf("\e[0m  --Quit--\n");
       if (!smol)
-          print_example_board(&board, light_squares, dark_squares, color_mode);
-      // printf("\e[%dA", 7 + 17*!smol);
+          print_fancy(&board, &temp_config);
       printf("\e[H\e[2B");
       int x = 0, y = 0;
       int result = move_cursor(&x, &y, 0, maxx, 0, maxy, 1, 1);
       switch (result) {
           case SWITCH_MODE:
-              color_mode = (color_mode == 16) ? 256 : 16;
-              if (color_mode == 16) {
-                  light_squares = DEFAULT_LIGHT_COLOR_16;
-                  dark_squares = DEFAULT_DARK_COLOR_16;
+              temp_config.color_mode = (temp_config.color_mode == 16) ? 256 : 16;
+              if (temp_config.color_mode == 16) {
+                  temp_config.board_color_light = DEFAULT_LIGHT_COLOR_16;
+                  temp_config.board_color_dark = DEFAULT_DARK_COLOR_16;
               } else {
-                  light_squares = DEFAULT_LIGHT_COLOR_256;
-                  dark_squares = DEFAULT_DARK_COLOR_256;
+                  temp_config.board_color_light = DEFAULT_LIGHT_COLOR_256;
+                  temp_config.board_color_dark = DEFAULT_DARK_COLOR_256;
               }
               break;
           case QUIT:
@@ -280,15 +280,13 @@ void pick_square_colors(Config* config, int smol){
           case ACCEPT:
               if (x > (maxx - 11) && y == (maxy - 1)){
                   printf("\n");
-                  config->color_mode = color_mode;
-                  config->board_color_light = light_squares;
-                  config->board_color_dark = dark_squares;
+                  memcpy(config, &temp_config, sizeof(*config));
                   return;
               }
               if (square){
-                  light_squares = (color_mode == 256) ? 16 + x + 36*y : 40 + x;
+                  temp_config.board_color_light = (temp_config.color_mode == 256) ? 16 + x + 36*y : 40 + x;
               }else{
-                  dark_squares = (color_mode == 256) ? 16 + x + 36*y : 40 + x;
+                  temp_config.board_color_dark = (temp_config.color_mode == 256) ? 16 + x + 36*y : 40 + x;
               }
               square = !square;
               printf("\e[F");
