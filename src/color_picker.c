@@ -165,11 +165,7 @@ int pick_piece_style() {
     // Clear screen
     printf("\e[2J\e[H");
     printf("Select a piece style by pressing the corresponding number\n");
-    // ASCII,
-    // UNICODE,
-    // NUM_ART_STYLES
     for (int i = 0; i < NUM_ART_STYLES; ++i) {
-        // void print_piece(uint8_t piece, int style)
         printf("\e[1B%d\e[1A", i + 1);
         print_piece(PAWN  , i);
         print_piece(BISHOP, i);
