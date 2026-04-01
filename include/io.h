@@ -9,6 +9,7 @@
 void board_stats(Board* board);
 void print_board(Board* board);
 void print_fancy(Board* board, Config* config);
+void print_piece(uint8_t piece, int style);
 void print_flipped(Board* board);
 void print_fancy_flipped(Board* board, Config* config);
 void load_fen(Board* board, char* fen);

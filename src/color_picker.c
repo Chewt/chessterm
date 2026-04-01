@@ -1,82 +1,42 @@
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include "cursor_move.h"
 #include "board.h"
 #include "io.h"
 #include "config.h"
 
-/*
- * Print modified from board.c to take color arguments that are normally
- * defined as preprocessor constants rather than variables.
- */
-
-void print_example_board(Board* board, int LIGHT, int DARK, int color_mode)
-{
-    int i;
-    printf("\u2554");
-    for (i = 1; i < 32; ++i)
-        printf("\u2550");
-    printf("\u2557");
-    for (i = 0; i < 64; ++i)
-    {
-        uint8_t square = board->position[i];
-        if (i % 8 == 0)
-            printf("\n\u2551");
-        /* Bullshit that colors them checkered-like
-         * - Courtesy of Zach Gorman
-         */
-        if (!(!(i & 1) ^ !(i & 8)))
-            printf("\e[%s%dm", (color_mode == 256) ? "48;5;" : "", LIGHT);
-        else
-            printf("\e[%s%dm", (color_mode == 256) ? "48;5;" : "", DARK);
-        printf(" ");
-        if (square & PAWN)
-            (square & BLACK) ? printf("\e[30mp") : printf("\e[37mP");
-        else if (square & BISHOP)
-            (square & BLACK) ? printf("\e[30mb") : printf("\e[37mB");
-        else if (square & KNIGHT)
-            (square & BLACK) ? printf("\e[30mn") : printf("\e[37mN");
-        else if (square & ROOK)
-            (square & BLACK) ? printf("\e[30mr") : printf("\e[37mR");
-        else if (square & QUEEN)
-            (square & BLACK) ? printf("\e[30mq") : printf("\e[37mQ");
-        else if (square & KING)
-            (square & BLACK) ? printf("\e[30mk") : printf("\e[37mK");
-        else
-            printf(" ");
-        printf(" \e[0m");
-
-        if (i % 8 == 7)
-            printf("\u2551");
-        else
-            printf("\u2502");
-        if (i % 8 == 7 && i / 8 != 7)
-        {
-            printf("\n\u2551\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u253c"
-                   "\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u253c\u2500"
-                   "\u2500\u2500\u253c\u2500\u2500\u2500\u253c\u2500\u2500"
-                   "\u2500\u253c\u2500\u2500\u2500\u2551");
-        }
-    }
-    printf("\n");
-    printf("\u255a");
-    for (i = 1; i < 32; ++i)
-        printf("\u2550");
-    printf("\u255d");
-    printf("\n");
-}
-
 void write_colors(Config* config){
-    printf("\e[17EAdd the following lines to your config file:\n");
+    // Clear screen
+    Board board;
+    board.notes = NULL;
+    default_board(&board);
+    printf("\e[2J\e[H");
+    print_fancy(&board, config);
+    printf("Add the following lines to your config file:\n");
     printf("%s%d\n", CONFIG_STR_COLOR_MODE, config->color_mode);
     printf("%s%d\n", CONFIG_STR_LIGHT_COLOR, config->board_color_light);
     printf("%s%d\n", CONFIG_STR_DARK_COLOR, config->board_color_dark);
+    // PIECE_ART_ASCII "ascii"
+    // PIECE_ART_UNICODE "unicode"
+    const char* art_config_str;
+    switch (config->piece_art) {
+        case UNICODE:
+            art_config_str = PIECE_ART_UNICODE;
+            break;
+        case ASCII:
+        default:
+            art_config_str = PIECE_ART_ASCII;
+            break;
+    }
+    printf("%s%s\n", CONFIG_STR_PIECE_ART, art_config_str);
 }
 
 enum SelectionResult {
     ACCEPT,
     QUIT,
-    SWITCH_MODE
+    SWITCH_COLOR_MODE,
+    PIECE_SELECT
 };
 
 int move_cursor(int *x, int *y, int xmin, int xmax, int ymin, int ymax, 
@@ -91,7 +51,12 @@ int move_cursor(int *x, int *y, int xmin, int xmax, int ymin, int ymax,
   tcsetattr(STDIN_FILENO, TCSANOW, &tnew);
 
   char ch[] = "0";
-  while (*ch != '\n' && *ch != '\r' && *ch != ' ' && *ch != 'q'){ 	/* \r might not matter */
+  while (*ch != '\n' && // Select under cursor
+         *ch != '\r' && // same as above, \r might not matter
+         *ch != ' '  && // Switch color mode
+         *ch != 'p'  && // Switch to piece mode
+         *ch != 'q'     // Cancel
+         ){ 	
     scanf("%c", ch);
     switch(*ch){
       case '\t':
@@ -184,12 +149,39 @@ int move_cursor(int *x, int *y, int xmin, int xmax, int ymin, int ymax,
   // Puts terminal input settings back to normal
   tcsetattr(STDIN_FILENO, TCSANOW, &told);
   if (*ch == ' ') {
-      return SWITCH_MODE;
+      return SWITCH_COLOR_MODE;
   }
   else if (*ch == 'q') {
       return QUIT;
   }
+  else if (*ch == 'p') {
+      return PIECE_SELECT;
+  }
   return ACCEPT;
+}
+
+int pick_piece_style() {
+    // Clear screen
+    printf("\e[2J\e[H");
+    printf("Select a piece style by pressing the corresponding number\n");
+    // ASCII,
+    // UNICODE,
+    // NUM_ART_STYLES
+    for (int i = 0; i < NUM_ART_STYLES; ++i) {
+        // void print_piece(uint8_t piece, int style)
+        printf("\e[1B%d\e[1A", i + 1);
+        print_piece(PAWN  , i);
+        print_piece(BISHOP, i);
+        print_piece(KNIGHT, i);
+        print_piece(ROOK  , i);
+        print_piece(KING  , i);
+        print_piece(QUEEN , i);
+        printf("\e[3E");
+    }
+    char ch[256];
+    fgets(ch, 256, stdin);
+    int selection = strtol(ch, NULL, 10);
+    return selection - 1;
 }
 
 /*
@@ -208,15 +200,13 @@ void pick_square_colors(Config* config, int smol){
 
   int maxx, maxy;
 
-  while(1==1){
+  while(1){
       printf("\e[2J\e[H");
-      printf("Use arrow keys or wasd to navigate and enter to select.\nSelect the color for ");
-      if (square)
-          printf("light");
-      else
-          printf("dark");
-      printf(" squares. 'q' to cancel, SPACE to switch color modes\n");
-
+      const char *message = 
+          "Use arrow keys or wasd to navigate and enter to select.\n"
+          "Select the color for %s squares.\n"
+          "'q' to cancel, SPACE to switch color modes, press 'p' to switch piece styles.\n";
+      printf(message, (square) ? "light" : "dark" );
       if (temp_config.color_mode == 16) {
           maxx = 20;
           maxy = 1;
@@ -261,11 +251,19 @@ void pick_square_colors(Config* config, int smol){
       printf("\e[0m  --Quit--\n");
       if (!smol)
           print_fancy(&board, &temp_config);
-      printf("\e[H\e[2B");
+
+      // Get number of lines of message and move down by that many.
+      int message_line_count = 0;
+      for (size_t i = 0; i < strlen(message); i++) {
+          if (message[i] == '\n')
+              message_line_count++;
+      }
+      printf("\e[H\e[%dB", message_line_count);
+
       int x = 0, y = 0;
       int result = move_cursor(&x, &y, 0, maxx, 0, maxy, 1, 1);
       switch (result) {
-          case SWITCH_MODE:
+          case SWITCH_COLOR_MODE:
               temp_config.color_mode = (temp_config.color_mode == 16) ? 256 : 16;
               if (temp_config.color_mode == 16) {
                   temp_config.board_color_light = DEFAULT_LIGHT_COLOR_16;
@@ -274,6 +272,9 @@ void pick_square_colors(Config* config, int smol){
                   temp_config.board_color_light = DEFAULT_LIGHT_COLOR_256;
                   temp_config.board_color_dark = DEFAULT_DARK_COLOR_256;
               }
+              break;
+          case PIECE_SELECT:
+              temp_config.piece_art = pick_piece_style();
               break;
           case QUIT:
               return;
@@ -293,13 +294,6 @@ void pick_square_colors(Config* config, int smol){
               break;
       }
   }
-  //printf("\e[%dE", 7);
-}
-
-void move_cursor_basic(){
-    int a = 0;
-    int b = 0;
-    move_cursor(&a,&b,0,100,0,100,1,1);
 }
 
 int color_picker(Config* config){

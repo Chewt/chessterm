@@ -202,31 +202,31 @@ const char piece_art[NUM_ART_STYLES][NUM_PIECES][128] = {
 /* Prints the ascii representation of the passed piece to the board. It will
  * take up 5 collumns and 3 rows
  */
-void print_piece(uint8_t piece, Config* config)
+void print_piece(uint8_t piece, int style)
 {
     if (piece & PAWN)
     {
-        printf("%s", piece_art[config->piece_art][CHESS_PAWN]);
+        printf("%s", piece_art[style][CHESS_PAWN]);
     }
     else if (piece & BISHOP)
     {
-        printf("%s", piece_art[config->piece_art][CHESS_BISHOP]);
+        printf("%s", piece_art[style][CHESS_BISHOP]);
     }
     else if (piece & KNIGHT)
     {
-        printf("%s", piece_art[config->piece_art][CHESS_KNIGHT]);
+        printf("%s", piece_art[style][CHESS_KNIGHT]);
     }
     else if (piece & ROOK)
     {
-        printf("%s", piece_art[config->piece_art][CHESS_ROOK]);
+        printf("%s", piece_art[style][CHESS_ROOK]);
     }
     else if (piece & KING)
     {
-        printf("%s", piece_art[config->piece_art][CHESS_KING]);
+        printf("%s", piece_art[style][CHESS_KING]);
     }
     else if (piece & QUEEN)
     {
-        printf("%s", piece_art[config->piece_art][CHESS_QUEEN]);
+        printf("%s", piece_art[style][CHESS_QUEEN]);
     }
     else
         printf("       \e[B\e[7D"
@@ -327,7 +327,7 @@ void print_fancy(Board* board, Config* config)
 
         printf("\e[1m");
         (square & BLACK) ? printf("\e[38;5;232m") : printf("\e[37m");
-        print_piece(square, config);
+        print_piece(square, config->piece_art);
         printf("\e[0m");
 
         if (i % 8 == 7)
@@ -427,7 +427,7 @@ void print_fancy_flipped(Board* board, Config* config)
 
         printf("\e[1m");
         (square & BLACK) ? printf("\e[38;5;232m") : printf("\e[37m");
-        print_piece(square, config);
+        print_piece(square, config->piece_art);
         printf("\e[0m");
 
         if (i % 8 == 7)
