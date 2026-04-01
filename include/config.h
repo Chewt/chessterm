@@ -15,6 +15,7 @@
 
 #define PIECE_ART_ASCII "ascii"
 #define PIECE_ART_UNICODE "unicode"
+#define PIECE_ART_BRAILLE "braille"
 
 typedef struct {
     int color_mode;

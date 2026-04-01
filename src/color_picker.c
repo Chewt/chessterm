@@ -17,12 +17,13 @@ void write_colors(Config* config){
     printf("%s%d\n", CONFIG_STR_COLOR_MODE, config->color_mode);
     printf("%s%d\n", CONFIG_STR_LIGHT_COLOR, config->board_color_light);
     printf("%s%d\n", CONFIG_STR_DARK_COLOR, config->board_color_dark);
-    // PIECE_ART_ASCII "ascii"
-    // PIECE_ART_UNICODE "unicode"
     const char* art_config_str;
     switch (config->piece_art) {
         case UNICODE:
             art_config_str = PIECE_ART_UNICODE;
+            break;
+        case BRAILLE:
+            art_config_str = PIECE_ART_BRAILLE;
             break;
         case ASCII:
         default:

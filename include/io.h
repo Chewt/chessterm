@@ -20,6 +20,7 @@ char* export_moves(Board* board);
 enum art_styles {
     ASCII,
     UNICODE,
+    BRAILLE,
     NUM_ART_STYLES
 };
 

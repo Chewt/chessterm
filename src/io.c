@@ -196,6 +196,38 @@ const char piece_art[NUM_ART_STYLES][NUM_PIECES][128] = {
             "  🬨█🬕  \e[B\e[7D"
             " 🬞🬻█🬺🬏 \e[2A"     
         }
+    },
+    { // BRAILLE
+        { // PAWN
+            " ⠀⢀⡀   \e[B\e[7D"
+            " ⠀⣻⣟⠀  \e[B\e[7D"
+            " ⠀⠛⠛   \e[2A"
+        },
+        { // BISHOP
+            " ⠀⣠⣄⠀  \e[B\e[7D"
+            " ⠸⡅⢨⠇  \e[B\e[7D"
+            " ⠤⠭⠭⠤  \e[2A"
+        },
+        { // KNIGHT
+            " ⢀⢶⣄⠀  \e[B\e[7D"
+            " ⠾⠛⣿⣧  \e[B\e[7D"
+            " ⠀⠚⠛⠛  \e[2A"
+        },
+        { // ROOK
+            " ⢀⣄⣠⡀  \e[B\e[7D"
+            " ⠈⣯⢿⠁  \e[B\e[7D"
+            " ⠐⠛⠛⠂  \e[2A"
+        },
+        { // KING
+            " ⡄⡄⢠⢠  \e[B\e[7D"
+            " ⢻⣻⣟⡟  \e[B\e[7D"
+            " ⠘⠛⠛⠃  \e[2A"
+        },
+        { // QUEEN
+            " ⠀⡠⢄⠀  \e[B\e[7D"
+            " ⢎⢱⡎⡱  \e[B\e[7D"
+            " ⠀⠛⠛⠀  \e[2A"
+        }
     }
 };
 

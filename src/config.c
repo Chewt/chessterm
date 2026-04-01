@@ -124,6 +124,8 @@ Config read_config_file(char* config_path) {
             config.piece_art = ASCII;
         else if (!strncmp(art_style, PIECE_ART_UNICODE, strlen(PIECE_ART_UNICODE)))
             config.piece_art = UNICODE;
+        else if (!strncmp(art_style, PIECE_ART_BRAILLE, strlen(PIECE_ART_BRAILLE)))
+            config.piece_art = BRAILLE;
         free(art_style);
     }
 
