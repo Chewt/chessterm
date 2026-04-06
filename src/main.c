@@ -24,7 +24,7 @@ void initialize_white(char* e_path, int depth, Board* board, Engine* engine);
 void initialize_black(char* e_path, int depth, Board* board, Engine* engine);
 void prand(Board* board, Engine* white_engine, Engine* black_engine);
 
-struct flags { 
+struct flags {
     char* fen;
     char* white_engine;
     char* black_engine;
@@ -37,6 +37,7 @@ struct flags {
     int swap;
     int color_picker;
     char* config;
+    int prand;
 };
 
 static int parse_opt (int key, char *arg, struct argp_state *state)
@@ -44,7 +45,7 @@ static int parse_opt (int key, char *arg, struct argp_state *state)
     struct flags *flags = state->input;
     switch (key)
     {
-        case 'f': 
+        case 'f':
             flags->fen = arg;
             break;
         case 'w':
@@ -80,6 +81,9 @@ static int parse_opt (int key, char *arg, struct argp_state *state)
         case 504:
             flags->config = arg;
             break;
+        case 505:
+            flags->prand = 1;
+            break;
     }
     return 0;
 }
@@ -100,13 +104,13 @@ int main(int argc, char** argv)
      * 0x10 is is threefold repitition
      * 0x20 is MAX_HISTORY
      * 0x40 is MAX_STORED_POSITIONS
-     * 
+     *
      * 0x100 is autoflipping
      * 0x200 was an engine assigned a side randomly
      * 0x400 is set when a command should be processed rather than a move,
      *       for example, when there are two engines, process user input
      *       before letting the engines play
-     * 
+     *
      * Stop bit should be set to stop the program, should be 0 while running
      */
     int bools = 0;
@@ -118,7 +122,7 @@ int main(int argc, char** argv)
     char notes[NOTES_LENGTH];
     Board board;
     board.notes = notes;
-    default_board(&board); 
+    default_board(&board);
     Engine white_engine;
     white_engine.pid = 0;
     Engine black_engine;
@@ -133,19 +137,21 @@ int main(int argc, char** argv)
 
 
     struct argp_option options[] = {
-        {"fen", 'f', "STRING", 0, 
+        {"fen", 'f', "STRING", 0,
             "Supply a FEN to determine the starting position of the game."},
         {0, 0, 0, 0, "Engines:", 1}, // Engine Group
-        {"white_engine", 'w', "PATH", 0, 
+        {"white_engine", 'w', "PATH", 0,
             "The path of the engine that will play as white."},
-        {"black_engine", 'b', "PATH", 0, 
+        {"black_engine", 'b', "PATH", 0,
             "The path of the engine that will play as black."},
-        {"white_depth", 500, "DEPTH", 0, 
+        {"white_depth", 500, "DEPTH", 0,
             "The depth that the white engine should look. Must be a positive, non-zero integer."},
-        {"black_depth", 501, "DEPTH", 0, 
+        {"black_depth", 501, "DEPTH", 0,
             "The depth that the white engine should look. Must be a positive, non-zero integer."},
-        {"random", 'r', 0, 0, 
+        {"random", 'r', 0, 0,
             "Randomly assign engine(s) to black or white."},
+        { "prand", 505, 0, 0,
+           "Play games between two engines to evaluate strength. The stronger engine randomly gets a random move injected to make it weaker and the frequency of that random moves increases and decreases until the engines are evenly matched.", 0},
         {0,0,0,0, "Networking:", 2}, // Networking Group
         { "host", 'h', 0, 0, "Allow connections from another player", 0},
         { "connect", 'c', "IP", 0, "Connect to a host.", 0},
@@ -208,6 +214,9 @@ int main(int argc, char** argv)
     if (black_engine.pid && white_engine.pid)
         bools |= COMMAND;
 
+    if (flags.prand)
+       prand(&board, &white_engine, &black_engine);
+
     /* Set up networking */
     int client = -1;
     int host = -1;
@@ -220,7 +229,7 @@ int main(int argc, char** argv)
         {
             int t = host_col;
             host_col = client_col;
-            client_col = t; 
+            client_col = t;
             SendCommand(client, "swap");
         }
         else
@@ -248,7 +257,7 @@ int main(int argc, char** argv)
             {
                 int t = host_col;
                 host_col = client_col;
-                client_col = t; 
+                client_col = t;
                 bools |= FLIPPED;
             }
             if (!strcmp(resp, "loadfen"))
@@ -281,8 +290,8 @@ int main(int argc, char** argv)
         board.notes[0] = '\0';
 
         /* If human move */
-        if (( board.to_move && !black_engine.pid) || 
-            (!board.to_move && !white_engine.pid) || 
+        if (( board.to_move && !black_engine.pid) ||
+            (!board.to_move && !white_engine.pid) ||
             (bools & COMMAND))
         {
             char move[256];
@@ -343,12 +352,12 @@ int main(int argc, char** argv)
             {
                 if (white_engine.pid){
                     send_ucinewgame(white_engine.write);
-                    memcpy(board.white_name, white_engine.name, 
+                    memcpy(board.white_name, white_engine.name,
                            strlen(white_engine.name) + 1);
                 }
                 if (black_engine.pid){
                     send_ucinewgame(black_engine.write);
-                    memcpy(board.black_name, black_engine.name, 
+                    memcpy(board.black_name, black_engine.name,
                            strlen(black_engine.name) + 1);
                 }
                 bools &= ~(CHECKMATE | FIFTY | STALEMATE | THREEFOLD | MAXHIST | MAXPOS);
@@ -389,14 +398,14 @@ int main(int argc, char** argv)
             {
                 engine_move = get_engine_move(&board, &white_engine);
             }
-            
+
             int i;
             i = move_piece(&board, &engine_move);
             if (i == -1)
             {
                 print_debug("%d to play\n", board.to_move);
                 print_debug("Move: %d Trying %c%d to %c%d\n", board.moves,
-                        engine_move.src_file + 'a' , engine_move.src_rank + 1, 
+                        engine_move.src_file + 'a' , engine_move.src_rank + 1,
                         engine_move.dest%8+'a', 8-engine_move.dest/8);
             }
 
@@ -410,7 +419,7 @@ int main(int argc, char** argv)
 
 
         bools |= is_gameover(&board);
-        
+
         if (bools & (CHECKMATE | FIFTY | STALEMATE | THREEFOLD | MAXHIST | MAXPOS))
         {
             int idx = 0;
@@ -448,8 +457,8 @@ int main(int argc, char** argv)
             memcpy(last_pgn, pgn, strlen(pgn) + 1);
             free(pgn);
 
-            idx += snprintf(board.notes + idx, 
-                    NOTES_LENGTH - strlen(board.notes), 
+            idx += snprintf(board.notes + idx,
+                    NOTES_LENGTH - strlen(board.notes),
                     "\nTo play again, use \e[38;5;40m: new\e[m \n");
         }
     }
@@ -489,8 +498,8 @@ void initialize_white(char* e_path, int depth, Board* board, Engine* engine)
 
 void prand(Board *board, Engine* white_engine, Engine* black_engine)
 {
-    /* Threshold is how much better an engine must be before being 
-     * nerfed. 
+    /* Threshold is how much better an engine must be before being
+     * nerfed.
      *
      * Precision is how many sig figs in the percentage. */
     const float threshold = .25;
@@ -517,16 +526,16 @@ void prand(Board *board, Engine* white_engine, Engine* black_engine)
         default_board(board);
         if (i & 1)
         {
-            memcpy(&board->white_name, black_engine->name, 
+            memcpy(&board->white_name, black_engine->name,
                    strlen(black_engine->name) + 1);
-            memcpy(&board->black_name, white_engine->name, 
+            memcpy(&board->black_name, white_engine->name,
                    strlen(white_engine->name) + 1);
         }
-        else 
+        else
         {
-            memcpy(&board->black_name, black_engine->name, 
+            memcpy(&board->black_name, black_engine->name,
                    strlen(black_engine->name) + 1);
-            memcpy(&board->white_name, white_engine->name, 
+            memcpy(&board->white_name, white_engine->name,
                    strlen(white_engine->name) + 1);
         }
         send_ucinewgame(white_engine->write);
@@ -545,8 +554,8 @@ void prand(Board *board, Engine* white_engine, Engine* black_engine)
                 if (nerf == 1 && rand()%precision > mid)
                 {
                     engine_move = Erandom_move(board);
-                } 
-                else 
+                }
+                else
                 {
                     engine_move = get_engine_move(board, white_engine);
                 }
@@ -570,7 +579,7 @@ void prand(Board *board, Engine* white_engine, Engine* black_engine)
                 {
                     dprintf(2, "%s to play\n", white_engine->name);
                 }
-                else 
+                else
                 {
                     dprintf(2, "%s to play\n", black_engine->name);
                 }
@@ -578,7 +587,7 @@ void prand(Board *board, Engine* white_engine, Engine* black_engine)
                 export_fen(board, fen);
                 printf("%s\n", fen);
                 dprintf(2, "Move: %d Trying %c%d to %c%d\n", board->moves,
-                        engine_move.src_file + 'a' , 8 - engine_move.src_rank, 
+                        engine_move.src_file + 'a' , 8 - engine_move.src_rank,
                         engine_move.dest%8+'a', 8-engine_move.dest/8);
             }
             result = is_gameover(board);
@@ -610,13 +619,13 @@ void prand(Board *board, Engine* white_engine, Engine* black_engine)
         /* Should an engine be nerfed? */
         if ((float)i * threshold < score_diff && i > min_games)
         {
-            if (nerf < 0) 
+            if (nerf < 0)
             {
                 if (white_win > black_win)
                 {
                     nerf = 1;
                 }
-                else 
+                else
                 {
                     nerf = 0;
                 }
@@ -641,19 +650,19 @@ void prand(Board *board, Engine* white_engine, Engine* black_engine)
     double t_taken = ((double)t_out) / 1000;
     if (nerf == 0)
     {
-        printf("%s at depth %d equates to %s at depth %d performing at %f%%.", 
-               white_engine->name, white_engine->depth, black_engine->name, 
+        printf("%s at depth %d equates to %s at depth %d performing at %f%%.",
+               white_engine->name, white_engine->depth, black_engine->name,
                black_engine->depth, 100*(float)mid/(float)precision);
-    } 
+    }
     else if (nerf == 1)
     {
-        printf("%s at depth %d equates to %s at depth %d performing at %f%%.", 
-               black_engine->name, black_engine->depth, white_engine->name, 
+        printf("%s at depth %d equates to %s at depth %d performing at %f%%.",
+               black_engine->name, black_engine->depth, white_engine->name,
                white_engine->depth, 100*(float)mid/(float)precision);
     }
-    else 
+    else
     {
-        printf("%s and %s are evenly matched.", black_engine->name, 
+        printf("%s and %s are evenly matched.", black_engine->name,
                white_engine->name);
     }
     printf("\nTime taken: %f seconds\n", t_taken);
